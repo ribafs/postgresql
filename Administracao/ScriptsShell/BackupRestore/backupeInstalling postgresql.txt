@@ -1,0 +1,65 @@
+Installing postgresql
+
+1. Obtain the latest version of postgresql
+2. tar -zxf postgresql-7.0.3.tar.gz
+3. cd postgresql-7.0.3/src
+4. ./configure --with-maxbackends=N (Where N is the maximum connections to postgresql)
+5. make
+6. make install
+7. adduser postgres
+8. chown -R postgres.postgres /usr/local/pgsql
+9. su postgres
+10. /usr/local/pgsql/bin/initdb -D /home/postgres/data
+11. exit
+12. Place the following in /etc/rc.d/init.d/postgresql
+
+#!/bin/sh
+[ -x /tmp/.s.PGSQL.* ] && rm -f /tmp/.s.PGSQL.*
+case "$1" in
+  'start')
+  su postgres -c 'exec /usr/local/pgsql/bin/pg_ctl -o -i -D /home/postgres/data start >> /usr/local/pgsql/errlog 2>&1 &'
+  ;;
+
+  'stop')
+  su postgres -c 'exec /usr/local/pgsql/bin/pg_ctl -D /home/postgres/data stop >> /usr/local/pgsql/errlog 2>&1 &'
+  ;;
+
+  *)
+        echo "usage: $0 start|stop"
+        exit 1
+  ;;
+esac
+
+13. chmod 755 /etc/rc.d/init.d/postgresql
+14. Then create the links to the run levels (so that postgresql starts and stops on boot and reboot):
+
+# cd /etc/rc.d/rc3.d
+# ln -s ../init.d/postgresql S15postgresql
+# cd /etc/rc.d/rc0.d
+# ln -s ../init.d/postgresql K81postgresql
+# cd /etc/rc.d/rc6.d
+# ln -s ../init.d/postgresql K81postgresql
+
+15. Optionally install this backup script by placing the following in /home/postgres/backup
+
+#!/bin/bash
+# Location of logfile.
+logfile="/home/postgres/backup.log"
+# Location to place backups.
+backup_dir="/home/postgres"
+touch $logfile
+timeslot=`date +%H-%M`
+databases=`psql -h localhost -U postgres -q -c "\l" | sed -n 4,/\eof/p | grep -v rows\) | awk {'print $1'}`
+
+for i in $databases; do
+        timeinfo=`date '+%T %x'`
+        echo "Backup and Vacuum complete at $timeinfo for time slot $timeslot on database: $i " >> $logfile
+        /server/pgsql/bin/vacuumdb -z -h localhost -U postgres $i >/dev/null 2>&1
+        /server/pgsql/bin/pg_dump $i -h 127.0.0.1 | gzip > "$backup_dir/postgresql-$i-$timeslot-database.gz"
+done
+
+16. Edit crontab (crontab -e) to create an entry to execute this file on an arbitrary basis.
+
+e.g. A crontab to run at 01:00 each morning:
+
+00 01 * * * /home/postgres/backup > /dev/null 2>&1

@@ -1,0 +1,12 @@
+URL da fonte de dados:
+jdbc:postgresql://127.0.0.1:5432/testes
+
+Classe do driver JDBC:
+org.postgresql.Driver
+postgresql://127.0.0.1/testes?charSet=LATIN1
+
+Nome do usuário - postgres
+password required
+
+Concluir
+Digitar um nome para o banco do OOBase

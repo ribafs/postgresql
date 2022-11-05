@@ -1,0 +1,1190 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>/server/sql/pgsql/manual/plpgsql-porting.html</title>
+<meta name="keywords" content="Server sql pgsql manual support.serv.ch">
+<meta name="robots" content="index,follow">
+<link rel="stylesheet" type="text/css" href="/_/.img/style.css">
+</head><body marginheight=1 marginwidth=2 leftmargin=2 topmargin=1>
+<table class="mtable" cellspacing=0><tr style="background:#efefef;"><td class="mleft"><a href="/" class="link"> support</a></td><td class="mright"> | <a href="/domain/" class="link">domain</a> | <a href="/graphics/" class="link">graphics</a> | <a href="/host/" class="link">host</a> | <a href="/lang/" class="link">lang</a> | <a href="/mail/" class="link">mail</a> | <a href="/search/" class="link">search</a> | <a href="/security/" class="link">security</a> | <a href="/server/" class="active">server</a></td></tr>
+<tr style="background:#e3e3e3;"><td class="mleft">&gt; <a href="/server/" class="link">server</a></td><td class="mright"> | <a href="/server/apache/" class="link">apache</a> | <a href="/server/cgi-sys/" class="link">cgi-sys</a> | <a href="/server/dns/" class="link">dns</a> | <a href="/server/fax/" class="link">fax</a> | <a href="/server/ftp/" class="link">ftp</a> | <a href="/server/pound/" class="link">pound</a> | <a href="/server/sms/" class="link">sms</a> | <a href="/server/sql/" class="active">sql</a> | <a href="/server/ssl/" class="link">ssl</a> | <a href="/server/stream/" class="link">stream</a> | <a href="/server/unix/" class="link">unix</a> | <a href="/server/windows/" class="link">windows</a> | <a href="/server/zope/" class="link">zope</a></td></tr>
+<tr style="background:#dadada;"><td class="mleft">&gt; &gt; <a href="/server/sql/" class="link">sql</a></td><td class="mright"> | <a href="/server/sql/mysql/" class="link">mysql</a> | <a href="/server/sql/pgsql/" class="active">pgsql</a></td></tr>
+<tr style="background:#d7d7d7;"><td class="mleft">&gt; &gt; &gt; <a href="/server/sql/pgsql/" class="link">pgsql</a></td><td class="mright"> | <a href="/server/sql/pgsql/handbuch/" class="link">handbuch</a> | <a href="/server/sql/pgsql/manual/" class="active">manual</a></td></tr>
+</table>
+<div class="content"><h3>plpgsql-porting.html</h3><div class="html"><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Porting from Oracle PL/SQL</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="PostgreSQL 7.4.5 Documentation"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PL/pgSQL - SQL Procedural Language"
+HREF="plpgsql.html"><LINK
+REL="PREVIOUS"
+TITLE="Trigger Procedures"
+HREF="plpgsql-trigger.html"><LINK
+REL="NEXT"
+TITLE="PL/Tcl - Tcl Procedural Language"
+HREF="pltcl.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+NAME="creation"
+CONTENT="2004-08-18T15:54:12"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="5"
+ALIGN="center"
+VALIGN="bottom"
+>PostgreSQL 7.4.5 Documentation</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="plpgsql-trigger.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="plpgsql.html"
+>Fast Backward</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 37. <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+> - <ACRONYM
+CLASS="ACRONYM"
+>SQL</ACRONYM
+> Procedural Language</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="plpgsql.html"
+>Fast Forward</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="pltcl.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="PLPGSQL-PORTING"
+>37.11. Porting from <SPAN
+CLASS="PRODUCTNAME"
+>Oracle</SPAN
+> PL/SQL</A
+></H1
+><A
+NAME="AEN32339"
+></A
+><A
+NAME="AEN32342"
+></A
+><P
+>   This section explains differences between
+   <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>'s <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+>
+   language and Oracle's <SPAN
+CLASS="APPLICATION"
+>PL/SQL</SPAN
+> language,
+   to help developers who port applications from Oracle to
+   <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>.
+  </P
+><P
+>   <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+> is similar to PL/SQL in many
+   aspects. It is a block-structured, imperative language, and all
+   variables have to be declared.  Assignments, loops, conditionals
+   are similar.  The main differences you should keep in mind when
+   porting from <SPAN
+CLASS="APPLICATION"
+>PL/SQL</SPAN
+> to
+   <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+> are:
+
+    <P
+></P
+></P><UL
+><LI
+><P
+>       There are no default values for parameters in <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>.
+      </P
+></LI
+><LI
+><P
+>       You can overload function names in <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>. This is
+       often used to work around the lack of default parameters.
+      </P
+></LI
+><LI
+><P
+>       No need for cursors in <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+>, just put the
+       query in the <TT
+CLASS="LITERAL"
+>FOR</TT
+> statement.  (See <A
+HREF="plpgsql-porting.html#PLPGSQL-PORTING-EX2"
+>Example 37-3</A
+>.)
+      </P
+></LI
+><LI
+><P
+>       In <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+> you need to escape single
+       quotes in the function body. See <A
+HREF="plpgsql-development-tips.html#PLPGSQL-QUOTE-TIPS"
+>Section 37.2.1</A
+>.
+      </P
+></LI
+><LI
+><P
+>       Instead of packages, use schemas to organize your functions
+       into groups.
+      </P
+></LI
+></UL
+><P>
+   </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN32372"
+>37.11.1. Porting Examples</A
+></H2
+><P
+>    <A
+HREF="plpgsql-porting.html#PGSQL-PORTING-EX1"
+>Example 37-2</A
+> shows how to port a simple
+    function from <SPAN
+CLASS="APPLICATION"
+>PL/SQL</SPAN
+> to <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+>.
+   </P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="PGSQL-PORTING-EX1"
+></A
+><P
+><B
+>Example 37-2. Porting a Simple Function from <SPAN
+CLASS="APPLICATION"
+>PL/SQL</SPAN
+> to <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+></B
+></P
+><P
+>     Here is an <SPAN
+CLASS="PRODUCTNAME"
+>Oracle</SPAN
+> <SPAN
+CLASS="APPLICATION"
+>PL/SQL</SPAN
+> function:
+</P><PRE
+CLASS="PROGRAMLISTING"
+>CREATE OR REPLACE FUNCTION cs_fmt_browser_version(v_name IN varchar, v_version IN varchar)
+RETURN varchar IS
+BEGIN
+    IF v_version IS NULL THEN
+        RETURN v_name;
+    END IF;
+    RETURN v_name || '/' || v_version;
+END;
+/
+show errors;</PRE
+><P>
+    </P
+><P
+>     Let's go through this function and see the differences to <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+>:
+
+     <P
+></P
+></P><UL
+><LI
+><P
+>        <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+> does not have named
+        parameters. You have to explicitly alias them inside your
+        function.
+       </P
+></LI
+><LI
+><P
+>        <SPAN
+CLASS="PRODUCTNAME"
+>Oracle</SPAN
+> can have
+        <TT
+CLASS="LITERAL"
+>IN</TT
+>, <TT
+CLASS="LITERAL"
+>OUT</TT
+>, and
+        <TT
+CLASS="LITERAL"
+>INOUT</TT
+> parameters passed to functions.
+        <TT
+CLASS="LITERAL"
+>INOUT</TT
+>, for example, means that the
+        parameter will receive a value and return
+        another. <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+> only has <TT
+CLASS="LITERAL"
+>IN</TT
+>
+        parameters.
+       </P
+></LI
+><LI
+><P
+>        The <TT
+CLASS="LITERAL"
+>RETURN</TT
+> key word in the function
+        prototype (not the function body) becomes
+        <TT
+CLASS="LITERAL"
+>RETURNS</TT
+> in
+        <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>.
+       </P
+></LI
+><LI
+><P
+>        In <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>, functions are created using
+        single quotes as the delimiters of the function body, so you
+        have to escape single quotes inside the function body.
+       </P
+></LI
+><LI
+><P
+>        The <TT
+CLASS="LITERAL"
+>/show errors</TT
+> command does not exist in
+        <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>.
+       </P
+></LI
+></UL
+><P>
+    </P
+><P
+>     This is how this function would look when ported to
+     <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>:
+
+</P><PRE
+CLASS="PROGRAMLISTING"
+>CREATE OR REPLACE FUNCTION cs_fmt_browser_version(varchar, varchar)
+RETURNS varchar AS '
+DECLARE
+    v_name ALIAS FOR $1;
+    v_version ALIAS FOR $2;
+BEGIN
+    IF v_version IS NULL THEN
+        return v_name;
+    END IF;
+    RETURN v_name || ''/'' || v_version;
+END;
+' LANGUAGE plpgsql;</PRE
+><P>
+    </P
+></DIV
+><P
+>    <A
+HREF="plpgsql-porting.html#PLPGSQL-PORTING-EX2"
+>Example 37-3</A
+> shows how to port a
+    function that creates another function and how to handle to
+    ensuing quoting problems.
+   </P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="PLPGSQL-PORTING-EX2"
+></A
+><P
+><B
+>Example 37-3. Porting a Function that Creates Another Function from <SPAN
+CLASS="APPLICATION"
+>PL/SQL</SPAN
+> to <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+></B
+></P
+><P
+>     The following procedure grabs rows from a
+     <TT
+CLASS="COMMAND"
+>SELECT</TT
+> statement and builds a large function
+     with the results in <TT
+CLASS="LITERAL"
+>IF</TT
+> statements, for the
+     sake of efficiency. Notice particularly the differences in the
+     cursor and the <TT
+CLASS="LITERAL"
+>FOR</TT
+> loop,
+    </P
+><P
+>     This is the Oracle version:
+</P><PRE
+CLASS="PROGRAMLISTING"
+>CREATE OR REPLACE PROCEDURE cs_update_referrer_type_proc IS
+    CURSOR referrer_keys IS 
+        SELECT * FROM cs_referrer_keys 
+        ORDER BY try_order;
+
+    a_output VARCHAR(4000); 
+BEGIN 
+    a_output := 'CREATE OR REPLACE FUNCTION cs_find_referrer_type(v_host IN VARCHAR, v_domain IN VARCHAR, 
+v_url IN VARCHAR) RETURN VARCHAR IS BEGIN'; 
+
+    FOR referrer_key IN referrer_keys LOOP 
+        a_output := a_output || ' IF v_' || referrer_key.kind || ' LIKE ''' || 
+referrer_key.key_string || ''' THEN RETURN ''' || referrer_key.referrer_type || 
+'''; END IF;'; 
+    END LOOP; 
+
+    a_output := a_output || ' RETURN NULL; END;'; 
+    EXECUTE IMMEDIATE a_output; 
+END; 
+/ 
+show errors;</PRE
+><P>
+    </P
+><P
+>     Here is how this function would end up in <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>:
+
+</P><PRE
+CLASS="PROGRAMLISTING"
+>CREATE FUNCTION cs_update_referrer_type_proc() RETURNS integer AS '
+DECLARE
+    referrer_keys RECORD;  -- Declare a generic record to be used in a FOR
+    a_output varchar(4000);
+BEGIN 
+    a_output := ''CREATE FUNCTION cs_find_referrer_type(varchar, varchar, varchar) 
+                  RETURNS varchar AS '''' 
+                     DECLARE 
+                         v_host ALIAS FOR $1; 
+                         v_domain ALIAS FOR $2; 
+                         v_url ALIAS FOR $3;
+                     BEGIN ''; 
+
+    -- Notice how we scan through the results of a query in a FOR loop
+    -- using the FOR &lt;record&gt; construct.
+
+    FOR referrer_keys IN SELECT * FROM cs_referrer_keys ORDER BY try_order LOOP
+        a_output := a_output || '' IF v_'' || referrer_keys.kind || '' LIKE '''''''''' 
+                 || referrer_keys.key_string || '''''''''' THEN RETURN '''''' 
+                 || referrer_keys.referrer_type || ''''''; END IF;''; 
+    END LOOP; 
+  
+    a_output := a_output || '' RETURN NULL; END; '''' LANGUAGE plpgsql;''; 
+ 
+    -- EXECUTE will work because we are not substituting any variables.
+    -- Otherwise it would fail.  Look at PERFORM for another way to run functions.
+    
+    EXECUTE a_output; 
+END; 
+' LANGUAGE plpgsql;</PRE
+><P>
+    </P
+></DIV
+><P
+>    <A
+HREF="plpgsql-porting.html#PLPGSQL-PORTING-EX3"
+>Example 37-4</A
+> shows how to port a function
+    with <TT
+CLASS="LITERAL"
+>OUT</TT
+> parameters and string manipulation.
+    <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+> does not have an
+    <CODE
+CLASS="FUNCTION"
+>instr</CODE
+> function, but you can work around it
+    using a combination of other
+    functions.<A
+NAME="AEN32436"
+></A
+> In <A
+HREF="plpgsql-porting.html#PLPGSQL-PORTING-APPENDIX"
+>Section 37.11.3</A
+> there is a
+    <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+> implementation of
+    <CODE
+CLASS="FUNCTION"
+>instr</CODE
+> that you can use to make your porting
+    easier.
+   </P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="PLPGSQL-PORTING-EX3"
+></A
+><P
+><B
+>Example 37-4. Porting a Procedure With String Manipulation and
+    <TT
+CLASS="LITERAL"
+>OUT</TT
+> Parameters from <SPAN
+CLASS="APPLICATION"
+>PL/SQL</SPAN
+> to
+    <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+></B
+></P
+><P
+>     The following <SPAN
+CLASS="PRODUCTNAME"
+>Oracle</SPAN
+> PL/SQL procedure is used to parse a URL and
+     return several elements (host, path, and query).
+     <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+> functions can return only one value.  In
+     <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>, one way to work around this is to split the procedure
+     in three different functions: one to return the host, another for
+     the path, and another for the query.
+    </P
+><P
+>     This is the Oracle version:
+</P><PRE
+CLASS="PROGRAMLISTING"
+>CREATE OR REPLACE PROCEDURE cs_parse_url(
+    v_url IN VARCHAR,
+    v_host OUT VARCHAR,  -- This will be passed back
+    v_path OUT VARCHAR,  -- This one too
+    v_query OUT VARCHAR) -- And this one
+IS
+    a_pos1 INTEGER;
+    a_pos2 INTEGER;
+BEGIN
+    v_host := NULL;
+    v_path := NULL;
+    v_query := NULL;
+    a_pos1 := instr(v_url, '//');
+
+    IF a_pos1 = 0 THEN
+        RETURN;
+    END IF;
+    a_pos2 := instr(v_url, '/', a_pos1 + 2);
+    IF a_pos2 = 0 THEN
+        v_host := substr(v_url, a_pos1 + 2);
+        v_path := '/';
+        RETURN;
+    END IF;
+
+    v_host := substr(v_url, a_pos1 + 2, a_pos2 - a_pos1 - 2);
+    a_pos1 := instr(v_url, '?', a_pos2 + 1);
+
+    IF a_pos1 = 0 THEN
+        v_path := substr(v_url, a_pos2);
+        RETURN;
+    END IF;
+
+    v_path := substr(v_url, a_pos2, a_pos1 - a_pos2);
+    v_query := substr(v_url, a_pos1 + 1);
+END;
+/
+show errors;</PRE
+><P>
+    </P
+><P
+>     Here is how the <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+> function that returns
+     the host part could look like:
+
+</P><PRE
+CLASS="PROGRAMLISTING"
+>CREATE OR REPLACE FUNCTION cs_parse_url_host(varchar) RETURNS varchar AS '
+DECLARE
+    v_url ALIAS FOR $1;
+    v_host varchar;
+    v_path varchar;
+    a_pos1 integer;
+    a_pos2 integer;
+    a_pos3 integer;
+BEGIN 
+    v_host := NULL; 
+    a_pos1 := instr(v_url, ''//'');
+
+    IF a_pos1 = 0 THEN 
+        RETURN '''';  -- Return a blank
+    END IF; 
+
+    a_pos2 := instr(v_url,''/'',a_pos1 + 2);
+    IF a_pos2 = 0 THEN 
+        v_host := substr(v_url, a_pos1 + 2); 
+        v_path := ''/''; 
+        RETURN v_host; 
+    END IF; 
+
+    v_host := substr(v_url, a_pos1 + 2, a_pos2 - a_pos1 - 2 ); 
+    RETURN v_host; 
+END; 
+' LANGUAGE plpgsql;</PRE
+><P>
+    </P
+></DIV
+><P
+>    <A
+HREF="plpgsql-porting.html#PLPGSQL-PORTING-EX4"
+>Example 37-5</A
+> shows how to port a procedure
+    that uses numerous features that are specific to Oracle.
+   </P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="PLPGSQL-PORTING-EX4"
+></A
+><P
+><B
+>Example 37-5. Porting a Procedure from <SPAN
+CLASS="APPLICATION"
+>PL/SQL</SPAN
+> to <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+></B
+></P
+><P
+>     The Oracle version:
+
+</P><PRE
+CLASS="PROGRAMLISTING"
+>CREATE OR REPLACE PROCEDURE cs_create_job(v_job_id IN INTEGER) IS
+    a_running_job_count INTEGER;
+    PRAGMA AUTONOMOUS_TRANSACTION;<A
+NAME="CO.PLPGSQL-PORTING-PRAGMA"
+><B
+>(1)</B
+></A
+>
+BEGIN
+    LOCK TABLE cs_jobs IN EXCLUSIVE MODE;<A
+NAME="CO.PLPGSQL-PORTING-LOCKTABLE"
+><B
+>(2)</B
+></A
+>
+
+    SELECT count(*) INTO a_running_job_count FROM cs_jobs WHERE end_stamp IS NULL;
+
+    IF a_running_job_count &#62; 0 THEN
+        COMMIT; -- free lock<A
+NAME="CO.PLPGSQL-PORTING-COMMIT"
+><B
+>(3)</B
+></A
+>
+        raise_application_error(-20000, 'Unable to create a new job: a job is currently running.');
+    END IF;
+
+    DELETE FROM cs_active_job;
+    INSERT INTO cs_active_job(job_id) VALUES (v_job_id);
+
+    BEGIN
+        INSERT INTO cs_jobs (job_id, start_stamp) VALUES (v_job_id, sysdate);
+        EXCEPTION WHEN dup_val_on_index THEN NULL; -- don't worry if it already exists<A
+NAME="CO.PLPGSQL-PORTING-EXCEPTION"
+><B
+>(4)</B
+></A
+>
+    END;
+    COMMIT;
+END;
+/
+show errors</PRE
+><P>
+   </P
+><P
+>    Procedures like this can be easily converted into <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>
+    functions returning an <TT
+CLASS="TYPE"
+>integer</TT
+>. This procedure in
+    particular is interesting because it can teach us some things:
+
+    <DIV
+CLASS="CALLOUTLIST"
+><DL
+COMPACT="COMPACT"
+><DT
+><A
+HREF="plpgsql-porting.html#CO.PLPGSQL-PORTING-PRAGMA"
+><B
+>(1)</B
+></A
+></DT
+><DD
+>       There is no <TT
+CLASS="LITERAL"
+>PRAGMA</TT
+> statement in <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>.
+      </DD
+><DT
+><A
+HREF="plpgsql-porting.html#CO.PLPGSQL-PORTING-LOCKTABLE"
+><B
+>(2)</B
+></A
+></DT
+><DD
+>       If you do a <TT
+CLASS="COMMAND"
+>LOCK TABLE</TT
+> in <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+>, the lock
+       will not be released until the calling transaction is finished.
+      </DD
+><DT
+><A
+HREF="plpgsql-porting.html#CO.PLPGSQL-PORTING-COMMIT"
+><B
+>(3)</B
+></A
+></DT
+><DD
+>       You also cannot have transactions in <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+> functions. The
+       entire function (and other functions called from therein) is
+       executed in one transaction and <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+> rolls back the transaction if
+       something goes wrong.
+      </DD
+><DT
+><A
+HREF="plpgsql-porting.html#CO.PLPGSQL-PORTING-EXCEPTION"
+><B
+>(4)</B
+></A
+></DT
+><DD
+>       The exception when would have to be replaced by an
+       <TT
+CLASS="LITERAL"
+>IF</TT
+> statement.
+      </DD
+></DL
+></DIV
+>
+   </P
+><P
+>    This is how we could port this procedure to <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+>:
+
+</P><PRE
+CLASS="PROGRAMLISTING"
+>CREATE OR REPLACE FUNCTION cs_create_job(integer) RETURNS integer AS '
+DECLARE
+    v_job_id ALIAS FOR $1;
+    a_running_job_count integer;
+    a_num integer;
+BEGIN
+    LOCK TABLE cs_jobs IN EXCLUSIVE MODE;
+    SELECT count(*) INTO a_running_job_count FROM cs_jobs WHERE end_stamp IS NULL;
+
+    IF a_running_job_count &#62; 0
+    THEN
+        RAISE EXCEPTION ''Unable to create a new job: a job is currently running.'';
+    END IF;
+
+    DELETE FROM cs_active_job;
+    INSERT INTO cs_active_job(job_id) VALUES (v_job_id);
+
+    SELECT count(*) INTO a_num FROM cs_jobs WHERE job_id=v_job_id;
+    IF NOT FOUND THEN  -- If nothing was returned in the last query
+        -- This job is not in the table so lets insert it.
+        INSERT INTO cs_jobs(job_id, start_stamp) VALUES (v_job_id, current_timestamp);
+        RETURN 1;
+    ELSE
+        RAISE NOTICE ''Job already running.'';<A
+NAME="CO.PLPGSQL-PORTING-RAISE"
+><B
+>(1)</B
+></A
+>
+    END IF;
+
+    RETURN 0;
+END;
+' LANGUAGE plpgsql;</PRE
+><P>
+
+    <DIV
+CLASS="CALLOUTLIST"
+><DL
+COMPACT="COMPACT"
+><DT
+><A
+HREF="plpgsql-porting.html#CO.PLPGSQL-PORTING-RAISE"
+><B
+>(1)</B
+></A
+></DT
+><DD
+>       Notice how you can raise notices (or errors) in <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+>.
+      </DD
+></DL
+></DIV
+>
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="PLPGSQL-PORTING-OTHER"
+>37.11.2. Other Things to Watch For</A
+></H2
+><P
+>    This section explains a few other things to watch for when porting
+    Oracle <SPAN
+CLASS="APPLICATION"
+>PL/SQL</SPAN
+> functions to
+    <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>.
+   </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="AEN32499"
+>37.11.2.1. <TT
+CLASS="COMMAND"
+>EXECUTE</TT
+></A
+></H3
+><P
+>     The <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+> version of
+     <TT
+CLASS="COMMAND"
+>EXECUTE</TT
+> works similarly to the
+     <SPAN
+CLASS="APPLICATION"
+>PL/SQL</SPAN
+> version, but you have to remember to use
+     <CODE
+CLASS="FUNCTION"
+>quote_literal(text)</CODE
+> and
+     <CODE
+CLASS="FUNCTION"
+>quote_string(text)</CODE
+> as described in <A
+HREF="plpgsql-statements.html#PLPGSQL-STATEMENTS-EXECUTING-DYN"
+>Section 37.6.4</A
+>.  Constructs of the
+     type <TT
+CLASS="LITERAL"
+>EXECUTE ''SELECT * FROM $1'';</TT
+> will not
+     work unless you use these functions.
+    </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="PLPGSQL-PORTING-OPTIMIZATION"
+>37.11.2.2. Optimizing <SPAN
+CLASS="APPLICATION"
+>PL/pgSQL</SPAN
+> Functions</A
+></H3
+><P
+>     <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+> gives you two function creation
+     modifiers to optimize execution: the volatility (whether the
+     function always returns the same result when given the same
+     arguments) and the <SPAN
+CLASS="QUOTE"
+>"strictness"</SPAN
+> (whether the
+     function returns null if any argument is null).  Consult the description of
+     <TT
+CLASS="COMMAND"
+>CREATE FUNCTION</TT
+> for details.
+    </P
+><P
+>     To make use of these optimization attributes, your
+     <TT
+CLASS="COMMAND"
+>CREATE FUNCTION</TT
+> statement could look something
+     like this:
+
+</P><PRE
+CLASS="PROGRAMLISTING"
+>CREATE FUNCTION foo(...) RETURNS integer AS '
+...
+' LANGUAGE plpgsql STRICT IMMUTABLE;</PRE
+><P>
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="PLPGSQL-PORTING-APPENDIX"
+>37.11.3. Appendix</A
+></H2
+><P
+>    This section contains the code for an Oracle-compatible
+    <CODE
+CLASS="FUNCTION"
+>instr</CODE
+> function that you can use to simplify
+    your porting efforts.
+   </P
+><PRE
+CLASS="PROGRAMLISTING"
+>--
+-- instr functions that mimic Oracle's counterpart
+-- Syntax: instr(string1, string2, [n], [m]) where [] denotes optional parameters.
+-- 
+-- Searches string1 beginning at the nth character for the mth occurrence
+-- of string2.  If n is negative, search backwards.  If m is not passed,
+-- assume 1 (search starts at first character).
+--
+
+CREATE FUNCTION instr(varchar, varchar) RETURNS integer AS '
+DECLARE
+    pos integer;
+BEGIN
+    pos:= instr($1, $2, 1);
+    RETURN pos;
+END;
+' LANGUAGE plpgsql;
+
+
+CREATE FUNCTION instr(varchar, varchar, varchar) RETURNS integer AS '
+DECLARE
+    string ALIAS FOR $1;
+    string_to_search ALIAS FOR $2;
+    beg_index ALIAS FOR $3;
+    pos integer NOT NULL DEFAULT 0;
+    temp_str varchar;
+    beg integer;
+    length integer;
+    ss_length integer;
+BEGIN
+    IF beg_index &#62; 0 THEN
+        temp_str := substring(string FROM beg_index);
+        pos := position(string_to_search IN temp_str);
+
+        IF pos = 0 THEN
+            RETURN 0;
+        ELSE
+            RETURN pos + beg_index - 1;
+        END IF;
+    ELSE
+        ss_length := char_length(string_to_search);
+        length := char_length(string);
+        beg := length + beg_index - ss_length + 2;
+
+        WHILE beg &#62; 0 LOOP
+            temp_str := substring(string FROM beg FOR ss_length);
+            pos := position(string_to_search IN temp_str);
+
+            IF pos &#62; 0 THEN
+                RETURN beg;
+            END IF;
+
+            beg := beg - 1;
+        END LOOP;
+
+        RETURN 0;
+    END IF;
+END;
+' LANGUAGE plpgsql;
+
+
+CREATE FUNCTION instr(varchar, varchar, integer, integer) RETURNS integer AS '
+DECLARE
+    string ALIAS FOR $1;
+    string_to_search ALIAS FOR $2;
+    beg_index ALIAS FOR $3;
+    occur_index ALIAS FOR $4;
+    pos integer NOT NULL DEFAULT 0;
+    occur_number integer NOT NULL DEFAULT 0;
+    temp_str varchar;
+    beg integer;
+    i integer;
+    length integer;
+    ss_length integer;
+BEGIN
+    IF beg_index &#62; 0 THEN
+        beg := beg_index;
+        temp_str := substring(string FROM beg_index);
+
+        FOR i IN 1..occur_index LOOP
+            pos := position(string_to_search IN temp_str);
+
+            IF i = 1 THEN
+                beg := beg + pos - 1;
+            ELSE
+                beg := beg + pos;
+            END IF;
+
+            temp_str := substring(string FROM beg + 1);
+        END LOOP;
+
+        IF pos = 0 THEN
+            RETURN 0;
+        ELSE
+            RETURN beg;
+        END IF;
+    ELSE
+        ss_length := char_length(string_to_search);
+        length := char_length(string);
+        beg := length + beg_index - ss_length + 2;
+
+        WHILE beg &#62; 0 LOOP
+            temp_str := substring(string FROM beg FOR ss_length);
+            pos := position(string_to_search IN temp_str);
+
+            IF pos &#62; 0 THEN
+                occur_number := occur_number + 1;
+
+                IF occur_number = occur_index THEN
+                    RETURN beg;
+                END IF;
+            END IF;
+
+            beg := beg - 1;
+        END LOOP;
+
+        RETURN 0;
+    END IF;
+END;
+' LANGUAGE plpgsql;</PRE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="plpgsql-trigger.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="pltcl.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Trigger Procedures</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="plpgsql.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PL/Tcl - Tcl Procedural Language</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+></div></div>
+
+<table class="mtable" cellspacing=0><tr style="background:#c3c3c3;"><td class="no_index"><font size="-2">[<a href="javascript:location.href='./?cmd=login'">login</a>]</font></td><td width="*" align="center"><font size="-2">Doc-U-Matic - 24.9kB in 720.5ms - 34kbps</font></td><td align="right"><font size="-2">[<a href="/search/">search</a>]</font></td></tr></table>
+</body></html>

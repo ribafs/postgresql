@@ -1,0 +1,108 @@
+			MySQL vs PostgreSQL 	
+			===================
+			
+Name: Alex Wibowo
+======
+
+Purpose of the Research:
+=======================
+To compare the performance of MySQL vs PostgreSQL, and pick one DBMS which
+best suites for the system that is needed by the client of Team Wasabi.
+ 
+Time spent on the research:
+	Start date: March 24th, 2004, 11:30am
+	End date: March 25th, 2004, 5:00pm
+	Total Hours:  3 hours.
+
+
+Overview: 
+=========
+With minimizing cost as the main objective of the client, open source DBMS is certainly a 
+choice over proprietary DBMS such as SQL Server. Two such DBMS are PostgreSQL and MySQL.
+Rather than having in an endless dicussion on which DBMS is better than which, this research 
+points out the merits of each DBMS. 
+
+
+- PostgreSQL natively supports subqueries, stored procedures, cursors or views, 
+  transcation/relational integrity. Although the old version of MySQL does not support 
+  most of these features, the new version of MySQL has begin to supports them. 
+- Finding helps on MySQL is much easier than that on PostgreSQL. Although PosgreSQL has an 
+  active mailing lists, MySQL ish much more widely used and hence, there is a larger community 
+  ready to assist when we are encountering problems. In addition, there are more references 
+  available (both online and books) on MySQL.
+- Although both DBMS has GUI tools (phpMyAdmin for MySQL and phpPgAdmin for PostgreSQL), the 
+  tool for PostgreSQL is not as well-developed as the one for MySQL.
+- Most members of Team Wasabi have done / currently doing 433-351 Database Systems, a subject 
+  from Computer Science department which teaches how to use MySQL. There is less learning curve 
+  here if we use MySQL. 
+- With the advanced features, PostgreSQL seems to be more stable than the newer MySQL equivalents, 
+  having been implemented for longer. Some users reported table corruption in MySQL, but they had 
+  never had a problem recovering the tables (using REPAIR TABLE), furthermore, these faults could
+  always be blamed on faulty hardware. 
+- MySQL has two type of tables: non-transactional MyISAM tables and transaction-capable InnoDB tables.
+- MySQL is aimed first to be a fast database, while PostgreSQL is aimed first to be a fully-featured 
+  database, and both are converging in the other's direction.
+- MySQL is not fully compliant with ANSI SQL standard, while PostgreSQL is. In the other hand, 
+  MySQL is closer to the ODBC standard. 
+- People claims that additional features from PostgreSQL degrade its performance for web 
+  applications.
+
+
+			POSTGRESQL  			MYSQL
+ANSI SQL compliance 	Closer to ANSI SQL standard 	Follows some of the ANSI SQL standards
+Performance 		Slower 				Faster
+Sub-selects 		Yes 				No
+Transactions 		Yes 				Yes, however InnoDB table type must be used
+Database replication 	Yes 				Yes
+Foreign key support 	Yes 				No
+Views 			Yes 				No
+Stored procedures 	Yes 				No
+Triggers 		Yes 				No
+Unions 			Yes 				No
+Full joins 		Yes 				No
+Constraints 		Yes 				No
+Windows support 	Yes 				Yes
+Vacuum (cleanup) 	Yes 				No
+ODBC 			Yes 				Yes
+JDBC 			Yes 				Yes
+Different table types 	No 				Yes
+	taken from : http://builder.com.com/5100-6388-1050671.html
+
+Some reasons for using MySQL over PostgreSQL
+    * MySQL is relatively faster than PostgreSQL.
+    * Database design will be simpler.
+    * You can create a basic Web-driven Web site.
+    * MySQL's replication has been thoroughly tested.
+    * There's no need for cleanups in MySQL (Vacuum).
+
+
+Some reasons for using PostgreSQL over MySQL
+    * Complex database design
+    * Moving away from Oracle, Sybase, or MSSQL
+    * Complex rule sets (i.e., business rules)
+    * Use of procedural languages on the server
+    * Transactions
+    * Use of stored procedures
+    * Use of geographical data
+    * R-Trees (i.e., used on indexes)
+	taken from : http://builder.com.com/5100-6388-1050671.html
+
+
+
+
+Recommendations:
+================
+Considering the advantages and disadvantages for the two alternatives above,
+I would like to recommend the use of MySQL. It has better performance for
+web application, which is what needed for this project. Although PostgreSQL
+seems to support more features than MySQL does, most of these features
+can be implemented manually. MySQL also supports several table types
+that are geared towards the need, namely InnoDB and MyISAm. Last but not least, most 
+members of Team Wasabi are comfortable with MySQL.
+
+
+References:
+================
+http://www.databasejournal.com/features/mysql/article.php/3288951
+http://builder.com.com/5100-6388-1050671.html
+----------------------------------------------

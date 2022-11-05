@@ -1,0 +1,103 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2103"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-166_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-165.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-166_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-166_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-167.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-166_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P8837_474323"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.9.2 Collection Methods</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>Collection methods</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+are functions that provide useful information about a collection that
+can aid in the processing of data in the collection. The following
+sections discuss these methods.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">4.9.2.1 COUNT</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COUNT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a method that returns the number of elements in a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">collection</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The synta</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">x for using </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COUNT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is as follows.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.COUNT</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the identifier of a collection variable.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+following example shows that an associative array can be sparsely
+populated (i.e., there are &#8220;gaps&#8221; in the sequence of assigned
+elements). </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COUNT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> includes only the elements that have been assigned a value.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE sparse_arr_typ IS TABLE OF NUMBER INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr      sparse_arr_typ;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(-100)  := -100;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(-10)   := -10;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(0)     := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(10)    := 10;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(100)   := 100;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('COUNT: ' || sparse_arr.COUNT);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following output shows that only the five populated elements are included in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COUNT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">COUNT: 5</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">4.9.2.2 FIRST</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FIRST</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a method that returns the index of the first element in a collection. The syntax for using </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FIRST</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is as follows.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.FIRST</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the identifier of a collection variable.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example displays the first element of the associative array.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE sparse_arr_typ IS TABLE OF NUMBER INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr      sparse_arr_typ;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(-100)  := -100;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(-10)   := -10;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(0)     := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(10)    := 10;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(100)   := 100;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('FIRST element: ' || sparse_arr(sparse_arr.FIRST));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">FIRST element: -100</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">4.9.2.3 LAST</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LAST</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a method that returns the index of the last element in a collection. The syntax for using </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LAST</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a follows.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.LAST</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the identifier of a collection variable.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example displays the last element of the associative array.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE sparse_arr_typ IS TABLE OF NUMBER INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr      sparse_arr_typ;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(-100)  := -100;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(-10)   := -10;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(0)     := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(10)    := 10;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sparse_arr(100)   := 100;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('LAST element: ' || sparse_arr(sparse_arr.LAST));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">LAST element: 100</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-165.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-166_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-166_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-167.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-166_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-166_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-166_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

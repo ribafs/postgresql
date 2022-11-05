@@ -1,0 +1,6 @@
+																	Delete
+
+DELETE FROM pedidos; -- Cuidado, excluirá todos os registros da tabela pedidos
+
+DELETE FROM pedidos WHERE (codigo IS NULL); - - Remove sem confirmação nem com opção de desfazer.
+

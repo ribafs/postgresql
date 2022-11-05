@@ -1,0 +1,102 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2037"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-100_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-99.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-100_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-100_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-101.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-100_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P4693_277983"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.5.2 Comparison Operators</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The usual comparison operators are shown in the following table.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-16 Comparison Operators</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="109"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Operator</span></p>
+</td>
+<td valign="top" width="177"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="109"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">&lt;</span></p>
+</td>
+<td valign="top" width="177"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Less than</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="109"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">&gt;</span></p>
+</td>
+<td valign="top" width="177"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Greater than</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="109"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">&lt;=</span></p>
+</td>
+<td valign="top" width="177"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Less than or equal to</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="109"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">&gt;=</span></p>
+</td>
+<td valign="top" width="177"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Greater than or equal to</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="109"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">=</span></p>
+</td>
+<td valign="top" width="177"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Equal</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="109"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">&lt;&gt;</span></p>
+</td>
+<td valign="top" width="177"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Not equal</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="109"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">!=</span></p>
+</td>
+<td valign="top" width="177"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Not equal</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Comparison operators are available for all data types where this makes sense.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">All comparison operators are binary operators that re</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">turn values of type </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BOOLEAN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">; expressions </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">like </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">1 &lt; 2 &lt; 3</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> not valid (because there is </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">no </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">&lt;</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> operator</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to compare a B</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">oolean value with</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">3</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">).</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In addition to the comparison operators, the special </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BETWEEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> construct is available.<a name="P4715_278575"></a> </span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>a</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> BETWEEN </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> AND </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>y</i></span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">is equivalent to </span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>a</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> &gt;= </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> AND </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>a</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> &lt;= </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>y</i></span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Similarly, </span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>a</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOT </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BETWEEN </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> AND </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>y</i></span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">is equivalent to </span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>a</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> &lt; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> OR </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>a</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> &gt; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>y</i></span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">There is no difference between the two respective</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> forms apart from the </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">CPU</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> cycles required to rewrite the first one into the second one internally.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">To check whether a value is or is not null, use the constructs</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> IS NULL</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> IS NOT NULL</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P4727_278939"></a>Do not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">write </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> = NULL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">because </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NULL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is not </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">"equal to"</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NULL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.
+(The null value represents an unknown value, and it is not known
+whether two unknown values are equal.) This behavior conforms to the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> standard.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Some applications may expect that </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>expression</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> = </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NULL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> returns true if </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>expression</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> evaluates to the null value. It is highly recommended that these applications be modified to comply with the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> standard.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-99.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-100_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-100_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-101.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-100_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-100_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-100_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

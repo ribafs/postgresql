@@ -1,0 +1,13 @@
+Funções para Redes
+
+Funções cidr e inet 
+
+host(inet) - - host('192.168.1.5/24') - -  192.168.1.5
+masklen(inet) - - masklen('192.168.1.5/24') - - 24
+netmask(inet) - - netmask('192.168.1.5/24') - - 255.255.255.0
+network(inet) - - network('192.168.1.5/24') - -  192.168.1.0/24
+
+Função macaddr
+
+trunt(macaddr) - - trunc(maraddr '12:34:34:56:78:90:ab') - - 12:34:56:00:00:00
+

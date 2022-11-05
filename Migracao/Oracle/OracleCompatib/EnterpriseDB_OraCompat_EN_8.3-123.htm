@@ -1,0 +1,418 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2060"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-123_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-122.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-123_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-123_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-124.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-123_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P6393_354267"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.2.6 Program Security</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Security over what user may execute an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program and what database objects an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program may access for any given user executing the program is controlled by the following:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Privilege to execute a program.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Privileges granted on the database objects (including other </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> programs) which a program attempts to access.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Whether the program is defined with definer&#8217;s rights or invoker&#8217;s rights.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">These aspects are discussed in the following sections.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">4.2.6.1 EXECUTE Privilege</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">An </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program (function, procedure, or package) can begin execution only if any of the following are true:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The current user is a superuser, or</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The current user has been granted </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXECUTE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege on the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program, or</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The current user inherits </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXECUTE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege on the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program by virtue of being a member of a group which does have such privilege, or</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXECUTE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege has been granted to the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUBLIC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> group.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Whenever an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program is created in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXECUTE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege is automatically granted to the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUBLIC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> group by default, therefore, any user can immediately execute the program.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This default privilege can be removed by using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXECUTE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command. See the <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-82.htm#P3719_213724">REVOKE</a></u> command for details. The following is an example:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">REVOKE EXECUTE ON PROCEDURE list_emp FROM PUBLIC;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Explicit </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXECUTE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege on the program can then be granted to individual users or groups.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">GRANT EXECUTE ON PROCEDURE list_emp TO john;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Now, user, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">john</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, can execute the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">list_emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program, but other users who do not meet any of the conditions listed at the beginning of this section cannot.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Once
+a program begins execution, the next aspect of security is what
+privilege checks occur if the program attempts to perform an action on
+any database object including:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Reading or modifying table or view data.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Creating, modifying, or deleting a database object such as a table, view, index, or sequence.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Obtaining the current or next value from a sequence.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Calling another program (function, procedure, or package).</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Each such action can be protected by privileges on the database object either allowed or disallowed for the user.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note
+that it is possible for a database to have more than one object of the
+same type with the same name, but each such object belonging to a
+different schema in the database. If this is the case, which object is
+being referenced by an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program? This is the topic of the next section.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">4.2.6.2 Database Object Name Resolution</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A database object inside an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program may either be referenced by its qualified name or by an unqualified name. A qualified name is in the form of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>schema</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> where </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>schema</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the name of the schema under which the database object with identifier, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, exists. An unqualified name does not have the &#8220;</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>schema</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8221;
+portion. When a reference is made to a qualified name, there is
+absolutely no ambiguity as to exactly which database object is intended
+&#8211; it either does or does not exist in the specified schema.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Locating
+an object with an unqualified name, however, requires the use of the
+current user&#8217;s search path. When a user becomes the current user of a
+session, a default search path is always associated with that user. The
+search path consists of a list of schemas which are searched in
+left-to-right order for locating an unqualified database object
+reference. The object is considered non-existent if it can&#8217;t be found
+in any of the schemas in the search path. The default search path can
+be displayed in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">PSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SHOW search_path</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SHOW search_path;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     search_path</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> $user,public,sys,dbo</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">$user</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+in the above search path is a generic placeholder that refers to the
+current user so if the current user of the above session is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enterprisedb</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, an unqualified database object would be searched for in the following schemas in this order &#8211; first, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enterprisedb</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, then </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">public</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, then </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sys</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and finally, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">dbo</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Once
+an unqualified name has been resolved in the search path, it can be
+determined if the current user has the appropriate privilege to perform
+the desired action on that specific object.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><b>Note:</b></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> The concept of the search path is not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> compatible. For an unqualified reference, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> simply looks in the schema of the current user for the named database object. It also important to note that in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, a user and his or her schema is the same entity while in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, a user and a schema are two distinct objects.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">4.2.6.3 Database Object Privileges</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Once an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+program begins execution, any attempt to access any database object
+from within the program results in a check to ensure the current user
+has the authorization to perform the intended action against the
+referenced object. Privileges on database objects are bestowed and
+removed using the <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-79.htm#P3540_194132">GRANT</a></u> and <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-82.htm#P3719_213724">REVOKE</a></u>
+commands, respectively. If the current user attempts unauthorized
+access on a database object, then the program will throw an exception.
+See Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-143.htm#P7788_428154">4.5.5</a></u> for information on exception handling.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The final topic discusses exactly who is the current user.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">4.2.6.4 Definer&#8217;s vs. Invokers Rights</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+program is about to begin execution, a determination is made as to what
+user is to be associated with this process. This user is referred to as
+the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>current user</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.
+It is the current user&#8217;s search path that will be used to resolve any
+unqualified object references. The current user&#8217;s database object
+privileges are used to determine whether or not access to database
+objects referenced in the program will be permitted.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The selection of the current user is influenced by whether the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program was created with definer&#8217;s right or invoker&#8217;s rights. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">AUTHID</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause determines that selection. Appearance of the clause </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">AUTHID DEFINER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> gives the program definer&#8217;s rights. This is also the default if the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">AUTHID</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause is omitted. Use of the clause </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">AUTHID CURRENT_</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">USER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> gives the program invoker&#8217;s rights. The difference between the two is summarized as follows:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If a program has </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>definer&#8217;s rights</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,
+then the owner of the program becomes the current user when program
+execution begins. The program owner&#8217;s search path is used to resolve
+unqualified object references and the program owner&#8217;s database object
+privileges are used to determine if access to a referenced object is
+permitted. In a definer&#8217;s rights program, it is irrelevant as to which
+user actually invoked the program.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If a program has </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>invoker&#8217;s rights</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,
+then the current user at the time the program is called remains the
+current user while the program is executing (but not necessarily within
+called subprograms &#8211; see the following bullet points). When an
+invoker&#8217;s rights program is invoked, the current user is typically the
+user that started the session (i.e., made the database connection)
+although it is possible to change the current user after the session
+has started using the <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-88.htm#P4076_242665">SET ROLE</a></u> command. In an invoker&#8217;s rights program, it is irrelevant as to which user actually owns the program.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">From the previous definitions, the following observations can be made:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If
+a definer&#8217;s rights program calls a definer&#8217;s rights program, the
+current user changes from the owner of the calling program to the owner
+of the called program during execution of the called program.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If
+a definer&#8217;s rights program calls an invoker&#8217;s rights program, the owner
+of the calling program remains the current user during execution of
+both the calling and called programs.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If
+an invoker&#8217;s rights program calls an invoker&#8217;s rights program, the
+current user of the calling program remains the current user during
+execution of the called program.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If
+an invokers&#8217; rights program calls a definer&#8217;s rights program, the
+current user switches to the owner of the definer&#8217;s rights program
+during execution of the called program.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The same principles apply if the called program in turn calls another program in the cases cited above.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This section on security concludes with an example using the sample application.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">4.2.6.5 Security Example</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In the following example, a new database will be created along with two users &#8211; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> who will own a copy of the entire sample application in schema, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">; and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sal</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">es_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> who will own a schema named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, that will have a copy of only the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table containing only the employees who work in sales.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The procedure </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">list_emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, function </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hire_clerk</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and package </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_admin</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+will be used in this example. All of the default privileges that are
+granted upon installation of the sample application will be removed and
+then be explicitly re-granted so as to present a more secure
+environment in this example.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Programs </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">list_emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hire_clerk</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> will be changed from the default of definer&#8217;s rights to invoker&#8217;s rights. It will be then illustrated that when </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> runs these programs, they act upon the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s schema since </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s search path and privileges will be used for name resolution and authorization checking.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Programs </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">get_dept_name</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hire_emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_admin</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package will then be executed by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. In this case, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">dept</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s schema will be accessed as </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">h</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">r_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the owner of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_admin</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package which is using definer&#8217;s rights.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Step 1 &#8211; Create Database and Users</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">As user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enterprisedb</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, create the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE DATABASE hr;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Switch to the hr database and create the users:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">\c hr enterprisedb</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE USER hr_mgr IDENTIFIED BY password;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE USER sales_mgr IDENTIFIED BY password;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Step 2 &#8211; Create the Sample Application</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Create the entire sample application, owned by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s schema.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">\c - hr_mgr</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">\i C:/EnterpriseDB/8.3/samples/edb-sample.sql</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE VIEW</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE SEQUENCE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        .</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        .</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        .</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE PACKAGE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE PACKAGE BODY</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">COMMIT</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Step 3 &#8211; Create the emp Table in Schema sales_mgr</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Create a subset of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table owned by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s schema.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">\c &#8211; hr_mgr</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">GRANT USAGE ON SCHEMA hr_mgr TO sales_mgr;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">\c &#8211; sales_mgr</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE emp AS SELECT * FROM hr_mgr.emp WHERE job = 'SALESMAN';</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note that in the above example, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT USAGE ON SCHEMA</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command must be given to allow </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> access into </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s schema to make a copy of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table. This step is required in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and is not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> compatible since </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> does not have the concept of a schema that is distinct from its user.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Step 4 &#8211; Remove Default Privileges</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Remove all privileges to later illustrate the minimum required privileges needed.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">\c &#8211; hr_mgr</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">REVOKE USAGE ON SCHEMA hr_mgr FROM sales_mgr;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">REVOKE ALL ON dept FROM PUBLIC;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">REVOKE ALL ON emp FROM PUBLIC;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">REVOKE ALL ON next_empno FROM PUBLIC;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">REVOKE EXECUTE ON FUNCTION new_empno() FROM PUBLIC;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">REVOKE EXECUTE ON PROCEDURE list_emp FROM PUBLIC;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">REVOKE EXECUTE ON FUNCTION hire_clerk(VARCHAR2,NUMBER) FROM PUBLIC;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">REVOKE EXECUTE ON PACKAGE emp_admin FROM PUBLIC;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Step 5 &#8211; Change list_emp to Invoker&#8217;s Rights</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">While connected as user, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, add the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">AUTHID CURRENT_USER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause to the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">list_emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program and resave it in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. When performing this step, be sure you are logged on as </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, otherwise the modified program may wind up in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">public</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> schema instead of in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s schema.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE PROCEDURE list_emp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">AUTHID CURRENT_USER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">IS</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_empno         NUMBER(4);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_ename         VARCHAR2(10);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CURSOR emp_cur IS</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        SELECT empno, ename FROM emp ORDER BY empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    OPEN emp_cur;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('EMPNO    ENAME');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('-----    -------');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FETCH emp_cur INTO v_empno, v_ename;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        EXIT WHEN emp_cur%NOTFOUND;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(v_empno || '     ' || v_ename);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CLOSE emp_cur;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Step 6 &#8211; Change hire_clerk to Invoker&#8217;s Rights and Qualify Call to new_empno</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">While connected as user, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, add the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">AUTHID CURRENT_USER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause to the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hire_clerk</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Also, after the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BEGIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement, fully qualify the reference, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">new_empno</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr.new_empno</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. In order to force the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hire_clerk</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function to call the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">new_empno</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> schema, the call must be changed to a fully qualified name. Since </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hire_clerk</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is now an invoker&#8217;s rights program, an unqualified call to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">new_empno</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> would result in a search for </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">new_empno</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in a schema in the search path of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hire_clerk</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s caller rather than specifically in schema, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, where this program actually resides.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When resaving the program, be sure you are logged on as </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, otherwise the modified program may wind up in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">public</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> schema instead of in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s schema.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE FUNCTION hire_clerk (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_ename         VARCHAR2,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_deptno        NUMBER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">) RETURN NUMBER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">AUTHID CURRENT_USER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">IS</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_empno         NUMBER(4);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_ename         VARCHAR2(10);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_job           VARCHAR2(9);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_mgr           NUMBER(4);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_hiredate      DATE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_sal           NUMBER(7,2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_comm          NUMBER(7,2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_deptno        NUMBER(2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_empno := hr_mgr.new_empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    INSERT INTO emp VALUES (v_empno, p_ename, 'CLERK', 7782,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        TRUNC(SYSDATE), 950.00, NULL, p_deptno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    SELECT empno, ename, job, mgr, hiredate, sal, comm, deptno INTO</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_empno, v_ename, v_job, v_mgr, v_hiredate, v_sal, v_comm, v_deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FROM emp WHERE empno = v_empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Department : ' || v_deptno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Employee No: ' || v_empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Name       : ' || v_ename);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Job        : ' || v_job);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Manager    : ' || v_mgr);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Hire Date  : ' || v_hiredate);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Salary     : ' || v_sal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Commission : ' || v_comm);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    RETURN v_empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXCEPTION</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    WHEN OTHERS THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('The following is SQLERRM:');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(SQLERRM);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('The following is SQLCODE:');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(SQLCODE);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        RETURN -1;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Step 7 &#8211; Grant Required Privileges</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">While connected as user, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, grant the privileges needed so </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> can execute the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">list_emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hire_clerk</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_admin</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package. Note that the only data object </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> has access to is the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> schema. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> has no privileges on any table in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> schema.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">GRANT USAGE ON SCHEMA hr_mgr TO sales_mgr;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">GRANT EXECUTE ON PROCEDURE list_emp TO sales_mgr;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">GRANT EXECUTE ON FUNCTION hire_clerk(VARCHAR2,NUMBER) TO sales_mgr;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">GRANT EXECUTE ON FUNCTION new_empno() TO sales_mgr;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">GRANT EXECUTE ON PACKAGE emp_admin TO sales_mgr;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Step 8 &#8211; Run Programs list_emp and hire_clerk</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Connect as user, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and run the following anonymous block:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">\c &#8211; sales_mgr</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_empno         NUMBER(4);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    hr_mgr.list_emp;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('*** Adding new employee ***');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_empno := hr_mgr.hire_clerk('JONES',40);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('*** After new employee added ***');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    hr_mgr.list_emp;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EMPNO    ENAME</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----    -------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7499     ALLEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7521     WARD</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7654     MARTIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7844     TURNER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">*** Adding new employee ***</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Department : 40</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Employee No: 8000</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Name       : JONES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Job        : CLERK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Manager    : 7782</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Hire Date  : 08-NOV-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Salary     : 950.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">*** After new employee added ***</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EMPNO    ENAME</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----    -------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7499     ALLEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7521     WARD</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7654     MARTIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7844     TURNER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">8000     JONES</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+table and sequence accessed by the programs of the anonymous block are
+illustrated in the following diagram. The gray ovals represent the
+schemas of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mg</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">r</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. The current user during each program execution is shown within parenthesis in bold red font.</span></p>
+
+<p><img src="EnterpriseDB_OraCompat_EN_8.3-123_arquivos/EnterpriseDB_OraCompat_EN_8_003.jpg" border="1" height="312" width="576"></p>
+
+<p style="text-align: center;"><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Figure 3 - Invoker's Rights Programs</span></b></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Selecting from </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table shows that the update was made in this table.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT empno, ename, hiredate, sal, deptno, hr_mgr.emp_admin.get_dept_name(deptno) FROM sales_mgr.emp;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">empno | ename  |      hiredate      |   sal   | deptno | get_dept_name</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------+--------+--------------------+---------+--------+---------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7499 | ALLEN  | 20-FEB-81 00:00:00 | 1600.00 |     30 | SALES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7521 | WARD   | 22-FEB-81 00:00:00 | 1250.00 |     30 | SALES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7654 | MARTIN | 28-SEP-81 00:00:00 | 1250.00 |     30 | SALES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7844 | TURNER | 08-SEP-81 00:00:00 | 1500.00 |     30 | SALES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  8000 | JONES  | 08-NOV-07 00:00:00 |  950.00 |     40 | OPERATIONS</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(5 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following diagram shows that the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command references the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> schema, but the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">dept</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table referenced by the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">get_dept_name</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_admin</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package is from the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> schema since the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_admin</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package has definer&#8217;s rights and is owned by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><img src="EnterpriseDB_OraCompat_EN_8.3-123_arquivos/EnterpriseDB_OraCompat_EN_8_002.jpg" border="1" height="288" width="576"></p>
+
+<p style="text-align: center;"><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Figure 4 Definer's Rights Package</span></b></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Step 9 &#8211; Run Program hire_emp in the emp_admin Package</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">While connected as user, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sales_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, run the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hire_emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_admin</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXEC hr_mgr.emp_admin.hire_emp(9001, 'ALICE','SALESMAN',8000,TRUNC(SYSDATE),1000,7369,40);</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This diagram illustrates that the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hire_emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_admin</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> definer&#8217;s rights package updates the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table belonging to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><img src="EnterpriseDB_OraCompat_EN_8.3-123_arquivos/EnterpriseDB_OraCompat_EN_8.jpg" border="1" height="252" width="576"></p>
+
+<p style="text-align: center;"><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Figure 5 Definer's Rights Package</span></b></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Now connect as user, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. The following </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command verifies that the new employee was added to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table since the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_admin</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package has definer&#8217;s rights and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hr_mgr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_admin</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s owner.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">\c &#8211; hr_mgr</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT empno, ename, hiredate, sal, deptno, hr_mgr.emp_admin.get_dept_name(deptno) FROM hr_mgr.emp;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">empno | ename  |      hiredate      |   sal   | deptno | get_dept_name</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------+--------+--------------------+---------+--------+---------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7369 | SMITH  | 17-DEC-80 00:00:00 |  800.00 |     20 | RESEARCH</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7499 | ALLEN  | 20-FEB-81 00:00:00 | 1600.00 |     30 | SALES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7521 | WARD   | 22-FEB-81 00:00:00 | 1250.00 |     30 | SALES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7566 | JONES  | 02-APR-81 00:00:00 | 2975.00 |     20 | RESEARCH</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7654 | MARTIN | 28-SEP-81 00:00:00 | 1250.00 |     30 | SALES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7698 | BLAKE  | 01-MAY-81 00:00:00 | 2850.00 |     30 | SALES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7782 | CLARK  | 09-JUN-81 00:00:00 | 2450.00 |     10 | ACCOUNTING</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7788 | SCOTT  | 19-APR-87 00:00:00 | 3000.00 |     20 | RESEARCH</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7839 | KING   | 17-NOV-81 00:00:00 | 5000.00 |     10 | ACCOUNTING</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7844 | TURNER | 08-SEP-81 00:00:00 | 1500.00 |     30 | SALES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7876 | ADAMS  | 23-MAY-87 00:00:00 | 1100.00 |     20 | RESEARCH</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7900 | JAMES  | 03-DEC-81 00:00:00 |  950.00 |     30 | SALES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7902 | FORD   | 03-DEC-81 00:00:00 | 3000.00 |     20 | RESEARCH</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7934 | MILLER | 23-JAN-82 00:00:00 | 1300.00 |     10 | ACCOUNTING</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  9001 | ALICE  | 08-NOV-07 00:00:00 | 8000.00 |     40 | OPERATIONS</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(15 rows)</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-122.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-123_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-123_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-124.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-123_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-123_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-123_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

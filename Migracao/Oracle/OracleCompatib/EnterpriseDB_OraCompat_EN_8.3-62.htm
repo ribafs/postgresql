@@ -1,0 +1,151 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>CREATE TRIGGER</title>
+
+
+<meta name="keywords" content="create trigger, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1999"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-62_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-61.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-62_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-62_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-63.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-62_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P3139_175526"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.24 CREATE TRIGGER</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE TRIGGER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> -- define a new trigger</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE [ OR REPLACE ] TRIGGER name</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  { BEFORE | AFTER }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  { INSERT | UPDATE | DELETE }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">      [ OR { INSERT | UPDATE | DELETE } ] [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    ON table</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ FOR EACH ROW ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">      declaration; [, ...] ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">      statement; [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ EXCEPTION</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    { WHEN </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>exception</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ OR </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>exception</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] [...] THEN</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">        </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statement</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">; [, ...] } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    END</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TRIGGER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> defines a new trigger. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE OR REPLACE TRIGGER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> will either create a new trigger, or replace an existing definition.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+name of the new trigger must not match any existing trigger defined on
+the same table unless the intent is to update the definition of an
+existing trigger, in which case use </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE OR REPLACE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TRIGGER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The trigger is created in the same schema as the table on which the triggering event is defined.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See Chapter <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-169.htm#P9237_495527"><u>5</u></a> for more information on triggers.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of the trigger to create.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BEFORE | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">AFTER</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Determines whether the trigger is fired before or after the triggering event.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT | UPDATE | DELETE</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Defines the triggering event.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of the table on which the triggering event occurs.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FOR EACH ROW</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Determines whether the trigger should be fired once for every row affected by the triggering event, or just once per </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+statement. If specified, the trigger is fired once for every affected
+row (row-level trigger), otherwise the trigger is a statement-level
+trigger.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>declaration</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">A variable, type, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REF CURSOR</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> declaration.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statement</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">An </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> program statement. Note that a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DECLARE - BEGIN - END</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> block is considered an </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> statement unto itself. Thus, the trigger body may contain nested blocks.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>exception</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">An exception condition name such as </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NO_DATA_FOUND</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OTHERS</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, etc.</span><a name="P3179_177259"></a></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is a statement-level trigger that fires after the triggering statement (insert, update, or delete on table </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">) is executed.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE TRIGGER user_audit_trig</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    AFTER INSERT OR UPDATE OR DELETE ON emp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_action        VARCHAR2(24);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF INSERTING THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_action := ' added employee(s) on ';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    ELSIF UPDATING THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_action := ' updated employee(s) on ';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    ELSIF DELETING THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_action := ' deleted employee(s) on ';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('User ' || USER || v_action ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        TO_CHAR(SYSDATE,'YYYY-MM-DD'));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is a row-level trigger that fires before each row is either inserted, updated, or deleted on table </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE TRIGGER emp_sal_trig</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    BEFORE DELETE OR INSERT OR UPDATE ON emp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR EACH ROW</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sal_diff       NUMBER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF INSERTING THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('Inserting employee ' || :NEW.empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('..New salary: ' || :NEW.sal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF UPDATING THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        sal_diff := :NEW.sal - :OLD.sal;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('Updating employee ' || :OLD.empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('..Old salary: ' || :OLD.sal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('..New salary: ' || :NEW.sal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('..Raise     : ' || sal_diff);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF DELETING THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('Deleting employee ' || :OLD.empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('..Old salary: ' || :OLD.sal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-76.htm#P3485_191585"><u>DROP TRIGGER</u></a></span></p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-61.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-62_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-62_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-63.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-62_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-62_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-62_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

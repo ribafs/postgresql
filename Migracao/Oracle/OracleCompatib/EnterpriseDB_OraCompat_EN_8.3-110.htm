@@ -1,0 +1,54 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2047"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-110_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-109.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-110_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-110_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-111.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-110_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 21pt;"><h1 class="Heading1-1"><a name="P6071_329087"></a><span style="font-family: 'Arial'; font-size: 24pt; color: Black;">4 Stored Procedure Language</span></h1>
+<p style="text-align: left;"><img src="EnterpriseDB_OraCompat_EN_8.3-110_arquivos/inveseps.gif"></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P6072_329114"></a>This chapter describes the </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">Stored Procedure Language</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> - </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a highly productive, procedural programming language for writing c</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ustom procedures, functions,</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> triggers</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and packages</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> for </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> provides the following benefits:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Adds full procedural programming functionality to complement the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> language</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Provides a single, common language to create stored procedures, functions, triggers, and packages for the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Is integrated with </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">pgAdmin III</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to provide a seamless development and testing environment</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Promotes the use of reusable code</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Is easy to use</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P6079_329745"></a>This chapter first describes the basic elements of an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program. The chapter then provides an overview of the organization of an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program and how it is used to create a procedure or a function. Triggers, while still utilizing </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, are sufficiently different to warrant a separate discussion. See Chapter <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-169.htm#P9237_495527"><u>5</u></a> for information on triggers. Packages are discussed in Chapter <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-180.htm#P9467_511701"><u>6</u></a>.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The remaining sections of this chapter delve into the details of the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> language and provide examples of its application.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-109.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-110_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-110_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-111.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-110_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-110_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-110_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

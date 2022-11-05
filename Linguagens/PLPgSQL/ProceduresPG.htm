@@ -1,0 +1,135 @@
+
+
+<html>
+<head>
+
+<title>View Recipes</title>
+</head>
+<body bgcolor=white text=black>
+
+
+
+
+<h2>Recipes in section "Stored Procedures"</h2>
+<a href='/'>Home</a> -> <a href='/postgres'>Postgres</a> -> <a href='/postgres/cookbook'>CookBook Home</a> -> View Recipes
+<hr>
+
+<hr>
+<a href='view-one-recipe.adp?recipe_id=4258'>View details of this recipe</a>
+<br>
+Drop a trigger if it exists
+
+</pre>
+<p>
+<pre>
+-- Joshua Jore http://www.greentechnologist.org
+-- Green Party of Minnesota
+CREATE FUNCTION DropTrigger(NAME,NAME) RETURNS BOOLEAN AS '
+DECLARE
+	TableName ALIAS FOR $1;
+	TriggerName ALIAS FOR $2;
+	T0 NAME;
+	T1 NAME;
+BEGIN
+	IF TriggerExists(TableName,TriggerName) THEN
+		T0 := lower(TableName);
+		T1 := lower(TriggerName);
+		EXECUTE ''DROP TRIGGER ''
+			|| quote_ident(T1)
+			|| '' ON ''
+			|| quote_ident(T0);
+		RETURN TRUE;
+	END IF;
+	RETURN FALSE;
+END;
+' LANGUAGE 'plpgsql' WITH (isstrict);
+</pre>
+<hr>
+<a href='view-one-recipe.adp?recipe_id=4259'>View details of this recipe</a>
+<br>
+Disables all non-system triggers. They still exist and may be re-enabled later. This is nice when loading data.
+
+</pre>
+<p>
+<pre>
+-- Joshua Jore http://www.greentechnologist.org
+-- Green Party of Minnesota
+CREATE FUNCTION DisableTriggers() RETURNS BOOLEAN AS '
+DECLARE
+	rows INTEGER;
+BEGIN
+	UPDATE pg_class SET reltriggers = 0 
+	FROM	(
+		(SELECT relname,oid FROM pg_class WHERE relname !~ ''^pg_'') AS A
+		JOIN
+		(SELECT count(*),tgrelid FROM pg_trigger GROUP BY tgrelid) AS B
+		ON (A.oid = B.tgrelid)
+		) AS C
+	WHERE pg_class.oid = C.oid;
+	GET DIAGNOSTICS rows = ROW_COUNT;
+	IF rows > 0 THEN
+		RETURN TRUE;
+	ELSE
+		RETURN FALSE;
+	END IF;
+END;
+' LANGUAGE 'plpgsql' WITH (isstrict);
+</pre>
+<hr>
+<a href='view-one-recipe.adp?recipe_id=6026'>View details of this recipe</a>
+<br>
+Search the non-system tables for the table that contains a row with the OID passed to FindByOID().
+
+</pre>
+<p>
+<pre>
+-- Author: Billy G. Allie
+-- License: This code is released to the public domain.
+
+DROP FUNCTION FindByOID(INTEGER);
+CREATE FUNCTION FindByOID(INTEGER) RETURNS varchar AS '
+DECLARE
+    tblname RECORD;
+    cnt RECORD;
+    tname varchar := '''';
+    tquery varchar := '''';
+BEGIN
+    -- Search the non-system tables for the table that contains a row with
+    -- the OID passed to FindByOID().
+
+    -- Set tname to NULL so that a not found condition will return NULL
+    tname := NULL;
+
+    FOR tblname IN SELECT tablename FROM PG_TABLES
+		   WHERE tablename NOT LIKE ''pg_%'' LOOP
+
+	-- For each table, create a query to execute dynamically that will
+	-- search the table for the record with the needed OID.
+
+	tquery := ''select count(*) as fcnt from '' ||
+		  quote_ident(tblname.tablename) || '' where oid =   ' || $1;
+
+	-- This hack is needed to extract the result of the dynamic SQL.
+	FOR cnt IN EXECUTE tquery LOOP
+	    EXIT;
+	END LOOP;
+
+	-- Break out of the loop if we find the table.
+	IF cnt.fcnt > 0 THEN
+	    tname := tblname.tablename;
+	    EXIT;
+	END IF;
+    END LOOP;
+    RETURN tname;
+END;
+' LANGUAGE 'plpgsql';
+</pre>
+
+
+
+
+
+<hr>
+<a href="mailto:rmello@fslc.usu.edu"><address>rmello@fslc.usu.edu</address></a>
+</body>
+</html>

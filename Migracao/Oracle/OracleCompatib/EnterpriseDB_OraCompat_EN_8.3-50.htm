@@ -1,0 +1,98 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>CREATE DIRECTORY</title>
+
+
+<meta name="keywords" content="create directory, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1987"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-50_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-49.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-50_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-50_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-51.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-50_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P2339_127983"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.12 CREATE DIRECTORY</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE DIRECTOR</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">Y</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;create an alias for a file system directory path</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2342_128080"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE DIRECTORY </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> AS &#8216;</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>pathname</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">&#8217;</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2344_128127"></a>Description</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE DIRECTORY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command creates an alias for a file system directory pathname. When the
+alias is specified as the appropriate parameter to the programs of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UTL_FILE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+package, the operating system files are created in, or accessed from
+the directory corresponding to the given alias. See Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-222.htm#P10965_575332">7.4</a></u> for information on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UTL_FILE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2346_128484"></a>Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The directory alias name.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>pathname</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The fully-qualified directory path represented by the alias name. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE DIRECTORY</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+command does not create the operating system directory. The physical
+directory must be created independently using the appropriate operating
+system commands.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2351_128775"></a>Notes</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The operating system user id, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enterprisedb</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, must have the appropriate read and/or write privileges on the directory if the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UTL_FILE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package is to be used to create and/or read files using the directory.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A directory alias must be deleted directly from the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">pg_catalog.e</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">db_dir</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+system catalog table if it is desired to remove the directory alias.
+This operation must be performed by a superuser. Note that </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb_dir</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is not an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When
+a directory alias is deleted, the corresponding physical file system
+directory is not affected. The file system directory must be deleted
+using the appropriate operating system commands.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In a Linux system, the directory name separator is a forward slash (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">/</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">).</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In a Windows system, the directory name separator can be specified as a forward slash (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">/</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">) or two consecutive backslashes (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">\\</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">).</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Create an alias named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">empdir</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, for directory, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">/tmp/empdir</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, on Linux:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE DIRECTORY empdir AS '/tmp/empdir';</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Create an alias named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">empdir</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, for directory, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">C:\TEMP\EMPDIR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, on Windows:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE DIRECTORY empdir AS 'C:/TEMP/EMPDIR';</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">View all of the directory aliases:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT * FROM pg_catalog.edb_dir;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> dirname |    dirpath</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">---------+----------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> empdir  | C:/TEMP/EMPDIR</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Remove directory, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">empdir</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DELETE FROM pg_catalog.edb_dir WHERE dirname = 'empdir';</span>
+<a name="P2371_130072"></a></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-49.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-50_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-50_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-51.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-50_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-50_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-50_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

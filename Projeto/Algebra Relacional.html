@@ -1,0 +1,392 @@
+<html><head>
+
+
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+
+
+</style>
+
+<link href="Algebra%20Relacional_arquivos/estilo.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript">
+
+function EmptyString(s) { 
+var Count; 
+var Nblank = 0; 
+if (s.length == 0) return (true); // empty string 
+// count the number of blank chars 
+for (Count = 0; Count < s.length; Count++) { 
+if (s.charAt(Count) == " ") Nblank++; 
+} 
+if (Nblank == s.length) 
+return (true); 
+else 
+return (false); 
+} 
+
+function ValidEmail(s) { 
+var Count; 
+var s2; 
+// empty or blank email 
+if (EmptyString(s) == true) return (false); 
+// email without @ 
+if (s.indexOf('@') == -1) return (false); 
+// email with @ as the 1st char 
+if (s.indexOf('@') == 0) return (false); 
+// email with @ as the last char 
+if ((s.indexOf('@')+1) == s.length) return (false); 
+// email without . 
+if (s.indexOf('.') == -1) return (false); 
+// email with . as the 1st char 
+if (s.indexOf('.') == 0) return (false); 
+// email with . as the last char 
+if ((s.indexOf('.')+1) == s.length) return (false); 
+
+// Now look for the first . after the first @ 
+// s2 = string after the first @ 
+s2=s.substring(s.indexOf('@')+1,s.length); 
+// email without a dot after the first @ 
+if (s2.indexOf('.') == -1) return (false); 
+// email dot right after the first @ 
+if (s2.indexOf('.') == 0) return (false); 
+return (true); 
+} 
+</script>
+
+
+<script language="JavaScript">
+
+function EmptyString(s) { 
+var Count; 
+var Nblank = 0; 
+if (s.length == 0) return (true); // empty string 
+// count the number of blank chars 
+for (Count = 0; Count < s.length; Count++) { 
+if (s.charAt(Count) == " ") Nblank++; 
+} 
+if (Nblank == s.length) 
+return (true); 
+else 
+return (false); 
+} 
+
+function ValidEmail(s) { 
+var Count; 
+var s2; 
+// empty or blank email 
+if (EmptyString(s) == true) return (false); 
+// email without @ 
+if (s.indexOf('@') == -1) return (false); 
+// email with @ as the 1st char 
+if (s.indexOf('@') == 0) return (false); 
+// email with @ as the last char 
+if ((s.indexOf('@')+1) == s.length) return (false); 
+// email without . 
+if (s.indexOf('.') == -1) return (false); 
+// email with . as the 1st char 
+if (s.indexOf('.') == 0) return (false); 
+// email with . as the last char 
+if ((s.indexOf('.')+1) == s.length) return (false); 
+
+// Now look for the first . after the first @ 
+// s2 = string after the first @ 
+s2=s.substring(s.indexOf('@')+1,s.length); 
+// email without a dot after the first @ 
+if (s2.indexOf('.') == -1) return (false); 
+// email dot right after the first @ 
+if (s2.indexOf('.') == 0) return (false); 
+return (true); 
+} 
+</script>
+
+
+
+<meta http-equiv="refresh" content="1300">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta name="description" content="Portal para analistas, desenvolvedores de sistemas e webdesigners. Artigos, dicas e vídeo aulas sobre C#, Java, Visual Basic .NET, PHP, ASP, Delphi, Visual Basic, ColdFusion, Javascript, HTML, Oracle, SQL Server, InterBase, Firebird, e muito mais.">
+<meta name="keywords" content="c#, visual basic .net, asp.net, java, php, programação, análise, web, apostilas, gratuito, grátis, projeto, engenharia de software, visual basic, delphi, sql, xml, asp, coldfusion, css, stylesheet, javascript, webmaster, ti, linux, windows, livros, empregos, oportunidades, aplicativos, componentes, tecnologia, desenvolvimento, eventos, software, downloads, artigos, cursos online, flash, interbase, fireworks, dreamweaver, xsql"><!--include file="../include/countpageview.asp" --><title>Devmedia - SQL Magazine - Álgebra Relacional</title></head><body>
+
+
+<!--include file="../include/barradevmedia.asp"-->
+
+
+ <table>
+   <tbody><tr><td bgcolor="" valign="top" width="3"></td>
+     <td valign="top">
+	   <img src="Algebra%20Relacional_arquivos/logo_devmedia_.gif">
+	   </td>
+	   <td valign="center">
+	   <font face="verdana" size="4">www.devmedia.com.br
+	   <!--include file="../include/topo.html" --> 
+     </font></td>
+   </tr>
+    <tr><td bgcolor="" valign="top" width="3"></td>
+          <td colspan="2" background="Algebra%20Relacional_arquivos/line.gif"><img src="Algebra%20Relacional_arquivos/casper.gif" height="1" width="1"></td></tr>
+         
+
+ </tbody></table>
+
+ <table border="0">
+  <tbody><tr> 
+    <td bgcolor="" valign="top" width="3">
+		<!-- include esquerda.html -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+	</td>
+    <td valign="top" width="651">
+		
+		<table width="100%">
+		  <tbody><tr>
+		    <td><!--include file="../include/box_renova.asp" -->
+			</td>
+		  </tr>
+		</tbody></table>
+		
+		
+			<!-- aqui entra o box de servicos -->
+			
+		
+
+
+		<table cellpadding="0" cellspacing="0">
+		  <tbody><tr>
+		    <td>
+			   	<!--include file="exibe_anotacoes.asp" -->
+			</td>
+		  </tr>
+		</tbody></table>
+
+		
+		
+		<table>
+		  <tbody><tr>
+		    <td bgcolor="#ffff99">
+			 
+     			  <!--<a href="#feedback"> <font face=Tahoma><b>Ajude-nos! Clique aqui e dê o seu feedback sobre este conteúdo!</a><br>-->
+			    
+
+			</td>
+		  </tr>
+		</tbody></table>
+		
+
+	   <table border="0">
+	    <tbody><tr>
+		 <td>
+
+    			
+					<table border="0">
+					<tbody><tr>
+					  <td>  
+						<table border="0">
+						  <tbody><tr valign="top">
+							<td>
+							  
+							     <a href="http://www.devmedia.com.br/space.asp?id=115047"><img src="Algebra%20Relacional_arquivos/Col_115047_DVM.jpg" border="0"></a>
+							  
+							</td>
+							<td><span id="lblCurriculo"><span class="font4-preto">
+							<a href="http://www.devmedia.com.br/space.asp?id=115047">Equipe DevMedia<span><br><br>
+							  <span id="lblCurriculo"><span class="font1-preto">Noticias/Dicas/Artigos pulicados.</span></span></span></a>
+							</span></span></td>
+						  </tr>
+						</tbody></table>
+					  </td>
+					</tr>
+					</tbody></table>
+					
+
+         </td>
+        </tr>
+		
+
+		
+
+		<tr>
+		 <td>
+		   
+		 </td>
+		</tr>
+	    <tr>
+		  <td>
+		   <span style="font-size: 10pt; line-height: 115%; font-family: 'Verdana','sans-serif';"><o:p>
+</o:p><p class="MsoNormal" style="margin: 0cm 0cm 10pt;"><b style=""><span style="font-size: 10pt; line-height: 115%; font-family: 'Verdana','sans-serif';"><font size="5">Álgebra Relacional<br><br><br><o:p></o:p></font></span></b></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 10pt;"><span style="font-size: 10pt; line-height: 115%; font-family: 'Verdana','sans-serif';"><strong>por Felippe Borello e Ricardo Esteves Kneipp<br></strong><br>Este
+artigo tem o objetivo de apresentar a álgebra relacional como um
+instrumento para implementação de consultas em um sistema gerenciador
+de banco de dados relacional.<br><br>A Álgebra Relacional é uma
+linguagem de consulta procedural (o usuário descreve os passos a serem
+executados) e formal a qual a técnica utilizada é fundamental para a
+extração de dados de um banco de dados, além de ser um conjunto de
+operações, os quais utilizam como recurso de entrada uma ou mais
+relações, produzindo então, uma nova relação. Neste contexto uma
+seqüência de operações forma uma expressão em álgebra relacional cujo
+resultado também produzirá uma relação (uma consulta).<br><br>Na
+Álgebra Relacional existem os operadores tradicionais e os operadores
+relacionais, onde cada um apresenta a sua função e uma representação na
+construção de consultas. Para estudarmos as operações de Álgebra
+relacional deste artigo, apresenta-se abaixo um modelo de banco de
+dados elaborado a partir da ferramenta DBDesigner):<br><br><img alt="03-06-2008pic01.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic01.JPG" border="0" height="269" width="373"><br><b style="">Figura 1 &#8211; </b>Modelo E-R elaborado no DBDesigner.<br><b style=""><br></b>A
+seguir visualizaremos as respectivas tabelas &#8220;populadas&#8221;, as quais
+servirão de modelo para o aprendizado de álgebra relacional. <br><br><img alt="03-06-2008pic02.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic02.JPG" border="0" height="302" width="374"><br><br><br>Obs.: Os campos sublinhados são as chaves primarias e os em itálico as chaves estrangeiras.<br><br><b style="">Operadores <br style=""><br style=""></b><o:p></o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt; text-indent: -18pt;"><span style="font-size: 10pt; font-family: Symbol;"><span style="">·<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">União (<i style="">Union</i>)<span style="">&nbsp; </span><o:p></o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 71.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">É
+uma operação binária que cria uma relação partindo de duas outras
+relações, estabelecendo assim, a união de todas as tuplas dessa nova
+relação. Seu símbolo é: <strong><span style="font-family: 'Verdana','sans-serif';">U. <br><br></span></strong>Exemplo: R = conjunto de tuplas de clientes de Petrópolis<span style="">&nbsp;&nbsp;&nbsp;</span><br><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>S = conjunto de tuplas dos clientes que alugaram o filme &#8220;F2&#8221;<br><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>C = R <strong><span style="font-weight: normal; font-family: 'Verdana','sans-serif';">U</span></strong><strong><span style="font-family: 'Verdana','sans-serif';"> </span></strong><strong><span style="font-weight: normal; font-family: 'Verdana','sans-serif';">S<br style=""><br><img alt="03-06-2008pic03.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic03.JPG" border="0" height="75" width="229"><br><br style=""><o:p></o:p></span></strong></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 115.2pt;"><strong><span style="font-weight: normal; font-size: 10pt; font-family: 'Verdana','sans-serif';"><span style="">&nbsp;</span></span></strong><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p></o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt; text-indent: -18pt;"><span style="font-size: 10pt; font-family: Symbol;"><span style="">·<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Intersecção (<i style="">Intersection</i>)<o:p></o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 71.4pt;"><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">É
+uma operação binária que cria uma relação partindo de duas outras
+relações, estabelecendo assim a intersecção das duas, gerando uma nova
+relação as quais estarão presentes apenas os dados pertencentes às duas
+condições pré-estabelecidas. Seu símbolo é: <img alt="03-06-2008pic04.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic04.JPG" border="0" height="11" width="10"></span><strong><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">.<br><br></span></strong><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">C = R&nbsp;<img alt="03-06-2008pic04.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic04.JPG" border="0" height="11" width="10"></span><strong><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"> </span></strong><strong><span style="font-weight: normal; font-size: 10pt; font-family: 'Verdana','sans-serif';">S<br><br><img alt="03-06-2008pic05.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic05.JPG" border="0" height="32" width="216"><br style=""><br style=""><o:p></o:p></span></strong></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt; text-indent: -18pt;"><span style="font-size: 10pt; font-family: Symbol;"><span style="">·<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Diferença (<i style="">Difference</i>)<o:p></o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 71.4pt;"><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">É
+uma operação que cria uma relação partindo de duas outras relações, o
+qual resultará em uma nova relação que contenha todas as tuplas que
+pertençam à primeira relação e não pertença à segunda. Seu símbolo é: <b style="">-.<br><br></b>C = R <b style="">&#8211;<strong><span style="font-family: 'Verdana','sans-serif';"> </span></strong></b><strong><span style="font-weight: normal; font-family: 'Verdana','sans-serif';">S<br><br><img alt="03-06-2008pic06.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic06.JPG" border="0" height="60" width="236"><br><br style=""><br style=""><o:p></o:p></span></strong></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt; text-indent: -18pt;"><span style="font-size: 10pt; font-family: Symbol;"><span style="">·<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Produto Cartesiano (<i style="">Product</i>)<o:p></o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 71.4pt;"><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Operação binária que permite a combinação de informações de duas relações quaisquer, assim a relação resultante conterá <span style="">&nbsp;</span>todas as tuplas da primeira relação relacionadas às da segunda relação. Seu símbolo é: <b style="">×.<br><br></b>Exemplo: K = conjunto de todos os códigos dos moradores de &#8220;Petrópolis&#8221;<span style="">&nbsp;&nbsp; </span></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">L = conjunto de todos os códigos de filmes de 2001</span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">C = K <b style="">×<strong><span style="font-family: 'Verdana','sans-serif';"> </span></strong></b><strong><span style="font-weight: normal; font-family: 'Verdana','sans-serif';">L<br style=""><br><img alt="03-06-2008pic07.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic07.JPG" border="0" height="74" width="70"><br style=""></span></strong><b style=""><o:p></o:p></b></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt;"><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt; text-indent: -18pt;"><span style="font-size: 10pt; font-family: Symbol;"><span style="">·<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Seleção (<i style="">Select</i>)</span></b><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p></o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 71.4pt;"><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Operação
+unária, pois atua sobre uma única relação, produzindo um subconjunto
+apenas com os elementos especificados na condição. É conhecida também
+como uma operação que filtra linhas de uma tabela, através da
+construção de um subconjunto horizontal de uma relação. Seu símbolo é: <img alt="03-06-2008pic08.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic08.JPG" border="0" height="12" width="14"><b style="">.<br><br></b>Exemplo:&nbsp;<img alt="03-06-2008pic08.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic08.JPG" border="0" height="12" width="14"><b style=""> </b>CIDADE = &#8216;Petrópolis&#8217; (CLIENTES)<br><br><img alt="03-06-2008pic09.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic09.JPG" border="0" height="308" width="278"><br><br style=""><br style=""><o:p></o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt; text-indent: -18pt;"><span style="font-size: 10pt; font-family: Symbol;"><span style="">·<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Projeção (<i style="">Projection</i>)<o:p></o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 71.4pt;"><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Esta
+operação também é unária. Produz um subconjunto com apenas as colunas
+escolhidas na condição especificada, filtrando colunas os quais se
+coloca na operação o nome das colunas desejadas para a criação do novo
+conjunto. Este tipo de relação é vertical e o seu símbolo é: <img alt="03-06-2008pic10.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic10.JPG" border="0" height="11" width="16"><b style="">.<br></b><br>Exemplo:&nbsp;<img alt="03-06-2008pic10.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic10.JPG" border="0" height="11" width="16"><b style=""> </b>NOME_F, ANO (FILMES)<br><br><img alt="03-06-2008pic11.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic11.JPG" border="0" height="384" width="231"><br style=""><br style=""><o:p></o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt; text-indent: -18pt;"><span style="font-size: 10pt; font-family: Symbol;"><span style="">·<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Divisão (<i style="">Division)</i><o:p></o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 71.4pt;"><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Operação
+binária, a qual resultará em uma tabela que conterá apenas os elementos
+da primeira tabela que se relacionem com todos os elementos da segunda
+tabela. Seu símbolo é: <b style="">÷.<br><br></b>Exemplo:<img alt="03-06-2008pic10.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic10.JPG" border="0" height="11" width="16"><b style=""> </b>#C (LOCAÇÃO <b style="">÷ </b>(<b style=""><img alt="03-06-2008pic10.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic10.JPG" border="0" height="11" width="16"> </b>#F (FILMES))<br><br><img alt="03-06-2008pic12.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic12.JPG" border="0" height="258" width="306"><br><b style=""><span style="">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></b><o:p></o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Neste exemplo utilizamos também a operação projeção com seu respectivo símbolo já explicado anteriormente.<o:p></o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 71.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt; text-indent: -18pt;"><span style="font-size: 10pt; font-family: Symbol;"><span style="">·<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Junção (<i style="">Join</i>)<o:p></o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 71.4pt;"><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Esta
+operação tem como objetivo unir duas tabelas, as quais possuem um
+atributo em comum. Este tipo de operação é muito utilizado quando
+tratamos de relacionamentos com chaves estrangeiras, em que é realizada
+uma seleção a partir dos atributos de um relacionamento sobre um
+produto cartesiano das tabelas. Seu símbolo é: <b style="">|x|</b>.<br><o:p></o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Clientes|x|Locação = <img alt="03-06-2008pic08.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic08.JPG" border="0" height="12" width="14">Clientes.#C = Locação.#C (Clientes × Locação)<o:p></o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Exemplo: <img alt="03-06-2008pic10.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic10.JPG" border="0" height="11" width="16"> nome, idade (<img alt="03-06-2008pic08.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic08.JPG" border="0" height="12" width="14"> #F = F2 (Clientes |x| Locação))<br><br></span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p><img alt="03-06-2008pic13.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic13.JPG" border="0" height="78" width="130">&nbsp;</o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">É
+apresentado os nomes e as idades dos clientes que alugaram o filme de
+código &#8220;F2&#8221;. Observa-se a repetição da cliente Sophia, pois esta
+realiza duas locações do mesmo filme. Para resolvermos este problema,
+pode-se utilizar a operação de Junção Natural (<i style="">Natural Join</i>), na qual obtemos o mesmo resultado, porém sem repetições.<br><br><img alt="03-06-2008pic14.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic14.JPG" border="0" height="64" width="128"><br style=""><br style=""><o:p></o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt; text-indent: -18pt;"><span style="font-size: 10pt; font-family: Symbol;"><span style="">·<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Renomear (rename).<br style=""><br style=""><o:p></o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Esta
+operação redefine um nome para um relacionamento, muito utilizada em
+casos que contêm expressões relacionais grandes. Dessa forma podemos
+realizar a divisão da expressão em duas ou mais sub-expressões para se
+obter o resultado esperado de forma mais simples. Sua simbologia é: <b style="">? </b>ou <b style="">Þ</b>. <o:p></o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Exemplo: ÞTemp (<img alt="03-06-2008pic10.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic10.JPG" border="0" height="11" width="16"> nome, idade (<img alt="03-06-2008pic08.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic08.JPG" border="0" height="12" width="14"> #F = F2 (Clientes |x| Locação)))<o:p></o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Temp<br><img alt="03-06-2008pic15.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic15.JPG" border="0" height="63" width="128"><br><br style=""><br style=""></span></b><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p></o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt; text-indent: -18pt;"><span style="font-size: 10pt; font-family: Symbol;"><span style="">·<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Atribuição (<i style="">Assigment</i>)<o:p></o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 71.4pt;"><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><v:shapetype id="_x0000_t32" filled="f" path="m,l21600,21600e" o:oned="t" o:spt="32" coordsize="21600,21600"><v:path o:connecttype="none" fillok="f" arrowok="t"></v:path><o:lock shapetype="t" v:ext="edit"></o:lock></v:shapetype><v:shape id="_x0000_s1026" style="margin-top: 19.35pt; z-index: 251659264; left: 0px; margin-left: 222.45pt; width: 26.25pt; position: absolute; height: 0.05pt; text-align: left;" o:connectortype="straight" type="#_x0000_t32"><v:stroke endarrow="block"></v:stroke></v:shape><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">É uma operação utilizada para atribuir a uma variável um determinado relacionamento. Seu símbolo é:<span style="">&nbsp;&lt;---.</span></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><v:shape id="_x0000_s1027" style="margin-top: 14.4pt; z-index: 251660288; left: 0px; margin-left: 132.45pt; width: 26.25pt; position: absolute; height: 0px; text-align: left;" o:connectortype="straight" type="#_x0000_t32"><v:stroke endarrow="block"></v:stroke></v:shape><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Exemplo: A<span style="">&nbsp;&lt;---</span><span style="">&nbsp;&nbsp;</span>(<img alt="03-06-2008pic10.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic10.JPG" border="0" height="11" width="16"> nome, idade (<img alt="03-06-2008pic08.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic08.JPG" border="0" height="12" width="14"> #F = F2 (Clientes |x| Locação)))<span style="">&nbsp;&nbsp; </span><o:p></o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 18pt;"><v:shape id="_x0000_s1028" style="margin-top: 13.9pt; z-index: 251661312; left: 0px; margin-left: 128.7pt; width: 26.25pt; position: absolute; height: 0px; text-align: left;" o:connectortype="straight" type="#_x0000_t32"><v:stroke endarrow="block"></v:stroke></v:shape><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;</span>B<span style="">&nbsp;&lt;---<span style="">&nbsp;</span>&nbsp;</span>(<img alt="03-06-2008pic10.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic10.JPG" border="0" height="11" width="16"> nome, idade (<img alt="03-06-2008pic08.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic08.JPG" border="0" height="12" width="14"> idade = 22 (Clientes)))<br><b style=""><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>A&nbsp;<img alt="03-06-2008pic04.JPG" src="Algebra%20Relacional_arquivos/03-06-2008pic04.JPG" border="0" height="11" width="10"></b></span><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"> B<o:p></o:p></span></b></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt 71.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt;"><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Conclusões<br><br></span></b><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Com o uso dos operadores da álgebra relacional, é possível fazer uma simulação dos resultados a serem obtidos em<span style="">&nbsp; </span>uma
+consulta SQL. Logo, verifica-se a importância da álgebra relacional
+como um instrumento para o aprendizado de operações a serem realizadas
+em um banco de dados relacional, a partir de conceitos matemáticos da
+teoria dos conjuntos.<br><br><b style="">Referências<br><br></b>[1] Gehrke, Ramakrishman. Sistema de Gerenciamento de Banco de Dados. <br>MCGrawHill, 3ª edição &#8211; SP, 2008<br><br>[2] <span style="">Raghu, Ramakrishman,<span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span>Johannes, Gehrke. <span style="">&nbsp;</span>Sistemas de gerenciamento de banco de dados. <span style="">&nbsp;</span>3ª Edição, Mc Graw Hill<o:p></o:p></span></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNoSpacing" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 10pt;"><span style="font-size: 10pt; line-height: 115%; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p></span><p></p>
+		  </td>
+		</tr>	
+		
+		<tr>
+		 <td><!--include file="../include/barra_digg.asp" -->
+		 </td>
+		</tr>
+           
+
+		<tr>
+		  <td>
+				
+    	<!--include file="visualizacomentarios.asp" -->
+
+		  </td>
+		</tr>
+	   
+	   	
+		 <tr>
+	     	  <td>
+					
+					<!--include file="posts_relacionados.asp" -->
+				</td>
+			</tr>
+
+		
+
+			  
+			  <tr>
+	     	  <td>
+					
+					<!--include file="noticia_ultimas_autor.asp" -->
+				</td>
+			</tr>
+
+
+
+        <tr>
+          <td background="Algebra%20Relacional_arquivos/line.gif"><img src="Algebra%20Relacional_arquivos/casper.gif" height="1" width="1"></td></tr>
+         
+
+		<tr>
+		  <td>
+		    <table><tbody><tr><td>
+		  	<img src="Algebra%20Relacional_arquivos/logo_devmedia_.gif"> </td>
+			<td valign="center"><font face="verdana">www.devmedia.com.br/articles/viewcomp.asp?comp=9229</font></td></tr>
+			</tbody></table>
+
+		  </td>
+		</tr>
+
+	   </tbody></table>	
+    </td>
+	<td width="30"></td>
+    <td valign="top" width="250">
+				<!--include file="../include/box_bemvindo2.asp" -->
+
+     </td>
+   </tr>
+</tbody></table>
+
+</body></html>

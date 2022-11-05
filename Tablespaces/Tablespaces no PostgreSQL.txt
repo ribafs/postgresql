@@ -1,0 +1,68 @@
+Tablespaces no PostgreSQL
+
+Os tablespaces permitem ao administrador do banco de dados escolher o local onde ficarão os objetos.
+
+O administrador assim pode controlar o layout do disco.
+Tablespaces podem ser criadas em diferentes partições ou em diferentes discos.
+Permitem ao administrador otimizar a performance. Um índice que é muito usado pode ser colocado
+em um disco muito rápido e com alta disponibilidade enquanto que tabelas que são raramente usadas podem ser colocadas em discos mais baratos.
+
+Deve ter cuidado com a partição onde está o tablespace, pois caso ele seja perdido você não poderá acessar o disco.
+
+Definindo um tablespace:
+
+create tablespace ts_indices location '/backup/postgresql/data';
+
+create tablespace ts_indices owned ribafs location '/backup/postgresql/data';
+
+alter database nome set tablspace ts_dados;
+
+Criando user:
+create role devel1 with login password '123456' inherit in role developers connection limit 2 valid until '10-04-2017';
+
+Para cada banco:
+alter database banco1 set default tablespace = ts_indices;
+
+Para cada tabela:
+alter table tabela1 set tablespace ts_dados;
+
+Pra cada índice:
+alter index indice1 set tablespace ts_indices;
+
+A localização precisa ser em um diretório existente, vazio e que o postgres seja seu dono e não pode ser em disco removível.
+
+Criando tabela em tablespace:
+
+create table tabela1(id int) tablespace ts_indices;
+
+Idealmente reserve um disco somente para os índices e outro somente para os dados, para evitar concorrência.
+
+Setando o tablespace default
+
+set default_tablespace = ts_indices;
+create table tabela2(id int);]]
+
+Tablespace Nativos
+
+Quando o cluster é criado/inicializado são criados dois tablespaces, o pg_global, que é usado para compartilhar
+o catálogo do sistema e o pg_default, que é o tablespace default do template1 e do template0, que será o tablespace
+default dos bancos criados, a nãos er que se use tablespace na criação do banco.
+
+Removendo um Tablespace
+Somente após remover todos os seus objetos podemos remover um tablespace.
+
+Removendo um Tablespace vazio:
+
+drop tablespace ts_indices;
+
+Verificando tablespaces existentes:
+
+select spcname from pg_tablespace;
+
+Ou
+\db
+
+Criação de Tablespaces usa Links Simbólicos
+Somente sistemas operacionais com suporte aos limks simbólicos podem criar tablespaces.
+
+

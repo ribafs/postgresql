@@ -1,0 +1,631 @@
+
+
+<html>
+<head>
+
+<title>View Recipes</title>
+</head>
+<body bgcolor=white text=black>
+
+
+
+
+<h2>Recipes in section "Aggregate Functions"</h2>
+<a href='/'>Home</a> -> <a href='/postgres'>Postgres</a> -> <a href='/postgres/cookbook'>CookBook Home</a> -> View Recipes
+<hr>
+
+<hr>
+<a href='view-one-recipe.adp?recipe_id=139'>View details of this recipe</a>
+<br>
+I use this to denormalize a list into comma-separated values, rather than having to write a separate query to show related records. (Of course, you could also do this w/semicolons, newlines, '<br>' tags, etc., given your problem. See a longer explanation of these technique at http://www.zope.org/Members/pupq)
+
+</pre>
+<p>
+<pre>
+-- creat function to comma-ify a list
+
+create function comma_aggregate(text,text) returns text as '
+begin
+  if (length($1) > 0 ) then
+    return $1 || ', ' || $2;
+  else
+    return $2;
+  end if;
+end;
+' language 'plpgsql';
+
+-- create the aggregate function
+
+create aggregate comma (basetype=text, sfunc=comma_aggregate, stype=text, initcond='' );
+
+-- test it out
+
+select fname, lname, comma(hobbies) from people join hobbies on (personid) group by personid, fname, lname;
+</pre>
+<hr>
+<a href='view-one-recipe.adp?recipe_id=190'>View details of this recipe</a>
+<br>
+first() and last() aggregate functions. They&#39;re useful when writing queries that have a group by clause. Often, you&#39;re group by a key or unique ID, and including other things that rely on that ID, such as first or last name. Some database systems (such as MS Access) include first() and last() functions that return the first in a set, or the last in a set.
+
+<p>
+
+&lt;pre&gt;
+SELECT id, first(fname), first(lname), sum(purchaseamt)
+FROM pers
+GROUP BY id
+&lt;/pre&gt;
+
+<p>
+
+means the same thing as 
+
+<p>
+
+&lt;pre&gt;
+SELECT id, fname, lname, sum(purchaseamt)
+FROM pers
+GROUP BY id, fname, lname
+&lt;/pre&gt;
+
+<p>
+
+but is often easier to understand, and easier to translate from Access.
+
+<p>
+
+In addition, you can use these functions to force a selection from a group other than the min() or max() --
+just sort the table in the order you want, then grab the first entry w/first(), or last with last().
+
+</pre>
+<p>
+<pre>
+-- author: joel burton (jburton@scw.org)
+-- public domain
+
+CREATE FUNCTION "func_first" (text,text) RETURNS text AS '
+begin
+  if length($1) > 0 then
+    return $1;
+  else
+    return $2;
+  end if;
+end;'
+LANGUAGE 'plpgsql' WITH ( iscachable );
+
+CREATE AGGREGATE first ( BASETYPE = text, SFUNC = func_first, STYPE = text, INITCOND = '' );
+
+COMMENT ON AGGREGATE first text IS 'Return first item in aggregate';
+
+COMMENT ON FUNCTION "func_first" ( text,text ) IS 'Return first item in aggregate';
+
+CREATE FUNCTION "func_last" (text,text) RETURNS text AS 'begin return $2; end;' language 'plpgsql' WITH ( iscachable );
+
+COMMENT ON FUNCTION "func_last" ( text,text ) IS 'Return last item in aggregate';
+
+CREATE AGGREGATE last ( BASETYPE = text, SFUNC = func_last, STYPE = text, INITCOND = '' );
+
+COMMENT ON AGGREGATE last text IS 'Return last item in aggregate';
+</pre>
+<hr>
+<a href='view-one-recipe.adp?recipe_id=1076'>View details of this recipe</a>
+<br>
+The LOGICAL_AND() function will aggregate a boolean column by performing a logical &#39;and&#39; over all values.  It uses a helper function called BOOLAND(bool, bool) written in PGPLSQL to perform the operation.  It would be trivial to write similar functions for logical &#39;or&#39;, and to add operators for logical &#39;and&#39; and logical &#39;or&#39;.
+
+</pre>
+<p>
+<pre>
+-- Licensed under the same terms as PostgreSQL itself.
+-- Written by David D. Kilzer <ddkilzer@yahoo.com>.
+
+DROP FUNCTION "booland" (bool, bool);
+
+CREATE FUNCTION "booland" (bool, bool)
+        RETURNS bool
+             AS 'BEGIN RETURN $1 AND $2; END;'
+       LANGUAGE 'PLPGSQL';
+
+DROP AGGREGATE logical_and bool;
+
+CREATE AGGREGATE logical_and (
+          SFUNC1 = booland,
+        BASETYPE = bool,
+          STYPE1 = bool,
+       INITCOND1 = 't'
+);
+</pre>
+<hr>
+<a href='view-one-recipe.adp?recipe_id=1654'>View details of this recipe</a>
+<br>
+Use to determine a Median value for any data set.  NOT A TRUE AGGREGATE FUNCTION; called instead in the SELECT or FROM clauses, and requires the data set to be in a view or a subselect statement.
+
+<p>
+
+Also slow due to the multiple calls to EXECUTE.
+
+<p>
+
+I&#39;d be grateful to anone who can turn this into a genuine aggregate function for me.
+
+<p>
+
+-Josh Berkus, josh@agliodbs.com
+
+</pre>
+<p>
+<pre>
+CREATE FUNCTION qf_median(
+	VARCHAR, VARCHAR
+) RETURNS NUMERIC AS '
+DECLARE
+	field_name ALIAS for $1;
+	table_name ALIAS for $2;
+	count_all INT4;
+	half_count INT4;
+	median_value1 NUMERIC;
+	median_value2 NUMERIC;
+	query_text VARCHAR;
+	answer_record RECORD;
+BEGIN
+
+--Copyright Josh Berkus, josh@agliodbs.com
+--permission granted to use anywhere provided that this
+--copyright statement remains in the code.
+--No warranty is given or implied.
+--Use at your own risk -- strictly beta code.
+
+--count the records with a value
+query_text := ''SELECT count('' || field_name || '') as total_count FROM '' || table_name || '';'';
+FOR answer_record IN EXECUTE query_text LOOP
+	count_all := answer_record.total_count;
+END LOOP;
+--if none, return 0.00
+IF count_all = 0 THEN
+	RETURN 0.00::NUMERIC;
+END IF;
+--otherwise, count the halfway record
+half_count := count_all / (2::INT4);
+query_text := ''SELECT '' || field_name || '' as the_value FROM '' || table_name || 
+	'' WHERE '' || field_name || '' IS NOT NULL ORDER BY '' || field_name || 
+	'' LIMIT 1 OFFSET '' || CAST((half_count - 1) AS VARCHAR) || '';'';
+FOR answer_record IN EXECUTE query_text LOOP
+	median_value1 := answer_record.the_value;
+END LOOP;
+--if there are an even number of records, average the two middle records
+IF (count_all % (2::INT)) < 1 THEN
+	query_text := ''SELECT '' || field_name || '' as the_value FROM '' || table_name || 
+		'' WHERE '' || field_name || '' IS NOT NULL ORDER BY '' || field_name || 
+		'' LIMIT 1 OFFSET '' || CAST(half_count AS VARCHAR) || '';'';
+	FOR answer_record IN EXECUTE query_text LOOP
+		median_value2 := answer_record.the_value;
+	END LOOP;
+	median_value1 := ((median_value1 + median_value2)/2);
+END IF;
+
+RETURN median_value1;
+END;'
+LANGUAGE 'plpgsql';
+</pre>
+<hr>
+<a href='view-one-recipe.adp?recipe_id=3602'>View details of this recipe</a>
+<br>
+Geometric mean (similar to mean aka average, except that geometric mean reduces the effect of outliers). Calculated by x1 * x2 * x3 ... xn ^ ( 1 / n )
+
+</pre>
+<p>
+<pre>
+-- Geometric mean
+-- (similar to mean aka average, except that geometric 
+-- mean reduces the effect of outliers). 
+-- Calculated by x1 * x2 * x3 ... xn ^ ( 1 / n )
+--
+-- Written by Jeff Davis [list-pgsql-general@empires.org]
+-- and Tom Lane [tgl@sss.pgh.pa.us]
+
+create function gmean_f1 (point, float) returns point as '
+  begin 
+    return point($1[0] * $2, $1[1] + 1); 
+  end' language plpgsql;
+
+create function gmean_final (point) returns float as '
+  begin 
+    return ($1[0] ^ (1/($1[1]))); 
+  end' language plpgsql;
+
+create aggregate gmean(
+  basetype=float, 
+  sfunc=gmean_f1, 
+  stype=point, 
+  finalfunc=gmean_final, 
+  initcond='1.0,0.0'
+);
+
+comment on aggregate gmean(float) is 'Geometric mean aggregate';
+
+comment on function gmean_f1(point,float) is 'Geometric mean aggregate base function';
+
+comment on function gmean_final(point) is 'Geometric mean aggregate final function';
+</pre>
+<hr>
+<a href='view-one-recipe.adp?recipe_id=5432'>View details of this recipe</a>
+<br>
+Emulates a geometric average function without using pg/sql. Geometric mean is given by: (x1 * x2 * x3 ... xn) ^ ( 1 / n ) By Steve Howe - howe@vitavoom.com.
+
+</pre>
+<p>
+<pre>
+Recipe Code (did you include author and license information in the comments?): 
+
+Instead of using slow pg/sql code, try instead using the arithmetic average of the natural logarhitim and then the exponential of this result:
+
+db=# select exp(avg(ln(aggbasetype::int4::numeric))) as gavg from pg_aggregate where aggbasetype > 0;
+      gavg      
+----------------
+ 245.0038414409
+(1 row)
+
+Please that I had to use the '::int4::numeric' to typecast from oid to numeric type.
+</pre>
+<hr>
+<a href='view-one-recipe.adp?recipe_id=5486'>View details of this recipe</a>
+<br>
+A method of quickly calculating a MEDIAN value by using sequences. a MEDIAN value is often used in demography, medical science, chemistry, and so on.
+
+</pre>
+<p>
+<pre>
+--
+-- LIMIT ALLs are trick codes, and if there aren't the codes in the
+-- sub-queries, the calculating will fail -- at least in 7.2.1. 
+-- This works correctly in 7.2.1, but I haven't yet tested it in the
+-- previous PG versions.
+--
+-- by Masaru Sugawara    (rk73@sea.plala.or.jp)
+--
+
+
+CREATE TABLE people (name text , age int4);
+CREATE INDEX idx_people_age ON people(age);
+INSERT INTO people VALUES ('boy1', 15);
+INSERT INTO people VALUES ('girl1', 20);
+INSERT INTO people VALUES ('girl2', 22);
+INSERT INTO people VALUES ('boy1', 24);
+INSERT INTO people VALUES ('boy1', 29);
+INSERT INTO people VALUES ('boy1', 35);
+CREATE SEQUENCE seq_ages;
+
+
+-- Method 1.
+SELECT avg(a1.age) AS average
+  FROM (SELECT a0.age,
+              (nextval('seq_ages') - 1) AS rank,
+              (SELECT count(*) FROM people) AS n
+         FROM (SELECT age, (SELECT setval('seq_ages', 1)) FROM people
+               ORDER BY age
+               limit all) AS a0
+        limit all) AS a1
+  WHERE a1.rank >= (n + 1) / 2 
+    AND a1.rank <= n/2 + 1;
+
+
+-- Method 2.  (faster a bit)
+SELECT setval('seq_ages', 1);
+SELECT avg(a1.age) AS average
+  FROM (SELECT a0.age,
+              (nextval('seq_ages') - 1) AS rank,
+              (SELECT count(*) FROM people) AS n
+          FROM (SELECT age FROM people ORDER BY age) AS a0
+         limit all) AS a1
+  WHERE a1.rank >= (n + 1) / 2 
+    AND a1.rank <= n/2 + 1;
+
+
+-- Output of the result
+    average
+---------------
+ 23.0000000000
+(1 row)
+</pre>
+<hr>
+<a href='view-one-recipe.adp?recipe_id=9102'>View details of this recipe</a>
+<br>
+Here's support code for a genuine aggregate function to calculate percentile distribution information. The function returns an 11-element array where element 1 is MIN(data), element 2 is the 10-percentile datum, ... element 6 is the 50-percentile datum [= median if size of data set is odd], ... element 11 is MAX(data).<p>
+Good news: This is a real aggregate, it loads right into the back end (at least with 7.2.3).<br>
+Bad news: Stashes data in memory, then sorts it, so watch out if you are trying to use it on really large data sets. But I've tried to make the implementation as efficient as the underlying algorithm will allow.
+<p>
+For my purposes, I am reporting on double-precision (float8) data running under Tru64 Unix (so I use bigint/int64 for state information). You could replace float8 references with any other base data type, and make bigint/int64 references into int/int32 on 32-bit platforms. I think. :-)
+<p>
+See section 12.5.7 of the PostgreSQL Programmer's Guide for instructions on how to compile and link this for your platform. Note that in addition to what the documentation says, you need "-Ipostgres-source-dir/src/include" in your compile command to find the required include files. Section 12.5.1 tells you where to put the library so PostgreSQL can find it.
+<p>
+The comments in the recipe describe the SQL commands to define the functions and the aggregate.
+<p>
+-- R. Scott Bailey, scott.bailey@eds.com
+
+</pre>
+<p>
+<pre>
+// #define XDEBUG
+
+/* quant.c - Define quantization (actually, percentile) aggregate support
+ * functions for PostgreSQL.
+ *
+ * R. Scott Bailey, October 16, 2002
+ *
+ * Modification History
+ * 10/16/02 RSB - Original version
+ */
+
+#include "postgres.h"			/* Backend magic definitions etc */
+#include <stdlib.h>			/* Quicksort */
+#include "fmgr.h"			/* Function interface macros */
+#include "utils/array.h"		/* Array handling definitions */
+
+/*
+ * Define some aggregate operators to help identify frequency distribution
+ * more efficiently than hacking it with cursors etc. in the client end.
+ * This is intended to support definition of a function such as:
+ *
+ * CREATE AGGREGATE PERCENTILE(
+ *	BASETYPE = float8,
+ *	SFUNC = f8_quantacc,
+ *	STYPE = bigint[],
+ *	FINALFUNC = f8_quantres,
+ *	INITCOND = '{0,0,initial-population-estimate}'
+ * );
+ *
+ * where:
+ *
+ * CREATE FUNCTION f8_quantacc(bigint[], float8) RETURNS bigint[]
+ *	AS 'quant' LANGUAGE C WITH (isStrict);
+ * CREATE FUNCTION f8_quantres(bigint[]) RETURNS float8[]
+ *	AS 'quant' LANGUAGE C WITH (isStrict);
+ *
+ * f8_quantacc is the accumulator function for double-precision numbers
+ * f8_quantres produces the final result for percentile distributions
+ *
+ * Now the fine print:
+ *
+ * f8_quantacc basically records, IN MEMORY, all of the values it sees. We
+ * try to use amortized constant time allocation, but if you have a good guess
+ * of the largest collection you'll analyze, that will help avoid overhead.
+ *
+ * f8_quantres returns an array of 11 double precision numbers P[] where:
+ * P[0] = MIN(data)
+ * P[1] = 10th percentile of data
+ * P[2] = 20th percentile of data
+ * [...]
+ * P[9] = 90th percentile of data
+ * P[10] = MAX(data)
+ *
+ * These functions use a 3-element array of 64-bit integers as the state
+ * variable. (That's "bigint" base type for SQL, "int64" here.)
+ *
+ * S[0] = Population count
+ * S[1] = Size (in 64-bit units) of population vector
+ * S[2] = Pointer to population vector (see below about initialization)
+ *
+ * When the population count exceeds the size of the vector, it will be
+ * reallocated and doubled in size. However, when the current size of
+ * the vector is 0, S[2] will be taken to be the initial size of the
+ * vector (if S[2] > 0). If S[2] also is 0, use the default below:
+ */
+
+#define INITVECSIZE 1024
+
+/*
+ * The structure of much of this logic is cribbed from PostgreSQL's
+ * aggregate float8 function definitions in float.c. Thanks!
+ */
+
+static int64 *
+check_int64_array(ArrayType *transarray, const char *caller)
+{
+
+/*
+ * Verify the argument looks like a 3-element array. No need for translation,
+ * since the array itself is a C array.
+ */
+
+    if (ARR_SIZE(transarray) != (ARR_OVERHEAD(1) + 3 * sizeof(int64)) ||
+	ARR_NDIM(transarray) != 1 ||
+	ARR_DIMS(transarray)[0] != 3)
+	elog(ERROR, "%s: expected 3-element bigint array", caller);
+    return (int64 *) ARR_DATA_PTR(transarray);
+}
+
+static int
+qsort_compare_float8(const void *x, const void *y)
+{
+
+/*
+ * Helper for quicksort; return -1 if x < y, 0 if x = y, +1 if x > y
+ * x and y are float8 types
+ */
+
+    float8 *real_x = (float8*) x;
+    float8 *real_y = (float8*) y;
+
+    int result;
+
+    if (*real_x < *real_y)
+	result = -1;
+    else if (*real_y < *real_x)
+	result = +1;
+    else
+	result = 0;
+
+    return result;
+}
+
+PG_FUNCTION_INFO_V1(f8_quantacc);
+
+Datum
+f8_quantacc(PG_FUNCTION_ARGS)
+{
+    ArrayType	*transarray = PG_GETARG_ARRAYTYPE_P(0);
+    float8	newval = PG_GETARG_FLOAT8(1);
+    int64	*transvalues;
+    Datum	transdatums[3];
+    ArrayType	*result;
+
+    int64	PopCount;
+    int64	VecSize;
+    float8	*PopVector;
+
+/*
+ * Retrieve intermediate information from state vector
+ */
+
+    transvalues = check_int64_array(transarray, "f8_quantacc");
+    PopCount = transvalues[0];
+    VecSize = transvalues[1];
+    PopVector = (float8 *) transvalues[2];
+
+#ifdef XDEBUG
+    elog(DEBUG, "f8_quantacc: Entry with %i, %i, %i, %f",
+	PopCount, VecSize, PopVector, newval);
+#endif
+
+/*
+ * Increment population count, and allocate additional memory if required.
+ * Some extra goofiness goes on here to handle initial allocation on the
+ * first call (where we expect PopCount == VecSize == 0).
+ *
+ * Also, unlike realloc(), it appears repalloc() will barf if you call it
+ * without an existing block. So we must palloc() for the first call, and
+ * then repalloc() the subsequent extends.
+ */
+
+    if (PopCount >= VecSize) { /* If more space is required */
+	if (!VecSize) { /* If this is initial allocation */
+	    if (PopVector) { /* If caller supplied guestimate */
+		VecSize = transvalues[2]; /* then use that, avoiding cast */
+	    } else /* If no initial estimate provided */
+		VecSize = INITVECSIZE; /* then use our own */
+	    PopVector = palloc(sizeof(float8) * VecSize);
+	} else { /* If we had existing vector already */
+	    VecSize <<= 1; /* then double its capacity */
+	    PopVector = repalloc(PopVector, sizeof(float8) * VecSize);
+	}
+
+	if (!PopVector)
+	    elog(FATAL, "f8_quantacc: allocation error");
+
+#ifdef XDEBUG
+	else
+	    elog(DEBUG, "f8_quantacc: allocation succeeded");
+#endif
+
+    }
+
+/*
+ * Now it should be safe to add the current sample to the vector
+ */
+
+    PopVector[PopCount++] = newval;
+
+/*
+ * That was anticlimatic. :-) Now we repackage the state information back
+ * into an array for PostgreSQL to hold until the next call.
+ */
+
+    transdatums[0] = Int64GetDatumFast(PopCount);
+    transdatums[1] = Int64GetDatumFast(VecSize);
+    transdatums[2] = Int64GetDatumFast((int64) PopVector);
+
+    result = construct_array(transdatums, 3, false /* by val */,
+	sizeof(int64), 'd');
+
+    PG_RETURN_ARRAYTYPE_P(result);
+}
+
+PG_FUNCTION_INFO_V1(f8_quantres);
+
+Datum
+f8_quantres(PG_FUNCTION_ARGS)
+{
+    ArrayType	*transarray = PG_GETARG_ARRAYTYPE_P(0);
+    int64	*transvalues;
+    Datum	transdatums[11];
+    ArrayType	*result;
+
+    int64	PopCount;
+    int64	VecSize;
+    float8	*PopVector;
+
+    int64	i, j;
+
+/*
+ * Retrieve intermediate information from state vector
+ */
+
+    transvalues = check_int64_array(transarray, "f8_quantres");
+    PopCount = transvalues[0];
+    VecSize = transvalues[1];
+    PopVector = (float8 *) transvalues[2];
+
+#ifdef XDEBUG
+    elog(DEBUG, "f8_quantres: Entry with %i, %i, %i",
+	PopCount, VecSize, PopVector);
+#endif
+
+/*
+ * Taking the lead of AVG, we will return NULL if there was no population.
+ * We can return right away, because we will never have allocated any
+ * population vector.
+ */
+
+    if (!PopCount)
+	PG_RETURN_NULL();
+
+/*
+ * We will now sort the data. Because it's in memory already, use qsort.
+ * Purists may argue that it would be more efficient to find the values
+ * without a full sort in O(n) time, but we need to do several values and
+ * I am lazy so we'll settle for O(n log n) :-)
+ */
+
+    qsort(PopVector, PopCount, sizeof(float8), &qsort_compare_float8);
+
+/*
+ * Now that the data is sorted, finding the minimum and maximum values is
+ * easy. For the intermediate (10%, 20% ... etc) values, we scale the
+ * percentage by the population size and pull from the middle of the
+ * population vector.
+ */
+
+    transdatums[0] = Float8GetDatumFast(PopVector[0]);
+    PopCount--; /* Simplify math in following expressions */
+
+    for (i = 1; i < 10; i++) { /* i 1..9 -> percentile 10%..90% */
+	j = (PopCount * i) / 10;
+	transdatums[i] = Float8GetDatumFast(PopVector[j]);
+    }
+
+    transdatums[10] = Float8GetDatumFast(PopVector[PopCount]);
+
+    result = construct_array(transdatums, 11, false, sizeof(float8), 'd');
+
+/*
+ * Before we return, release the population vector.
+ *
+ * NB: As of 7.2.3, this call always fails with the message
+ * "ERROR: AllocSetFree: cannot find block containing chunk xxxxxxxxx"
+ * Therefore, we will leave this alone and depend on transaction end to
+ * clean everything up. Hopefully the transaction doesn't have too many
+ * of these things in it! :-)
+ */
+
+//    pfree(PopVector);
+
+    PG_RETURN_ARRAYTYPE_P(result);
+}
+</pre>
+
+
+
+
+
+<hr>
+<a href="mailto:rmello@fslc.usu.edu"><address>rmello@fslc.usu.edu</address></a>
+</body>
+</html>

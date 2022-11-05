@@ -1,0 +1,69 @@
+Temos 2 tipos de Backup
+
+1. Backup off-line (n[21~[21~ão indicado);
+
+	1.1 banco de dados tem de estar parado;
+	1.2 backup de todos os DB;
+	1.3 ocupa espaço de tabelas+indices+estruturas
+	1.4 restore somente na mesma versao
+	
+	linux 	-> /var/lib/pgsql/data
+	windows -> c:\Arquivos de Prog\PostgreSQL\7.2\data
+
+2. Backup on-line (ótimo)
+	
+	2.1 Banco pode estar sendo usado;
+	2.2 Imagem do banco de dados no momento do início do bkp;
+	2.3 Pode ser restaurado em outras versões
+
+	- mais aconselhavel mandar 1º para um arquivo texto;
+	- depois compactar;
+
+3. Comandos para backup
+
+	3.1 Backup e Restore de todos os data bases
+	
+		Backup
+			pg_dumpall -U postgres > bkp.sql 2>>log.bkp
+	
+		Restore
+			psql -U postgres template1 < bkp.sql
+
+	3.2 Backup e Restore de apenas um database
+
+
+		Backup
+			pg_dump -U postgres nome_do_banco > banco.sql
+
+		Restore
+			psql -U postgres novo_banco < banco.sql
+
+
+	3.3 Opções adicionais
+
+		-s backup somente da estrutura
+		-a somente os dados sem a estrutura
+		-n somente um esquema
+		
+
+	3.4 Backup e Restore compactado
+
+		Backup
+			pg_dump -Fc dbname > arquivo.out
+
+		Restore
+			pg_restore -d novodb < arquivo.out
+
+4. Otimizando o Banco
+
+	vacuum;
+
+	vacuum -a 
+		-a todos os databases
+
+	vacuumdb -f -a -z 
+		-f 
+		-a todos os databases
+		-z analize
+		
+				

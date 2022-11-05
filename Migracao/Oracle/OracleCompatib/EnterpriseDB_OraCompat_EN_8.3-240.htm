@@ -1,0 +1,89 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>ALL_SYNONYMS</title>
+
+<meta name="keywords" content="all_synonyms, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2177"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-240_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-239.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-240_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-240_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-241.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-240_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 28pt;"><p><a name="P11986_608311"></a><span style="font-family: 'Arial'; font-size: 14pt;"><i>9.3 ALL_SYNONYMS</i></span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALL_SYNONYMS</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> view provides information on all synonyms.</span></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="133"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name</span></p>
+</td>
+<td valign="top" width="108"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Type</span></p>
+</td>
+<td valign="top" width="335"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">owner</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">User name of the synonym&#8217;s owner.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">synonym_name</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name of the synonym.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">objec</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">t_owner</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">User name of the object&#8217;s owner on which the synonym is defined.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">object_name</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name of the object on which the synonym is defined.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">synacl</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Not currently used</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> &#8211; always set to null.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">status</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Whether or not the state </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">of the synonym is valid.</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> Currently, always set to </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VALID</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+<p><a name="P12010_608800"></a></p></td></tr></tbody></table>
+
+</p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-239.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-240_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-240_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-241.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-240_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-240_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-240_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

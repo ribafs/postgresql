@@ -1,0 +1,88 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>DROP ROLE</title>
+
+
+<meta name="keywords" content="drop role, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2009"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-72_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-71.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-72_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-72_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-73.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-72_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P3414_188620"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.34 DROP ROLE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3415_188636"></a>Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DROP ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;remove a database role</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3417_188677"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DROP ROLE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ CASCADE ]</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3419_188711"></a>Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DROP ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+removes the specified role. To drop a superuser role, you must be a
+superuser yourself; to drop non-superuser roles, you must have </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATEROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A
+role cannot be removed if it is still referenced in any database of the
+cluster; an error will be raised if so. Before dropping the role, you
+must drop all the objects it owns (or reassign their ownership) and
+revoke any privileges the role has been granted.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">However, it is not necessary to remove role memberships involving the role; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DROP ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+automatically revokes any memberships of the target role in other
+roles, and of other roles in the target role. The other roles are not
+dropped nor otherwise affected.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Alternatively,
+if the only objects owned by the role belong within a schema that is
+owned by the role and has the same name as the role, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASCADE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> option can be specified. In this case the issuer of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DROP ROLE</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> CASCADE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command must be a superuser and the named role, the schema, and all objects within the schema will be deleted.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3424_189735"></a>Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of the role to remove.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASCADE</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If
+specified, also drops the schema owned by, and with the same name as
+the role (and all objects owned by the role belonging to the schema) as
+long as no other dependencies on the role or the schema exist.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3429_189993"></a>Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">To drop a role:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DROP ROLE admins;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3432_190033"></a>See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-40.htm#P1990_108090"><u>ALTER ROLE</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-57.htm#P2834_151880"><u>CREATE ROLE</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-88.htm#P4076_242665"><u>SET ROLE</u></a></span></p>
+
+<p><a name="P3434_190074"></a></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-71.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-72_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-72_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-73.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-72_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-72_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-72_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

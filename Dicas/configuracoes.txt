@@ -1,0 +1,39 @@
+Através do pg_hba.conf
+
+
+
+Através do postgresql.conf
+
+
+
+Através do SQL
+
+Ajustando o formato da Data do Sistema
+
+SHOW DATESTYLE;
+SET DATESTYLE TO ISO;	YYYY-MM-DD HH:MM:SS
+SET DATESTYLE TO PostgreSQL;	Formato tradicional do PostgreSQL (
+SET DATESTYLE TO US;	MM/DD/YYYY
+SET DATESTYLE TO NONEUROPEAN, GERMAN;	DD.MM.YYYY
+SET DATESTYLE TO EUROPEAN;	DD/MM/YYYY
+Obs.: De forma permanente ajustar o postgresql.conf.
+
+Outros usos para SHOW:
+
+SHOW server_version;
+SHOW server_encoding; -- Idioma para ordenação do texto (definido pelo initdb)
+SHOW lc_collate;	-- Idioma para classificação de caracteres (definido pelo initdb)
+SHOW all;	-- Mostra todos os parâmetros
+
+Também podemos setar o datestyle quando alteramos um banco:
+ALTER DATABASE nomebanco SET DATESTYLE = SQL, DMY;
+
+Também pode ser atribuído juntamente com o Usuário:
+ALTER ROLE nomeuser SET DATESTYLE TO SQL, DMY;
+
+
+No script pg_hba.conf
+
+/32 é para especificar HOST, e não rede.
+Se a REDE for classe C, deve especificar /24 (Número de bits de REDE!)
+

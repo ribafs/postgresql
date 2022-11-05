@@ -1,0 +1,95 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>DBMS_ALERT</title>
+
+
+<meta name="keywords" content="dbms_alert, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2129"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-192_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-191.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-192_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-192_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-193.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-192_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 28pt;"><p><a name="P9845_532943"></a><span style="font-family: 'Arial'; font-size: 14pt;"><i>7.1 DBMS_ALERT</i></span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DBMS_ALERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package provides the capability to register for, send, and receive alerts.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The procedures and functions available in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DBMS_</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package are listed in the following table.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 7-1 DBMS_ALERT Functions/Procedures</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="241"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function/Procedure</span></p>
+</td>
+<td valign="top" width="72"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Return Type</span></p>
+</td>
+<td valign="top" width="264"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REGISTER(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Register to be able to receive alerts</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> named, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>name</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REMOVE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Remove registrat</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ion for the alert</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> named, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>name</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REMOVEALL</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Remove registration for all alerts.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SIGNAL(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>message</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Signals the</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> alert</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> named, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>name</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, wit</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">h </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>message</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">WAITANY(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> OUT, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>message</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> OUT, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>status</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> OUT, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>timeout</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Wait for any registered alert to occur.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">WAITONE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>message</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> OUT, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>status</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> OUT, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>timeout</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Wait for the specified alert, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>name</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, to occur.</span></p>
+<p><a name="P9871_533657"></a></p></td></tr></tbody></table>
+
+</p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-191.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-192_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-192_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-193.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-192_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-192_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-192_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

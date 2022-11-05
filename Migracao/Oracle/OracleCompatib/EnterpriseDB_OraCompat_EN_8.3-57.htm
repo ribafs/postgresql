@@ -1,0 +1,82 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>CREATE ROLE</title>
+
+
+<meta name="keywords" content="create role, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1994"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-57_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-56.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-57_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-57_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-58.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-57_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P2834_151880"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.19 CREATE ROLE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2835_151898"></a>Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;define a new database role</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2837_151945"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE ROLE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ IDENTIFIED BY </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>password</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2839_151996"></a>Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> adds a new role to a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Serve</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">r</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+database cluster. A role is an entity that can own database objects and
+have database privileges; a role can be considered a &#8220;user&#8221;, a &#8220;group&#8221;,
+or both depending on how it is used. The newly created role does not
+have the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOGIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> attribute, so it cannot be used to start a session. Use the <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-40.htm#P1990_108090">ALTER ROLE</a></u> command to give the role </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOGIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> rights. You must have </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATEROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege or be a database superuser to use the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IDENTIFIED BY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause is specified, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command also creates a schema owned by, and with the same name as the newly created role.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note that roles are defined at the database cluster level, and so are valid in all databases in the cluster.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2843_152764"></a>Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of the new role.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IDENTIFIED BY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>password</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Sets the role&#8217;s password. (A password is only of use for roles having the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOGIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+attribute, but you can nonetheless define one for roles without it.) If
+you do not plan to use password authentication you can omit this option.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2848_153051"></a>Notes</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Use <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-40.htm#P1990_108090"><u>ALTER ROLE</u></a> to change the attributes of a role, and <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-72.htm#P3414_188620"><u>DROP ROLE</u></a> to remove a role. The attributes specified by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> can be modified by later </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Use <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-79.htm#P3540_194132"><u>GRANT</u></a> and <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-82.htm#P3719_213724"><u>REVOKE</u></a> to add and remove members of roles that are being used as groups.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The maximum length limit for role name and password is 63 characters.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2852_153379"></a>Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Create a role (and a schema) named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">admins</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, with a password:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE ROLE admins IDENTIFIED BY Rt498zb;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2855_153488"></a>See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-40.htm#P1990_108090"><u>ALTER ROLE</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-72.htm#P3414_188620"><u>DROP ROLE</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-79.htm#P3540_194132"><u>GRANT</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-82.htm#P3719_213724"><u>REVOKE</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-88.htm#P4076_242665"><u>SET ROLE</u></a></span></p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-56.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-57_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-57_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-58.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-57_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-57_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-57_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

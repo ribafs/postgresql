@@ -1,0 +1,156 @@
+Restrições/Constraints
+
+As restrições são adicionadas para impor regras a nível de tabela, para agir
+sempre que um registro for inserido, alterado ou excluído. A operação somente
+será bem sucedida se atender a todas as restrições dos campos.
+
+As restrições também impedem que um registro seja alterado dependendo de tabela
+relacionada. Assim como a exclusão de tabelas relacionadas precisam atender às 
+restrições das foreign key.
+
+Tipos de Restrições
+
+not null - campo com not null obrigatoriamente deve ser preenchido. Cuidado, pois
+simplesmente a adição de um espaço em branco já atende às exigências do not null.
+
+primary key - indica que um campo ou grupo de campos é exclusivo para todos os
+registros da tabela. A primary key é a combinação de duas constraints, a unique
+e a not null.
+
+Cada tabela somente pode conter uma única primary key, mas uma primary key pode
+conter mais de um campo.
+
+A adição de uma primary key automaticamente cria um índice do tipo btree no campo
+da pk.
+
+A teoria dos bancos de dados relacionais diz que toda tabela deve conter uma
+chave primária, mas o PostgreSQL não obriga isso.
+
+foreign key - especifica que o valor de um campo precisa ser o mesmo da tabela
+primária. Um campo ou grupo de campos que se repetem na tabela atual e que
+se ligam à primary key da tabela relacionada. Cada tabela pode conter uma ou
+mais foreign key. Usar not null em campos de fk, para garantir integridade.
+
+Integridade referencial entre duas tabelas.
+
+Exemplo:
+
+produtos 1 ---- (vários) pedidos
+
+create table produtos(	-- tabela referenciada
+	id int primary key,
+	nome varchar(50) not null,
+	preco numeric(6,2) 
+);
+
+Queremos garantir que somente tenhamos pedidos de produtos que existam.
+
+create table pedidos(	-- tabela referenciando
+	id int primary key,
+	produto_id int references produtos (id) not null,
+	quantidade int not null
+);
+
+Assim como os campos
+
+produtos.id - referenciado
+pedidos.produto_id - referenciando
+
+Uma fk também pode ser composta por mais de um campo, quando a pk referenciada 
+também deve conter o mesmo número de campos e também o mesmo tipo de dados da fk
+
+Outro exemplo
+
+produtos
+pedidos
+pedido_itens
+
+create table pedido_itens(
+	...
+	produto_id int references produtos(id) not null,
+	pedido_id int references pedidos (id) not null,
+	...
+	primary key(produto_id, pedido_id)
+);
+
+	
+unique - Muito importante. Assegura que este campo será exclusivo em todos os
+registros. Devemos usar unique not null, pois caso esqueça do not null os campos
+podem conter null e se repetirão.
+Quando usamos unique not null criamos uma estrutura semelhante à primary key. 
+
+check - define uma condição que cada registro deve satisfazer.
+
+create table produtos(
+	numero int primary key,
+	nome varchar(50) not null,
+	descricao varchar(100) not null,
+	preco numeric(8,2) not null
+	constraint ck_preco_positivo
+	check (preco >0),
+	data date	
+);
+
+Os valores que atendem ao check são o true e o null, por isso para maior seguran
+ça devemos usar o check com not null.
+
+A constraint unique adiciona um índice btree ao campo.
+
+Podemos adicionar restrições na criação da tabela ou adicionar, alterar ou 
+remover usando
+
+alter table
+
+Exemplos
+
+DISTINCT - mostrar somente valores distintos/exclusivos
+
+Valor Default - entrar com o valor default em um capo é uma forma de impedir que
+o campo venha a conter valor NULL. Outra forma é adicionar uma constraint do
+tipo not null. O valor default pode ser uma constante ou uma expressão.
+
+Exemplo:
+
+preco numeric(6,2) default 9.99,
+
+data date default now(),
+
+O grande problema do valor default é que não haverá nenhuma crítica na cadastra-
+mento. Se o usuário não entrar nada no campo, o valor default será assumido e
+armazenado.
+
+É preciso cuidado e melhor é evitar suaa doção.
+
+
+Integridade Referencial
+
+Implementando a política
+
+- Quando alguém tentar remover um produto que permanece refenciado por um pedido
+(através dos itens de pedido) não permitir
+- Quando alguém remover um pedido, seus itens devem ser removidos
+
+create table produtos(...);
+
+create table pedidos (...);
+
+create table pedido_itens(
+	...
+	produto_id int references produtos(id) on delete restrict,
+	pedido_id int references pedidos(id) on delete cascade,
+	quantidade int not null,
+	primary key(produto_id, pedido_id)
+);
+
+RESTRICT - impede exclusão
+CASCADE - exclue todos os itens relacionados
+NO ACTION - se existir algum registro referenciado um erro será disparado. Este
+			é o comportamento default.
+SET NULL - torna null os referenciados como default
+SET DEFAULT - torna o valor default
+ON UPDATE
+
+Uma Foreign Key somente pode se referenciar com campos que sejam Primary Key ou
+UNIQUE.
+
+			

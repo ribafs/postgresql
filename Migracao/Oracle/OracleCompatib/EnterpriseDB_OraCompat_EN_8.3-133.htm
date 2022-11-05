@@ -1,0 +1,102 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2070"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-133_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-132.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-133_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-133_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-134.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-133_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P6960_391108"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.4.4 INSERT</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command availab</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">le in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> language can also be used in </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> programs.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">An expression in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> language can be used wherever an expression is allowed in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command. Thus, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> variables and parameters can be used to supply values to the insert operation.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is an example of a procedure that performs an insert of a new employee using data passed from a calling program.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE PROCEDURE emp_insert (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_empno         IN emp.empno%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_ename         IN emp.ename%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_job           IN emp.job%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_mgr           IN emp.mgr%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_hiredate      IN emp.hiredate%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_sal           IN emp.sal%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_comm          IN emp.comm%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_deptno        IN emp.deptno%TYPE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">IS</span>	
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    INSERT INTO emp VALUES (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        p_empno,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        p_ename,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        p_job,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        p_mgr,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        p_hiredate,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        p_sal,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        p_comm,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        p_deptno);</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Added employee...');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Employee # : ' || p_empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Name       : ' || p_ename);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Job        : ' || p_job);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Manager    : ' || p_mgr);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Hire Date  : ' || p_hiredate);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Salary     : ' || p_sal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Commission : ' || p_comm);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Dept #     : ' || p_deptno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('----------------------');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXCEPTION</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    WHEN OTHERS THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('OTHERS exception on INSERT of employee # '</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            || p_empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('SQLCODE : ' || SQLCODE);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('SQLERRM : ' || SQLERRM);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If an exception occurs a</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ll database changes made in the procedure are automatically rolled back</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In this example the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXCEPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> section with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WHEN OTHERS</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause catches all exceptions</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Two variables are displayed</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SQLCODE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a number that identifies the specific exception that </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">occurred</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SQLERRM</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a text message explaining the error</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See Section </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-143.htm#P7788_428154">4.5.5</a></u> for more information on exception handling.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following shows the output when this procedure is executed.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">EXEC emp_insert(9503,'PETERSON','ANALYST',7902,'31-MAR-05',5000,NULL,40);</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">Added employee...</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">Employee # : 9503</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">Name       : PETERSON</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">Job        : ANALYST</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">Manager    : 7902</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">Hire Date  : 31-MAR-05 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">Salary     : 5000</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">Dept #     : 40</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">----------------------</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">SELECT * FROM emp WHERE empno = 9503;</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);"> empno |  ename   |   job   | mgr  |      hiredate      |   sal   | comm | deptno</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">-------+----------+---------+------+--------------------+---------+------+--------</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  9503 | PETERSON | ANALYST | 7902 | 31-MAR-05 00:00:00 | 5000.00 |      |     40</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note: The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command can be included in a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORALL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement. A </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORALL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement allows a single </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command to insert multiple rows from values supplied in one or more collections. See Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-167.htm#P8894_476608">4.9.3</a></u> for more information on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORALL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-132.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-133_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-133_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-134.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-133_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-133_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-133_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

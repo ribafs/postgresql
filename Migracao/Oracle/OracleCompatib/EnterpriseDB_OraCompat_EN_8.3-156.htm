@@ -1,0 +1,45 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2093"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-156_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-155.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-156_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-156_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-157.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-156_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P8317_452774"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.8.1 REF CURSOR Overview</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>cursor variable</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a cursor that actually contains a pointer to a query result set</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The result set is de</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">termined by the execution of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OPEN FOR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement using the cursor variable.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A
+cursor variable is not tied to a single particular query like a static
+cursor. The same cursor variable may be opened a number of times with </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OPEN FOR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+statements containing different queries. Each time, a new result set is
+created from that query and made available via the cursor variable.</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REF CURSOR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> types may be passed as parameters to or from stored procedures and functions</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The return type of a function may also be a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REF CURS</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> type</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This provides the capability to modularize the operations on a cursor into separate programs by passing a cu</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">rsor variable between programs.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-155.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-156_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-156_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-157.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-156_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-156_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-156_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

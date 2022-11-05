@@ -1,0 +1,193 @@
+000   BRASIL                                  
+001   AFRICA DO SUL                           
+002   ANGOLA                                  
+003   ARGELIA                                 
+004   BENIN                                   
+005   BOTSUANA                                
+006   BURKINA FASSO                           
+007   BURUNDI                                 
+008   CABO VERDE                              
+009   CAMAROES                                
+010   CHADE                                   
+011   CONGO                                   
+012   COSTA DO MARFIM                         
+013   DJIBUTI                                 
+014   EGITO                                   
+015   ERITREIA                                
+016   ETIOPIA                                 
+017   GABAO                                   
+018   GAMBIA                                  
+019   GANA                                    
+020   GUINE                                   
+021   GUINE EQUATORIAL                        
+022   GUINE-BISSAU                            
+023   ILHAS COMORES                           
+024   LESOTO                                  
+025   LIBERIA                                 
+026   LIBIA                                   
+027   MADAGASCAR                              
+028   MALAVI                                  
+029   MALI                                    
+030   MARROCOS                                
+031   MAURICIO                                
+032   MAURITANIA                              
+033   MOCAMBIQUE                              
+034   NAMIBIA                                 
+035   NIGER                                   
+036   NIGERIA                                 
+037   QUENIA                                  
+038   REPUBLICA CENTRO-AFRICANA               
+039   RUANDA                                  
+040   SAO TOME E PRINCIPE                     
+041   SENEGAL                                 
+042   SERRA LEOA                              
+043   SEYCHELLES                              
+044   SOMALIA                                 
+045   SUAZILANDIA                             
+046   SUDAO                                   
+047   TANZANIA                                
+048   TOGO                                    
+049   TUNISIA                                 
+050   UGANDA                                  
+051   ZAIRE                                   
+052   ZAMBIA                                  
+053   ZIMBABUE                                
+100   ANTIGUA E BARBUDA                       
+101   BAHAMAS                                 
+102   BARBADOS                                
+103   BELIZE                                  
+104   COSTA RICA                              
+105   CUBA                                    
+106   DOMINICA                                
+107   EL SALVADOR                             
+108   GRANADA                                 
+109   GUATEMALA                               
+110   HAITI                                   
+111   HONDURAS                                
+112   JAMAICA                                 
+113   NICARAGUA                               
+114   PANAMA                                  
+115   REPUBLICA DOMINICANA                    
+116   SANTA LUCIA                             
+117   SAO CRISTOVAO E NEVIS                   
+118   SAO VICENTE E GRANADINAS                
+119   TRINIDAD E TOBAGO                       
+200   CANADA                                  
+201   ESTADOS UNIDOS                          
+202   MEXICO                                  
+300   ARGENTINA                               
+301   BOLIVIA                                 
+302   CHILE                                   
+303   COLOMBIA                                
+304   EQUADOR                                 
+305   GUIANA                                  
+306   PARAGUAI                                
+307   PERU                                    
+308   SURINAME                                
+309   URUGUAI                                 
+310   VENEZUELA                               
+400   AFEGANISTAO                             
+401   ARABIA SAUDITA                          
+402   BANGLADESH                              
+403   BAREIN                                  
+404   BRUNEI                                  
+405   BUTAO                                   
+406   CAMBOJA                                 
+407   CATAR                                   
+408   CAZAQUISTAO                             
+409   CHINA                                   
+410   CINGAPURA                               
+411   COREIA DO NORTE                         
+412   COREIA DO SUL                           
+413   EMIRADOS ARABES UNIDOS                  
+414   FILIPINAS                               
+415   FORMOSA(TAIWAN)                         
+416   IEMEN                                   
+417   INDIA                                   
+418   INDONESIA                               
+419   IRA                                     
+420   IRAQUE                                  
+421   ISRAEL                                  
+422   JAPAO                                   
+423   JORDANIA                                
+424   KUWEIT                                  
+425   LAOS                                    
+426   LIBANO                                  
+427   MALASIA                                 
+428   MALDIVAS                                
+429   MIANMA                                  
+430   MONGOLIA                                
+431   NEPAL                                   
+432   OMA                                     
+433   PAQUISTAO                               
+434   QUIRGUIZIA                              
+435   SIRIA                                   
+436   SRI LANKA                               
+437   TADJIQUISTAO                            
+438   TAILANDIA                               
+439   TURCOMENIA                              
+440   TURQUIA                                 
+441   UZBEQUISTAO                             
+442   VIETNA                                  
+500   ALBANIA                                 
+501   ALEMANHA                                
+502   ANDORRA                                 
+503   ARMENIA                                 
+504   AUSTRIA                                 
+505   AZERBAIDJAO                             
+506   BELARUS                                 
+507   BELGICA                                 
+508   BOSNIA-HERZEGOVINA                      
+509   BULGARIA                                
+510   CHIPRE                                  
+511   CROACIA                                 
+512   DINAMARCA                               
+513   ESLOVAQUIA                              
+514   ESLOVENIA                               
+515   ESPANHA                                 
+516   ESTONIA                                 
+517   FEDERACAO RUSSA                         
+518   FINLANDIA                               
+519   FRANCA                                  
+520   GEORGIA                                 
+521   GRECIA                                  
+522   HOLANDA                                 
+523   HUNGRIA                                 
+524   IRLANDA                                 
+525   ISLANDIA                                
+526   ITALIA                                  
+527   IUGOSLAVIA                              
+528   LETONIA                                 
+529   LIECHTENSTEIN                           
+530   LITUANIA                                
+531   LUXEMBURGO                              
+532   MACEDONIA                               
+533   MALTA                                   
+534   MOLDAVIA                                
+535   MONACO                                  
+536   NORUEGA                                 
+537   POLONIA                                 
+538   PORTUGAL                                
+539   REINO UNIDO                             
+540   REPUBLICA TCHECA                        
+541   ROMENIA                                 
+542   SAN MARINO                              
+543   SUECIA                                  
+544   SUICA                                   
+545   UCRANIA                                 
+546   VATICANO                                
+600   AUSTRALIA                               
+601   FIJI                                    
+602   ILHAS MARSHALL                          
+603   ILHAS SALOMAO                           
+604   KIRIBATI                                
+605   MICRONESIA                              
+606   NAURU                                   
+607   NOVA ZELANDIA                           
+608   PALAU                                   
+609   PAPUA NOVA GUINE                        
+610   SAMOA OCIDENTAL                         
+611   TONGA                                   
+612   TUVALU                                  
+613   VANUATU                                 
+900   PORTO RICO                              

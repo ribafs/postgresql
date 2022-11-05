@@ -1,0 +1,163 @@
+Contribs
+
+Alguns programadores desenvolvem ferramentas, módulos e exemplos que são úteis a quem trabalha com PostgreSQL.
+Como sua utilidade é restrita e também a equipe pretende manter o core do PostgreSQL o menos possível, as contribs não são incorporados ao PostgreSQL. Com o tempo, quando alguma destas contribuições tornam-se muito
+importantes ela acaba por ser incorporada ao core, como foi o caso da T-Search agora na versão 8.3.
+
+Relação de contribs do 9.5.3:
+
+Compilando e instalando:
+
+cd contrib
+make
+make install
+
+adminpack
+auth_delay
+auto_explain
+btree_gin
+btree_gist
+chkpass
+citext
+cube
+dblink
+dict_int
+dict_xsyn
+earthdistance
+file_fdw
+fuzzystrmatch
+hstore
+hstore_plperl
+hstore_plpython
+intagg
+intarray
+isn
+lo
+ltree
+ltree_plpython
+oid2name
+pageinspect
+passwordcheck
+pg_buffercache
+pgcrypto
+pg_freespacemap
+pg_prewarm
+pgrowlocks
+pg_standby
+pg_stat_statements
+pgstattuple
+pg_trgm
+postgres_fdw
+seg
+sepgsql
+spi
+sslinfo
+start-scripts
+tablefunc
+tcn
+test_decoding
+tsearch2
+tsm_system_rows
+tsm_system_time
+unaccent
+uuid-ossp
+vacuumlo
+xml2
+
+
+Importar uma contrib no Windows: 
+C:\Program Files\PostgreSQL\8.2\bin>psql -U postgres -d dnocs < ..\share\contrib\cube.sql
+
+No Linux ou instalamos o pacote dos contribs ou compilamos o diretório contrib nos fontes, como também podemos
+compilar somente o diretório do cube.
+
+Algumas Contribs
+
+cube
+
+Traz um tipo de dados cubo, que pode ser tridimensional ou com cinco ou seis dimensões.
+
+\c dnocs
+-- Definindo um cubo:
+SELECT '4'::cube AS cube;
+
+-- Definindo um ponto no espaço:
+SELECT '4, 5, 6'::cube AS cube;
+
+-- Definindo uma caixa n-dimensional representada por um par de pontos opostos:
+SELECT '(0,0,0,0),(1,-2,3,-4)'::cube AS cube;
+
+-- O cubo inicia em (0,0,0,0) e termina em (1,-2,3,-4).
+-- Ao definir um cubo devemos ficar atento para que os pontos tenham a mesma dimensionalidade:
+
+-- Calcular a interseção de dois cubos:
+SELECT cube_inter('(1,2,3,4),(0,0,0,0)','(0,0,0,0),(-1,-2,-3,-4)');
+
+-- Mostrará o ponto em comun entre os cubos.
+
+-- União entre cubos
+SELECT cube_union('(1,2,3,4),(0,0,0,0)','(0,0,0,0),(-1,-2,-3,-4)');
+
+SELECT cube_union(cube_union('(1,2,3,4),(0,0,0,0)','(0,0,0,0),(-1,-2,-3,-4)'), '(0,0,0,0),(9,-10,11,-12)');
+
+-- Localizando certo ponto em um cubo
+SELECT cube_contains('(1,-2,3,-4),(0,0,0,0)','(0,-1,1,-2)');
+
+-- Podemos usar os operadores < e > em cubos:
+SELECT '(0,0,0,0),(1,2,3,4)'::cube < '(0,0,0,0),(2,2,3,4)'::cube;
+
+-- O operador << procurar um cubo à esquerda de outro cubo
+SELECT '(-2,-3),(-1,-2)'::cube << '(0,0),(2,2)'::cube;
+
+-- O operador >> procurar um cubo à direita de outro cubo
+
+
+Cubos e Índices
+
+CREATE TABLE mycubes(a cube DEFAULT '0,0'::cube);
+
+Definindo um índice do tipo GiST:
+CREATE INDEX cube_idx ON mycubes USING gist (a);
+
+create table mytexts(a varchar primary key);
+
+insert into mytexts values ('Joao');
+insert into mytexts values ('Pedro');
+insert into mytexts values ('Ribamar');
+insert into mytexts values ('Manoel');
+
+Para garantir que o SGBD não executará uma varredura sequencial (sequential scan), então executaremos:
+SET enable_seqscan TO off;
+
+SELECT * FROM mytexts WHERE a='Pedro';
+
+Caso enable_seqscan tivesse como on o PostgreSQL executaria uma varredura sequencial, pois a tabela é muito
+pequena em termos de registros.
+
+A situação muda se ao invés de usarmos = usarmos ~.
+
+SELECT * FROM mytexts WHERE a ~ 'Pedro';
+
+EXPLAIN SELECT * FROM mytexts WHERE a ~ 'Pedro';
+
+Veja que agora o PostgreSQL voltou a usar o sequential scan, mesmo desabilitado.
+
+
+
+Trabalhando com ISBN e ISSN
+
+A contrib destes está no arquivo isn.sql.
+
+International Standard Book Number (ISBN) e International Standard Serial Number (ISSN).
+
+CREATE TABLE myisbn(name text, number isbn);
+
+INSERT INTO myisbn VALUES('Apache Administration', '3-8266-0554-3');
+
+SELECT * FROM myisbn;
+
+Testando um ISBN inválido:
+INSERT INTO myisbn VALUES('no book', '324324324324234');
+
+SELECT * FROM myisbn WHERE number>'3-8266-0506-3'::isbn;
+

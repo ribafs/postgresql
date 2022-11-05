@@ -1,0 +1,568 @@
+ 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML>
+<HEAD>
+<SCRIPT language="JavaScript" TYPE="text/JavaScript">
+<!--
+  if (window.top != window) {
+      window.top.location.replace (window.location.href);
+  }
+ -->
+</SCRIPT> 
+	<TITLE>Tek-Tips - PostgreSQL Inc.: PostgreSQL FAQs</TITLE>
+	<BASE HREF="http://www.tek-tips.com/">
+	<LINK REL="STYLESHEET" TYPE="text/css" HREF="tm.css">
+	<SCRIPT language="JavaScript" SRC="jsource.js" TYPE="text/javascript"></SCRIPT>
+<META NAME="DESCRIPTION" CONTENT="Tek-Tips PostgreSQL Inc.: PostgreSQL FORUM.  TALK WITH OTHER PROFESSIONALS IN THIS AND OVER 800 other forums aimed at computer professionals.">
+	<META NAME="KEYWORDS" CONTENT="PostgreSQL Inc.: PostgreSQL DBMS Packages  sql postgres linux open source Tek-Tips.com">
+	<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+	<META HTTP-EQUIV="EXPIRES" CONTENT="MON, 06 JAN 1990 00:00:01 GMT"><SCRIPT LANGUAGE=JavaScript TYPE=text/javascript>
+<!--
+function gofaq(pid,fid) {
+	var theURL = "/gfaqs.cfm/spid/"+pid+"/sfid/"+fid+"";
+	window.top.location.href=theURL;}
+function gothread(pid,qid) {
+	var theURL = "/gviewthread.cfm/pid/"+pid+"/qid/"+qid+"";
+	window.top.location.href=theURL;}
+function goforum(pid) {
+	var theURL = "/gthreadminder.cfm/lev2/4/lev3/27/pid/"+pid+"";
+	window.top.location.href=theURL;}
+function golink(pid) {
+	var theURL = "/glinks.cfm/lev2/4/lev3/27/pid/"+pid+"";
+	window.top.location.href=theURL;}
+//-->
+</SCRIPT></HEAD>
+
+<BODY BGCOLOR="#F6F6F6" LEFTMARGIN=5 TOPMARGIN=5 MARGINWIDTH=5 MARGINHEIGHT=5 RIGHTMARGIN=5 onLoad="doPopup()";>
+
+<TABLE WIDTH="100%" BORDER=0 CELLPADDING=0 CELLSPACING=0>
+	<TR>
+		<TD WIDTH="221"><A HREF="supportus.cfm"><IMG SRC="/art/site/hdrlogo.gif" WIDTH="221" HEIGHT="103" BORDER="0"></A></TD>
+		<TD BACKGROUND="/art/hdrbackgrnd.gif" WIDTH="100%" ALIGN="Center">
+			<DIV ALIGN="Right" CLASS="clink1"><B><A HREF="supportus.cfm" CLASS="clink1">Support Tek-Tips</A> | <A HREF="about.cfm" CLASS="clink1">About Us</A> | <A HREF="mcontact.cfm" CLASS="clink1">Contact Us</A> | <A HREF="http://www.tecumsehgroup.com/administration.htm" CLASS="clink1">Site Policies</A></B></DIV>
+			
+			
+
+	
+		
+		
+		
+		
+	
+	
+	<a href="/redir/redir.cfm?id=89" ONMOUSEOVER="window.status='Support This Site!';  return true;" ONMOUSEOUT="window.status=''; return true;"><img src="http://www.tek-tips.com/ads/support468.gif" border=0 ALT="Support Us!"></a>
+
+			
+		</TD>
+		<TD WIDTH="10"><IMG SRC="/art/hdrright.gif" WIDTH="10" HEIGHT="103" BORDER="0"></TD>
+	</TR>
+</TABLE>
+
+
+<TABLE WIDTH="100%" BORDER=0 CELLPADDING=0 CELLSPACING=0>
+	<TR VALIGN="Top">
+		<TD WIDTH="191">
+			
+			
+<TABLE WIDTH=191 BORDER=0 CELLPADDING=0 CELLSPACING=0>
+	<TR>
+		<TD WIDTH=191 BACKGROUND="/art/lcolbackgrnd.gif"><IMG SRC="/art/lcolbackgrnd.gif" WIDTH=191 HEIGHT=1 BORDER=0><BR>
+
+
+
+
+<TABLE CELLSPACING=0 CELLPADDING=0 BORDER=0 ALIGN="Center">
+	<TR><TD COLSPAN=3><IMG SRC="/art/wt-memlogin.gif" WIDTH=168 BORDER=0></TD></TR>
+	<TR><TD BACKGROUND="/art/w-left.gif"><IMG SRC="/art/w-left.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD>
+		<TD WIDTH=156 BACKGROUND="/art/w-back.gif" CLASS=col align=center BGCOLOR="#DEDEDE">
+
+	<TABLE WIDTH="100%" CELLSPACING=0 CELLPADDING=0>			
+		<TR>			
+		<FORM NAME="pass" ACTION="passcheck.cfm" METHOD="post">
+		<INPUT TYPE="Hidden" NAME="t" VALUE="">
+		<INPUT TYPE="hidden" NAME="Last" VALUE="faqs.cfm?spid=699&newpid=699&sfid=3463">
+			<TD WIDTH="104" CLASS="col" ALIGN="Center">HANDLE<BR>
+			<INPUT TYPE="Text" NAME="Handle" SIZE=8 MAXLENGTH=20><BR>
+			<INPUT TYPE="Password" NAME="Pass" SIZE=8 MAXLENGTH=20><BR>PASSWORD</TD>
+			<TD><INPUT TYPE="image" SRC="/art/b-go.gif" ALT="Log In" HSPACE="3" WIDTH="46" HEIGHT="21" BORDER=0></TD>
+		</TR>
+		<TR>
+			<TD COLSPAN=2 CLASS="col" ALIGN="center"><INPUT TYPE="Checkbox" NAME="Remember" VALUE=1><A HREF="javascript:openindex(300,350,'http://www.tipmaster.com/includes/cookieinfo.cfm?w=300&h=350')">Remember Me</A><BR>
+<A HREF="javascript:openindex(600,400,'/forgotpassword.cfm?w=600&h=400')">Forgot Password?</A></TD></TR></FORM>
+</TABLE>
+
+		</TD>
+		<TD BACKGROUND="/art/w-right.gif"><IMG SRC="/art/w-right.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD></TR>
+	<TR><TD COLSPAN=3><IMG SRC="/art/w-bottom.gif" WIDTH=168 HEIGHT=6 BORDER=0></TD></TR>
+</TABLE>
+<BR>
+
+			
+<P ALIGN="Center"><A HREF="/supportus.cfm"><IMG SRC="/art/site/supportusbutton2.gif" BORDER=0></A></P>
+
+
+
+<TABLE CELLSPACING=0 CELLPADDING=0 BORDER=0 ALIGN="Center">
+	<TR><TD COLSPAN=3><IMG SRC="/art/w-top.gif" WIDTH=168 BORDER=0></TD></TR>
+	<TR><TD BACKGROUND="/art/w-left.gif"><IMG SRC="/art/w-left.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD>
+		<TD WIDTH=156 BACKGROUND="/art/w-back.gif" CLASS=col align=center BGCOLOR="#DEDEDE">
+
+	<B><A HREF="/register.cfm">Join Us!</A><BR>
+	<A HREF="javascript:openindex(200,200,'http://www.tipmaster.com/includes/gsearchinfo.cfm?w=250&h=250')">Keyword Search</A><BR>
+	<A HREF="javascript:openindex(200,200,'http://www.tipmaster.com/includes/gratinginfo.cfm?w=250&h=250')">Product Ratings</A><BR>
+	<A HREF="/gthreadminder.cfm">Browse Forums</A><BR>
+	<SPAN STYLE="color:red;">NEW</SPAN> <A HREF="/groups">Tek-Tips Groups</A><BR>
+	<A HREF="javascript:openindex(600,400,'/email.cfm?w=600&h=400')">Tell A Friend</A><BR>
+	<A HREF="/supportus.cfm">Support Tek-Tips</A></B>
+
+		</TD>
+		<TD BACKGROUND="/art/w-right.gif"><IMG SRC="/art/w-right.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD></TR>
+	<TR><TD COLSPAN=3><IMG SRC="/art/w-bottom.gif" WIDTH=168 HEIGHT=6 BORDER=0></TD></TR>
+</TABLE>
+<BR>
+
+
+<TABLE CELLSPACING=0 CELLPADDING=0 BORDER=0 ALIGN="Center">
+	<TR><TD COLSPAN=3><IMG SRC="/art/wt-join.gif" WIDTH=168 BORDER=0></TD></TR>
+	<TR><TD BACKGROUND="/art/w-left.gif"><IMG SRC="/art/w-left.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD>
+		<TD WIDTH=156 BACKGROUND="/art/w-back.gif" CLASS=col align=center BGCOLOR="#DEDEDE">
+
+<TABLE CELLPADDING=2 CELLSPACING=0>
+	<TR><TD CLASS="col">Talk With Other Members</TD></TR>
+	<TR><TD CLASS="col">Be Notified Of Responses<BR>&nbsp;&nbsp;To Your Posts</TD></TR>
+	<TR><TD CLASS="col">Keyword Search</TD></TR>
+	<TR><TD CLASS="col">Turn Off Ad Banners</TD></TR>
+	<TR><TD CLASS="col">One-Click Access To Your<BR>&nbsp;&nbsp;Favorite Forums</TD></TR>
+	<TR><TD CLASS="col">Automated Signatures<BR>&nbsp;&nbsp;On Your Posts</TD></TR>
+	<TR><TD CLASS="col">Best Of All, It's Free!</TD></TR>
+	<TR><TD CLASS="col"><HR WIDTH="80%" SIZE="2"></TD></TR>
+	<FORM ACTION="registermanager.cfm" METHOD="Post" NAME="Register">
+	<TR><TD>
+		<INPUT TYPE="Hidden" NAME="AUID" VALUE="11256">
+
+		<DIV CLASS="col" ALIGN="Right">E-mail* <INPUT TYPE="text" NAME="email" SIZE="8" MAXLENGTH="50"><BR>
+		Handle <INPUT TYPE="Text" NAME="Handle" SIZE="8" MAXLENGTH=20><BR>
+		<SELECT NAME="UserType">
+			<OPTION VALUE="Select A Type">Select A Type</OPTION>
+			<OPTION VALUE="MIS">MIS</OPTION>
+			<OPTION VALUE="IS/IT--Management">IS/IT--Management</OPTION>
+			<OPTION VALUE="Programmer">Programmer</OPTION>
+			<OPTION VALUE="ISP">ISP</OPTION>
+			<OPTION VALUE="Instructor">Instructor</OPTION>
+			<OPTION VALUE="Vendor">Vendor</OPTION>
+			<OPTION VALUE="TechnicalUser">TechnicalUser</OPTION>
+		</SELECT><BR>
+		Password <INPUT TYPE="PASSWORD" NAME="Pass" SIZE="8" MAXLENGTH=10><BR>
+Verify P'word <INPUT TYPE="PASSWORD" NAME="pass2" SIZE="8" MAXLENGTH=10></DIV>
+<DIV ALIGN="Center">
+<INPUT TYPE="image" SRC="/art/b-go.gif" ALT="Log In" HSPACE="3" WIDTH="46" HEIGHT="21" BORDER=0></DIV>
+<P CLASS="col" ALIGN="Center">*Opt in e-mail system.<BR> Click Personal Profile<BR>after login to opt out.</P>
+</TD></TR>
+	</FORM>					
+</TABLE>
+
+		</TD>
+		<TD BACKGROUND="/art/w-right.gif"><IMG SRC="/art/w-right.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD></TR>
+	<TR><TD COLSPAN=3><IMG SRC="/art/w-bottom.gif" WIDTH=168 HEIGHT=6 BORDER=0></TD></TR>
+</TABLE>
+<BR>
+
+
+<TABLE CELLSPACING=0 CELLPADDING=0 BORDER=0 ALIGN="Center">
+	<TR><TD COLSPAN=3><IMG SRC="/art/wt-partner.gif" WIDTH=168 BORDER=0></TD></TR>
+	<TR><TD BACKGROUND="/art/w-left.gif"><IMG SRC="/art/w-left.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD>
+		<TD WIDTH=156 BACKGROUND="/art/w-back.gif" CLASS=col align=center BGCOLOR="#DEDEDE">
+		
+	<B>&quot;Best Of Breed&quot; Forums Add Stickiness To Your Site</B><BR>
+	<A HREF="/affiliates/"><IMG SRC="/art/site/partner.gif" WIDTH="120" HEIGHT="60" BORDER="0" VSPACE=5></A><BR>
+	(Download This Button Today!)
+
+		</TD>
+		<TD BACKGROUND="/art/w-right.gif"><IMG SRC="/art/w-right.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD></TR>
+	<TR><TD COLSPAN=3><IMG SRC="/art/w-bottom.gif" WIDTH=168 HEIGHT=6 BORDER=0></TD></TR>
+</TABLE>
+<BR>
+
+
+<TABLE CELLSPACING=0 CELLPADDING=0 BORDER=0 ALIGN="Center">
+	<TR><TD COLSPAN=3><IMG SRC="/art/wt-feedback.gif" WIDTH=168 BORDER=0></TD></TR>
+	<TR><TD BACKGROUND="/art/w-left.gif"><IMG SRC="/art/w-left.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD>
+		<TD WIDTH=156 BACKGROUND="/art/w-back.gif" CLASS=col align=center BGCOLOR="#DEDEDE">
+"...Congratulations for your great site.  This site helped me more than university..."
+	<DIV CLASS="col" ALIGN="Center"><A HREF="/feedback.cfm"><B>More...</B></A></DIV>
+
+		</TD>
+		<TD BACKGROUND="/art/w-right.gif"><IMG SRC="/art/w-right.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD></TR>
+	<TR><TD COLSPAN=3><IMG SRC="/art/w-bottom.gif" WIDTH=168 HEIGHT=6 BORDER=0></TD></TR>
+</TABLE>
+<BR>
+
+
+				
+					
+					
+					
+					
+				
+
+
+
+<TABLE CELLSPACING=0 CELLPADDING=0 BORDER=0 ALIGN="Center">
+	<TR><TD COLSPAN=3><IMG SRC="/art/wt-topxmlpartners.gif" WIDTH=168 BORDER=0></TD></TR>
+	<TR><TD BACKGROUND="/art/w-left.gif"><IMG SRC="/art/w-left.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD>
+		<TD WIDTH=156 BACKGROUND="/art/w-back.gif" CLASS=col align=center BGCOLOR="#DEDEDE">
+
+	
+		<A HREF="http://www.devguru.com" TARGET="Blank">DevGuru</A><BR>
+	
+		<A HREF="http://www.w3schools.com" TARGET="Blank">W3Schools</A><BR>
+	
+		<A HREF="http://www.topxml.com" TARGET="Blank">TopXML</A><BR>
+	
+		<A HREF="http://www.developersdex.com" TARGET="Blank">DevelopersDex</A><BR>
+	
+		<A HREF="http://www.programmersheaven.com" TARGET="Blank">Programmers Heaven</A><BR>
+	
+		<A HREF="http://www.visualbuilder.com" TARGET="Blank">VisualBuilder.com</A><BR>
+	
+		<A HREF="http://www.sitepoint.com" TARGET="Blank">SitePoint</A><BR>
+	
+		<A HREF="http://www.xmlpitstop.com" TARGET="Blank">XMLPitstop</A><BR>
+	
+		<A HREF="http://www.codeproject.com" TARGET="Blank">Code Project</A><BR>
+	
+		<A HREF="http://www.freelayouts.com" TARGET="Blank">FreeLayouts</A><BR>
+	
+		<A HREF="http://www.zvon.org" TARGET="Blank">Zvon - Guide to XML</A><BR>
+	
+		<A HREF="http://www.tek-tips.com" TARGET="Blank">Tek-Tips Forums</A><BR>
+	
+		<A HREF="http://www.topxml.com/search.asp" TARGET="Blank">Search Us!</A><BR>
+	
+
+		</TD>
+		<TD BACKGROUND="/art/w-right.gif"><IMG SRC="/art/w-right.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD></TR>
+	<TR><TD COLSPAN=3><IMG SRC="/art/w-bottom.gif" WIDTH=168 HEIGHT=6 BORDER=0></TD></TR>
+</TABLE>
+<BR>
+
+
+				
+				
+
+
+
+
+		</TD>
+	</TR>
+	<TR>
+		<TD><IMG SRC="/art/lcolbottom.gif" HEIGHT=10 WIDTH=191></TD>
+	</TR>
+</TABLE>
+
+			
+		</TD>
+		
+		<TD WIDTH="100%">
+			
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 BGCOLOR="#CCCCCC" WIDTH="520"><TR><TD>
+	<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 BGCOLOR="#CCCCCC" WIDTH="520">
+		<TR>
+		<FORM ACTION="gforumsearch2.cfm" METHOD="Post">
+			<TD>&nbsp;</TD>
+			<TD CLASS="header">&nbsp;<B>Search</B>&nbsp;</TD>
+			<TD><INPUT TYPE="Text" NAME="SearchString" SIZE="20"></TD>
+			<TD><INPUT TYPE="image" NAME="sub" SRC="/art/b-go.gif" HSPACE="3" BORDER="0"></TD>
+			<TD WIDTH="100%" CLASS="col"><INPUT TYPE="radio" NAME="type" VALUE="forum" CHECKED ID="srch1"><LABEL FOR="srch1"> Find A Forum</LABEL><BR><INPUT TYPE="radio" NAME="type" VALUE="member" ID="srch2"><LABEL FOR="srch2"> Find An Expert</LABEL></TD>
+		</FORM>
+		</TR>
+	</TABLE>
+</TD></TR></TABLE>
+			
+			<TABLE CELLSPACING=0 CELLPADDING=7><TR><TD><A HREF="/index.cfm">Home</A> &gt;
+<A HREF="/gthreadminder.cfm">Forums</A> &gt; 
+<A HREF="/gthreadminder.cfm/lev2/4">Programmers</A> &gt; 
+<A HREF="/gthreadminder.cfm/lev2/4/lev3/27">DBMS Packages</A>
+<DIV CLASS="header">PostgreSQL Inc.: PostgreSQL FAQs</DIV> </TD></TR></TABLE>
+
+<TABLE WIDTH="100%" BORDER=0 CELLPADDING=0 CELLSPACING=0>
+	<TR>
+
+		<TD WIDTH=35><IMG SRC="/art/tableft.gif" WIDTH=35 HEIGHT=43 BORDER=0></TD>
+		<TD WIDTH="85"><A HREF="/gthreadminder.cfm/lev2/4/lev3/27/pid/699"><IMG SRC="/art/tabforum3.gif" WIDTH=85 HEIGHT=43 BORDER=0></A></TD>
+		<TD WIDTH=80><A HREF="/gsearch.cfm/lev2/4/lev3/27/pid/699"><IMG SRC="/art/tabkywrd3.gif" WIDTH=80 HEIGHT=43 BORDER=0></A></TD>
+		<TD WIDTH=80><A HREF="/gfaq.cfm/lev2/4/lev3/27/pid/699"><IMG SRC="/art/tabfaqs3.gif" WIDTH=80 HEIGHT=43 BORDER=0></A></TD>
+		<TD WIDTH=88><A HREF="/glinks.cfm/lev2/4/lev3/27/pid/699"><IMG SRC="/art/tablinks3.gif" WIDTH=88 HEIGHT=43 BORDER=0></A></TD>
+		<TD WIDTH="100%" BACKGROUND="/art/tabspacer.gif">&nbsp;</TD>
+		<TD WIDTH=141><IMG SRC="/art/tabright.gif" WIDTH=145 HEIGHT=43 BORDER=0></TD>
+
+	</TR>
+</TABLE>
+
+	
+			<TABLE WIDTH="100%" BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN="Top">
+					<TD>
+						<TABLE WIDTH="100%" BORDER=0 CELLPADDING=0 CELLSPACING=0><TR><TD>
+
+
+
+
+
+
+<TABLE BORDER=0 WIDTH="100%">
+
+	<TR><TD BGCOLOR="#FF33FF" CLASS="Header" ALIGN="center">Stored Procedures</B></FONT></TD></TR>
+		
+	<TR><TD><FONT SIZE=3><B>How to write stored procedures in Postgresql                                                                                                                                                                                                                   </B></FONT><DIV CLASS="forumshortcut"><A HREF="javascript:openindex(450,350,'http://www.tipmaster.com/includes/refinfo.cfm?w=450&h=350')">faq699-3463</A></DIV></TD></TR>
+	<TR><TD><BR>newbiepg (Programmer) Apr 17, 2003 <br><br><b><u><font color=#ff0000>Starting off:</font></u></b><br>Before you start using plpgsql you need to initialize the call handler with this command<br><br>create function plpgsql_call_handler()<br>returns opaque as&nbsp;&nbsp;'/usr/lib/pgsql/plpgsql.so' language 'c'<br><br><br>if you are not sure where the plpgsql.so file is<br>type locate plpgsql.so at the command line<br><br>after initializing the call handler you need to add the plpgsql language . This can be done by typing<br><br>create function plpgsql_call_handler()<br>returns opaque<br>as '/usr/local/pgsql/plpgsql.so' <br>language 'c'<br><br><br><br>the basic function syntax is<br>create function function_name() returns int4 as'<br>declare<br>abc integer ;&nbsp;&nbsp;--declare a variable without assigning a value<br>def varchar ;=''mystring'';&nbsp;&nbsp;&nbsp;--declare a variable with a value<br><br>begin<br><br>insert into some_table (col1) values (10);<br>return 10;<br>end;<br>'language 'plpgsql';<br><br><br>a function always has to return a value<br>you can return any normal data type boolean, text, varchar, integer, double<br>date, time , void etc<br>a trigger normally returns opaque<br><br>you can also pass parameters with functions, a single function can have <br>upto 16 parameters.<br><br>aliases are used to call parameters values passed. The first parameter is $1, the second is $2<br>and so on.<br><br>you may also declare constant variables and variables with default values<br><br>this is an example of using functions with parameters <br><br>create function sec_func(int4,int4,int8,text,varchar) returns int4 as'<br>begin<br>myint constant integer := 5;<br>mystring char default ''T'';<br>firstint alias for $1;<br>secondint alias for $2;<br>third alias for $3;<br>fourth alias for $4;<br>fifth alias for $5;<br>ret_val int4;<br><br>select into ret_val employee_id from masters where code_id = firstint and dept_id = secondint;<br>return ret_value;<br>end;<br>'language 'plpgsql';<br><br>this function need to be called by<br>select sec_func(3,4,cast(5 as int8),cast('trial text' as text),'some text');<br><br>note that numbers passed as parameters are by default int4<br>so we need to cast 5 int int8 or bigint.<br><br><b><u><font color=#ff0000>%type and %rowtype:</font></u></b><br><br>sometimes we need to declare a variable according to the datatype of a column <br>this can be achoieved using %type<br><br>create function third_func(text) returns varchar as'<br>declare<br>fir_text alias for $1;<br>sec_text mytable.last_name%type;<br>--here in the line above will assign the variable sec_text the datatype of <br>--of table mytable and column last_name.<br>begin<br><br>--some code here<br><br>end;<br>'language 'plpgsql';<br><br>sometimes we need to get the structure of a table's row<br>we use %rowtype then<br><br>e.g.<br><br>create function third(int4) returns varchar as'<br><br>begin <br><br>myvar alias for $1;<br>mysecvar mytable%rowtype;<br>mythirdvar varchar;<br><br>begin<br><br>select into mysecvar * from mytable where code_id = myvar;<br>--now mysecvar is a recordset<br>mythirdvar := mysecvar.first_name&#124;&#124; ' '&#124;&#124; mysecvar.last_name;<br>--&#124;&#124; is the concatenation symbol<br>--first_name and last_name are columns in the table mytable<br>return mythirdvar; <br>end;<br>'language 'plpgsql';<br><br><br><b><u><font color=#ff0000>looping syntax:</font></u></b><br><br>there is the if/then/end if loop<br><br>if some condition then<br>do something;<br>end if;<br><br>otherwise <br>if some condition then<br>do something;<br>else<br>some more code;<br>end if;<br><br>there is also the loop /end loop statement<br><br>loop<br>some code;<br>end loop;<br><br><br>the while- loop statement is like this<br>while myvar&lt;10&nbsp;&nbsp;loop<br>some more code;<br>end loop;<br><br><br><b><u><font color=#ff0000>displaying messages:</font></u></b><br><br><br>wee can display messages in the output we can use the raise debug ,raise notice and raise exception<br>statements<br><br>the differences are mostly in the log files and severity.<br>raise debug can be viewed by the client and ignored by the database in production mode.<br>raise notice gets a mention in the postgresql log and is seen by the client. raise exception causes both <br>mentioned before and also causes a transaction to rollback.<br><br>a simple example is given below<br><br>create function mess() returns varchar as'<br>declare<br>myret :=''done'';<br>begin<br>raise notice ''hello there'';<br>raise debug ''this is the debug message'';<br>raise exception ''this is the exception message'';<br><br>return myret;<br>end;<br>'language 'plpgsql';<br><br><br>call the function <br>select mess();<br>you will get some messages shown at the console too.<br><br><b><u><font color=#ff0000>nesting and recursive functions:</font></u></b><br><br><br>as of 7.1.3 version the database did not support recursive functions<br>however it is possible to call a function inside another without returning a value<br><br>to do this we need to use <br><br>e.g.<br><br>create function test(int4,int4,int4) returns int4 as'<br>declare<br>first alias for $1;<br>sec alias for $2;<br>third alias for $3;<br><br>perform another_funct(first,sec);<br>return (first + sec);<br><br>end;<br>'language 'plpgsq';<br><br>not confused yet?<br><br>go to this link <A HREF="http://www.brasileiro.net:8080/postgres/cookbook/" TARGET="_new">http://www.brasileiro.net:8080/postgres/cookbook/</A><br>this has some great functions including functions in c;<br><br>&nbsp;<br></TD></TR>
+	<TR><TD ALIGN="Center"><BR><A HREF="/gfaq.cfm/lev2/4/lev3/27/pid/699"><B>Back to PostgreSQL Inc.: PostgreSQL FAQ Index</B></A><BR><A HREF="/gthreadminder.cfm/lev2/4/lev3/27/pid/699"><B>Back to PostgreSQL Inc.: PostgreSQL Forum</B></A><BR><A HREF="javascript:openindex(600,400,'/emailfaq.cfm?pid=699&fid=3463&w=600&h=400')"><B>Email This FAQ To A Friend</B></A></TD></TR>
+		
+
+</TABLE><BR>
+
+
+
+
+						</TD></TR></TABLE>
+					</TD>
+					
+					<TD WIDTH="145" BACKGROUND="/art/rcolbackgrnd.gif">
+					
+
+
+<TABLE CELLSPACING=0 CELLPADDING=0 BORDER=0 ALIGN="Center">
+	<TR><TD COLSPAN=3><IMG SRC="/art/n-top.gif" WIDTH=120 BORDER=0></TD></TR>
+	<TR><TD BACKGROUND="/art/w-left.gif"><IMG SRC="/art/w-left.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD>
+		<TD WIDTH=108 BACKGROUND="/art/w-back.gif" CLASS="col" ALIGN="Center" BGCOLOR="#DEDEDE">
+<A HREF="/groups">Start your own<BR>Tek-Tips Group Today!</A>
+		</TD>
+		<TD BACKGROUND="/art/w-right.gif"><IMG SRC="/art/w-right.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD></TR>
+	<TR><TD COLSPAN=3><IMG SRC="/art/n-bottom.gif" WIDTH=120 HEIGHT=6 BORDER=0></TD></TR>
+</TABLE>
+<BR>
+
+						
+							
+							
+								
+									
+
+
+<TABLE CELLSPACING=0 CELLPADDING=0 BORDER=0 ALIGN="Center">
+	<TR><TD COLSPAN=3><IMG SRC="/art/n-top.gif" WIDTH=120 BORDER=0></TD></TR>
+	<TR><TD BACKGROUND="/art/w-left.gif"><IMG SRC="/art/w-left.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD>
+		<TD WIDTH=108 BACKGROUND="/art/w-back.gif" CLASS="col" ALIGN="Center" BGCOLOR="#DEDEDE">
+<A HREF="/gthreadminder.cfm/lev2/4/lev3/27/pid/699">Back To PostgreSQL Inc.: PostgreSQL</A>
+		</TD>
+		<TD BACKGROUND="/art/w-right.gif"><IMG SRC="/art/w-right.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD></TR>
+	<TR><TD COLSPAN=3><IMG SRC="/art/n-bottom.gif" WIDTH=120 HEIGHT=6 BORDER=0></TD></TR>
+</TABLE>
+<BR>
+
+								
+							
+							
+								
+									
+
+
+<TABLE CELLSPACING=0 CELLPADDING=0 BORDER=0 ALIGN="Center">
+	<TR><TD COLSPAN=3><IMG SRC="/art/n-ftmembers.gif" WIDTH=120 BORDER=0></TD></TR>
+	<TR><TD BACKGROUND="/art/w-left.gif"><IMG SRC="/art/w-left.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD>
+		<TD WIDTH=108 BACKGROUND="/art/w-back.gif" CLASS="col" ALIGN="Center" BGCOLOR="#DEDEDE">
+<TABLE WIDTH="100%" CELLSPACING=0 CELLPADDING=1><TR><TD CLASS="col" ALIGN="Center"><A HREF="/guserinfo.cfm?member=rycamor&">rycamor</A></TD></TR><TR><TD CLASS="col" ALIGN="Center"><A HREF="/guserinfo.cfm?member=sleipnir214&">sleipnir214</A></TD></TR><TR><TD CLASS="col" ALIGN="Center"><A HREF="/guserinfo.cfm?member=Leland123&">Leland123</A></TD></TR><TR><TD CLASS="col" ALIGN="Center"><A HREF="/guserinfo.cfm?member=ceco&">ceco</A></TD></TR></TABLE>
+		</TD>
+		<TD BACKGROUND="/art/w-right.gif"><IMG SRC="/art/w-right.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD></TR>
+	<TR><TD COLSPAN=3><IMG SRC="/art/n-bottom.gif" WIDTH=120 HEIGHT=6 BORDER=0></TD></TR>
+</TABLE>
+<BR>
+
+								
+							
+							
+								
+									
+				
+					
+					
+					
+					
+
+
+
+<TABLE CELLSPACING=0 CELLPADDING=0 BORDER=0 ALIGN="Center">
+	<TR><TD COLSPAN=3><IMG SRC="/art/n-related.gif" WIDTH=120 BORDER=0></TD></TR>
+	<TR><TD BACKGROUND="/art/w-left.gif"><IMG SRC="/art/w-left.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD>
+		<TD WIDTH=108 BACKGROUND="/art/w-back.gif" CLASS="col" ALIGN="Center" BGCOLOR="#DEDEDE">
+
+	<TABLE WIDTH="100%" CELLSPACING=0 CELLPADDING=1>
+		
+		
+		<TR><TD CLASS="col" ALIGN="Center"><A HREF="/gthreadminder.cfm/lev2/4/lev3/27/pid/183">Microsoft  SQL Server: Programming</A></TD></TR>
+		
+		
+		
+		<TR><TD CLASS="col" ALIGN="Center"><A HREF="/gthreadminder.cfm/lev2/3/lev3/20/pid/54">Linux (server)</A></TD></TR>
+		
+		
+		
+		<TR><TD CLASS="col" ALIGN="Center"><A HREF="/gthreadminder.cfm/lev2/4/lev3/27/pid/181">Microsoft: Access Other topics</A></TD></TR>
+		
+		
+		
+		<TR><TD CLASS="col" ALIGN="Center"><A HREF="/gthreadminder.cfm/lev2/4/lev3/32/pid/222">Visual Basic(Microsoft): Version 5 & 6</A></TD></TR>
+		
+		
+		
+		<TR><TD CLASS="col" ALIGN="Center"><A HREF="/gthreadminder.cfm/lev2/4/lev3/27/pid/186">Oracle: Oracle release 8 and 8i</A></TD></TR>
+		
+		
+		<TR><TD ALIGN="center" CLASS="ColC"><A HREF="/grelated.cfm/lev2/4/lev3/27/pid/699"><B>More</B></A></TD></TR>
+	</TABLE>
+
+		</TD>
+		<TD BACKGROUND="/art/w-right.gif"><IMG SRC="/art/w-right.gif" WIDTH=6 HEIGHT=2 BORDER=0></TD></TR>
+	<TR><TD COLSPAN=3><IMG SRC="/art/n-bottom.gif" WIDTH=120 HEIGHT=6 BORDER=0></TD></TR>
+</TABLE>
+<BR>
+
+				
+				
+
+								
+							
+						
+						</TD>
+					
+				</TR>
+				<TR>
+					<TD></TD>
+					<TD><IMG SRC="/art/rcolbottom.gif" WIDTH="145" HEIGHT="10" BORDER="0"></TD>
+				</TR>
+			</TABLE>
+			
+			
+			
+				
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH="100%">
+	<TR>
+		<TD><A NAME="PostForm"><IMG SRC="/art/topl.gif" WIDTH=8 HEIGHT=8 BORDER="0"></A></TD>
+		<TD BACKGROUND="/art/top.gif" WIDTH="100%"><IMG SRC="/art/top.gif" WIDTH="100%" HEIGHT=8 BORDER="0"></TD>
+		<TD><IMG SRC="/art/topr.gif" WIDTH=9 HEIGHT=8 BORDER="0"></TD>
+	</TR>
+	<TR>
+		<TD BACKGROUND="/art/left.gif"><IMG SRC="/art/left.gif" WIDTH=8 HEIGHT=8 BORDER="0"></TD>
+		<TD BACKGROUND="/art/back.gif" VALIGN="top" ALIGN="Center">
+		<TABLE CELLSPACING=0 CELLPADDING=0 BORDER=0 WIDTH="538" ALIGN="Center">
+			<TR>
+				<TD COLSPAN=3><IMG SRC="/art/f-newfaq.gif" WIDTH="538" HEIGHT="30" BORDER="0"></TD>
+			</TR>
+			
+			<TR>
+				<TD BACKGROUND="/art/w-left.gif"><IMG SRC="/art/w-left.gif" WIDTH="6" HEIGHT="2" BORDER="0"></TD>
+				<TD WIDTH="526" BACKGROUND="/art/w-back.gif" ALIGN="center">
+
+<P ALIGN="Center">You must be a member to submit an FAQ.  <A HREF="/register.cfm"><B>Click Here</B></A> to join us!</P>
+
+				</TD>
+				<TD BACKGROUND="/art/w-right.gif"><IMG SRC="/art/w-right.gif" WIDTH="6" HEIGHT="2" BORDER="0"></TD>
+			</TR>
+			
+			<TR>
+				<TD COLSPAN=3><IMG SRC="/art/f-bottom.gif" WIDTH="538" HEIGHT="6" BORDER="0"></TD>
+			</TR>
+		</TABLE>
+		
+<BR>
+<TABLE CELLSPACING=0 CELLPADDING=0 BORDER=0 WIDTH="538">
+	<TR>
+		<TD COLSPAN=3><IMG SRC="/art/f-top.gif" WIDTH="538" HEIGHT="6" BORDER="0"></TD>
+	</TR>
+	<TR>
+		<TD WIDTH=6 BACKGROUND="/art/w-left.gif"><IMG SRC="/art/w-left.gif" WIDTH="6" HEIGHT="2" BORDER="0"></TD>
+		<TD BACKGROUND="/art/w-back.gif" ALIGN="Center" CLASS="xxsmallwarn" WIDTH=526>Promoting, selling, recruiting and student posting<BR>are not allowed in the forums.<BR><A HREF="market.cfm">Click here</A> to find out why.</TD>
+		<TD WIDTH=6 BACKGROUND="/art/w-right.gif"><IMG SRC="/art/w-right.gif" WIDTH="6" HEIGHT="2" BORDER="0"></TD>
+	</TR>
+	<TR>
+		<TD COLSPAN=3><IMG SRC="/art/f-bottom.gif" WIDTH="538" HEIGHT="6" BORDER="0"></TD>
+	</TR>
+</TABLE>
+<BR>
+	
+
+<TABLE CELLSPACING=0 CELLPADDING=0 BORDER=0 WIDTH="538">
+	<TR>
+		<TD COLSPAN=3><IMG SRC="/art/f-top.gif" WIDTH="538" HEIGHT="6" BORDER="0"></TD>
+	</TR>
+	<TR>
+		<TD BACKGROUND="/art/w-left.gif"><IMG SRC="/art/w-left.gif" WIDTH="6" HEIGHT="2" BORDER="0"></TD>
+		<TD BACKGROUND="/art/w-back.gif" ALIGN="Center">
+			<TABLE WIDTH="100%" ALIGN="Center" CELLSPACING=0 BORDERCOLOR="Black">
+				<TR><TD>
+<DIV CLASS="headersm">LINK TO THIS FORUM!</DIV>
+<DIV CLASS="linkto" ALIGN="Center" STYLE="color:darkblue;"><B>(Add Stickiness To Your Site By Linking To This Professionally Managed Technical Forum)</B></DIV>
+<DIV CLASS="linkto"><B>TITLE:</B>&nbsp;&nbsp;&nbsp;&nbsp; PostgreSQL Inc.: PostgreSQL Forum at Tek-Tips</DIV>
+<DIV CLASS="linkto"><B>URL:</B>&nbsp;&nbsp;&nbsp;&nbsp; http://www.tek-tips.com/gthreadminder.cfm/lev2/4/lev3/27/pid/699</DIV>
+<DIV CLASS="linkto"><B>DESCRIPTION:</B>&nbsp;&nbsp;&nbsp;&nbsp; PostgreSQL Inc.: PostgreSQL technical support forum and mutual help system for computer professionals. Selling and recruiting forbidden.</DIV>
+</TD></TR>
+			</TABLE>
+<BR>				
+		</TD>
+		<TD BACKGROUND="/art/w-right.gif"><IMG SRC="/art/w-right.gif" WIDTH="6" HEIGHT="2" BORDER="0"></TD>
+	</TR>
+	<TR>
+		<TD COLSPAN=3><IMG SRC="/art/f-bottom.gif" WIDTH="538" HEIGHT="6" BORDER="0"></TD>
+	</TR>
+</TABLE>
+<BR>
+		</TD>
+		<TD BACKGROUND="/art/right.gif"><IMG SRC="/art/right.gif" WIDTH=9 HEIGHT=5 BORDER="0"></TD>
+	</TR>
+	<TR>
+		<TD><IMG SRC="/art/botl.gif" WIDTH=8 HEIGHT=8 BORDER="0"></TD>
+		<TD BACKGROUND="/art/bot.gif"><IMG SRC="/art/bot.gif" WIDTH="100%" HEIGHT=8 BORDER="0"></TD>
+		<TD><IMG SRC="/art/botr.gif" WIDTH=9 HEIGHT=8 BORDER="0"></TD>
+	</TR>
+
+</TABLE>
+
+	
+
+			
+			
+			
+			
+			
+				
+			
+			
+			<BR>
+<DIV ALIGN="Center"><HR WIDTH="500">
+<TABLE WIDTH=150><TR ALIGN="Center">
+<TD><A HREF="/groups" TARGET="_blank"><IMG SRC="/art/startgroup.gif" BORDER=0 HSPACE=25></A></TD>
+<TD><A HREF="http://www.tecumsehgroup.com/opportunities.cfm" TARGET="_blank"><IMG SRC="/art/advus.gif" BORDER=0 HSPACE=25></A></TD>
+<TD><A HREF="http://www.tecumsehgroup.com/opportunities.cfm" TARGET="_blank"><IMG SRC="/art/usemail.gif" BORDER=0 HSPACE=25></A></TD>
+<TD><A HREF="/supportus.cfm"><IMG SRC="/art/site/supportus.gif" BORDER=0 HSPACE=25></A>
+</TD>
+
+</TR></TABLE><HR WIDTH="500"></DIV>
+<DIV CLASS="footer" ALIGN="Center"> Copyright &copy; 1998-2003 <A HREF="http://www.tecumsehgroup.com">Tecumseh Group, Inc.</A>  All rights reserved.<BR>Unauthorized reproduction forbidden.</DIV>
+
+		</TD>
+		
+	</TR>
+
+</TABLE>
+<DIV ID="dropin" STYLE="position:absolute;visibility:hidden;top:125;"></DIV>
+</BODY>
+</HTML>
+				
+
+
+
+
+
+
+	

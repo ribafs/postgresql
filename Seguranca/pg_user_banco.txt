@@ -1,0 +1,68 @@
+Roundcube
+
+banco - roundcubemail
+user - roundcube (dono do banco)
+
+
+Criar Usuário
+CREATE ROLE roundcube WITH LOGIN ENCRYPTED PASSWORD 'zmxn1029rc';
+
+CREATE ROLE admin WITH CREATEDB CREATEROLE;
+
+CREATE ROLE name [ WITH ADMIN rolename ]
+
+
+Criar Banco
+CREATE DATABASE roundcube OWNER roundcube;
+
+ALTER DATABASE roundcube OWNER TO roundcube;
+
+CREATE DATABASE sales OWNER salesapp TABLESPACE salesspace;
+CREATE DATABASE music ENCODING 'LATIN1' TEMPLATE template0;
+
+
+PRIVILÉGIOS
+
+alter database roundcubemail owner to roundcube;
+
+REVOKE ALL ON nometabela FROM PUBLIC
+
+SELECT, INSERT, UPDATE, DELETE, RULE, REFERENCES, TRIGGER, CREATE, TEMPORARY, EXECUTE e USAGE.
+Os privilégios aplicáveis a um determinado tipo de objeto variam de acordo com o tipo do objeto (tabela, função, etc.).
+
+O comando para conceder privilégios é o GRANT. O de remover é o REVOKE.
+
+GRANT UPDATE ON contas TO joel;
+Dá a joel o privilégio de executar consultas update no objeto contas.
+
+GRANT SELECT ON contas TO GROUP contabilidade;
+
+Dono de uma tabela
+alter table cache owner to roundcune;
+
+Criação dos grupos
+CREATE ROLE dbas;
+
+CREATE ROLE dba1 ENCRYPTED PASSWORD 'dba1' CREATEDB CREATEROLE;
+
+-- Criação dos Usuários do Grupo adm
+CREATE ROLE andre ENCRYPTED PASSWORD 'andre' CREATEDB IN ROLE adm;
+CREATE ROLE michela ENCRYPTED PASSWORD 'michela' CREATEDB IN ROLE adm;
+
+ALTER GROUP groupname { ADD | DROP } USER username [, ... ]
+ALTER GROUP sales ADD USER david, ben;
+
+
+CREATE USER dbuser CREATEDB WITH PASSWORD 'DbuS3r' VALID UNTIL '2002-11-11';
+
+Sets username's password to password. 
+CREATEDB | NOCREATEDB
+Grants or revokes from username the right to create databases. 
+CREATEUSER | NOCREATEUSER
+
+
+IMPORTAR SCRIPT SQL
+
+psql roundcube
+\i roundcube.sql
+

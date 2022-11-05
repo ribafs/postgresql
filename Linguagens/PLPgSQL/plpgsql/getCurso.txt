@@ -1,0 +1,3 @@
+create function InsertAluno(int,text) returns ??? as '
+insert into identificacao values ($1, $2);
+' language 'SQL'

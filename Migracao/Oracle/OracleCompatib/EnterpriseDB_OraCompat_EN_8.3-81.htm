@@ -1,0 +1,121 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>LOCK</title>
+
+
+<meta name="keywords" content="lock, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2018"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-81_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-80.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-81_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-81_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-82.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-81_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P3692_209354"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.43 LOCK</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> -- lock a table</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK TABLE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...] IN </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>lockmode</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> MODE [ NOWAIT ]</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">where </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>lockmode </i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">is one of:</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROW SHARE | ROW EXCLUSIVE | SHARE | SHARE ROW EXCLUSIVE | EXCLUSIVE</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> obtains a table-level lock, waiting if necessary for any conflicting locks to be released. If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NO</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WAIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is specified, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+does not wait to acquire the desired lock: if it cannot be acquired
+immediately, the command is aborted and an error is emitted. Once
+obtained, the lock is held for the remainder of the current
+transaction. (There is no &#8220;UNLOCK TABLE&#8221; command; locks are always
+released at transaction end.)</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When acquiring locks automatically for commands that reference tables, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> always uses the least restrictive lock mode possible. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+provides for cases when you might need more restrictive locking. For
+example, suppose an application runs a transaction at the isolation
+level read committed and needs to ensure that data in a table remains
+stable for the duration of the transaction. To achieve this you could
+obtain </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SHARE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+lock mode over the table before querying. This will prevent concurrent
+data changes and ensure subsequent reads of the table see a stable view
+of committed data, because </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SHARE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> lock mode conflicts with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROW EXCLUSIVE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> lock acquired by writers, and your </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> name </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN SHARE MODE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement will wait until any concurrent holders of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROW EXCLUSIVE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+mode locks commit or roll back. Thus, once you obtain the lock, there
+are no uncommitted writes outstanding; furthermore none can begin until
+you release the lock.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">To achieve a similar effect when running a transaction at the isolation level serializable, you have to execute the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+statement before executing any data modification statement. A
+serializable transaction&#8217;s view of data will be frozen when its first
+data modification statement begins. A later </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+will still prevent concurrent writes - but it won&#8217;t ensure that what
+the transaction reads corresponds to the latest committed values.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If a transaction of this sort is going to change the data in the table, then it should use </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SHARE ROW EXCLUSIVE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> lock mode instead of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SHARE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> mode.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This
+ensures that only one transaction of this type runs at a time. Without
+this, a deadlock is possible: two transactions might both acquire </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SHARE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> mode, and then be unable to also acquire </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROW EXCLUSIVE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> mode to actually perform their updates. (Note that a transaction&#8217;s own locks never conflict, so a transaction can acquire </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROW EXCLUSIVE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> mode when it holds </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SHARE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> mode - but not if anyone else holds </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SHARE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+mode.) To avoid deadlocks, make sure all transactions acquire locks on
+the same objects in the same order, and if multiple lock modes are
+involved for a single object, then transactions should always acquire
+the most restrictive mode first.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name (optionally schema-qualified) of an existing table to lock</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The command </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK TABLE a, b</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">; is equivalent to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK TABLE a</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK TABLE b</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. The tables are locked one-by-one in the order specified in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> command.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>lockmode</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The lock mode specifies which locks this lock conflicts with.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If no lock mode is specified, then </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ACCESS EXCLUSIVE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, the most restrictive mode, is used. (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ACCESS EXCLUSIVE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is not an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> term. In </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, this mode ensures that no other transaction can access the locked table in any manner.)</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOWAIT</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Specifies that </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+should not wait for any conflicting locks to be released: if the
+specified lock cannot be immediately acquired without waiting, the
+transaction is aborted.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Notes</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">All forms of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> require </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and/or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privileges.</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is useful only inside a transaction block since the lock is dropped as soon as the transaction ends. A </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command appearing outside any transaction block forms a self-contained
+transaction, so the lock will be dropped as soon as it is obtained.</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> only deals with table-level locks, and so the mode names involving </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROW</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+are all misnomers. These mode names should generally be read as
+indicating the intention of the user to acquire row-level locks within
+the locked table. Also, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROW EXCLUSIVE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> mode is a sharable table lock. Keep in mind that all the lock modes have identical semantics so far as </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCK TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is concerned, differing only in the rules about which modes conflict with which.</span></p>
+
+<p><a name="P3718_213724"></a></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-80.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-81_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-81_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-82.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-81_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-81_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-81_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

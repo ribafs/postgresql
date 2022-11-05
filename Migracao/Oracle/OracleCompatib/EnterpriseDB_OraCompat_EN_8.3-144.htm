@@ -1,0 +1,76 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2081"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-144_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-143.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-144_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-144_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-145.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-144_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P7823_430260"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.5.6 Raise Application Error</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The procedure, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RAISE_APPLICATION_ERROR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, provides the capability to intentionally abort processing </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">within </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">an </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">from which it is called by causing an exception</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The exception is handled in the same manner </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">as described in Section </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-143.htm#P7788_428154">4.5.5</a></u></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In addition, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RAISE_APPLICATION_ERROR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure makes</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> a user-defined code and error message available to the program which can then be used to identify the exception. </span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RAISE_APPLICATION_ERROR</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>error_number</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">,</span><span style="font-family: 'Courier New'; font-size: 11pt;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>message</i></span><span style="font-family: 'Courier New'; font-size: 11pt;">);</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>error_number</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is an integer value or expression that is returned in a variable named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SQLCODE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> when the procedure is executed</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>message</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a string literal or expression that is returned in a variable named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SQLERRM</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">For additional information on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SQLCODE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SQLERRM</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> variables, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">see </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Section </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-169.htm#P9230_494974">4.10</a></u></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example uses the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RAISE_APPLICATION_ERROR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure to display a different code and message depending upon the information missing from an employee.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE PROCEDURE verify_emp (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_empno         NUMBER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">IS</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_ename         emp.ename%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_job           emp.job%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_mgr           emp.mgr%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_hiredate      emp.hiredate%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    SELECT ename, job, mgr, hiredate</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        INTO v_ename, v_job, v_mgr, v_hiredate FROM emp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        WHERE empno = p_empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF v_ename IS NULL THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        RAISE_APPLICATION_ERROR(20010, 'No name for ' || p_empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF v_job IS NULL THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        RAISE_APPLICATION_ERROR(20020, 'No job for' || p_empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF v_mgr IS NULL THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        RAISE_APPLICATION_ERROR(20030, 'No manager for ' || p_empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF v_hiredate IS NULL THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        RAISE_APPLICATION_ERROR(20040, 'No hire date for ' || p_empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Employee ' || p_empno ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        ' validated without errors');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXCEPTION</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    WHEN OTHERS THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('SQLCODE: ' || SQLCODE);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('SQLERRM: ' || SQLERRM);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following shows the output in a case where the manager number is missing from an employee record.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXEC verify_emp(7839);</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQLCODE: 20030</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQLERRM: EDB-20030: No manager for 7839</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-143.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-144_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-144_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-145.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-144_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-144_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-144_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

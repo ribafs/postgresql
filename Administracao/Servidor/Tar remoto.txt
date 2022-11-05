@@ -1,0 +1,7 @@
+Tar remoto
+
+tar cvfzp – /home/backup/ | ssh user@host 'cat – >/backup/kenia/backup_ 20050921.tar.gz'
+
+Com isso geramos o tar do /home/backup direto no diretorio kenia do servidor remoto
+
+

@@ -1,0 +1,58 @@
+CREATE OR REPLACE FUNCTION "public"."modulo11" (varchar, integer) RETURNS integer AS'
+/* New function body */
+DECLARE
+
+--Parametro
+pString alias for $1; /* $1 refere-se ao parametro Varchar */
+pTipo alias for $2; /* $2 refere-se ao parametro integer */
+/* Se pTipo = 1 -> calculo do dv do codigo de barras
+Se pTipo = 2 -> calculo do dv numero do cliente
+e do nosso numero */
+
+--Variaveis
+v_Soma int4;
+v_Reg int4;
+v_Multi int4;
+v_Resto int4;
+v_I int4;
+v_J int4;
+v_H int4;
+
+BEGIN
+v_Soma := 0;
+v_Reg := 0;
+v_Multi := 2;
+v_I:= length(pString);
+v_H := v_I;
+v_J := 1;
+
+while (v_J <= v_I) loop
+begin
+v_Reg := cast(substr(pString,v_H,1) as int4)*v_Multi;
+v_Soma:=v_Soma+v_Reg;
+if(v_Multi = 9) then
+v_Multi :=2;
+else
+v_Multi := v_Multi+1;
+end if;
+v_J:= v_J+1;
+v_H:= v_H-1;
+end;
+end loop;
+v_Resto:= mod(v_Soma,11);
+v_Resto:=11-v_Resto;
+if pTipo = 1 then
+if(v_Resto>=10) or (v_Resto=1) or (v_Resto=0) then
+RETURN 1;
+else
+RETURN v_Resto;
+end if;
+else
+if(v_Resto>=10) or (v_Resto=0) then
+RETURN 0;
+else
+RETURN v_Resto;
+end if;
+end if;
+END;
+'LANGUAGE 'plpgsql' VOLATILE CALLED ON NULL INPUT SECURITY INVOKER;

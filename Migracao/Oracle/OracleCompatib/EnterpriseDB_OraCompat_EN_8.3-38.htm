@@ -1,0 +1,50 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>SQL Commands</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1975"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-38_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-37.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-38_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-38_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-39.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-38_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 28pt;"><p><a name="P1965_106737"></a><span style="font-family: 'Arial'; font-size: 14pt;"><i>3.3 SQL Commands</i></span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This section provides a summary of the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands supported by </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands in this section will work on both an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database and a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Serve</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">r</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note the following points:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> supports other commands that are not listed here. These commands may have no </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> equivalent or they may provide the similar or same functionality as an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command, but with different syntax.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+commands in this section do not necessarily represent the full syntax,
+options, and functionality available in the command. Syntax, options,
+and functionality that are not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> have been omitted from the command description and syntax.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">documentation set contains aspects of the command that may not be </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+</div><p><a name="P1971_107609"></a></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-37.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-38_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-38_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-39.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-38_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-38_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-38_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

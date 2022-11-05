@@ -1,0 +1,940 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2173"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-236_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-235.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-236_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-236_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-237.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-236_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 21pt;"><h1 class="Heading1-1"><a name="P11542_598680"></a><span style="font-family: 'Arial'; font-size: 24pt; color: Black;">8 Open Client Library</span></h1>
+<p style="text-align: left;"><img src="EnterpriseDB_OraCompat_EN_8.3-236_arquivos/inveseps.gif"></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Open Client Library</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> provides application interoperability with the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> Call Interface &#8211; an application that was formerly &#8220;locked in&#8221; can now work with either a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database with minimal to no changes to the application code. The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Open Client Library</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> was written in C code from scratch.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following diagram compares the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Open Client Library</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> Call Interface application stacks.</span></p>
+
+<p><img src="EnterpriseDB_OraCompat_EN_8.3-236_arquivos/EnterpriseDB_OraCompat_EN_8.jpg" border="1" height="420" width="600"></p>
+
+<p style="text-align: center;"><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Figure 6 Open Client Library</span></b></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following tables list the functions supported in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Open Client Library</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. Note that any and all header files must be supplied by the user. </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> does not supply any such files.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 8-1 Connect, Authorize, and Initialize Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="217"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="360"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIEnvCreate</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Create an</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> OCI</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">environment.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIE</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">nvInit</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Initialize</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> an OCI</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> environment handle.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIInitialize</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Initialize</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> OCI environment</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCILogoff</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Release a session.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCILogon</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Create a logon connection.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCILogon2</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Create </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">a logon session</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> in various modes.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIServerAttach</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Establish an access path to </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">a data source.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIServerDetach</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Remove access to a data source.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCISessionBegin</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Create a user session</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCISessionEnd</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">End a</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> user session.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCISessionGet</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get session from session pool.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCISessionRelease</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Release a session.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCITerminate</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Detach from shared </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">memory subsystem.</span></p>
+</td></tr></tbody></table>
+
+</p><p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 8-2 Handle and Descriptor Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="217"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="360"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCI</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">AttrGet</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get handle attributes.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIAttrSet</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Set handle attributes.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDescriptorAlloc</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Allocate and initialize a descriptor</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDescriptorFree</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Free an allocated descriptor.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIHandleAlloc</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Allocate and initialize a handle.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIHandleFree</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Free an allocated handle.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIParamGet</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get a parameter descriptor.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIParamSet</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Set a parameter descriptor.</span></p>
+</td></tr></tbody></table>
+
+</p><p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 8-3 Bind, Define, and Describe Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="217"><p style="text-align: center;"><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="360"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIBindByName</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Bind by name.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIBindByPos</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Bind by position.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIBindDynamic</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Set additional attributes after bind.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIBindArrayOfStruct</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Bind an array of structures for bu</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">lk operations.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDefineByPos</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Define an output variable association.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDefineDynamic</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Set additional attributes for define.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDescribeAny</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Describe existing schema objects.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIStmtGetBindInfo</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get bind and indicator variable names and handle.</span></p>
+</td></tr></tbody></table>
+
+</p><p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 8-4 Statement Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="217"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="360"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIStmtExecute</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Execute a prepared SQL statement</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIStmtFetch</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Fetch rows </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">of data</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> (deprecated).</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIStmtFetch2</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Fetch rows of data</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIStmtPrepare</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Prepare a SQL stat</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ement</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIStmtPrepare2</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Prepare a SQL statement</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIStmtRelease</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Release a</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> statement handle.</span></p>
+</td></tr></tbody></table>
+
+</p><p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 8-5 Transaction Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="217"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="360"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCITransCommit</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Commit a </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">transaction</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCITransRollback</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Roll</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">back a transaction.</span></p>
+</td></tr></tbody></table>
+
+</p><p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 8-6 Miscellaneous Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="217"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="360"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIClientVersion</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Return</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> client library version.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIError</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Get</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Return</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> error message.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIPasswordChange</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Change</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> password.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIPing</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Confir</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">m</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> that the connection and server are active.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIServerVersion</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get the Oracle version strin</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">g.</span></p>
+</td></tr></tbody></table>
+
+</p><p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 8-7 Date and Datetime Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="217"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="360"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateAddDays</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Add or subtract a number of</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> days.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateAddMonths</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Add or subtract a number of</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> months.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateAssign</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Assign a</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> date.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateChe</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ck</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Check</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> if the</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> given</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> date is valid.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateCompare</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compare</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> two</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> dates.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateDaysBetween</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Find the</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> number of days between two dates.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateFromText</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert a</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> string to</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> a</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> date.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateGetDate</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get the date portion of a date.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateGetTime</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the time</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> portion of a date.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateLastDay</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the date of</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">last day of</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> month.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateNextDay</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get the</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> date of</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> next day.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateSetDate</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Set</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the date portion of a date.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateSetTime</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Set</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the time portion of a date.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateSysDate</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the current sys</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">tem date and time.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateToText</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert a</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> date to</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> a</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> string.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeAssign</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Perform</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> datetime assignment.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeCheck</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Check</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> if the date is valid.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeCompare</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compare</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> two datetime values.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeConstruct</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Construct</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> a datetime descript</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">or.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeConvert</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> one datetime type to another.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeFromArray</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> an array of size </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCI_DT_ARRAYLEN</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to an </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTime</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> descriptor</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeFromText</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the given string to Oracle datetime type in the </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTime</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> descriptor a</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ccording to the specified format.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeGetDate</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the date portion of a datetime value.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeGetTime</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the time portion of a datetime value.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeGetTimeZoneName</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the time zone name portion of a datetime value.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeGetTim</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">eZoneOffset</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the time zone (hour, minute) portion of a datetime value.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeSubtract</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Take</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> two dat</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">etime values as input and return their difference as</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> an interval.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeSysTimeStamp</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">G</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">et</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the system current date and time as a timestamp with t</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ime zone.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeToArray</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert an</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTime</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> descriptor to an array.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIDateTimeToText</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the given date to a string according to the specified format.</span></p>
+</td></tr></tbody></table>
+
+</p><p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 8-8 NUMBER Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="217"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="360"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberAbs</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the absolute value.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberAdd</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">A</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">dds </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">s.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCI</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NumberArcCos</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the arc cosine.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberArcSin</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the arc sine.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberArcTan</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the arc tangent.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberArcTan2</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the arc tangent of two </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">s.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberAssign</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Assign on</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">e</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to another.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberCeil</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the ceiling of </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberCmp</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compare </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">s.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberCos</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the cosine.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberDec</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Decrement a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberDiv</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Divide two </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">s.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberExp</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Raise e to the </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">specified </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> power.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberFloor</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the floor of a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberFromInt</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert an integer to an Oracle </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberFromReal</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert a real to an Oracle </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberFromText</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert a string to an Oracle </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberHypCo</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">s</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the hyperbolic cosine.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberHypSin</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the hyperbolic sine.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberHypTan</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the hyperbolic tangent.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberInc</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Increments a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberIntPower</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Raise a given b</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ase to an integer power.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberIsInt</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Test if a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> i</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">s an integer.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberIsZero</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Test if a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> is zero.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberLn</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the natural logarithm.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberLog</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the logarithm to an arbitrary base.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberMod</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Modulo division.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberMul</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Multiply</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">s.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberNeg</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Negate a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OC</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INumberPower</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Exponentiation to base e.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberPrec</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Round a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to a specified number of decimal places.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberRound</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Round a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to a specified decimal place.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberSetPi</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Initialize a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to Pi.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberSetZero</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Initialize a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to z</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ero.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberShift</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Multiply</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> by 10, shifting specified number of decimal places.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberSign</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Obtain the sign of a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberSin</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the sine.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberSqrt</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the square root of a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberSub</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Subtract </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">s.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberTan</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Compute the tangent.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberToInt</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to an integer.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberToReal</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to a real.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberToRealArray</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert an array of </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to a real array.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberToText</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Converts a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to a string.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCINumberTrunc</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Truncate a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">N</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">UMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> at a specified decimal place.</span></p>
+</td></tr></tbody></table>
+
+</p><p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 8-9 String Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="217"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="360"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIStringAllocSize</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get allocated size of string memory in bytes.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIStringAssign</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Assi</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">g</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n string to a string.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIStringAssignText</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Assign text string to a strin</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">g.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIStringPtr</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get string pointer.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIStringResize</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Resize string memory.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIStringSize</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get string size.</span></p>
+</td></tr></tbody></table>
+
+</p><p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 8-10 Cartridge Services and File I/O Interface Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="217"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="360"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIFileClose</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">C</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">lose</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> an open </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">file.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIFileExists</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Test to see if the file exists.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIFileFlush</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Write buffered data to a file.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIFileGetLength</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">the length of a file.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIFileInit</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Initialize the </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIFile</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> package.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIFileOpen</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Open a file.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIFileRead</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Read from a file </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">into a buffer.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIFileSeek</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Change </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">the current position in a file.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIFileTerm</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Terminate the </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIFile</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> package.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OCIFileWrite</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Write </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">buflen</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> bytes into the file.</span></p>
+</td></tr></tbody></table>
+
+</p><p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 8-11 Supported Data Types</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="217"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="360"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ANSI_DATE</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ANSI date</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_AFC</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ANSI fixed character</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_AVC</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ANSI variable character</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_BDOUBLE</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Binary double</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_BIN</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Binary data</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_BFLOAT</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Binary float</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_CHR</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Character string</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_DAT</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Oracle date</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_DATE</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ANSI date</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_FLT</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Float</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQ</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LT_INT</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Integer</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_LBI</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Long binary</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_LNG</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Long</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_LVB</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Longer long binary</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_LVC</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Longer longs (character)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_NUM</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Oracle numeric</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_ODT</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">OCI date type</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_STR</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Zero-terminated string</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_TIMESTAMP</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">T</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">imestamp</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_TIMESTAMP_TZ</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Timestamp wit</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">h time zone</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_TIMESTAMP_LTZ</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Timestamp with local time zone</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_UIN</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Unsigned integer</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_VBI</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">VCS format binary</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_VCS</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">V</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ariable character</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_VNU</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Number with preceding length byte</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="217"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQLT_VST</span></p>
+</td>
+<td valign="top" width="360"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">OCI string type</span></p>
+</td></tr></tbody></table>
+
+</p><p><a name="P11934_606775"></a></p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-235.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-236_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-236_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-237.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-236_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-236_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-236_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

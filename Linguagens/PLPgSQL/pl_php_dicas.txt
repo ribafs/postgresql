@@ -1,0 +1,72 @@
+plPHP RC1 is now available
+Posted on 2004-04-27
+Posted by jd@commandprompt.com
+
+It currently supports SPI, composite types, SetOf function, triggers, trusted, and untrusted modes. 
+
+From the last release (Beta3) SPI, composite types, SetOf functions, and compile once have been added. Below are some examples of what the RC1 version of plPHP is currently capable of.
+
+Using global variables to store data between function callsL
+
+
+
+CREATE OR REPLACE FUNCTION set_var(text) RETURNS text AS '
+global $_SHARED;
+$_SHARED[''first'']=$args[0];
+return ''ok'';
+' LANGUAGE plphp
+
+CREATE OR REPLACE FUNCTION get_var() RETURNS text AS '
+global $_SHARED;
+return $_SHARED[''first''];
+' LANGUAGE plphp;
+
+SELECT set_var('hello plphp');
+SELECT get_var(); //will return "hello plphp" in our example
+
+
+Database Access (SPI):
+
+$query = "INSERT INTO my_table VALUES (1, ''test'')";
+$rv = spi_exec_query($query);
+
+The result would be accessed as:
+
+$res = $rv[''status'']; //SPI_OK_INSERT in our example
+$nrows = $rv[''rows''];
+
+
+
+SetOf functions:
+
+
+
+CREATE TYPE __testsetphp AS (f1 integer, f2 text, f3 text);
+
+CREATE OR REPLACE FUNCTION php_set(integer) RETURNS SETOF __testsetphp AS '
+$ret[0][0]=$args[0];
+$ret[0][1]="hello";
+$ret[0][2]="world";
+$ret[1][0]=2*$args[0];
+$ret[1][1]="hello";
+$ret[1][2]="postgres";
+$ret[2][0]=3*$args[0];
+$ret[2][1]="hello";
+$ret[2][2]="plphp";
+return $ret;
+' LANGUAGE 'plphp';
+
+
+SELECT * FROM php_set(1);
+
+Will return:
+ f1 |  f2   |    f3    
+----+-------+----------
+  1 | hello | world
+  2 | hello | postgres
+  3 | hello | plphp
+
+
+
+plPHP can be found at the Command Prompt, Inc. community pages located here
+http://www.commandprompt.com/community/plphp/

@@ -1,0 +1,68 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>ALTER TABLESPACE</title>
+
+
+<meta name="keywords" content="alter tablespace, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1981"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-44_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-43.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-44_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-44_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-45.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-44_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P2141_117201"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.6 ALTER TABLESPACE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2142_117223"></a>Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER TABLESPACE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;change the definition of a tablespace</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2144_117286"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER TABLESPACE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> RENAME TO </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>newname</i></span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2146_117333"></a>Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TABLESPACE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> changes the definition of a tablespace.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2148_117400"></a>Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of an existing tablespace.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>newname</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The new name of the tablespace. The new name cannot begin with </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">pg_</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, as such names are reserved for system tablespaces.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2153_117574"></a>Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Rename tablespace </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">empspace</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">employee_space</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">ALTER TABLESPACE empspace RENAME TO employee_space;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2156_117678"></a>See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-75.htm#P3468_190962"><u>DROP TABLESPACE</u></a></span></p>
+
+<p><a name="P2158_117702"></a></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-43.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-44_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-44_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-45.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-44_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-44_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-44_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

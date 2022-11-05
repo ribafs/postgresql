@@ -1,0 +1,204 @@
+
+/* Estilos fundamentais */
+body{ font-family: Verdana, sans-serif; font-size: 12px; font-weight: normal; color: #000000; background-color: #FFFFFF; border: none; text-align: justify; }
+td{font-size: 12px}
+td.body{ font-family: Verdana, sans-serif; font-size: 12px; font-weight: normal; color: #000000; padding: 8px; background-color: #FFFFFF; border: none; text-align: justify; }
+
+a:link{ color: #0000FF;	text-decoration: underline; }
+a:hover{ color: #FF0000; text-decoration: none; }
+a:visited{ color: #990000; }
+.noborder{ border: none; }
+.topborder{ border-top: 1px solid #000000; border-left: none; border-right: none; border-bottom: none; }
+.link1, .link1:link, .link1:visited { text-decoration: none; color: black; }
+.link1:hover { text-decoration: underline; color: blue; }
+.invisible { visibility:hidden; }
+/* Tabela */
+table.table{ border-bottom: 1px solid #0a246a; border-right: 1px solid #0a246a;	text-align: center;	}
+table.table tr td{ font-size: 12px; border-left: 1px solid #0a246a; border-top: 1px solid #0a246a; text-align: left; }
+table.table tr td.value { text-align:right; }
+table.table tr.total td { font-weight: bold; }
+table.table tr.total td.value{ font-weight: bold; text-align:right; }
+table.table tr th{ font-size: 12px; text-align: center; border-left: 1px solid #0a246a; border-top: 1px solid #0a246a; background-color:#dddddd;/* color: #FFFFFF; background-color: #8592B5;*/ }
+table.table tr th a:link, table.table tr th a:visited{ text-decoration: none; color:black;/* color: #FFFFFF;*/ }
+table.table tr th a:active, th.cell a:hover{ text-decoration: none; color: #FF0000; }
+table.table tr.row1 td, table.table tr.row1 td.value { }
+table.table tr.row2 td, table.table tr.row2 td.value { background-color: #FFFFFF; }
+table.table tr.total td, table.table tr.total td.value { background-color: #D4D5D8; font-weight: bold; }
+/* Cabeçalhos */
+h1{ font-size: 18px; font-family:Verdana, Helvetica, sans-serif; background-color: #b6bdd2; background-image: url('images/bg-title.png'); border-bottom: 1px solid #0a246a; color:#000099 }
+h2{ font-size: 16px; font-family:Verdana, Helvetica, sans-serif; background-color: #b6bdd2; color:#000099; background-image: url('images/bg-title.png'); border-bottom: 1px solid #0a246a; spacing-bottom: 10px }
+h3{ font-size: 14px; background-color: #D4D5D8; border-bottom: #0a246a 1px solid; color:#000099; spacing-bottom: 5px; }
+h4{ font-size: 12px; background-color: #D4D5D8; border-bottom: #0a246a 1px solid; color:#000099; spacing-bottom: 1px; }
+h1 a:link, h1 a:visited, h2 a:link, h2 a:visited, h3 a:link, h3 a:visited, h4 a:link, h4 a:visited { color: #003399; }
+h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover { color: #FF0000; text-decoration: underline; }
+.footer { border: none; background-color: #D4D5D8; font-size: 9px; text-align: center; }
+.data { font-size: 10px; text-align: right; }
+/* Estilos do menu */
+.menuContext { border: 1px solid #000000; position: relative; float: right; }
+.menuMain, .menuMain:visited, .menuMain:link {
+/*	border-left: rgb(230, 230, 230) 1px solid;
+	border-bottom: rgb(197, 197, 197) 1px solid;
+	border-top: rgb(230, 230, 230) 1px solid;
+	border-right: rgb(197, 197, 197) 1px solid;
+	color: #FFFFFF;*/
+	color: #0066FF;
+	font-size: 11px;
+	padding: 2px;
+	width: 100%;
+	height: 100%;
+	font-family: Arial,sans-serif;
+	text-decoration: none;
+	font-weight: bold;
+}
+.menuMain:hover {
+	background-color:#CCCCCC;
+	color: #0066FF;
+	text-decoration: none;
+}
+.menu, .menu:visited, .menu:link, .menu:hover {
+	FONT-WEIGHT: normal;
+	FONT-SIZE: 11px;
+	COLOR:navy;
+	FONT-FAMILY: Arial, sans-serif;
+	TEXT-DECORATION: none;
+}
+input.menu, input.menuFocus {
+	border:none;
+}
+
+td.menu {
+	FONT-WEIGHT: normal;
+	FONT-SIZE: 11px;
+	COLOR: black;
+	FONT-FAMILY: Arial, sans-serif;
+/*	BACKGROUND-COLOR: #BAC1D6; border: #BAC1D6 1px solid; */
+	TEXT-DECORATION: none;
+}
+td.bgmenu {
+     border:none;
+/*	BACKGROUND-COLOR: #BAC1D6; */
+}
+td.menuHover {
+	/*border: #0a246a 1px solid;*/
+	background-color:#CCCCCC;
+	COLOR: black;
+}
+th.menu {
+/*	border-left: none;
+	border-bottom: 1px solid #000000;
+	border-top: 1px solid #000000;
+	border-right: none;*/
+	border-bottom: 1px solid black;
+	font-size: 11px;
+	font-family: Arial, sans-serif;
+/*	color: #FFFFFF; background-color: #8592B5;*/
+	text-decoration: none;
+	
+}
+table.menu {
+/*	background-color: #BAC1D6;*/
+	border: none;
+}
+
+.menuSep{
+font-size:2px;
+height: 8; 
+}
+.menuCurrent, .menuCurrent:link, .menuCurrent:hover, .menuCurrent:visited {
+	FONT-WEIGHT: normal; 
+	FONT-SIZE: 11px; 
+	COLOR: black; 
+	FONT-FAMILY: Arial, Verdana, sans-serif;
+	TEXT-DECORATION: none;
+}
+td.menuCurrent {
+/*	border: #0a246a 1px solid;*/
+	FONT-WEIGHT: normal; 
+	padding: 0;
+	FONT-SIZE: 11px; 
+	COLOR: black; 
+	FONT-FAMILY: Arial, Verdana, sans-serif;
+	BACKGROUND-COLOR: #D4D5D8;
+	TEXT-DECORATION: none;
+}
+.menuFocus, .menuFocus:visited, .menuFocus:link, .menuFocus:hover, .menuFocus:active {
+	FONT-WEIGHT: normal; 
+	FONT-SIZE: 11px; 
+	color: #FFFFFF;
+	TEXT-DECORATION: none;
+}
+td.menuFocus {
+/*	border: #0a246a 1px solid;*/
+	FONT-WEIGHT: normal; 
+	padding: 0;
+	FONT-SIZE: 11px; 
+	background-color: #8592B5;
+	color: #FFFFFF;
+	TEXT-DECORATION: none;
+}
+/* Estilos de formulrios */
+.form {
+	background-color: #DBD8D1;	
+}
+input, input.normal, button, select, select.normal, textarea, textarea.normal { font-size: 8pt;
+	font-family: Tahoma, Verdana, Verdana, sans-serif;
+	border: #0a246a 1px solid; }
+input.disabled { background-color: rgb(204,204,204); }
+input.url { color: rgb(0,0,255); text-decoration: underline; }
+label, .label {
+	font-weight: bold;
+}
+input.focus, select.focus, textarea.focus {
+	border: #0a246a 1px solid;
+	COLOR: black; 
+	BACKGROUND-COLOR: #D4D5D8;
+}
+.button, button {
+	border: #0a246a 1px solid;
+	BACKGROUND-COLOR: #D4D5D8;
+	COLOR: black;
+}
+
+
+/**/
+.noticias
+{
+   background-color: black;
+   color: yellow;
+   text-decoration: none;
+	font-size:10px;
+}
+.noticias:link, .noticias:visited {
+   color: yellow;
+}
+.noticias:hover {
+   color: #00FFFF;
+   text-decoration: none;
+}
+a.th, a.th:link, a.th:visited
+{
+  color: black;
+  text-decoration:none;
+}
+a.th:hover
+{
+  color:blue;
+}
+td.block
+{
+	/*border: #0a246a 1px solid; #DBD8D1;*/
+	/*BACKGROUND-COLOR:#FFFFDD;*/
+	text-align: justify;
+}
+td.block2
+{
+	/*border: #0a246a 1px solid; #D4D5D8;*/
+	BACKGROUND-COLOR:#DDDDDD;
+	text-align: justify;
+}
+.toolTip {
+	font-size: 10px;
+	color: #000000;
+	background-color: #FFFFDD;
+	border: #000000 1px solid;
+}

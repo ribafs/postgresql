@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>iMasters - Por uma Internet mais criativa e dinâmica</title>
+	
+	<meta name="resource-types" content="document">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta name="revisit-after" content="1">
+	<meta name="classification" content="Internet">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Description" content="Comunidade de profissionais, estudantes e mestres em tecnlogias e ferramentas voltadas para o desenvolvimento web.">
+
+	<meta name="Keywords" content="programação, microsoft, asp, php, internet, linux, curso online, webmaster, java, flash, delphi, sql, oracle, cursos online, javascript, css, XHTML, HTML,  photoshop, semantica, web standards,  interbase, fireworks, dreamweaver, tableless, standards, browsers, compatibilidade, XML, usabilidade, acessibilidade, web, internet">
+	<meta name="robots" content="ALL">
+	<meta name="distribution" content="Global">
+	<meta name="rating" content="General">
+	<meta name="author" content="WebStudio iMasters">
+	<meta name="language" content="pt-br">
+	<meta name="doc-class" content="Completed">
+	<meta name="doc-rights" content="Public">
+	<link rel="shortcut icon" href="http://www.imasterspro.com.br/img/favicon.ico">
+
+	<!-- base href="http://www.imasterspro.com.br/" -->
+	<style type="text/css" media="screen">
+		
+		#imprimir { width:487px; }
+		body { font-family:Arial; font-size: 12px; }
+		span { float:left font-size:11px; padding:2px; }
+		h1 { font-size:16px; padding: 3px; }
+		h2 { font-size:14px; }
+		h3 { font-size:13px; }
+		h3 { font-size:12px; }
+		
+	</style></head>
+
+<body>
+<div id="imprimir">
+	<img src="PG_cpf_cnpj_plpgsql_files/topo_imprimir.gif">
+	<br>
+	<span>Juliano Ignácio</span>
+	<span>Quarta-feira, 27 de agosto de 2003</span>
+	<h1>Stored procedures, triggers, functions...</h1>
+	<table border="0" cellpadding="0" cellspacing="0" width="453">
+                <tbody><tr> 
+                  <td valign="top" width="367"> 
+                    <p class="texto"><b>Stored procedures, triggers, functions...</b>
+                    </p><p class="texto">Na verdade, no PostgreSQL tudo é função! 
+                      Por exemplo, uma função para validação do CPF ou CNPJ (não 
+                      se assuste com o tamanho, é bem simples, o processo de cálculo 
+                      é que exige esse passo-a-passo):
+                  </p></td>
+                  <td valign="top" width="86"><a href="http://www.postgresql.org/"> 
+                    <img alt="PostgreSQL Banner" src="PG_cpf_cnpj_plpgsql_files/banner-right.jpg" align="right" border="0" height="120" width="119"></a></td>
+                </tr>
+              </tbody></table>
+              <p class="texto"><i><font color="#008000">-- *****************************************************<br>
+                -- Função: <b>f_cnpjcpf</b><br>
+                -- Objetivo: <br>
+                --&nbsp;&nbsp; Validar o número do documento especificado<br>
+                --&nbsp;&nbsp; (CNPJ ou CPF) ou não (livre)<br>
+                -- Argumentos: <br>
+                --&nbsp;&nbsp; Pessoa [Jurídica(0),Física(1) ou<br>
+                --&nbsp;&nbsp; Livre(2)] (integer), Número com dígitos <br>
+                --&nbsp;&nbsp; verificadores e sem pontuação (bpchar)<br>
+                -- Retorno: <br>
+                --&nbsp;&nbsp; -1: Tipo de Documento invalido.<br>
+                --&nbsp;&nbsp; -2: Caracter inválido no numero do documento. <br>
+                --&nbsp;&nbsp; -3: Numero do Documento invalido.<br>
+                --&nbsp;&nbsp; 1: OK (smallint)<br>
+                -- *****************************************************<br>
+                --</font></i><br>
+                <font color="#0000ff">CREATE OR REPLACE</font><font color="#008000"> 
+                </font><font color="#0000ff">FUNCTION</font> <b>f_cnpjcpf</b> 
+                (integer,bpchar) <br>
+                <font color="#0000ff">RETURNS</font> integer <br>
+                <font color="#0000ff">AS</font> '<br>
+                <font color="#0000ff">DECLARE</font><br>
+                <br>
+                <i><font color="#008000">-- Argumentos</font></i><br>
+                <i><font color="#008000">-- Tipo de verificacao : 0 (PJ), 1 (PF) 
+                e 2 (Livre)</font></i><br>
+                &nbsp;&nbsp; pTipo ALIAS FOR $1; <br>
+                <i><font color="#008000">-- Numero do documento</font></i><br>
+                &nbsp;&nbsp; pNumero ALIAS FOR $2; <br>
+                <br>
+                <i><font color="#008000">-- Variaveis</font></i><br>
+                &nbsp;&nbsp; i INT4; <font color="#008000"><i>-- Contador</i></font><br>
+                &nbsp;&nbsp; iProd INT4; <font color="#008000"><i>-- Somatório</i></font><br>
+                &nbsp;&nbsp; iMult INT4; <font color="#008000"><i>-- Fator</i></font><br>
+                &nbsp;&nbsp; iDigito INT4; <font color="#008000"><i>-- Digito 
+                verificador calculado</i></font><br>
+                &nbsp;&nbsp; sNumero VARCHAR(20); <font color="#008000"><i>-- 
+                numero do docto completo</i></font><br>
+                <br>
+                <font color="#0000ff">BEGIN</font><br>
+                <br>
+                <i><font color="#008000">-- verifica Argumentos validos</font></i><br>
+                &nbsp;&nbsp; IF (pTipo &lt; 0) OR (pTipo &gt; 2) THEN<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RETURN -1;<br>
+                &nbsp;&nbsp; END IF;<br>
+                <br>
+                <i><font color="#008000">-- se for Livre, nao eh necessario a 
+                verificacao</font></i><br>
+                &nbsp;&nbsp; IF pTipo = 2 THEN<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RETURN 1;<br>
+                &nbsp;&nbsp; END IF;<br>
+                <br>
+                &nbsp;&nbsp; sNumero := trim(pNumero);<br>
+                &nbsp;&nbsp; FOR i IN 1..char_length(sNumero) LOOP<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF position(substring(sNumero, 
+                i, 1) in ''1234567890'') = 0 THEN<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RETURN -2;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END IF; <br>
+                &nbsp;&nbsp; END LOOP;<br>
+                &nbsp;&nbsp; sNumero := '''';<br>
+                <br>
+                <font color="#008000"><i>-- *****************************************************<br>
+                -- Verifica a validade do CNPJ <br>
+                -- *****************************************************</i></font><br>
+                <br>
+                &nbsp;&nbsp; IF (char_length(trim(pNumero)) = 14) AND (pTipo = 
+                0) THEN<br>
+                <br>
+                <i><font color="#008000">-- primeiro digito</font></i><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sNumero := substring(pNumero from 
+                1 for 12);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iMult := 2;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iProd := 0;<br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FOR i IN REVERSE 12..1 LOOP<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iProd := iProd 
+                + to_number(substring(sNumero from i for 1),''9'') * iMult;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF iMult = 9 
+                THEN<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                iMult := 2;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ELSE<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                iMult := iMult + 1;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END IF;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END LOOP;<br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iDigito := 11 - (iProd % 11);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF iDigito &gt;= 10 THEN<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iDigito := 0;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END IF;<br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sNumero := substring(pNumero from 
+                1 for 12) || trim(to_char(iDigito,''9'')) || ''0'';<br>
+                <br>
+                <i><font color="#008000">-- segundo digito</font></i><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iMult := 2;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iProd := 0;<br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FOR i IN REVERSE 13..1 LOOP<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iProd := iProd 
+                + to_number(substring(sNumero from i for 1),''9'') * iMult;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF iMult = 9 
+                THEN<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                iMult := 2;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ELSE<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                iMult := iMult + 1;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END IF;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END LOOP;<br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iDigito := 11 - (iProd % 11);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF iDigito &gt;= 10 THEN<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iDigito := 0;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END IF;<br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sNumero := substring(sNumero from 
+                1 for 13) || trim(to_char(iDigito,''9''));<br>
+                &nbsp;&nbsp; END IF;<br>
+                <br>
+                <i><font color="#008000">-- *****************************************************<br>
+                -- Verifica a validade do CPF <br>
+                -- *****************************************************</font></i><br>
+                <br>
+                &nbsp;&nbsp; IF (char_length(trim(pNumero)) = 11) AND (pTipo = 
+                1) THEN<br>
+                <br>
+                <i><font color="#008000">-- primeiro digito</font></i><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iDigito := 0;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iProd := 0;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sNumero := substring(pNumero from 
+                1 for 9);<br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FOR i IN 1..9 LOOP<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iProd := iProd 
+                + (to_number(substring(sNumero from i for 1),''9'') * (11 - i));<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END LOOP;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iDigito := 11 - (iProd % 11);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF (iDigito) &gt;= 10 THEN<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iDigito := 0;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END IF;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sNumero := substring(pNumero from 
+                1 for 9) || trim(to_char(iDigito,''9'')) || ''0'';<br>
+                <br>
+                <i><font color="#008000">-- segundo digito</font></i><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iProd := 0;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FOR i IN 1..10 LOOP<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iProd := iProd 
+                + (to_number(substring(sNumero from i for 1),''9'') * (12 - i));<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END LOOP;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iDigito := 11 - (iProd % 11);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF (iDigito) &gt;= 10 THEN<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iDigito := 0;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; END IF;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sNumero := substring(sNumero from 
+                1 for 10) || trim(to_char(iDigito,''9''));<br>
+                <br>
+                &nbsp;&nbsp; END IF;<br>
+                <br>
+                <i><font color="#008000">-- faz a verificacao do digito verificador 
+                calculado</font></i><br>
+                &nbsp;&nbsp; IF pNumero = sNumero::bpchar THEN<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RETURN 1;<br>
+                &nbsp;&nbsp; ELSE<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RETURN -3;<br>
+                &nbsp;&nbsp; END IF;<br>
+                <font color="#0000ff">END</font>;<br>
+                ' <font color="#0000ff">LANGUAGE</font> 'plpgsql';</p>
+              <p class="texto">________________________________________</p>
+              <p class="texto">Rode este script no seu banco, caso retorne um 
+                erro <i> <font color="#ff0000">"ERROR: language 'plpgsql' 
+                does not exist"</font></i> ou qualquer coisa parecida, é 
+                preciso dizer ao banco que esta base deve aceitar funções escritas 
+                em plpgsql. O PostgreSQL tem diversas linguagens PL, em uma das 
+                minhas colunas, menciona a maioria delas, dêem um olhada.</p>
+              <p class="texto">Bom, para habilitar a base a aceitar o <font color="#008000">plpgsql</font> 
+                execute o comando no prompt bash (<font color="#008000">$</font>):<br>
+                <br>
+                <font color="#0000ff">createlang</font> -U postgres pgplsql nomedabase<br>
+                <br>
+                Em seguida, rode o script novamente.<br>
+                Para executá-lo, digite no prompt da base (<font color="#008000">=#</font>):<br>
+                <br>
+                <font color="#0000ff">SELECT</font> <b>f_cnpjcpf</b>( 1, '12312312345' 
+                );<br>
+                <br>
+                Neste caso retorna um erro (-3) definido com documento inválido 
+                na função.<br>
+                <br>
+                <font color="#0000ff">SELECT</font> <b>f_cnpjcpf</b>( 2, '12312312345' 
+                );<br>
+                <br>
+                Neste caso retorna (1) que significa que a operação foi bem sucedida! 
+                Porquê?!<br>
+                Lembre-se, o argumento Pessoa tipo 2 não faz a validação do documento 
+                digitado.</p>
+              <p class="texto">Você também pode utilizar a função <b>f_cnpjcpf</b> 
+                na validação de um campo, por exemplo:<br>
+                <br>
+                <font color="#0000ff">CREATE TABLE</font> cadastro (<br>
+                &nbsp;&nbsp; nome&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; VARCHAR(50) 
+                NOT NULL,<br>
+                &nbsp;&nbsp; tipopessoa INT2 NOT NULL <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                CHECK (tipopessoa IN (0,1)),<br>
+                &nbsp;&nbsp; cpfcnpj&nbsp;&nbsp;&nbsp; CHAR(20) NOT NULL <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                CHECK (<b>f_cnpjcpf</b>(tipopessoa, cpfcnpj)=1)<br>
+                ); </p>
+              <p class="texto">Ao tentar inserir um registro com um número de 
+                <font color="#008000">cpf</font> ou <font color="#008000">cnpj</font> 
+                inválido, volta um erro retornado pela <i>Check Constraint </i>responsável 
+                pela validação. Tente:<br>
+                <br>
+                <font color="#0000ff">INSERT</font> <font color="#0000ff">INTO</font> 
+                cadastro (nome, tipopessoa, cpfcnpj) <br>
+                <font color="#0000ff">VALUES</font> ( 'Juliano S. Ignacio', 1, 
+                '12312312345');<br>
+                <br>
+                Coloque o seu <font color="#008000">nome</font> e <font color="#008000"> 
+                cpf</font> e verá que o registro será inserido.</p>
+              <p class="texto">Outra aplicação é na validação de <font color="#008000">cnpj</font> 
+                (por exemplo) de uma tabela importada de uma origem qualquer:</p>
+              <p class="texto">SELECT * FROM nomedatabela <br>
+                WHERE <b>f_cnpjcpf</b>( 0, campocnpjimportado ) &lt; 1;</p>
+              <p class="texto">Dessa maneira, irá selecionar todos os registros 
+                onde o número do <font color="#008000">cnpj</font> estiver errado.</p>
+              <p class="texto">________________________________________</p>
+              <p class="texto"><b>Retornando recordsets através de funções</b></p>
+              <p class="texto">Se você já sabe fazer uma função, então é simples! 
+                - porque a diferença está no tipo de retorno da função.</p>
+              <p class="texto"><b><font color="#008000">Versão &gt;= 7.3.x</font></b></p>
+              <p class="texto"><font color="#0000ff">CREATE OR REPLACE FUNCTION</font> 
+                getcadastro() <br>
+                <font color="#0000ff">RETURNS</font> <b>setof</b> <font color="#008000"> 
+                cadastro</font> <br>
+                <font color="#0000ff">AS</font> '<br>
+                SELECT * FROM cadastro;<br>
+                ' <font color="#0000ff">LANGUAGE</font> SQL;</p>
+              <p class="texto"> Onde: "cadastro" é o nome da tabela 
+                (o nome da função é livre). Para executar, use:</p>
+              <p class="texto"><font color="#0000ff">SELECT</font> getcadastro();</p>
+              <p class="texto">Ou então, você pode passar parâmetros:<br>
+                <br>
+                <font color="#0000ff">CREATE OR REPLACE FUNCTION</font> getcadastro(<font color="#008000"><i>text</i></font>) 
+                <br>
+                <font color="#0000ff">RETURNS</font> <b>setof</b> <font color="#008000"> 
+                cadastro</font> <br>
+                <font color="#0000ff">AS</font> '<br>
+                SELECT * FROM cadastro WHERE nome LIKE <font color="#008000">$1</font> 
+                || ''%'';<br>
+                ' <font color="#0000ff">LANGUAGE</font> SQL;</p>
+              <p class="texto"> Execute: </p>
+              <p class="texto"><font color="#0000ff">SELECT</font> getcadastro('A');</p>
+              <p class="texto">Todos registros com nomes que começam com a letra 
+                "A" serão exibidos.</p>
+              <p class="texto">Veja mais sobre <b>SETOF</b>, em <i>SQL Functions 
+                Returning Sets </i>na documentação do PostgreSQL.</p>
+              <p class="texto">Nas versões anteriores, 7.2.x, o <b>SETOF</b> não 
+                era tão simples assim, dê uma olhada também em <i>REFCURSOR</i>, 
+                este era o tipo que retornava recordsets, porém, era muito mais 
+                trabalhoso. Nas versões 7.1 e anteriores, não havia retorno de 
+                recordsets.</p>
+              <p class="texto">________________________________________</p>
+              <p class="texto"><b>Agradecimento</b></p>
+              <p class="texto">O meu muito obrigado a <i>Ricardo Munhoz Cappi</i> 
+                pela troca de experiências que originou este artigo. Sucesso para 
+                você!</p>
+              <p class="texto">Um abraço à todos.</p>
+              <p class="texto">Dúvidas, críticas e sugestões podem ser enviadas 
+                diretamente para meu e-mail, colocando no assunto (subject) "iMasters-PSQL".<br>
+                Um abraço a todos.<font face="Arial, Helvetica, sans-serif"></font></p>
+</div>
+</body></html>

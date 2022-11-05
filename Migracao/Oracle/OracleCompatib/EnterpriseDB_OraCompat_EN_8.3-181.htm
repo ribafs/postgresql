@@ -1,0 +1,66 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2118"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-181_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-180.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-181_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-181_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-182.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-181_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 21pt;"><h1 class="Heading1-1"><a name="P9469_511701"></a><span style="font-family: 'Arial'; font-size: 24pt; color: Black;">6 Packages</span></h1>
+<p style="text-align: left;"><img src="EnterpriseDB_OraCompat_EN_8.3-181_arquivos/inveseps.gif"></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P9470_511711"></a>This chapter discusses the concept of packages in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>package</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">is a name</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">d collection of </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">functions, procedures, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">variables, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">cursors, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">user-defined record types</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and records</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> that are referenced using a common qualifier &#8211; the package identifier</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Packages have the following characteristics:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Packages
+provide a convenient means of organizing the functions and procedures
+that perform a related purpose. Permission to use the package functions
+and procedures is dependent upon one privilege granted to the entire
+package. All of the package programs must be referenced with a common
+name.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Certain functions, procedures, variables, types, etc. in the package can be declared as </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>public</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. Public entities are visible and can be referenced by other programs that are given </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXECUTE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+privilege on the package. For public functions and procedures, only
+their signatures are visible - the program names, parameters if any,
+and return types of functions). The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+code of these function and procedures is not accessible to others,
+therefore applications that utilize a package are dependent only upon
+the information available in the signature &#8211; not in the procedural
+logic, itself.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Other functions, procedures, variables, types, etc. in the package can be declared as </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>private</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.
+Private entities can be referenced and using by function and procedures
+within the package, but not by other external applications. Private
+entities are for use only by programs within the package.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Function
+and procedure names can be overloaded within a package. One or more
+functions/procedures can be defined with the same name, but with
+different signatures. This provides the capability to create
+identically named programs that perform the same job, but on different
+types of input. </span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-180.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-181_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-181_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-182.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-181_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-181_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-181_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

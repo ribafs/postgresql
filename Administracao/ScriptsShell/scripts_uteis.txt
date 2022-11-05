@@ -1,0 +1,29 @@
+Scripts Úteis
+
+Listar os 6 maiores arquivos do diretório atual
+
+du -k * | sort -nr | cut -f2 | xargs -d "\n" -x du -sh | head
+ou
+du -h | sort -nr | head -6
+
+
+Listar os arquivos modificados há mais de 4 dias. 
+
+Procurará em /var/log e gravará a lista no arquivo /tmp/lista4dias 
+
+find /var/log -mtime +4 > /tmp/lista4dias 
+
+
+Script para renomear vários arquivos de uma vez. 
+
+#Por José Henrique 
+#!/bin/sh 
+for f in *.php 
+do 
+	#Troca o sufixo .php pelo .html 
+	newname=$(basename $f php)html 
+
+	#Renomeia 
+	mv $f $newname 
+done 
+

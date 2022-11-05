@@ -1,0 +1,138 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2063"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-126_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-125.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-126_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-126_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-127.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-126_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P6670_374918"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.3.2 Using %TYPE in Variable Declarations</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Often variables will be declared in </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> programs </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">that will be used to hold values from tables in the database</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In order to ensure compatibility between the table columns and the </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> variables, the data types of the two should be the same.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">However,
+as quite often happens, a change might be made to the table definition.
+If the data type of the column is changed, the corresponding change may
+be required to the variable in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Instead of coding the specific column data type into the variable declaration the column attribute, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%TYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,
+can be used instead. A qualified column name in dot notation or the
+name of a previously declared variable must be specified as a prefix to
+</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%TYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. The data type of the column or variable prefixed to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%TYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+is assigned to the variable being declared. If the data type of the
+given column or variable changes, the new data type will be associated
+with the variable without the need to modify the declaration code.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note:</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span></b><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%TYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> attribute can be used with formal</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> p</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">arameter declarations as well.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> {</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> {</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>view</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> }.</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>variable</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> }%TYPE;</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the identifier assigned to the variable or formal parameter that is being declared</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the name of a column in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>view</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>variable</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the name of a variab</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">le that was declared prior to the variable identified by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><b>Note:</b></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> The variable does not inherit any of the column&#8217;s other attributes such as might be specified on the column with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOT NULL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause or the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFAULT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In the following example a procedure queries the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+table using an employee number, displays the employee&#8217;s data, finds the
+average salary of all employees in the department to which the employee
+belongs, and then compares the chosen employee&#8217;s salary with the
+department average.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE PROCEDURE emp_sal_query (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_empno         IN NUMBER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">IS</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_ename         VARCHAR2(10);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_job           VARCHAR2(9);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_hiredate      DATE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_sal           NUMBER(7,2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_deptno        NUMBER(2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_avgsal        NUMBER(7,2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    SELECT ename, job, hiredate, sal, deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        INTO v_ename, v_job, v_hiredate, v_sal, v_deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FROM emp WHERE empno = p_empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Employee # : ' || p_empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Name       : ' || v_ename);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Job        : ' || v_job);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Hire Date  : ' || v_hiredate);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Salary     : ' || v_sal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Dept #     : ' || v_deptno);</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    SELECT AVG(sal) INTO v_avgsal</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FROM emp WHERE deptno = v_deptno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF v_sal &gt; v_avgsal THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('Employee''s salary is more than the '</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            || 'department average of ' || v_avgsal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    ELSE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('Employee''s salary does not exceed the '</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            || 'department average of ' || v_avgsal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Instead of the above, the procedure could be written as follows without explicitly coding the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table data types into the declar</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ation section of the procedure.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE PROCEDURE emp_sal_query (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_empno         IN emp.empno%TYPE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">IS</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_ename         emp.ename%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_job           emp.job%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_hiredate      emp.hiredate%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_sal           emp.sal%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_deptno        emp.deptno%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_avgsal        v_sal%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    SELECT ename, job, hiredate, sal, deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        INTO v_ename, v_job, v_hiredate, v_sal, v_deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FROM emp WHERE empno = p_empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Employee # : ' || p_empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Name       : ' || v_ename);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Job        : ' || v_job);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Hire Date  : ' || v_hiredate);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Salary     : ' || v_sal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Dept #     : ' || v_deptno);</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    SELECT AVG(sal) INTO v_avgsal</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FROM emp WHERE deptno = v_deptno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF v_sal &gt; v_avgsal THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('Employee''s salary is more than the '</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            || 'department average of ' || v_avgsal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    ELSE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('Employee''s salary does not exceed the '</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            || 'department average of ' || v_avgsal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><b><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note:</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span></b><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">p_empno</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> shows an example of a formal parameter defined using </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%TYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">v_avgsal</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> illustrates the usage of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%TYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> referring to another variable instead of a table column.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is sample output from executing this procedure.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXEC emp_sal_query(7698);</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Employee # : 7698</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Name       : BLAKE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Job        : MANAGER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Hire Date  : 01-MAY-81 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Salary     : 2850.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Dept #     : 30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Employee's salary is more than the department average of 1566.67</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-125.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-126_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-126_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-127.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-126_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-126_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-126_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

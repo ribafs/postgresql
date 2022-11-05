@@ -1,0 +1,82 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>ALL_TABLES</title>
+
+<meta name="keywords" content="all_tables, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2179"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-242_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-241.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-242_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-242_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-243.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-242_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 28pt;"><p><a name="P12051_609667"></a><span style="font-family: 'Arial'; font-size: 14pt;"><i>9.5 ALL_TABLES</i></span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALL_TABLES</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> view provides information on all user-defined tables.</span></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="133"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name</span></p>
+</td>
+<td valign="top" width="108"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Type</span></p>
+</td>
+<td valign="top" width="335"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">owner</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">User name of the table&#8217;s owner.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">schemaname</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name of the schema in which the table belongs.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">table_name</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name of the table</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">table_space</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name of the tablespace in which the table resides if other than the default tablespace.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">status</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Whether or not the state of the table is valid. Currently, always set to </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VALID</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+<p><a name="P12072_610113"></a></p></td></tr></tbody></table>
+
+</p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-241.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-242_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-242_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-243.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-242_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-242_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-242_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

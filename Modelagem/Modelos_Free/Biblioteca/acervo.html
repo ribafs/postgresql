@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+
+<title>Módulo Acervo (Projeto Biblioteca) - Sub-área Banco de Dados - IME / USP </title>
+<meta name="Generator" content="EditPlus">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+</head><body>
+	<table width="95%">
+	 <tbody><tr>
+        <td bgcolor="#00557d">
+			<a name="emprestimo">
+			<font size="4" color="white"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Módulo Acervo<br><br></p></b></font>
+		</a></td>
+	  </tr>
+	  <tr>
+        <td> 
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O
+módulo de Acervo é responsável por representar os dados de cada item de
+acervo existente na biblioteca e também prover métodos de manipulação
+destes dados.<br>
+
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Os itens do acervo estão divididos em dois grandes grupos: <i>Periódicos</i> e <i>Não-Periódicos</i>.
+O primeiro representa a abstração dos itens que são publicados em
+períodos regulares de tempo, como revistas, jornais, etc. Já os <i>Não-Periódicos</i> incluem os itens como os livros, teses e materiais multimídias.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para cada instância concreta de um
+item de acervo da biblioteca, temos um (ou mais) item de <i>Exemplar</i>
+associado. É o exemplar que representa a existência física do item na
+biblioteca e é ele quem pode ser emprestado, consultado e disposto em
+prateleiras.<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assim como ocorreu
+no módulo Pessoa, o modelo conceitual do Acervo apresenta uma grande
+estrutura hierárquica (figura 1).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Os modelos lógicos e físico do
+módulo de Acervo são bastante complexos e extensos, por este motivo,
+não puderam ser incluídos neste página, mas estão disponíveis em <a href="http://malariadb.ime.usp.br/mac439/projetobiblioteca/modelos" target="_blank"> http://malariadb.ime.usp.br/mac439/projetobiblioteca/modelos</a>.<br>
+
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Embora não esteja representado no modelo conceitual, na biblioteca um <i>CUTTER</i>
+é associado a cada item de acervo, livro, série e evento. A tabela de
+cutter contém valores pré-definidos e que são associados a cada
+entidade citada através das primeiras letras do título de cada item da
+entidade. Como livros e séries possuem atributos praticamente
+semelhantes, optou-se por representá-los através de uma mesma entidade
+no modelo, nomeada <i>LIVRO_SERIE</i>.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pelo modelo conceitual, vemos que
+um livro ou uma série está sempre dentro de uma coleção -
+independentemente desta coleção possuir mais de um item ou um item
+único. Quando a coleção de livro ou série possuir um único item,
+ocorrerá a replicação das entradas em <i>IDENTIFICADOR</i>associadas à coleção em <i>ITEM_ACERVO</i> (ISBN/ISSN), de modo que elas também sejam associadas à tabela <i>LIVRO_SERIE</i>.</p>
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="acervo_arquivos/acervo_conceitual.gif">
+		  <br><br>
+		  <b>Figura 1 &#8211; Modelo Conceitual do Módulo Acervo</b>
+        </td>
+	  </tr>
+	  <tr>
+        <td><font size="4"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assuntos Remissivos ou Sinônimos<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+        <td> 
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cada
+assunto, com um código, pode possuir sinônimos, também chamados de
+assuntos remissivos. Um determinado assunto e seus remissivos possuem o
+mesmo código, porém, para efeito de classificação, somente um sinônimo
+é utilizado. Por exemplo, pode-se ter os assuntos "Algoritmos de
+Scheduling" e "Algoritmos de Escalonamento", onde o primeiro é
+utilizado em uma classificação, portanto recebe um código, e o segundo
+é seu remissivo ou sinônimo. Os remissivos sempre remetem ao principal.</p>
+		</td>
+	  </tr>
+	   <tr>
+		<td align="center"> 
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			
+			<tr><td align="center" bgcolor="#990000"><b><font color="white">Código</font></b></td>
+				<td align="center" bgcolor="#990000"><b><font color="white">Assunto</font></b></td>
+				<td align="center" bgcolor="#990000">&nbsp;</td></tr>
+			<tr><td align="center">450</td><td>Algoritmo de Scheduling</td><td>Usado na classificação de itens de acervo</td></tr>
+			<tr><td align="center">450</td><td>Algoritmo de Escalonamento</td><td>Remissivo (sinônimo)</td></tr>
+			</tbody>
+		  </table>
+        </td>
+	  </tr>
+	  <tr>
+		<td><font size="4"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tabelas de Tipos do Módulo<br><br></p></b></font></td>
+	  </tr>
+	  <tr>
+        <td> 
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assim
+como ocorreu em Pessoa, há uma série de tabelas de tipo que definem os
+valores que determinados atributos das entidades do módulo podem
+assumir. A entidade Exemplar possui dois atributos &#8211; situação e
+apresentação &#8211; que tem os seus valores limitados aos exibidos nas
+tabelas 13 e 14, respectivamente. A entidade <i>LivroSerie</i>  possui um atributo tipo que deve ser mapeado para um dos valores de <i>tp_livro_serie</i> (tabela 15); o atributo grau da entidade <i>Tese</i> pode assumir um dos valores exibidos na tabela 16 e o tipo de mídia que uma instância da entidade <i>Multimídia</i> pode possuir está na tabela 17.</p>
+		</td>
+	  </tr>
+      <tr>
+		<td align="center"> 
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tp_situacao</font></b></td></tr>
+			<tr><td align="center">id_tp_situacao</td><td align="center">tipo_situacao</td></tr>
+			<tr><td align="center">1</td><td>Disponível</td></tr>
+			<tr><td align="center">2</td><td>Insdisponível</td></tr>
+			<tr><td align="center">3</td><td>Perdido</td></tr>
+			<tr><td align="center">4</td><td>Extraviado</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 13: Tipos de situação na qual um exemplar pode se encontrar</b>
+        </td>
+	  </tr>
+	   <tr>
+		<td align="center"> 
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tp_apresentacao</font></b></td></tr>
+			<tr><td align="center">id_tp_apresentacao</td><td align="center">tipo_apresentacao</td></tr>
+			<tr><td align="center">1</td><td>Brochura</td></tr>
+			<tr><td align="center">2</td><td>Espiral</td></tr>
+			<tr><td align="center">3</td><td>Capa Dura</td></tr>
+			<tr><td align="center">4</td><td>Encadernado</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 14: Tipos de apresentação para um exemplar</b>
+        </td>
+	  </tr>
+	   <tr>
+		<td align="center"> 
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tp_livro_serie</font></b></td></tr>
+			<tr><td align="center">id_tp_livro_serie</td><td align="center">tipo_livro_serie</td></tr>
+			<tr><td align="center">1</td><td>Dissertação</td></tr>
+			<tr><td align="center">2</td><td>Monografia</td></tr>
+			<tr><td align="center">3</td><td>Séries Brasileiras</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 15: Tipos de livros ou séries</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">grau</font></b></td></tr>
+			<tr><td align="center">id_grau</td><td align="center">nome</td></tr>
+			<tr><td align="center">1</td><td>Mestrado</td></tr>
+			<tr><td align="center">2</td><td>Doutorado</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 16: Tipos de grau para dissertações</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tp_midia</font></b></td></tr>
+			<tr><td align="center">id_tp_midia</td><td align="center">tipo_midia</td></tr>
+			<tr><td align="center">1</td><td>CD</td></tr>
+			<tr><td align="center">2</td><td>K7</td></tr>
+			<tr><td align="center">3</td><td>DVD</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 17: Tipos de mídias</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td> 
+		  <br>
+		  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Há
+ainda os tipos de destaque (tabela 16) que um item pode ter ter na
+ficha de consulta impressa. Estes tipos de destaque são geralmente
+associados aos relacionamentos entre autores e item de acervo, editoras
+e item de acervo ou ainda assuntos e item de acervo.</p>
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tp_destaque</font></b></td></tr>
+			<tr><td align="center">id_tp_destaque</td><td align="center">tipo_destaque</td></tr>
+			<tr><td align="center">1</td><td>Corpo da Ficha</td></tr>
+			<tr><td align="center">2</td><td>Aparece em Ambos</td></tr>
+			<tr><td align="center">3</td><td>Não Aparece</td></tr>
+			<tr><td align="center">4</td><td>Parte do Título</td></tr>
+			<tr><td align="center">5</td><td>Segundo Título</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 18: Tipos de destaque de um item na ficha impressa</b>
+        </td>
+	  </tr>
+	  <tr><td colspan="3"><br><br><hr width="100%" color="black"></td></tr>
+	  <tr>
+		<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A modelagem de dados de acervo
+apresentada nesta página é uma evolução da modelagem inicialmente
+proposta nos trabalhos dos alunos: <ul>
+				<li>Giuliano R. Lima, Givanildo D. Alves, Luiz Henrique M. de Araújo, Renato M. Miyasaki, Renato Senda e Tae Ha Lee, no ano de 2004.
+				</li><li>Luiz Fernando dos Santos Pereira, Cesar Fernando Aguena, Vinicius Bellino, Daniela Akizuki, Guilherme Lungarzo, no ano de 2003.
+				
+			</li></ul>
+		</td>
+	  </tr>
+	</tbody></table>
+</body></html>

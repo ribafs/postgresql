@@ -1,0 +1,42 @@
+pg_dumpall salva os bancos de dados de um agrupamento do PostgreSQL em um arquivo de script.
+
+Uso:
+  pg_dumpall [OPÇÃO]...
+
+Opções gerais:
+  -f, --file=ARQUIVO       nome do arquivo de saída
+  -i, --ignore-version     prossegue mesmo se a versão do servidor e
+                           do pg_dumpall não correspondem
+  --help                   mostra esta ajuda e termina
+  --version                mostra informação sobre a versão e termina
+
+Opções que controlam a saída do conteúdo:
+  -a, --data-only          copia somente os dados, não o esquema
+  -c, --clean              exclui (remove) bancos de dados anteriormente criados
+  -d, --inserts            copia dados utilizando comandos INSERT, ao invés de comandos COPY
+  -D, --column-inserts     copia dados utilizando comandos INSERT com nomes das colunas
+  -g, --globals-only       copia somente objetos globais, e não bancos de dados
+  -o, --oids               inclui OIDs na cópia de segurança
+  -O, --no-owner           ignora restauração do dono dos objetos
+  -r, --roles-only         copia somente roles, e não bancos de dados ou tablespaces
+  -s, --schema-only        copia somente o esquema, e não os dados
+  -S, --superuser=NOME     especifica o super-usuário a ser usado na cópia de segurança
+  -t, --tablespaces-only   copia somente tablespaces, e não bancos de dados ou roles
+  -x, --no-privileges      não copia os privilégios (grant/revoke)
+  --disable-dollar-quoting
+                           desabilita delimitação por cifrão, usa delimitadores do padrão SQL
+  --disable-triggers       desabilita gatilhos durante a restauração do tipo somente dados
+  --use-set-session-authorization
+                           usa comandos SESSION AUTHORIZATION ao invés de
+                           comandos OWNER TO
+
+Opções de conexão: 
+  -h, --host=MÁQUINA       máquina do servidor de banco de dados ou diretório do soquete
+  -l, --database=NOMEBD    especifica um banco de dados padrão alternativo
+  -p, --port=PORTA         número da porta do servidor de banco de dados
+  -U, --username=NOME      conecta como usuário do banco de dados especificado
+  -W, --password           pergunta senha (pode ocorrer automaticamente)
+
+O script SQL será escrito na saída padrão.
+
+Relate erros a <pgsql-bugs@postgresql.org>.

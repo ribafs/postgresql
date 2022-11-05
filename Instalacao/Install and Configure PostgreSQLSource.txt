@@ -1,0 +1,254 @@
+9 Steps to Install and Configure PostgreSQL from Source on Linux
+
+by Ramesh Natarajan on April 9, 2009
+
+PostgreSQL Installation and Configuration Steps
+Similar to mySQL, postgreSQL is very famous and feature packed free and open source database.
+
+Earlier we’ve discussed several installations including LAMP stack installation, Apache2 installation from source, PHP5 installation from source and mySQL installation.
+
+In this article, let us review how to install postgreSQL database on Linux from source code.
+
+Step 1: Download postgreSQL source code
+
+From the postgreSQL download site, choose the mirror site that is located in your country.
+
+# wget http://wwwmaster.postgresql.org/redir/198/f/source/v8.3.7/postgresql-8.3.7.tar.gz
+
+Step 2: Install postgreSQL
+
+# tar xvfz postgresql-8.3.7.tar.gz 
+
+# cd postgresql-8.3.7
+
+# ./configure
+checking for sgmlspl... no
+configure: creating ./config.status
+config.status: creating GNUmakefile
+config.status: creating src/Makefile.global
+config.status: creating src/include/pg_config.h
+config.status: creating src/interfaces/ecpg/include/ecpg_config.h
+config.status: linking ./src/backend/port/tas/dummy.s to src/backend/port/tas.s
+config.status: linking ./src/backend/port/dynloader/linux.c to src/backend/port/dynloader.c
+config.status: linking ./src/backend/port/sysv_sema.c to src/backend/port/pg_sema.c
+config.status: linking ./src/backend/port/sysv_shmem.c to src/backend/port/pg_shmem.c
+config.status: linking ./src/backend/port/dynloader/linux.h to src/include/dynloader.h
+config.status: linking ./src/include/port/linux.h to src/include/pg_config_os.h
+config.status: linking ./src/makefiles/Makefile.linux to src/Makefile.port
+
+# make
+make[3]: Leaving directory `/usr/save/postgresql-8.3.7/contrib/spi'
+rm -rf ./testtablespace
+mkdir ./testtablespace
+make[2]: Leaving directory `/usr/save/postgresql-8.3.7/src/test/regress'
+make[1]: Leaving directory `/usr/save/postgresql-8.3.7/src'
+make -C config all
+make[1]: Entering directory `/usr/save/postgresql-8.3.7/config'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/usr/save/postgresql-8.3.7/config'
+All of PostgreSQL successfully made. Ready to install. 
+
+# make install
+make -C test/regress install
+make[2]: Entering directory `/usr/save/postgresql-8.3.7/src/test/regress'
+/bin/sh ../../../config/install-sh -c  pg_regress '/usr/local/pgsql/lib/pgxs/src/test/regress/pg_regress'
+make[2]: Leaving directory `/usr/save/postgresql-8.3.7/src/test/regress'
+make[1]: Leaving directory `/usr/save/postgresql-8.3.7/src'
+make -C config install
+make[1]: Entering directory `/usr/save/postgresql-8.3.7/config'
+mkdir -p -- /usr/local/pgsql/lib/pgxs/config
+/bin/sh ../config/install-sh -c -m 755 ./install-sh '/usr/local/pgsql/lib/pgxs/config/install-sh'
+/bin/sh ../config/install-sh -c -m 755 ./mkinstalldirs '/usr/local/pgsql/lib/pgxs/config/mkinstalldirs'
+make[1]: Leaving directory `/usr/save/postgresql-8.3.7/config'
+PostgreSQL installation complete.
+
+PostgreSQL ./configure options
+
+Following are various options that can be passed to the ./configure:
+
+    * –prefix=PREFIX install architecture-independent files in PREFIX. Default installation location is /usr/local/pgsql
+    * –enable-integer-datetimes  enable 64-bit integer date/time support
+    * –enable-nls[=LANGUAGES]  enable Native Language Support
+    * –disable-shared         do not build shared libraries
+    * –disable-rpath           do not embed shared library search path in executables
+    * –disable-spinlocks    do not use spinlocks
+    * –enable-debug           build with debugging symbols (-g)
+    * –enable-profiling       build with profiling enabled
+    * –enable-dtrace           build with DTrace support
+    * –enable-depend         turn on automatic dependency tracking
+    * –enable-cassert         enable assertion checks (for debugging)
+    * –enable-thread-safety  make client libraries thread-safe
+    * –enable-thread-safety-force  force thread-safety despite thread test failure
+    * –disable-largefile       omit support for large files
+    * –with-docdir=DIR      install the documentation in DIR [PREFIX/doc]
+    * –without-docdir         do not install the documentation
+    * –with-includes=DIRS  look for additional header files in DIRS
+    * –with-libraries=DIRS  look for additional libraries in DIRS
+    * –with-libs=DIRS         alternative spelling of –with-libraries
+    * –with-pgport=PORTNUM   change default port number [5432]
+    * –with-tcl                     build Tcl modules (PL/Tcl)
+    * –with-tclconfig=DIR   tclConfig.sh is in DIR
+    * –with-perl                   build Perl modules (PL/Perl)
+    * –with-python              build Python modules (PL/Python)
+    * –with-gssapi               build with GSSAPI support
+    * –with-krb5                  build with Kerberos 5 support
+    * –with-krb-srvnam=NAME  default service principal name in Kerberos [postgres]
+    * –with-pam                  build with PAM support
+    * –with-ldap                  build with LDAP support
+    * –with-bonjour            build with Bonjour support
+    * –with-openssl            build with OpenSSL support
+    * –without-readline      do not use GNU Readline nor BSD Libedit for editing
+    * –with-libedit-preferred  prefer BSD Libedit over GNU Readline
+    * –with-ossp-uuid        use OSSP UUID library when building contrib/uuid-ossp
+    * –with-libxml               build with XML support
+    * –with-libxslt               use XSLT support when building contrib/xml2
+    * –with-system-tzdata=DIR  use system time zone data in DIR
+    * –without-zlib              do not use Zlib
+    * –with-gnu-ld              assume the C compiler uses GNU ld [default=no]
+
+PostgreSQL Installation Issue1:
+
+You may encounter the following error message while performing ./configure during postgreSQL installation.
+
+# ./configure
+checking for -lreadline... no
+checking for -ledit... no
+configure: error: readline library not found
+If you have readline already installed, see config.log for details on the
+failure.  It is possible the compiler isn't looking in the proper directory.
+Use --without-readline to disable readline support.
+
+PostgreSQL Installation Solution1:
+
+Install the readline-devel and libtermcap-devel to solve the above issue.
+
+# rpm -ivh libtermcap-devel-2.0.8-46.1.i386.rpm readline-devel-5.1-1.1.i386.rpm
+warning: libtermcap-devel-2.0.8-46.1.i386.rpm: Header V3 DSA signature: NOKEY, key ID 1e5e0159
+Preparing...                ########################################### [100%]
+   1:libtermcap-devel       ########################################### [ 50%]
+   2:readline-devel         ########################################### [100%]
+
+Step 3: Verify the postgreSQL directory structure
+
+After the installation, make sure bin, doc, include, lib, man and share directories are created under the default /usr/local/pgsql directory as shown below.
+
+# ls -l /usr/local/pgsql/
+total 24
+drwxr-xr-x 2 root root 4096 Apr  8 23:25 bin
+drwxr-xr-x 3 root root 4096 Apr  8 23:25 doc
+drwxr-xr-x 6 root root 4096 Apr  8 23:25 include
+drwxr-xr-x 3 root root 4096 Apr  8 23:25 lib
+drwxr-xr-x 4 root root 4096 Apr  8 23:25 man
+drwxr-xr-x 5 root root 4096 Apr  8 23:25 share
+
+Step 4: Create postgreSQL user account
+
+# adduser postgres
+
+# passwd postgres
+Changing password for user postgres.
+New UNIX password:
+Retype new UNIX password:
+passwd: all authentication tokens updated successfully.
+
+Step 5: Create postgreSQL data directory
+
+Create the postgres data directory and make postgres user as the owner.
+
+# mkdir /usr/local/pgsql/data
+
+# chown postgres:postgres /usr/local/pgsql/data
+
+# ls -ld /usr/local/pgsql/data
+drwxr-xr-x 2 postgres postgres 4096 Apr  8 23:26 /usr/local/pgsql/data
+
+Step 6: Initialize postgreSQL data directory
+
+Before you can start creating any postgreSQL database, the empty data directory created in the above step should be initialized using the initdb command as shown below.
+
+# su - postgres
+
+# /usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data/
+The files belonging to this database system will be owned by user postgres
+This user must also own the server process.
+
+The database cluster will be initialized with locale en_US.UTF-8.
+The default database encoding has accordingly been set to UTF8.
+The default text search configuration will be set to "english".
+
+fixing permissions on existing directory /usr/local/pgsql/data ... ok
+creating subdirectories ... ok
+selecting default max_connections ... 100
+selecting default shared_buffers/max_fsm_pages ... 32MB/204800
+creating configuration files ... ok
+creating template1 database in /usr/local/pgsql/data/base/1 ... ok
+initializing pg_authid ... ok
+initializing dependencies ... ok
+creating system views ... ok
+loading system objects' descriptions ... ok
+creating conversions ... ok
+creating dictionaries ... ok
+setting privileges on built-in objects ... ok
+creating information schema ... ok
+vacuuming database template1 ... ok
+copying template1 to template0 ... ok
+copying template1 to postgres ... ok
+
+WARNING: enabling "trust" authentication for local connections
+You can change this by editing pg_hba.conf or using the -A option the
+next time you run initdb.
+
+Success. You can now start the database server using:
+
+    /usr/local/pgsql/bin/postgres -D /usr/local/pgsql/data
+or
+    /usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data -l logfile start
+
+Step 7: Validate the postgreSQL data directory
+
+Make sure all postgres DB configuration files (For example, postgresql.conf) are created under the data directory as shown below.
+
+$ ls -l /usr/local/pgsql/data
+total 64
+drwx------ 5 postgres postgres  4096 Apr  8 23:29 base
+drwx------ 2 postgres postgres  4096 Apr  8 23:29 global
+drwx------ 2 postgres postgres  4096 Apr  8 23:29 pg_clog
+-rw------- 1 postgres postgres  3429 Apr  8 23:29 pg_hba.conf
+-rw------- 1 postgres postgres  1460 Apr  8 23:29 pg_ident.conf
+drwx------ 4 postgres postgres  4096 Apr  8 23:29 pg_multixact
+drwx------ 2 postgres postgres  4096 Apr  8 23:29 pg_subtrans
+drwx------ 2 postgres postgres  4096 Apr  8 23:29 pg_tblspc
+drwx------ 2 postgres postgres  4096 Apr  8 23:29 pg_twophase
+-rw------- 1 postgres postgres     4 Apr  8 23:29 PG_VERSION
+drwx------ 3 postgres postgres  4096 Apr  8 23:29 pg_xlog
+-rw------- 1 postgres postgres 16592 Apr  8 23:29 postgresql.conf
+
+Step 8: Start postgreSQL database
+
+Use the postgres postmaster command to start the postgreSQL server in the background as shown below.
+
+$ /usr/local/pgsql/bin/postmaster -D /usr/local/pgsql/data >logfile 2>&1 &
+[1] 2222
+
+$ cat logfile
+LOG:  database system was shut down at 2009-04-08 23:29:50 PDT
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+
+Step 9: Create postgreSQL DB and test the installation
+
+Create a test database and connect to it to make sure the installation was successful as shown below. Once you start using the database, take backups frequently as mentioned in how to backup and restore PostgreSQL article.
+
+$ /usr/local/pgsql/bin/createdb test
+
+$ /usr/local/pgsql/bin/psql test
+Welcome to psql 8.3.7, the PostgreSQL interactive terminal.
+
+Type:  \copyright for distribution terms
+       \h for help with SQL commands
+       \? for help with psql commands
+       \g or terminate with semicolon to execute query
+       \q to quit
+
+test=#
+

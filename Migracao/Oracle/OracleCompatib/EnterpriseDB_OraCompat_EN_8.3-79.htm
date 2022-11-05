@@ -1,0 +1,263 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>GRANT</title>
+
+
+<meta name="keywords" content="grant, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2016"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-79_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-78.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-79_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-79_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-80.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-79_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P3540_194132"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.41 GRANT</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3541_194144"></a>Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;define access privileges</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3543_194183"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT { { SELECT | INSERT | UPDATE | DELETE | REFERENCES }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [,...] | ALL [ PRIVILEGES ] }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ON </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>tablename</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  TO { </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">username</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">group</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">name</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | PUBLIC } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ WITH GRANT OPTION ]</span>
+
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT { SELECT | ALL [ PRIVILEGES ] }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ON </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>sequencename</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  TO { </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">username</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">group</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">name</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | PUBLIC } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ WITH GRANT OPTION ]</span>
+
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT { EXECUTE | ALL [ PRIVILEGES ] }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ON FUNCTION </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>progname</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    ( [ [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>argmode</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>argname</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>argtype</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] [, ...] )</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  TO { </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>username</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>groupname</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | PUBLIC } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ WITH GRANT OPTION ]</span>
+
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT { EXECUTE | ALL [ PRIVILEGES ] }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ON PROCEDURE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>progname</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    [ ( [ [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>argmode</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>argname</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>argtype</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] [, ...] ) ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  TO { </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>username</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>groupname</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | PUBLIC } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ WITH GRANT OPTION ]</span>
+
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT { EXECUTE | ALL [ PRIVILEGES ] }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ON PACKAGE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>packagename</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  TO { </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">username</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">groupname</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | PUBLIC } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ WITH GRANT OPTION ]</span>
+
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>role</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  TO { </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>username</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">groupn</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ame</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | PUBLIC } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ WITH ADMIN OPTION ]</span>
+
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT { CONNECT | RESOURCE | DBA } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  TO </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">{ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>username</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">| </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">gro</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">up</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">name</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">} [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ WITH ADMIN OPTION ]</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3579_195173"></a>Description</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command has two basic variants: one that grants privileges on a
+database object (table, view, sequence, or program), and one that
+grants membership in a role. These variants are similar in many ways,
+but they are different enough to be described separately.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, the concept of users and groups has been unified into a single type of entity called a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>role</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. In this context, a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>user</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a role that has the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOGIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> attribute &#8211; the role may be used to create a session and connect to an application. A </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>group</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a role that does not have the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOGIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> attribute &#8211; the role may not be used to create a session or connect to an application.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A
+role may be a member of one or more other roles, so the traditional
+concept of users belonging to groups is still valid. However, with the
+generalization of users and groups, users may &#8220;belong&#8221; to users, groups
+may &#8220;belong&#8221; to groups, and groups may &#8220;belong&#8221; to users, forming a
+general multi-level hierarchy of roles. User names and group names
+share the same namespace therefore it is not necessary to distinguish
+whether a grantee is a user or a group in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">3.3.41.1 GRANT on Database Objects</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This variant of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command gives specific privileges on a database object to a role. These privileges are added to those already granted, if any.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The key word </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUBLIC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> indicates that the privileges are to be granted to all roles, including those that may be created later. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUBLIC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+may be thought of as an implicitly defined group that always includes
+all roles. Any particular role will have the sum of privileges granted
+directly to it, privileges granted to any role it is presently a member
+of, and privileges granted to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUBLIC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WITH GRANT OPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+is specified, the recipient of the privilege may in turn grant it to
+others. Without a grant option, the recipient cannot do that. Grant
+options cannot be granted to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUBLIC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">There
+is no need to grant privileges to the owner of an object (usually the
+user that created it), as the owner has all privileges by default. (The
+owner could, however, choose to revoke some of his own privileges for
+safety.) The right to drop an object or to alter its definition in any
+way is not described by a grantable privilege; it is inherent in the
+owner, and cannot be granted or revoked. The owner implicitly has all
+grant options for the object as well.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Depending on the type of object, the initial default privileges may include granting some privileges to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUBLIC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. The default is no public access for tables and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXECUTE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+privilege for functions, procedures, and packages. The object owner may
+of course revoke these privileges. (For maximum security, issue the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in the same transaction that creates the object; then there is no window in which another user may use the object.)</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The possible privileges are: </span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Allows <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-86.htm#P3860_222577"><u>SELECT</u></a> from any column of the specified table, view, or sequence. For sequences, this privilege also allows the use of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">currval</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> function.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Allows <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-80.htm#P3637_204215"><u>INSERT</u></a> of a new row into the specified table.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Allows <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-91.htm#P4134_246545"><u>UPDATE</u></a> of a column of the specified table. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT ... FOR UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> also requires this privilege (besides the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> privilege).</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Allows <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-65.htm#P3271_181322"><u>DELETE</u></a> of a row from the specified table.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REFERENCES</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">To create a foreign key constraint, it is necessary to have this privilege on both the referencing and referenced tables.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXECUTE</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Allows
+the use of the specified package, procedure, or function. When applied
+to a package, allows the use of all of the package&#8217;s public procedures,
+public functions, public variables, records, cursors and other public
+objects and object types. This is the only type of privilege that is
+applicable to functions, procedures, and packages.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Pos</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">tgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> syntax for granting the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXECUTE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> privilege is not fully </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> requires qualification of the program name by one of the keywords, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FUNCTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PROCEDURE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PACKAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> whereas these keywords must be omitted in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. In addition for functions, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+requires the full function signature after the function name (including
+an empty parenthesis if there are no function arguments). For
+procedures, the full signature is required if the procedure has one or
+more arguments. In </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, function and procedure signatures must be omitted. This is due to the fact that all programs share the same namespace in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, whereas functions, procedures, and packages have their own individual namespace in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> to allow program name overloading to a certain extent.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALL PRIVILEGES</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Grant all of the available privileges at once.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The privileges required by other commands are listed on the reference page of the respective command.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">3.3.41.2 GRANT on Roles</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3607_199969"></a>This variant of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command grants membership in a role to one or more other roles.
+Membership in a role is significant because it conveys the privileges
+granted to a role to each of its members.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WITH ADMIN OPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+is specified, the member may in turn grant membership in the role to
+others, and revoke membership in the role as well. Without the admin
+option, ordinary users cannot do that. Database superusers can grant or
+revoke membership in any role to anyone. Roles having the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATEROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege can grant or revoke membership in any role that is not a superuser.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">There are three pre-defined roles that have the following meanings:</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CONNECT</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Granting the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CONNECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> role is equivalent to giving the grantee the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOGIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> privilege. The grantor must have the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATEROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> privilege.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RESOURCE</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Granting the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RESOURCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> role is equivalent to granting the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">USAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+privileges on a schema that has the same name as the grantee. This
+schema must exist before the grant is given. The grantor must have the
+privilege to grant </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">USAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> privileges on this schema to the grantee.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DBA</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Granting the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DBA</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> role is equivalent to making the grantee a superuser. The grantor must be a superuser.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3616_201157"></a>Notes</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-82.htm#P3719_213724"><u>REVOKE</u></a> command is used to revoke access privileges.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When a non-owner of an object attempts to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+privileges on the object, the command will fail outright if the user
+has no privileges whatsoever on the object. As long as some privilege
+is available, the command will proceed, but it will grant only those
+privileges for which the user has grant options. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT ALL PRIVILEGES</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+forms will issue a warning message if no grant options are held, while
+the other forms will issue a warning if grant options for any of the
+privileges specifically named in the command are not held. (In
+principle these statements apply to the object owner as well, but since
+the owner is always treated as holding all grant options, the cases can
+never occur.)</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">It
+should be noted that database superusers can access all objects
+regardless of object privilege settings. This is comparable to the
+rights of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">root</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in a Unix system. As with </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">root</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, it&#8217;s unwise to operate as a superuser except when absolutely necessary.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If a superuser chooses to issue a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRAN</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">T</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command, the command is performed as though it were issued by the owner
+of the affected object. In particular, privileges granted via such a
+command will appear to have been granted by the object owner. (For role
+membership, the membership appears to have been granted by the
+containing role itself.)</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+can also be done by a role that is not the owner of the affected
+object, but is a member of the role that owns the object, or is a
+member of a role that holds privileges </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WITH GRANT OPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+on the object. In this case the privileges will be recorded as having
+been granted by the role that actually owns the object or holds the
+privileges </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WITH GRANT OPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. For example, if table </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">t1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is owned by role </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">g1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, of which role </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">u1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a member, then </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">u1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> can grant privileges on </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">t1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">u2</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, but those privileges will appear to have been granted directly by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">g1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. Any other member of role </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">g1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> could revoke them later.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the role executing </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+holds the required privileges indirectly via more than one role
+membership path, it is unspecified which containing role will be
+recorded as having done the grant. In such cases it is best practice to
+use <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-88.htm#P4076_242665">SET ROLE</a></u> to become the specific role you want to do the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> as.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Currently, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+does not support granting or revoking privileges for individual columns
+of a table. One possible workaround is to create a view having just the
+desired columns and then grant privileges to that view.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3625_203670"></a>Grant insert privilege to all users on table </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">GRANT INSERT ON emp TO PUBLIC;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Grant all available privileges to user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">mary</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> on view </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">salesemp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">GRANT ALL PRIVILEGES ON salesemp TO mary;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note that while the above will indeed grant all privileges if executed by a superuser or the owner of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, when executed by someone else it will only grant those permissions for which the someone else has grant options.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Grant membership in role </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">admins</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">joe</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">GRANT admins TO joe;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Grant </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CONNECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege to user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">joe</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">GRANT CONNECT TO joe;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-82.htm#P3719_213724"><u>REVOKE</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-88.htm#P4076_242665"><u>SET ROLE</u></a></span></p>
+
+<p><a name="P3636_204215"></a></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-78.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-79_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-79_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-80.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-79_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-79_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-79_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

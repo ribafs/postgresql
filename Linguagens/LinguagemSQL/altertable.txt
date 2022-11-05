@@ -1,0 +1,84 @@
+ALTER TABLE...
+
+ALTER TABLE playground ADD last_maint date;
+
+ALTER TABLE playground DROP last_maint;
+
+
+Podemos
+- adicionar um campo
+- remover um campo
+- adicionar uma constraint
+- remover uma constraint
+- alterar o valor default
+- alterar o tipo de dados de um campo
+- renomear um campo
+- reomear uma tabela
+
+Adicionar um Campo
+alter table produtos add column descricao varchar(100) not null;
+
+ou 
+... check(descricao <> '');
+
+Obs.: o que foi usado no create table pode ser usado aqui no alter table.
+
+Remover um Campo
+alter table produtos drop column descricao;
+
+Também removerá os dados do campo e suas constraints.
+
+Para alterar campo referenciado por outra tabela precisamos adicionar cascade.
+
+alter table produtos drop column descricao cascade;
+
+Adicionar uma Constraint
+alter table produtos add constraint check(nome <> '');
+alter table produtos add constraint nome unique(produto_id);
+alter table produtos add foreign key (produto_grupo_id) references produto_grupos;
+
+Adicionar Not Null
+alter table produtos alter column produto_id set not null;
+
+Removendo uma Constraint
+Para remover uma constraint você precisa conhecer seu nome. Se tiver um nome é
+fácil. Caso contrário precisará verificar com:
+
+\d tabela
+
+Anote o nome e use:
+
+alter table produtos drop constraint nomevisto;
+
+Alguns nomes precisarão de aspas duplas.
+
+Remover um Not Null
+alter table produtos alter column produto_id drop not null;
+
+Obs.: não podemos dar nomes para a constraint not null.
+
+Alterando o valor Default de um Campo
+açter table produtos alter column preco set default 7.87;
+
+Isso não afetará nenhum dos registros existentes, apenas os próximos.
+
+Remover Valor Default
+alter table produtos alter column preco drop default;
+
+Alterar o Tipo de Dados de um Campo
+alter table produtos alter column preco type numeric(8,2) not null;
+
+Somente será bem sucedido se todos os registros existentes puderem ser conver-
+tidos para o novo tipo e tamanho de dados.
+
+Para uma conversão mais complexa podemos usar um USING. O PostgreSQL também
+tentará converter os valores.
+
+Renomera um Campo
+alter table produtos rename column produto_id to id;
+
+Renomeando uma Tabela
+alter table produto rename to produtos;
+
+
+

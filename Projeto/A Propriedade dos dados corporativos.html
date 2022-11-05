@@ -1,0 +1,350 @@
+<html><head>
+
+
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+
+
+</style>
+
+<link href="A%20Propriedade%20dos%20dados%20corporativos_arquivos/estilo.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript">
+
+function EmptyString(s) { 
+var Count; 
+var Nblank = 0; 
+if (s.length == 0) return (true); // empty string 
+// count the number of blank chars 
+for (Count = 0; Count < s.length; Count++) { 
+if (s.charAt(Count) == " ") Nblank++; 
+} 
+if (Nblank == s.length) 
+return (true); 
+else 
+return (false); 
+} 
+
+function ValidEmail(s) { 
+var Count; 
+var s2; 
+// empty or blank email 
+if (EmptyString(s) == true) return (false); 
+// email without @ 
+if (s.indexOf('@') == -1) return (false); 
+// email with @ as the 1st char 
+if (s.indexOf('@') == 0) return (false); 
+// email with @ as the last char 
+if ((s.indexOf('@')+1) == s.length) return (false); 
+// email without . 
+if (s.indexOf('.') == -1) return (false); 
+// email with . as the 1st char 
+if (s.indexOf('.') == 0) return (false); 
+// email with . as the last char 
+if ((s.indexOf('.')+1) == s.length) return (false); 
+
+// Now look for the first . after the first @ 
+// s2 = string after the first @ 
+s2=s.substring(s.indexOf('@')+1,s.length); 
+// email without a dot after the first @ 
+if (s2.indexOf('.') == -1) return (false); 
+// email dot right after the first @ 
+if (s2.indexOf('.') == 0) return (false); 
+return (true); 
+} 
+</script>
+
+
+<script language="JavaScript">
+
+function EmptyString(s) { 
+var Count; 
+var Nblank = 0; 
+if (s.length == 0) return (true); // empty string 
+// count the number of blank chars 
+for (Count = 0; Count < s.length; Count++) { 
+if (s.charAt(Count) == " ") Nblank++; 
+} 
+if (Nblank == s.length) 
+return (true); 
+else 
+return (false); 
+} 
+
+function ValidEmail(s) { 
+var Count; 
+var s2; 
+// empty or blank email 
+if (EmptyString(s) == true) return (false); 
+// email without @ 
+if (s.indexOf('@') == -1) return (false); 
+// email with @ as the 1st char 
+if (s.indexOf('@') == 0) return (false); 
+// email with @ as the last char 
+if ((s.indexOf('@')+1) == s.length) return (false); 
+// email without . 
+if (s.indexOf('.') == -1) return (false); 
+// email with . as the 1st char 
+if (s.indexOf('.') == 0) return (false); 
+// email with . as the last char 
+if ((s.indexOf('.')+1) == s.length) return (false); 
+
+// Now look for the first . after the first @ 
+// s2 = string after the first @ 
+s2=s.substring(s.indexOf('@')+1,s.length); 
+// email without a dot after the first @ 
+if (s2.indexOf('.') == -1) return (false); 
+// email dot right after the first @ 
+if (s2.indexOf('.') == 0) return (false); 
+return (true); 
+} 
+</script>
+
+
+
+<meta http-equiv="refresh" content="1300">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta name="description" content="Portal para analistas, desenvolvedores de sistemas e webdesigners. Artigos, dicas e vídeo aulas sobre C#, Java, Visual Basic .NET, PHP, ASP, Delphi, Visual Basic, ColdFusion, Javascript, HTML, Oracle, SQL Server, InterBase, Firebird, e muito mais.">
+<meta name="keywords" content="c#, visual basic .net, asp.net, java, php, programação, análise, web, apostilas, gratuito, grátis, projeto, engenharia de software, visual basic, delphi, sql, xml, asp, coldfusion, css, stylesheet, javascript, webmaster, ti, linux, windows, livros, empregos, oportunidades, aplicativos, componentes, tecnologia, desenvolvimento, eventos, software, downloads, artigos, cursos online, flash, interbase, fireworks, dreamweaver, xsql"><!--include file="../include/countpageview.asp" --><title>Devmedia - SQL Magazine - A Propriedade dos dados corporativos e a Administração de Dados.</title></head><body>
+
+
+<!--include file="../include/barradevmedia.asp"-->
+
+
+ <table>
+   <tbody><tr><td bgcolor="" valign="top" width="3"></td>
+     <td valign="top">
+	   <img src="A%20Propriedade%20dos%20dados%20corporativos_arquivos/logo_devmedia_.gif">
+	   </td>
+	   <td valign="center">
+	   <font face="verdana" size="4">www.devmedia.com.br
+	   <!--include file="../include/topo.html" --> 
+     </font></td>
+   </tr>
+    <tr><td bgcolor="" valign="top" width="3"></td>
+          <td colspan="2" background="A%20Propriedade%20dos%20dados%20corporativos_arquivos/line.gif"><img src="A%20Propriedade%20dos%20dados%20corporativos_arquivos/casper.gif" height="1" width="1"></td></tr>
+         
+
+ </tbody></table>
+
+ <table border="0">
+  <tbody><tr> 
+    <td bgcolor="" valign="top" width="3">
+		<!-- include esquerda.html -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+	</td>
+    <td valign="top" width="651">
+		
+		<table width="100%">
+		  <tbody><tr>
+		    <td><!--include file="../include/box_renova.asp" -->
+			</td>
+		  </tr>
+		</tbody></table>
+		
+		
+			<!-- aqui entra o box de servicos -->
+			
+		
+
+
+		<table cellpadding="0" cellspacing="0">
+		  <tbody><tr>
+		    <td>
+			   	<!--include file="exibe_anotacoes.asp" -->
+			</td>
+		  </tr>
+		</tbody></table>
+
+		
+		
+		<table>
+		  <tbody><tr>
+		    <td bgcolor="#ffff99">
+			 
+     			  <!--<a href="#feedback"> <font face=Tahoma><b>Ajude-nos! Clique aqui e dê o seu feedback sobre este conteúdo!</a><br>-->
+			    
+
+			</td>
+		  </tr>
+		</tbody></table>
+		
+
+	   <table border="0">
+	    <tbody><tr>
+		 <td>
+
+    			
+					<table border="0">
+					<tbody><tr>
+					  <td>  
+						<table border="0">
+						  <tbody><tr valign="top">
+							<td>
+							  
+							     <a href="http://www.devmedia.com.br/space.asp?id=174005"><img src="A%20Propriedade%20dos%20dados%20corporativos_arquivos/Col_174005_Roberta_E.jpg" border="0"></a>
+							  
+							</td>
+							<td><span id="lblCurriculo"><span class="font4-preto">
+							<a href="http://www.devmedia.com.br/space.asp?id=174005">Roberta Emerenciano Berrondo<span><br><br>
+							  <span id="lblCurriculo"><span class="font1-preto">Roberta
+Emerenciano Berrondo (rberrondo@yahoo.com.br), analista de sistemas há
+9 anos, especializada em banco de dados atuando com diversos SGBDs.
+Comecei a atuar em administração de dados em 2002 e desde de então
+venho implementado e difundindo a área em diversas empresas. Atualmente
+atuo com Consultoria em administração de dados e auditoria em banco de
+dados, administração de dados, modelagem de dados e sistemas.</span></span></span></a>
+							</span></span></td>
+						  </tr>
+						</tbody></table>
+					  </td>
+					</tr>
+					</tbody></table>
+					
+
+         </td>
+        </tr>
+		
+
+		
+
+		<tr>
+		 <td>
+		   
+		 </td>
+		</tr>
+	    <tr>
+		  <td>
+		   <h3 style="margin: 12pt 0cm 3pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><font size="5">A Propriedade dos dados corporativos e a Administração de Dados.<span style="color: black;"><o:p></o:p></span></font></span></h3>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';">Quando
+tratamos de dados corporativos a principio parece obvio que os dados
+pertencem à organização, no seu conjunto, que os adquiriu, gerou etc...
+Porém, a questão de &#8216;propriedade&#8216; dos dados envolve um aspecto mais
+amplo, que realmente é o que devemos levar em conta, é o que abrange
+uma interpretação mais ampla de propriedade. Trata-se de identificar
+quem pode criar, alterar ou eliminar determinado dado; ou seja, quem -
+subunidade administrativa, setor, grupo de pessoas, etc. - possui
+prerrogativas que lhe permitem alterar ou aprovar alterações do estado
+dos objetos, como parte das respectivas funções.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';">A
+definição de tais capacidades decorre da natureza dos processos e da
+estrutura funcional prevalecentes na organização e pertence ao domínio
+da gestão decidir sobre essa matéria. Os dados são representações de
+fatos da organização e do negócio, e a sua existência ou manutenção só
+deve ser determinada pelos respectivos gestores com base em critérios
+de gestão.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';">Entretanto,
+a administração de dados tem competência para supervisionar o
+aprovisionamento, produção e distribuição de dados de modo a assegurar
+que estes fluam entre os diversos subsistemas e atores, sem defeitos ou
+problemas - de comunicação, de interpretação, etc. - e no respeito
+pelos procedimentos e regras estabelecidos pela alta administração das
+organizações. O departamento de administração de dados apenas garante a
+qualidade de armazenamento e distribuição dos dados, não sendo
+&#8216;proprietário&#8217; destes, não sendo permitido à ele alterar o conteúdo dos
+registros dos sistemas de informação sem a autorização e/ ou
+solicitação expressa do setor que tem por competência gerar, manter ou
+produzir os dados<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';">Numa
+outra vertente da questão, faz parte das funções da administração de
+dados manter os meta-dados relativos aos diversos subsistemas da
+organização<i>, em estreita cooperação com os respectivos clientes de informação</i>.
+Cabe-lhe ainda a gestão do repositório dos sistemas de informações de
+forma a assegurar a qualidade global das meta-informações extraídas
+deste. Neste domínio particular da atividade, é importante estabelecer
+níveis de acesso para a consulta e atualização de meta-dados, consoante
+o respectivo âmbito. Por exemplo:<o:p></o:p></span></p>
+<ul>
+<li>
+<div class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';">Consultas
+acessíveis à generalidade da organização e alterações centralizadas
+numa única entidade, no caso de meta-dados de âmbito global;</span></div></li>
+<li>
+<div class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';">Consultas
+confinadas ao respectivo setor, e prerrogativas de atualização
+distribuídas por função e segmento de meta-dados, quando estes têm
+âmbito setorial;</span></div></li>
+<li>
+<div class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';">Para os meta-dados relativos a cada atividade, as consultas e as alterações devem ser limitadas aos responsáveis pelas mesmas.</span><span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></div></li></ul>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';">Conforme
+vimos apesar dos dados serem de &#8216;propriedade&#8217; das organizações como um
+todo, é de responsabilidade de cada setor da organização à guarda dos
+mesmos cabendo à administração de dados a manutenção dos mesmos visando
+a manutenção dos sistemas corporativos e assegurando a portabilidade
+entre os diversos setores da empresa que os utilizam, bem como a
+integridade dos mesmos.</span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p></o:p></span></p>
+		  </td>
+		</tr>	
+		
+		<tr>
+		 <td><!--include file="../include/barra_digg.asp" -->
+		 </td>
+		</tr>
+           
+
+		<tr>
+		  <td>
+				
+    	<!--include file="visualizacomentarios.asp" -->
+
+		  </td>
+		</tr>
+	   
+	   	
+		 <tr>
+	     	  <td>
+					
+					<!--include file="posts_relacionados.asp" -->
+				</td>
+			</tr>
+
+		
+
+			  
+			  <tr>
+	     	  <td>
+					
+					<!--include file="noticia_ultimas_autor.asp" -->
+				</td>
+			</tr>
+
+
+
+        <tr>
+          <td background="A%20Propriedade%20dos%20dados%20corporativos_arquivos/line.gif"><img src="A%20Propriedade%20dos%20dados%20corporativos_arquivos/casper.gif" height="1" width="1"></td></tr>
+         
+
+		<tr>
+		  <td>
+		    <table><tbody><tr><td>
+		  	<img src="A%20Propriedade%20dos%20dados%20corporativos_arquivos/logo_devmedia_.gif"> </td>
+			<td valign="center"><font face="verdana">www.devmedia.com.br/articles/viewcomp.asp?comp=6592</font></td></tr>
+			</tbody></table>
+
+		  </td>
+		</tr>
+
+	   </tbody></table>	
+    </td>
+	<td width="30"></td>
+    <td valign="top" width="250">
+				<!--include file="../include/box_bemvindo2.asp" -->
+
+     </td>
+   </tr>
+</tbody></table>
+
+</body></html>

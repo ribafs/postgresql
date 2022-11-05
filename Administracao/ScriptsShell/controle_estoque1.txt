@@ -1,0 +1,74 @@
+Controle de Estoque
+
+Criar o esquema atual, impondo integridade referencial através dos devidos relacionamentos.
+
+Teremos o banco controle_estoque 
+
+Com as seguintes tabelas:
+
+clientes
+funcionarios
+produtos
+pedidos
+pedido_itens
+reposicoes
+comissoes
+
+
+clientes
+======
+cpf
+nome
+credito_liberado
+data_nasc
+email
+
+funcionarios
+=========
+cpf
+senha
+nome
+data_nasc
+email
+
+produtos
+======
+codigo
+descricao
+quant_estoque
+estoque_max
+estoque_min
+preco_unitario
+data_atualizacao
+cpf_funcionario
+
+pedidos
+======
+num_pedido
+cpf_cliente
+cpf_funcionario
+data_pedido
+data_confirmacao --data da baixa no estoque
+
+pedido_itens
+=========
+num_pedido
+cod_produto
+quantidade
+preco_produto -- preço de venda
+
+reposicoes -- alimentada com dados de produtos quando cadastrando os pedidos
+=======
+cod_produto
+quant_estoque
+estoque_min
+data_atualizacao -- recebe timestamp without timezone
+
+comissoes
+=================
+cpf_funcionario
+num_pedido
+valor_comissao -- 5% sobre as vendas -> pedido
+data_pedido
+
+-- Obs.: Quando os estoques mínimos e máximo forem menores ou iguais aos mínimos, exibir os registros da tabela reposicao 

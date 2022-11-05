@@ -1,0 +1,132 @@
+.iframe{
+	scrollbar-3d-light-color:#717E4C;
+	scrollbar-arrow-color:#717E4C;
+	scrollbar-base-color:#717E4C;
+	scrollbar-dark-shadow-color:#717E4C;
+	scrollbar-face-color:#717E4C;
+	scrollbar-highlight-color:#717E4C;
+	scrollbar-shadow-color:#717E4C;
+	}
+
+.font2-verde {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #4d6509;
+}
+.font2-branco {
+
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+a {
+	text-decoration: none;
+}
+.font2-preto {
+
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #000000;
+}
+.font1-preto {
+
+
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #000000;
+}
+.font1-vermelho {
+
+
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #FF0000;
+}
+
+.font5-branco {
+
+
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+.font1-branco {
+
+
+
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #FFFFFF;
+}
+.font1-verde {
+
+
+
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #4d6509;
+}
+.font4-preto {
+
+
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #000000;
+}
+.font1-verde2 {
+
+
+
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #728315;
+}
+
+.LabelFormulario
+{
+	font-family : Verdana ;
+	font-size:9pt;
+	font-weight :bold;
+}
+.Erro
+{
+	font-family : Verdana ;
+	font-size:9pt;
+	font-weight :bold;
+	color : Red ;
+}
+.LabelItemFormulario
+{
+	font-family : Verdana ;
+	font-size:9pt;
+}
+.LabelTitulo
+{
+	font-family : Verdana ;
+	font-size:13pt;
+	font-weight :bold;
+}
+.Botao
+{
+ border-width :1;
+ font-family : Verdana ;
+ font-size:8pt;
+ border-style :solid ;
+}
+.CaixaTexto
+{
+ border-width :1;
+ font-family : Verdana ;
+ font-size:9pt;
+ border-style :solid ;
+}

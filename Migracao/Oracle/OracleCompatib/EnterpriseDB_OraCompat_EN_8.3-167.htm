@@ -1,0 +1,125 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2104"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-167_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-166.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-167_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-167_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-168.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-167_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P8894_476608"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.9.3 Using the FORALL Statement</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Collections can be used to more efficiently process </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">DML</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands by passing all the values to be used for repetitive execution of a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command in one pass to the database server rather than re-iteratively invoking the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">DML</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command with new values. The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">DML</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command to be processed in such a manner is specifed with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORALL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement. In addition, one or more collections are given in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">DML</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command where different values are to be substituted each time the command is executed.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORALL </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>index</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> IN </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>lower_bound</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> .. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>upper_bound</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  { </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">insert</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">update</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">delete</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> };</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>index</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the position in the collection given in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>insert</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>update</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>delete</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">DML</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command that iterates from the integer value given as </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>lower_bound</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> up to and including </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>upper_bound</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><b>Note:</b></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> If an exception occurs during any iteration of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORALL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement, all updates that occurred since the start of the execution of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORALL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement are automatically rolled back. This behavior is not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> compatible. </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> allows explicit use of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COMMIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROLLBACK</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands to control whether or not to commit or roll back updates that occurred prior to the exception.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example uses an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORALL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement to insert three new employees into the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE empno_tbl  IS TABLE OF emp.empno%TYPE INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE ename_tbl  IS TABLE OF emp.ename%TYPE INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE job_tbl    IS TABLE OF emp.ename%TYPE INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE sal_tbl    IS TABLE OF emp.ename%TYPE INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE deptno_tbl IS TABLE OF emp.deptno%TYPE INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_empno         EMPNO_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_ename         ENAME_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_job           JOB_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_sal           SAL_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_deptno        DEPTNO_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_empno(1)  := 9001;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_ename(1)  := 'JONES';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_job(1)    := 'ANALYST';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_sal(1)    := 3200.00;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_deptno(1) := 40;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_empno(2)  := 9002;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_ename(2)  := 'LARSEN';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_job(2)    := 'CLERK';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_sal(2)    := 1400.00;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_deptno(2) := 40;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_empno(3)  := 9003;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_ename(3)  := 'WILSON';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_job(3)    := 'MANAGER';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_sal(3)    := 4000.00;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_deptno(3) := 40;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FORALL i IN t_empno.FIRST..t_empno.LAST</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        INSERT INTO emp (empno,ename,job,sal,deptno)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            VALUES (t_empno(i),t_ename(i),t_job(i),t_sal(i),t_deptno(i));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT * FROM emp WHERE empno &gt; 9000;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> empno | ename  |   job   | mgr | hiredate |   sal   | comm | deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------+--------+---------+-----+----------+---------+------+--------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  9001 | JONES  | ANALYST |     |          | 3200.00 |      |     40</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  9002 | LARSEN | CLERK   |     |          | 1400.00 |      |     40</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  9003 | WILSON | MANAGER |     |          | 4000.00 |      |     40</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(3 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example updates the salary of these three employees in a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORALL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE empno_tbl  IS TABLE OF emp.empno%TYPE INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE sal_tbl    IS TABLE OF emp.ename%TYPE INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_empno         EMPNO_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_sal           SAL_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_empno(1)  := 9001;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_sal(1)    := 3350.00;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_empno(2)  := 9002;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_sal(2)    := 2000.00;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_empno(3)  := 9003;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_sal(3)    := 4100.00;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FORALL i IN t_empno.FIRST..t_empno.LAST</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        UPDATE emp SET sal = t_sal(i) WHERE empno = t_empno(i);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT * FROM emp WHERE empno &gt; 9000;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> empno | ename  |   job   | mgr | hiredate |   sal   | comm | deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------+--------+---------+-----+----------+---------+------+--------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  9001 | JONES  | ANALYST |     |          | 3350.00 |      |     40</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  9002 | LARSEN | CLERK   |     |          | 2000.00 |      |     40</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  9003 | WILSON | MANAGER |     |          | 4100.00 |      |     40</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(3 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The final example deletes these three employees in a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORALL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE empno_tbl  IS TABLE OF emp.empno%TYPE INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_empno         EMPNO_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_empno(1)  := 9001;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_empno(2)  := 9002;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_empno(3)  := 9003;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FORALL i IN t_empno.FIRST..t_empno.LAST</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DELETE FROM emp WHERE empno = t_empno(i);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT * FROM emp WHERE empno &gt; 9000;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> empno | ename | job | mgr | hiredate | sal | comm | deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------+-------+-----+-----+----------+-----+------+--------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(0 rows)</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-166.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-167_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-167_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-168.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-167_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-167_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-167_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

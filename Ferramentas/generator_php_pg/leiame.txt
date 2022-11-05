@@ -1,0 +1,64 @@
+Gerador de Aplicativos em PHP com PostgreSQL
+
+Com a finalidade de auxiliar no aumento da produtividade na construção de sistemas web em PHP com PostgreSQL.
+
+Testado em Linux e Windows
+
+Em Linux requer que o usuário do apache seja o dono do diretório. No Apache2 algo como:
+chown -R nobody:root gerador_phppg
+
+Instalação:
+
+Apenas descompacte num diretório do Servidor Web.
+Abra a index.php no browser http://127.0.0.1/gerador_phppg/. Entre com os dados e os arquivos serão gerados.
+
+Para testar o aplicativo gerado, abra no browser o diretório criado:
+
+http://127.0.0.1/gerador_phppg/diretorio
+
+Falta implementar:
+
+- Identificar campo chave para tratamento diferenciado
+- Identificar campos numéricos para remover aspas simples dos respectivos campos
+- Confirmar exclusões
+- Adicionar controle de Session
+- Implementação voltada ao objeto
+
+*************************************************
+
+- 09/01/2006 - Add Paging Result Sets to Query All
+
+
+Applications Generator in PHP with PostgreSQL
+
+With the purpose of increasing the productivity in the construction of systems web in PHP with PostgreSQL.  
+
+Tested in Linux and Windows 
+
+In Linux it requires that user of the apache is the owner of the directory.  
+In the Apache2 something as:  
+
+chown - R nobody:root gerador_phppg 
+
+Installation:  
+
+Just unpacks in a directory of the Web Server.  Http://127.0.0.1/gerador_phppg/. 
+Enter with the data in browser and the files will be generated.  
+
+To test a application generated, opens in browser the created directory:  
+
+http://127.0.0.1/gerador_phppg/directory 
+
+Still not implemented:  
+
+- To identify to field key for differentiated treatment 
+- Identificarcampos numerical to remove quotations marks simple of the respective fields 
+- To confirm exclusions 
+- To add to control of Session 
+- Implementation directed to the object
+
+**************************************************
+Ribamar FS - ribafs@gmail
+ribafs.tk e ribafs.byethost2.com (Mambo/Joomla e cia)
+Fortaleza-Ce-Brasil, 19 de dezembro de 2005.
+**************************************************

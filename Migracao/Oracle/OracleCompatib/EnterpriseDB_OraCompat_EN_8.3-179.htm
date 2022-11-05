@@ -1,0 +1,58 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2116"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-179_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-178.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-179_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-179_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-180.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-179_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P9351_506280"></a><span style="font-family: 'Arial'; font-size: 13pt;">5.6.3 Before Row-Level Trigger</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example is a before row-level trigger t</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">hat calculates the commission of every new employee belonging to department 30 that is inserted into the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE TRIGGER emp_comm_trig</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    BEFORE INSERT ON emp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR EACH ROW</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF :NEW.deptno = 30 THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        :NEW.comm := :NEW.sal * .4;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+listing following the addition of the two employees shows that the
+trigger computed their commissions and inserted it as part of the new
+employee rows.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">INSERT INTO emp VALUES (9005,'ROBERS','SALESMAN',7782,SYSDATE,3000.00,NULL,30);</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">INSERT INTO emp VALUES (9006,'ALLEN','SALESMAN',7782,SYSDATE,4500.00,NULL,30);</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">SELECT * FROM emp WHERE empno IN (9005, 9006);</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">---------- ---------- --------- ---------- --------- ---------- ---------- ----------</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">      9005 ROBERS     SALESMAN        7782 01-APR-05       3000       1200         30</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">      9006 ALLEN      SALESMAN        7782 01-APR-05       4500       1800         30</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-178.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-179_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-179_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-180.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-179_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-179_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-179_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

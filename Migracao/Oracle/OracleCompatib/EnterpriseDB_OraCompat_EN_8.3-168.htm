@@ -1,0 +1,307 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2105"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-168_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-167.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-168_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-168_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-169.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-168_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P8983_480826"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.9.4 Using the BULK COLLECT Clause</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+commands that return a result set consisting of a large number of rows
+may not be operating as efficiently as possible due to the constant
+context switching that must occur between the database server and the
+client in order to transfer the entire result set. This inefficiency
+can be mitigated by using a collection to gather the entire result set
+in memory which the client can then access. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BULK COLLECT </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">clause is used to specify the aggregation of the result set into a collection.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BULK COLLECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause can be used with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT INTO</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FETCH INTO</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands, and with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RETURNING INTO</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands. Each of these is illustrated in the following sections.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;"><a name="P8986_481569"></a>4.9.4.1 SELECT BULK COLLECT</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BULK COLLECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause can be used with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> INTO</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement as follows. (Refer to Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-132.htm#P6898_387250">4.4.3</a></u> for additional information on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT INTO</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement.)</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SEL</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ECT </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>select_expressions</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BULK COLLECT </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INTO</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [, ...]</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> FROM ...;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If a single collection is specified, then </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+may be a collection of a single field, or it may be a collection of a
+record type. If more than one collection is specified, then each </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> must consist of a single field. </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">selec</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">t_expressions</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> must match in number, order, and type-compatibility all fields in the target collections.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example shows the use of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BULK COLLECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause where the target collections are associative arrays consisting of a single field.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE empno_tbl    IS TABLE OF emp.empno%TYPE    INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE ename_tbl    IS TABLE OF emp.ename%TYPE    INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE job_tbl      IS TABLE OF emp.job%TYPE      INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE hiredate_tbl IS TABLE OF emp.hiredate%TYPE INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE sal_tbl      IS TABLE OF emp.sal%TYPE      INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE comm_tbl     IS TABLE OF emp.comm%TYPE     INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE deptno_tbl   IS TABLE OF emp.deptno%TYPE   INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_empno           EMPNO_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_ename           ENAME_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_job             JOB_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_hiredate        HIREDATE_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_sal             SAL_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_comm            COMM_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_deptno          DEPTNO_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    SELECT empno, ename, job, hiredate, sal, comm, deptno BULK COLLECT</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       INTO t_empno, t_ename, t_job, t_hiredate, t_sal, t_comm, t_deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       FROM emp;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('EMPNO  ENAME    JOB        HIREDATE    ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        'SAL        ' || 'COMM      DEPTNO');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('-----  -------  ---------  ---------   ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        '--------   ' || '--------  ------');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR i IN 1..t_empno.COUNT LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(t_empno(i) || '   ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            RPAD(t_ename(i),8) || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            RPAD(t_job(i),10) || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(t_hiredate(i),'DD-MON-YY') || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(t_sal(i),'99,999.99') || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(NVL(t_comm(i),0),'99,999.99') || '  ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            t_deptno(i));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EMPNO  ENAME    JOB        HIREDATE    SAL        COMM      DEPTNO</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----  -------  ---------  ---------   --------   --------  ------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7369   SMITH    CLERK      17-DEC-80     800.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7499   ALLEN    SALESMAN   20-FEB-81   1,600.00     300.00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7521   WARD     SALESMAN   22-FEB-81   1,250.00     500.00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7566   JONES    MANAGER    02-APR-81   2,975.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7654   MARTIN   SALESMAN   28-SEP-81   1,250.00   1,400.00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7698   BLAKE    MANAGER    01-MAY-81   2,850.00        .00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7782   CLARK    MANAGER    09-JUN-81   2,450.00        .00  10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7788   SCOTT    ANALYST    19-APR-87   3,000.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7839   KING     PRESIDENT  17-NOV-81   5,000.00        .00  10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7844   TURNER   SALESMAN   08-SEP-81   1,500.00        .00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7876   ADAMS    CLERK      23-MAY-87   1,100.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7900   JAMES    CLERK      03-DEC-81     950.00        .00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7902   FORD     ANALYST    03-DEC-81   3,000.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7934   MILLER   CLERK      23-JAN-82   1,300.00        .00  10</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example produces the same result, but uses an associative array on a record type defined with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%ROWTYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> attribute.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE emp_tbl IS TABLE OF emp%ROWTYPE INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_emp           EMP_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    SELECT * BULK COLLECT INTO t_emp FROM emp;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('EMPNO  ENAME    JOB        HIREDATE    ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        'SAL        ' || 'COMM      DEPTNO');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('-----  -------  ---------  ---------   ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        '--------   ' || '--------  ------');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR i IN 1..t_emp.COUNT LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(t_emp(i).empno || '   ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            RPAD(t_emp(i).ename,8) || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            RPAD(t_emp(i).job,10) || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(t_emp(i).hiredate,'DD-MON-YY') || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(t_emp(i).sal,'99,999.99') || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(NVL(t_emp(i).comm,0),'99,999.99') || '  ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            t_emp(i).deptno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EMPNO  ENAME    JOB        HIREDATE    SAL        COMM      DEPTNO</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----  -------  ---------  ---------   --------   --------  ------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7369   SMITH    CLERK      17-DEC-80     800.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7499   ALLEN    SALESMAN   20-FEB-81   1,600.00     300.00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7521   WARD     SALESMAN   22-FEB-81   1,250.00     500.00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7566   JONES    MANAGER    02-APR-81   2,975.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7654   MARTIN   SALESMAN   28-SEP-81   1,250.00   1,400.00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7698   BLAKE    MANAGER    01-MAY-81   2,850.00        .00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7782   CLARK    MANAGER    09-JUN-81   2,450.00        .00  10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7788   SCOTT    ANALYST    19-APR-87   3,000.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7839   KING     PRESIDENT  17-NOV-81   5,000.00        .00  10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7844   TURNER   SALESMAN   08-SEP-81   1,500.00        .00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7876   ADAMS    CLERK      23-MAY-87   1,100.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7900   JAMES    CLERK      03-DEC-81     950.00        .00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7902   FORD     ANALYST    03-DEC-81   3,000.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7934   MILLER   CLERK      23-JAN-82   1,300.00        .00  10</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;"><a name="P9079_486747"></a>4.9.4.2 FETCH BULK COLLECT</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BULK COLLECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause can be used with a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FETCH</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement. (See Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-149.htm#P7961_438596">4.7.3</a></u> for information on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FETCH</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement.) Instead of returning a single row at a time from the result set, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FETCH BULK COLLECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> will return all rows at once from the result set into the specified collection unless restricted by the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LIMIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FE</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TCH </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BULK COLLECT </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INTO </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...] [ LIMIT </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If a single collection is specified, then </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+may be a collection of a single field, or it may be a collection of a
+record type. If more than one collection is specified, then each </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">collectio</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">n</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> must consist of a single field. The expressions in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> list of the cursor identified by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> must match in number, order, and type-compatibility all fields in the target collections. If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LIMIT </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is specified, the number of rows returned into the collection on each </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FETCH</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> will not exceed </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example uses the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FETCH BULK COLLECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement to retrieve rows into an associative array.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE emp_tbl IS TABLE OF emp%ROWTYPE INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_emp           EMP_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CURSOR emp_cur IS SELECT * FROM emp;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    OPEN emp_cur;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FETCH emp_cur BULK COLLECT INTO t_emp;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CLOSE emp_cur;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('EMPNO  ENAME    JOB        HIREDATE    ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        'SAL        ' || 'COMM      DEPTNO');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('-----  -------  ---------  ---------   ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        '--------   ' || '--------  ------');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR i IN 1..t_emp.COUNT LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(t_emp(i).empno || '   ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            RPAD(t_emp(i).ename,8) || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            RPAD(t_emp(i).job,10) || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(t_emp(i).hiredate,'DD-MON-YY') || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(t_emp(i).sal,'99,999.99') || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(NVL(t_emp(i).comm,0),'99,999.99') || '  ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            t_emp(i).deptno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EMPNO  ENAME    JOB        HIREDATE    SAL        COMM      DEPTNO</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----  -------  ---------  ---------   --------   --------  ------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7369   SMITH    CLERK      17-DEC-80     800.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7499   ALLEN    SALESMAN   20-FEB-81   1,600.00     300.00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7521   WARD     SALESMAN   22-FEB-81   1,250.00     500.00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7566   JONES    MANAGER    02-APR-81   2,975.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7654   MARTIN   SALESMAN   28-SEP-81   1,250.00   1,400.00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7698   BLAKE    MANAGER    01-MAY-81   2,850.00        .00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7782   CLARK    MANAGER    09-JUN-81   2,450.00        .00  10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7788   SCOTT    ANALYST    19-APR-87   3,000.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7839   KING     PRESIDENT  17-NOV-81   5,000.00        .00  10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7844   TURNER   SALESMAN   08-SEP-81   1,500.00        .00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7876   ADAMS    CLERK      23-MAY-87   1,100.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7900   JAMES    CLERK      03-DEC-81     950.00        .00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7902   FORD     ANALYST    03-DEC-81   3,000.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7934   MILLER   CLERK      23-JAN-82   1,300.00        .00  10</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">4.9.4.3 RETURNING BULK COLLECT</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BULK COLLECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause can be added to the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RETURNING INTO</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause of a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command. (See Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-136.htm#P7087_397064">4.4.7</a></u> for information on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RETURNING INTO</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause.)</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">{ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>insert</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>update</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>delete</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RETURNING { * | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>expr_1</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>expr_2</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] ...</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">}</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">   </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BULK COLLECT </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INTO </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...]</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">;</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>insert</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>update</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>delete</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands as described in Sections <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-133.htm#P6960_391108">4.4.4</a></u>, <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-134.htm#P7024_394030">4.4.5</a></u>, and <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-135.htm#P7059_395764">4.4.6</a></u>, respectively. If a single collection is specified, then </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+may be a collection of a single field, or it may be a collection of a
+record type. If more than one collection is specified, then each </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> must consist of a single field. The expressions following the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RETURNING</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> keyword must match in number, order, and type-compatibility all fields in the target collections. If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">*</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is specified, then all columns in the affected table are returned. </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">(Note that the use of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">*</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> extension and is not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> compatible.)</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">clerkemp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table created by copying the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table is used in the remaining examples in this section as shown below.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE clerkemp AS SELECT * FROM emp WHERE job = 'CLERK';</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT * FROM clerkemp;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> empno | ename  |  job  | mgr  |      hiredate      |   sal   | comm | deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------+--------+-------+------+--------------------+---------+------+--------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7369 | SMITH  | CLERK | 7902 | 17-DEC-80 00:00:00 |  800.00 |      |     20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7876 | ADAMS  | CLERK | 7788 | 23-MAY-87 00:00:00 | 1100.00 |      |     20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7900 | JAMES  | CLERK | 7698 | 03-DEC-81 00:00:00 |  950.00 |      |     30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7934 | MILLER | CLERK | 7782 | 23-JAN-82 00:00:00 | 1300.00 |      |     10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(4 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+following example increases everyone&#8217;s salary by 1.5, stores the
+employees&#8217; numbers, names, and new salaries in three associative
+arrays, and finally, displays the contents of these arrays.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE empno_tbl IS TABLE OF emp.empno%TYPE INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE ename_tbl IS TABLE OF emp.ename%TYPE INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE sal_tbl   IS TABLE OF emp.sal%TYPE   INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_empno         EMPNO_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_ename         ENAME_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_sal           SAL_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    UPDATE clerkemp SET sal = sal * 1.5 RETURNING empno, ename, sal</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        BULK COLLECT INTO t_empno, t_ename, t_sal;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('EMPNO  ENAME      SAL        ');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('-----  -------    --------   ');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR i IN 1..t_empno.COUNT LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(t_empno(i) || '   ' || RPAD(t_ename(i),8) ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            ' ' || TO_CHAR(t_sal(i),'99,999.99'));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EMPNO  ENAME      SAL</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----  -------    --------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7369   SMITH      1,200.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7876   ADAMS      1,650.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7900   JAMES      1,425.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7934   MILLER     1,950.00</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+following example performs the same functionality as the previous
+example, but uses a single collection defined with a record type to
+store the employees&#8217; numbers, names, and new salaries.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE emp_rec IS RECORD (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        empno       emp.empno%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        ename       emp.ename%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        sal         emp.sal%TYPE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    );</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE emp_tbl IS TABLE OF emp_rec INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    t_emp           EMP_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    UPDATE clerkemp SET sal = sal * 1.5 RETURNING empno, ename, sal</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        BULK COLLECT INTO t_emp;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('EMPNO  ENAME      SAL        ');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('-----  -------    --------   ');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR i IN 1..t_emp.COUNT LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(t_emp(i).empno || '   ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            RPAD(t_emp(i).ename,8) || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(t_emp(i).sal,'99,999.99'));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EMPNO  ENAME      SAL</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----  -------    --------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7369   SMITH      1,200.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7876   ADAMS      1,650.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7900   JAMES      1,425.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7934   MILLER     1,950.00</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example deletes all rows from the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">clerkemp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table, and returns information on the deleted rows into an associative array, which is then displayed.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE emp_rec IS RECORD (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        empno       emp.empno%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        ename       emp.ename%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        job         emp.job%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        hiredate    emp.hiredate%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        sal         emp.sal%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        comm        emp.comm%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        deptno      emp.deptno%TYPE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    );</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE emp_tbl IS TABLE OF emp_rec INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    r_emp           EMP_TBL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DELETE FROM clerkemp RETURNING empno, ename, job, hiredate, sal,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        comm, deptno BULK COLLECT INTO r_emp;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('EMPNO  ENAME    JOB        HIREDATE    ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        'SAL        ' || 'COMM      DEPTNO');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('-----  -------  ---------  ---------   ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        '--------   ' || '--------  ------');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR i IN 1..r_emp.COUNT LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(r_emp(i).empno || '   ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            RPAD(r_emp(i).ename,8) || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            RPAD(r_emp(i).job,10) || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(r_emp(i).hiredate,'DD-MON-YY') || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(r_emp(i).sal,'99,999.99') || ' ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(NVL(r_emp(i).comm,0),'99,999.99') || '  ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            r_emp(i).deptno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EMPNO  ENAME    JOB        HIREDATE    SAL        COMM      DEPTNO</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----  -------  ---------  ---------   --------   --------  ------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7369   SMITH    CLERK      17-DEC-80   1,200.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7876   ADAMS    CLERK      23-MAY-87   1,650.00        .00  20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7900   JAMES    CLERK      03-DEC-81   1,425.00        .00  30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7934   MILLER   CLERK      23-JAN-82   1,950.00        .00  10</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-167.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-168_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-168_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-169.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-168_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-168_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-168_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

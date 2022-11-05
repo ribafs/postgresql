@@ -1,0 +1,13 @@
+/* PostgreSQL Global Style - Large Text Version */
+
+@import url("fixed.css");
+
+body {
+	font-size: 93%;
+}
+
+/*Win IE fix \*/
+* html #pgTopNavList { height: 1%; margin-bottom: -4px; }
+* html #pgTopNavList li { margin: 0 0.2em 0 -0.8em; }
+
+/*End Win IE fix*/

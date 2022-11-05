@@ -1,0 +1,18 @@
+Preenchendo Lacunas de Campos Sequence
+
+Remover a sequência
+- drop sequence produtos_codigo_seq cascade;
+
+Inserir os registros que preenchem as lacunas
+- INSERT INTO produtos (codigo, descricao, quantidade, data_compra, unidade, preco) VALUES (7,'Teclado sem fio', 20, CURRENT_DATE, 'un', 40.00);
+
+Recriar a sequência iniciando no próximo registro
+- create sequence produtos_codigo_seq start 9;
+
+Adicionar a sequência como valor default no campo:
+- alter table produtos alter column codigo set default nextval('produtos_codigo_seq'::regclass);
+
+Inserindo um registro na próxima posição livre, agora deixando o campo código ser inserido automaticamente
+- INSERT INTO produtos (descricao, quantidade, data_compra, unidade, preco) VALUES ('Teclado sem fio', 20, CURRENT_DATE, 'un', 40.00);
+
+Daqui pra frente o sequence assume.

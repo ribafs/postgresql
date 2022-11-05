@@ -1,0 +1,85 @@
+Alexsander,
+
+Bom, talvez uma segunda opinião te ajude.
+Comentários abaixo.
+
+> From: "Alexsander Rosa" <alexsander.rosa@gmail.com>
+> Subject: Re: [pgbr-geral] 2 cadastros em uma tabela
+> To: "Comunidade PostgreSQL Brasileira"
+>
+> O que é uma tabela "cheia de NULLs"? Ter 3 ou 4 colunas com 90% dos
+valores
+> NULL numa tabela com 30 colunas é estar "cheio de NULLs"?
+
+90%?! Com certeza! "Cheio" é pouco, eu diria *entupido* de NULLs. Qualquer
+índice sobre um campo assim será quase sempre ignorado pelo otimizador.
+Logo, toda a vez que você quiser consultar só os clientes, o servidor vai
+trazer para a memória os fornecedores também, só para despediçar CPU e
+disco ignorando-os. Não, um índice condicional não vai ajudar grande coisa,
+a não ser que você duplique *todos* os índices sobre os outros campos,
+fazendo um só com os clientes e outro só com os fornecedores para cada um
+deles. Mesmo que você me convença que isso não complica seu gerenciamento
+da base nem detona significativamente seu desempenho para gravações, com
+certeza é muito mais complicado do que manter índices simples (sem
+condições) sobre cada uma das tabelas "filhas", que com certeza seriam
+usados com muito maior frequência que seus equivalentes na tabela unificada.
+
+> O que é melhor,
+> desperdiçar alguns bytes ou ter que fazer um monte de JOINs pra fazer
+> qualquer consulta simples?
+
+Contando espaço alocado pelos índices de qualquer aplicação grande, você
+vai economizar espaço normalizando corretamente essa tabela ao invés de
+misturar tudo num "tabelão" "gordo".
+
+> Nessa mesma linha, cabe outra pergunta: o que é
+> uma tabela "muito mais gorda"?
+
+É uma tabela com qualquer uma das seguintes características:
+1. Uma tabela com muito mais registros do que os frequentemente acessados por
+cada consulta.
+2. Uma tabela com muito mais campos do que os frequentemente buscados pelas
+consultas mais usadas.
+3. Uma tabela com muito mais acessos a disco do que o necessário.
+4. Uma tabela com redundâncias por estar mal normalizada.
+
+> Um outro exemplo: o endereço. Se uma "pessoa" (de qualquer tipo) pode ter
+> mais de um endereço, seria o caso de criar uma tabela "endereço" separada
+> com um relacionamento 1:N de modo de uma pessoa possa ter mais de um
+> endereço. O problema é que em 99,5% dos casos (acabei de conferir aqui
+pois
+> tenho um sistema modelado assim) o cliente tem apenas um endereço
+> cadastrado. Será que todo o trabalho necessário para buscar o endereço
+> compensa?
+
+1. Se você precisar tratar decentemente esse relacionamento 1:N, o trabalho
+que as tabelas normalizadas dão é menor.
+2. Se está pensando no esforço que o servidor terá buscando os dados,
+consulte o EXPLAIN nos dois casos e note que para qualquer caso não trivial
+é bem mais rápido e eficiente buscar os dados em tabelas normalizadas.
+
+> Não seria mais fácil ter campos de endereço na própria tabela
+> "pessoa" e usar a tabela "endereço" apenas para os endereços alternativos?
+É
+> uma pergunta que já me fizeram várias vezes.
+
+Não, não seria mais fácil nem para o programador, muito menos para o
+otimizador.
+
+> > Se for um sistema muito pequeno, dá para administrar.  Mas sempre será
+> > muito mais dor de cabeça que o necessário, e mais lento também.
+
+Sim, eis porque não há motivo para trabalhar com dados não normalizados em
+tabelas grandes.
+
+> O que é um sistema "muito pequeno"? Com até 100.000 registros na tabela
+> "pessoa"?
+
+Bom, com esse volume já dá para medir diferenças de desempenho entre as
+duas abordagens. Se tua tabela de pessoas servir para mais do que imprimir
+etiquetinhas de mala direta, faça um teste realista e veja a diferença.
+
+Atenciosamente,
+
+Mozart Hasse
+

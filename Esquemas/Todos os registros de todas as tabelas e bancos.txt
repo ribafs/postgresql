@@ -1,0 +1,38 @@
+Todos os registros de todas as tabelas e bancos
+Sugestão: PL/pgSQL + DBLink!
+
+\i /usr/share/postgresql/8.1/contrib/dblink.sql
+
+\i C:/dblink.sql
+create language plpgsql;
+
+create or replace function total_linhas_cluster() returns bigint as $$
+declare
+ rdb record;
+ linhas bigint;
+ soma bigint := 0;
+begin
+ for rdb in
+   select datname
+   from pg_database
+   where datallowconn and not datistemplate
+ loop
+   select into linhas tuplas
+   from dblink('port=' || current_setting('port') || ' dbname=' || rdb.datname, '
+     SELECT sum(reltuples)::bigint
+     FROM pg_namespace n, pg_class c
+     WHERE n.oid = c.relnamespace
+       AND c.relkind = ''r''
+       AND n.nspname not like ''pg\\_%''
+       AND n.nspname != ''information_schema''
+   ') as (tuplas bigint);
+   soma := soma + coalesce(linhas, 0);
+   raise notice '%... %', rdb.datname, linhas;
+ end loop;
+ return soma;
+end
+$$ language plpgsql;
+
+Veja o teste que eu fiz na minha máquina:
+
+rodrigo=# select total_linhas_cluster();

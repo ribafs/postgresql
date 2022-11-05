@@ -1,0 +1,1272 @@
+<!DOCTYPE html 
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title>PostgreSQL Brasil | Main / PgPlSql </title>
+  <meta http-equiv='Content-Style-Type' content='text/css' />
+  <link rel='stylesheet' href='http://www.postgresql.org.br/pub/skins/pmwiki/pmwiki.css' type='text/css' />
+  <!--HeaderText--><style type='text/css'><!--
+  ul, ol, pre, dl, p { margin-top:0px; margin-bottom:0px; }
+  code { white-space: nowrap; }
+  .vspace { margin-top:1.33em; }
+  .indent { margin-left:40px; }
+  .outdent { margin-left:40px; text-indent:-40px; }
+  a.createlinktext { text-decoration:none; border-bottom:1px dotted gray; }
+  a.createlink { text-decoration:none; position:relative; top:-0.5em;
+    font-weight:bold; font-size:smaller; border-bottom:none; }
+  img { border:0px; }
+  .editconflict { color:green; font-style:italic; 
+  margin-top:1.33em; margin-bottom:1.33em; }
+
+  table.markup { border: 2px dotted #ccf; width:90%; }
+  td.markup1, td.markup2 { padding-left:10px; padding-right:10px; }
+  td.markup1 { border-bottom: 1px solid #ccf; }
+  div.faq { margin-left:2em; }
+  div.faq p.question { margin: 1em 0 0.75em -2em; font-weight:bold; }
+  div.faq hr { margin-left: -2em; }
+   
+    .frame 
+      { border:1px solid #cccccc; padding:4px; background-color:#f9f9f9; }
+    .lfloat { float:left; margin-right:0.5em; }
+    .rfloat { float:right; margin-left:0.5em; }
+a.varlink { text-decoration:none; }
+
+--></style>  <meta name='robots' content='index,follow' />
+
+</head>
+<body>
+<!--PageHeaderFmt-->
+  <div id='wikilogo'><a href='http://www.postgresql.org.br/pmwiki.php'><img src='logo.png'
+    alt='PostgreSQL Brasil' border='0' /></a></div>
+  <div id='wikihead'>
+  <form action='http://www.postgresql.org.br/pmwiki.php'>
+    <a href='http://www.postgresql.org.br/pmwiki.php?n=Main.RecentChanges'
+      accesskey='c'>Recent Changes</a> -
+    <input type='hidden' name='n' value='Main.PgPlSql' />
+    <input type='hidden' name='action' value='search' />
+    <a href='http://www.postgresql.org.br/pmwiki.php?n=Site.Search'>Search</a>:
+    <input class='searchbox' type='text' name='q' value='' />
+    <input class='searchbutton' type='submit' value='Go' /></form></div>
+<!--/PageHeaderFmt-->
+  <table id='wikimid' width='100%' cellspacing='0' cellpadding='0'><tr>
+<!--PageLeftFmt-->
+      <td id='wikileft' valign='top'>
+        <ul><li><a class='wikilink' href='http://www.postgresql.org.br/pmwiki.php?n=Main.HomePage'>Home</a>
+</li><li><a class='wikilink' href='http://www.postgresql.org.br/pmwiki.php?n=Main.Comunidade'>Comunidade</a>
+</li><li><a class='wikilink' href='http://www.postgresql.org.br/pmwiki.php?n=Main.Downloads'>Downloads</a> 
+</li><li><a class='wikilink' href='http://www.postgresql.org.br/pmwiki.php?n=Main.Documentos'>Documentação</a>
+</li><li><a class='wikilink' href='http://www.postgresql.org.br/pmwiki.php?n=Main.Lista'>Lista de Discussão</a>
+</li><li><a class='wikilink' href='http://www.postgresql.org.br/pmwiki.php?n=Main.Rau-tu'>Rau-tu</a>
+</li><li><a class='wikilink' href='http://www.postgresql.org.br/pmwiki.php?n=Main.Contato'>Contato</a>
+</li></ul>
+</td>
+<!--/PageLeftFmt-->
+      <td id='wikibody' valign='top'>
+        <div id='wikicmds'><ul><li class='browse' ><a accesskey='ak_view'  class='selflink' href='http://www.postgresql.org.br/pmwiki.php?n=Main.PgPlSql'>View</a>
+</li><li class='edit' ><a accesskey='e'  class='wikilink' href='http://www.postgresql.org.br/pmwiki.php?n=Main.PgPlSql?action=edit'>Edit</a>
+</li><li class='diff' ><a accesskey='h'  class='wikilink' href='http://www.postgresql.org.br/pmwiki.php?n=Main.PgPlSql?action=diff'>History</a>
+</li><li class='print' ><a accesskey='ak_print'  class='wikilink' href='http://www.postgresql.org.br/pmwiki.php?n=Main.PgPlSql?action=print'>Print</a>
+</li></ul>
+</div>
+<!--PageTitleFmt-->
+        <div id='wikititle'>
+          <div class='pagegroup'><a href='http://www.postgresql.org.br/pmwiki.php?n=Main'>Main</a> /</div>
+          <h1 class='pagetitle'>PgPlSql</h1></div>
+<!--PageText-->
+<div id='wikitext'>
+<p>Exemplo prático de uso de pgplsql
+</p><p class='vspace'></p>
+<h2>Descrição</h2>
+<p class='vspace'></p><p>Este exemplo de uso da linguagem pgplsql é uma implementação de um sistema desenvolvido para ser independente de interface, as operações comuns de banco de dados ativam gatilhos no banco que reflete as consequências nas tabelas do sistema. Está sendo desenvolvida uma interface e relatórios que possuem pouquissimo código, somente o necessário para ativar os gatilhos e funções do banco.
+</p><p class='vspace'></p>
+<h2>Introdução</h2>
+<p class='vspace'></p><h2>Regras</h2>
+<p class='vspace'></p><p>Para criar os gatilhos e funções primeiro foram definidas regras de negócio, baseadas em contratos do sistema. Essas regras são:
+</p><p class='vspace'></p>
+<h3>Requisição gera lançamento</h3>
+<p class='vspace'></p><p>Na inclusão: cria lancamento Na Exclusão: remove lancamento Na alteração do valor: altera lancamento.valordevido
+</p><p class='vspace'></p>
+<h3>Emprestimo gera nrvezes Lancamento</h3>
+<p class='vspace'></p><p>Na inclusão: cria nrvezes lancamento iniciando no mesano do emprestimo e repercute para meses subsequentes Na Exclusão: remove todos os lancamento subsequentes Na alteração: remove todos os lancamentos de emprestimo e cria tudo de novo
+</p><p class='vspace'></p>
+<h3>Mensalidade gera Lancamento</h3>
+<p class='vspace'></p><p>Na inclusão: cria lancamento Na Exclusão: remove lancamento Na alterção do valor: altera lancamento.valordevido
+</p><p class='vspace'></p>
+<h3>Lancamento aumenta Consignavel.valorutilizado</h3>
+<p class='vspace'></p><p>Na inclusão: aumenta Consignavel.valorutilizado, se o registro de consignavel não existir gera novo registro com base no mes anterior. Na Exclusão: diminui Consignavel.valorutilizado Na alteração do valor: altera Consignavel.valorutilizado
+</p><p class='vspace'></p>
+<h3>Quadro associativo</h3>
+<p class='vspace'></p><p>Na inclusão seta flag desligado do associado. Na exclusão seta flag desligado do associado. Na alteração do campo desligamento altera flag de desligamento do associado.
+</p><p class='vspace'></p>
+<h3>Faixa de mensalidade</h3>
+<p class='vspace'></p><p>Na alteração do campo valor referencia deve alterar a mensalidade do(s) mês(es) em aberto dos associados que estão nessa faixa.
+</p><p class='vspace'></p>
+<h3>Fechamento mensal</h3>
+<p class='vspace'></p><p>Na alteração do campo mesreferencia_aberto para falso devem ser feitos os seguintes procedimentos. Alterar o flag de mesfechado do mês atual, inserir em mesreferencia novo registro de mes aberto. Atualização de mensalidades do mês seguinte dos associados ativos de acordo com a tabela de faixa de mensalidade. Selecionar os associados ativos, Inserir/alterar a mensalidade de acordo com a faixa de mensalidade dos associado. Atualização do saldo consignavel do mês seguinte dos associados ativos(se não existir deve ser baseado no mês anterior). OBS: Ao inserir mensalidade, é automaticamente criado lançamento. Ao criar lançamento é automaticamente criado(se necessário) registro de consignável de acordo com o mês anterior.
+</p><p class='vspace'></p>
+<p>Antes de começar
+</p><p class='vspace'></p>
+<p>Antes de começar é importante realçar que este artigo não pretende ensinar pgplsql e sim servir como exemplo de aplicação. Para informações sobre pgplsql consulte a documentação do banco de acordo com a versão que estiver usando.
+</p><p class='vspace'></p>
+<h2> Criação do banco de dados</h2>
+<p class='vspace'></p><p>Para criar o banco é indicado que se crie um usuário para ser o dono das tabelas e do banco. Em seguida criar o banco informando o dono do banco. Em seguida as tabelas. Esse código deve ser executado pelo usuário postgres. Este script foi gerado pelo Dia à partir de um diagrama, porém às vezes o script não roda pois o Dia não verifica as dependencias entra as tabelas, mas é só mudar a ordem de criação da tabela.
+</p><p class='vspace'></p>
+<pre style='background-color: #f0f9ff; border: 1px solid gray; padding: 5px;' >
+CREATE USER conta CREATEDB;
+
+\connect template1 conta;
+
+CREATE DATABASE conta OWNER conta;
+
+CREATE TABLE estado (
+        estado_id char(2),
+        estado_nome varchar(300),
+        PRIMARY KEY(estado_id)
+);
+
+CREATE TABLE mesreferencia (
+        mesreferencia_anomes char(6),
+        mesreferencia_aberto boolean default 't',
+        mesreferencia_nome varchar(15),
+        PRIMARY KEY(mesreferencia_anomes)
+);
+
+CREATE TABLE cargo (
+    cargo_id serial,
+    cargo_nome character varying(300)
+    PRIMARY KEY(cargo_id)   
+);
+
+CREATE TABLE setor (
+        setor_id serial,
+        setor_nome varchar(300),
+        PRIMARY KEY(setor_id)
+);
+
+CREATE TABLE categoriaassociado (
+        categoriaassociado_id serial,
+        categoriaassociado_nome varchar(300),
+        PRIMARY KEY(categoriaassociado_id)
+);
+
+
+CREATE TABLE associacao (
+        associacao_id serial,
+        associacao_nome varchar(300),
+        associacao_sigla varchar(50),
+        PRIMARY KEY(associacao_id)
+);
+
+
+CREATE TABLE tipolancamento (
+        tipolancamento_id serial,
+        tipolancamento_nome varchar(300),
+        PRIMARY KEY(tipolancamento_id)
+);
+
+
+CREATE TABLE tipoconvenio (
+        tipoconvenio_id serial,
+        tipoconvenio_nome varchar(300),
+        PRIMARY KEY(tipoconvenio_id)
+);
+
+
+CREATE TABLE faixamensalidade (
+        faixamensalidade_id serial,
+        faixamensalidade_nome varchar(300),
+        faixamensalidade_valorref numeric(12,4),
+        PRIMARY KEY(faixamensalidade_id)
+);
+
+
+CREATE TABLE tiporequisicao (
+        tiporequisicao_id serial,
+        tiporequisicao_nome varchar(300),
+        PRIMARY KEY(tiporequisicao_id)
+);
+
+
+CREATE TABLE cidade (
+        cidade_id serial,
+        cidade_nome varchar(300),
+        FK_estado_id char(2) REFERENCES estado,
+        PRIMARY KEY(cidade_id)
+);
+
+
+CREATE TABLE bairro (
+        bairro_id serial,
+        bairro_nome varchar(300),
+        FK_cidade_id integer REFERENCES cidade,
+        PRIMARY KEY(bairro_id)
+);
+
+
+CREATE TABLE rua (
+        rua_id serial,
+        rua_nome varchar(300),
+        FK_bairro_id integer REFERENCES bairro,
+        PRIMARY KEY(rua_id)
+);
+
+
+CREATE TABLE endereco (
+        endereco_id serial,
+        endereco_numero integer,
+        endereco_complemento varchar(50),
+        endereco_referencia varchar(200),
+        endereco_cep char(8),
+        FK_rua_id integer REFERENCES rua,
+        PRIMARY KEY(endereco_id)
+);
+
+
+CREATE TABLE quadroassociativo (
+        quadroassociativo_id serial,
+        quadroassociativo_admissao date,
+        quadroassociativo_desligamento date,
+        quadroassociativo_comentario_adm varchar(300),
+        quadroassociativo_comentario_des varchar(300),
+        FK_associacao_id integer REFERENCES associacao,
+        FK_associado_id integer REFERENCES associado,
+        PRIMARY KEY(quadroassociativo_id)
+);
+
+
+CREATE TABLE associado (
+        associado_id serial,
+        associado_nome varchar(300),
+        associado_matricula char(4),
+        associado_desligado boolean,
+        associado_cpf varchar(15),
+        FK_categoriaassociado_id integer REFERENCES categoriaassociado,
+        FK_faixamensalidade_id integer REFERENCES faixamensalidade,
+        FK_endereco_id integer REFERENCES endereco,
+        FK_setor_id integer REFERENCES setor,
+        FK_cargo_id integer REFERENCES cargo,
+        PRIMARY KEY(associado_id)
+);
+
+
+CREATE TABLE convenio (
+        convenio_id serial,
+        convenio_nome varchar(300),
+        FK_endereco_id integer REFERENCES endereco,
+        FK_tipoconvenio_id integer REFERENCES tipoconvenio,
+        PRIMARY KEY(convenio_id)
+);
+
+CREATE TABLE banco (
+        banco_id serial,
+        banco_nome varchar(300),
+        banco_numero integer,
+        PRIMARY KEY(banco_id)
+);
+
+
+CREATE TABLE bancoagencia (
+        bancoagencia_id serial,
+        bancoagencia_nome varchar(300),
+        FK_endereco_id integer REFERENCES endereco,
+        FK_banco_id integer REFERENCES banco,
+        PRIMARY KEY(bancoagencia_id)
+);
+
+
+CREATE TABLE cheque (
+        cheque_id serial,
+        cheque_nominal varchar(300),
+        cheque_valor numeric(12,4),
+        cheque_data date,
+        cheque_verso text,
+        FK_cidade_id integer REFERENCES cidade,
+        FK_convenio_id integer REFERENCES convenio,
+        PRIMARY KEY(cheque_id)
+);
+
+CREATE TABLE emprestimo (
+        emprestimo_id serial,
+        emprestimo_anomes char(6),
+        emprestimo_nrvezes integer,
+        emprestimo_descricao varchar(100),
+        emprestimo_vlrtotal numeric(12,4),
+        emprestimo_vlrprestacao numeric(12,4),
+        FK_associado_id integer REFERENCES associado,
+        PRIMARY KEY(emprestimo_id)
+);
+
+
+CREATE TABLE requisicao (
+        requisicao_id serial,
+        requisicao_anomes char(6),
+        FK_associado_id integer REFERENCES associado,
+        requisicao_descricao varchar(100),
+        requisicao_data date,
+        requisicao_validade date,
+        requisicao_valortotal numeric(12,4),
+        requisicao_valorprestacao numeric(12,4),
+        requisicao_nrvezes integer,
+        FK_convenio_id integer REFERENCES convenio,
+        FK_tiporequisicao_id integer REFERENCES tiporequisicao,
+        PRIMARY KEY(requisicao_id)
+);
+
+CREATE TABLE lancamento (
+        lancamento_id serial,
+        lancamento_anomes char(6),
+        lancamento_nome varchar(100),
+        lancamento_valordevido numeric(12,4),
+        lancamento_valordescontado numeric(12,4),
+        lancamento_estorno numeric(12,4),
+        lancamento_codfolha integer,
+        lancamento_codsca integer,
+        FK_associado_id integer REFERENCES associado,
+        FK_faixamensalidade_id integer REFERENCES faixamensalidade,
+        FK_emprestimo_id integer REFERENCES emprestimo,
+        FK_tipolancamento_id integer REFERENCES tipolancamento,
+        FK_requisicao_id integer REFERENCES requisicao,
+        PRIMARY KEY(lancamento_id)
+);
+
+
+
+CREATE TABLE mensalidade (
+        mensalidade_anomes char(6),
+        FK_associado_id integer REFERENCES associado,
+        FK_faixamensalidade_id integer REFERENCES faixamensalidade,
+        PRIMARY KEY(mensalidade_anomes,FK_associado_id)
+);
+
+
+CREATE TABLE sede (
+        sede_id serial,
+        sede_nome varchar(300),
+        sede_apelido varchar(50),
+        FK_endereco_id integer REFERENCES endereco,
+        FK_associacao_id integer REFERENCES associacao,
+        PRIMARY KEY(sede_id)
+);
+
+
+CREATE TABLE consignavel (
+        consignavel_anomes char(6),
+        FK_associado_id integer REFERENCES associado,
+        consignavel_valordisponivel numeric(12,2),
+        consignavel_valorutilizado numeric(12,2),
+        CHECK (consignavel_valordisponivel &gt;= consignavel_valorutilizado)
+        PRIMARY KEY(consignavel_anomes,FK_associado_id)
+);
+</pre>
+<p class='vspace'></p><h2>Criando a biblioteca de funções</h2>
+<p class='vspace'></p><p>Antes de criar os trigger devem ser criadas as funções usadas nos triggers. Para que este script funcione o seguinte comando deve ser executado:
+</p><p class='vspace'></p>
+<pre style='background-color: #f0f9ff; border: 1px solid gray; padding: 5px;' >
+# createlang pgplsql
+</pre>
+<p class='vspace'></p><p>Em seguida conectar ao banco com o usuário criado, no nosso caso ``conta''.
+</p><p class='vspace'></p>
+<pre style='background-color: #f0f9ff; border: 1px solid gray; padding: 5px;' >
+# psql conta -U conta
+</pre>
+<p class='vspace'></p><p>Rodar os comando a seguir para criar as tabelas:
+</p><p class='vspace'></p>
+<pre style='background-color: #f0f9ff; border: 1px solid gray; padding: 5px;' >
+CREATE or REPLACE FUNCTION anomesInc(char(6),integer) RETURNS char(6) AS '
+DECLARE
+    anomes ALIAS for $1;
+    n ALIAS for $2;
+    ano integer;
+    mes integer;
+BEGIN
+    ano := substr(anomes, 1, 4)::integer;
+    mes := substr(anomes, 5, 2)::integer;
+    FOR i in 1..n LOOP
+        mes := mes + 1;
+        IF mes = 13 THEN
+            mes := 1;
+            ano := ano + 1;
+        END IF;
+    END LOOP; 
+    RETURN ano::text || lpad(mes::text,2,''0'');
+END;
+' LANGUAGE plpgsql;
+
+CREATE or REPLACE FUNCTION anomesDec(char(6),integer) RETURNS char(6) AS '
+DECLARE
+    anomes ALIAS for $1;
+    n ALIAS for $2;
+    ano integer;
+    mes integer;
+BEGIN
+    ano := substr(anomes, 1, 4)::integer;
+    mes := substr(anomes, 5, 2)::integer;
+    FOR i in 1..n LOOP
+        mes := mes - 1;
+        IF mes = 0 THEN
+            mes := 12;
+            ano := ano - 1;
+        END IF;
+    END LOOP; 
+    RETURN ano::text || lpad(mes::text,2,''0'');
+END;
+' LANGUAGE plpgsql;
+
+CREATE or REPLACE FUNCTION anomesPrev(char(6)) RETURNS char(6) AS '
+DECLARE
+    anomes ALIAS for $1;
+    ano integer;
+    mes integer;
+    resultado char(6);
+BEGIN
+    SELECT INTO resultado anomesDec(anomes,1);
+    RETURN resultado;
+END;
+' LANGUAGE plpgsql;
+
+CREATE or REPLACE FUNCTION anomesNext(char(6)) RETURNS char(6) AS '
+DECLARE
+    anomes ALIAS for $1;
+    ano integer;
+    mes integer;
+    resultado char(6);
+BEGIN
+    SELECT INTO resultado anomesInc(anomes,1);
+    RETURN resultado;
+END;
+' LANGUAGE plpgsql;
+
+CREATE or REPLACE FUNCTION LancamentoMensalidade() RETURNS boolean AS '
+BEGIN
+    INSERT INTO mensalidade (mensalidade_anomes,
+                             fk_associado_id,
+                             fk_faixamensalidade_id) SELECT m.mesreferencia_anomes,
+                                                            a.associado_id,
+                                                            a.fk_faixamensalidade_id 
+                                                     FROM associado as a, mesreferencia as m
+                                                     WHERE a.associado_desligado = ''f''
+                                                     AND m.mesreferencia_aberto = ''t''
+                                                     AND a.fk_faixamensalidade_id IS NOT NULL;
+    RETURN FOUND;
+END;
+' LANGUAGE plpgsql;
+
+CREATE or REPLACE FUNCTION VerificaAssociadoDesligado(integer) RETURNS boolean AS '
+DECLARE
+    resultado boolean;
+BEGIN
+    SELECT INTO resultado associado_desligado
+    FROM associado
+    WHERE associado_id = $1;
+    RETURN resultado;
+END;
+' LANGUAGE plpgsql;
+
+CREATE or REPLACE FUNCTION VerificaMesReferenciaAberto(char(6)) RETURNS boolean AS '
+DECLARE
+    anomes ALIAS FOR $1;
+    resultado boolean;
+BEGIN
+    SELECT INTO resultado mesreferencia_aberto
+    FROM mesreferencia
+    WHERE mesreferencia_anomes = anomes;
+    IF NOT FOUND THEN
+        INSERT INTO mesreferencia (mesreferencia_anomes, mesreferencia_aberto, mesreferencia_nome)
+        VALUES (anomes,''t'',MesExtenso(int4(substr(anomes,5,2)))||''/''||substr(anomes,1,4));
+        resultado = true;
+    END IF;
+    RETURN resultado;
+END;
+' LANGUAGE plpgsql;
+
+CREATE or REPLACE FUNCTION MesReferenciaAberto() RETURNS mesreferencia.mesreferencia_anomes%TYPE AS '
+DECLARE
+    resultado mesreferencia.mesreferencia_anomes%TYPE;
+BEGIN
+    SELECT INTO resultado mesreferencia_anomes
+    FROM mesreferencia
+    WHERE mesreferencia_anomes = (SELECT min(mesreferencia_anomes)
+                                                FROM mesreferencia
+                                                       WHERE mesreferencia_aberto = ''t'');
+    RETURN resultado;
+END;
+' LANGUAGE plpgsql;
+
+CREATE or REPLACE FUNCTION upConsignavelAssociado(lancamento.lancamento_anomes%TYPE,lancamento.lancamento_valordevido%TYPE,lancamento.fk_associado_id%TYPE) RETURNS boolean AS '
+DECLARE
+    anomes ALIAS FOR $1;
+    ValorDesconto ALIAS FOR $2;
+    associado_id ALIAS FOR $3;
+    resultado boolean;
+BEGIN
+
+    UPDATE consignavel 
+    SET consignavel_valorutilizado = consignavel_valorutilizado-ValorDesconto
+    WHERE consignavel_anomes = anomes
+    AND fk_associado_id = associado_id;
+
+    RETURN FOUND;
+END;
+' LANGUAGE plpgsql;
+
+CREATE or REPLACE FUNCTION FechamentoMensal(char(6)) RETURNS boolean AS '
+DECLARE
+    anomes ALIAS FOR $1;
+    novo_anomes mesreferencia.mesreferencia_anomes%TYPE;
+BEGIN
+    UPDATE mesreferencia 
+    SET mesreferencia_aberto = ''f''
+    WHERE mesreferencia_anomes = anomes
+    AND mesreferencia_aberto = ''t'';
+
+    IF NOT FOUND THEN
+        RAISE EXCEPTION ''Não foi possível encontrar mês/ano aberto. %'', anomes;
+    END IF;
+
+    novo_anomes := anomesNext(anomes);
+
+    INSERT INTO mesreferencia (mesreferencia_anomes, mesreferencia_aberto, mesreferencia_nome)
+    VALUES (novo_anomes,''t'',MesExtenso(int4(substr(novo_anomes,5,2)))||''/''||substr(novo_anomes,1,4));
+
+    INSERT INTO mensalidade (mensalidade_anomes, fk_associado_id, fk_faixamensalidade_id)
+        SELECT novo_anomes, ass.associado_id, ass.fk_faixamensalidade_id 
+        FROM associado AS ass
+        WHERE ass.associado_desligado = ''f'';
+    RETURN FOUND;
+END;
+' LANGUAGE plpgsql;
+
+CREATE or REPLACE FUNCTION MesExtenso(integer) RETURNS char(10) AS '
+DECLARE
+    mes ALIAS FOR $1;
+    retorno char(10);
+BEGIN
+    IF mes = 1 THEN 
+        retorno := ''JANEIRO'';
+    ELSIF mes = 2 THEN 
+        retorno := ''FEVEREIRO'';
+    ELSIF mes = 3 THEN 
+        retorno := ''MARÇO'';
+    ELSIF mes = 4 THEN 
+        retorno := ''ABRIL'';
+    ELSIF mes = 5 THEN 
+        retorno := ''MAIO'';
+    ELSIF mes = 6 THEN 
+        retorno := ''JUNHO'';
+    ELSIF mes = 7 THEN 
+        retorno := ''JULHO'';
+    ELSIF mes = 8 THEN 
+        retorno := ''AGOSTO'';
+    ELSIF mes = 9 THEN 
+        retorno := ''SETEMBRO'';
+    ELSIF mes = 10 THEN 
+        retorno := ''OUTUBRO'';
+    ELSIF mes = 11 THEN 
+        retorno := ''NOVEMBRO'';
+    ELSIF mes = 12 THEN 
+        retorno := ''DEZEMBRO'';
+    ELSE
+        RAISE EXCEPTION ''Mês inválido. %'', mes;
+    END IF;
+    RETURN retorno;
+END;
+' LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION VerificaLancamentosAnterioresMes(integer, integer, integer, char(6), integer) RETURNS boolean AS '
+DECLARE 
+   associado_id ALIAS FOR $1;
+   requisicao_id ALIAS FOR $2;
+   emprestimo_id ALIAS FOR $3;
+   anomes ALIAS FOR $4;
+   tipolancamento_id ALIAS FOR $5;
+   resultado mesreferencia.mesreferencia_anomes%TYPE;
+BEGIN
+    SELECT INTO resultado m.mesreferencia_anomes
+    FROM mesreferencia m, lancamento l
+    WHERE m.mesreferencia_aberto = ''f''
+    AND int4(m.mesreferencia_anomes) &lt;= int4(anomes)
+    AND l.lancamento_anomes = m.mesreferencia_anomes
+    AND l.fk_associado_id = associado_id
+    AND ((l.fk_requisicao_id = requisicao_id)or(requisicao_id IS NULL))
+    AND ((l.fk_emprestimo_id = emprestimo_id)or(emprestimo_id IS NULL))
+    AND l.fk_tipolancamento_id = tipolancamento_id;
+    RETURN resultado IS NULL;
+END; 
+' LANGUAGE plpgsql;
+</pre>
+<p class='vspace'></p><h2>Criação dos triggers</h2>
+<p class='vspace'></p><p>Para criar os trigger rode os seguintes comandos:
+</p><p class='vspace'></p>
+<pre style='background-color: #f0f9ff; border: 1px solid gray; padding: 5px;' >
+CREATE or REPLACE FUNCTION td_emprestimo() RETURNS trigger AS '
+    DECLARE
+        anomes emprestimo.emprestimo_anomes%TYPE;
+    BEGIN
+        IF VerificaAssociadoDesligado(OLD.fk_associado_id) THEN
+            RAISE EXCEPTION ''Este associado está desligado. %'', OLD.fk_associado_id;
+        ELSE
+            anomes := OLD.emprestimo_anomes;
+            IF VerificaLancamentosAnterioresMes(OLD.fk_associado_id, null, OLD.emprestimo_id, anomes,3) THEN
+                FOR i IN 1..OLD.emprestimo_nrvezes LOOP
+                    IF VerificaMesReferenciaAberto(anomes) THEN
+                        DELETE FROM lancamento 
+                            WHERE fk_associado_id = OLD.fk_associado_id
+                            AND fk_tipolancamento_id = 3
+                            AND lancamento_anomes = anomes
+                            AND fk_emprestimo_id = OLD.emprestimo_id;
+                    ELSE
+                        RAISE EXCEPTION ''Este mês/ano já foi fechado. %'', anomes;
+                    END IF;
+                    anomes := AnoMesNext(anomes);
+                END LOOP;
+            ELSE
+                RAISE EXCEPTION ''Este empréstimo possui lançamentos em meses anteriores que já foram fechados, não pode ser removido.'';
+            END IF;
+        END IF;
+        RETURN OLD;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER td_emprestimo BEFORE DELETE ON emprestimo
+    FOR EACH ROW EXECUTE PROCEDURE td_emprestimo();
+
+CREATE or REPLACE FUNCTION td_lancamento() RETURNS trigger AS '
+    DECLARE
+        resultado boolean;
+    BEGIN
+        IF VerificaAssociadoDesligado(OLD.fk_associado_id) THEN
+            RAISE EXCEPTION ''Este associado está desligado. %'', OLD.fk_associado_id;
+        ELSE
+            IF VerificaMesReferenciaAberto(OLD.lancamento_anomes) THEN
+                resultado := upConsignavelAssociado(OLD.lancamento_anomes, OLD.lancamento_valordevido, OLD.fk_associado_id); 
+            ELSE
+                RAISE EXCEPTION ''Este mês/ano já está fechado. %'', OLD.lancamento_anomes;
+            END IF;
+        END IF;
+        RETURN OLD;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER td_lancamento BEFORE DELETE ON lancamento
+    FOR EACH ROW EXECUTE PROCEDURE td_lancamento();
+
+CREATE or REPLACE FUNCTION td_mensalidade() RETURNS trigger AS '
+    BEGIN
+        IF VerificaAssociadoDesligado(OLD.fk_associado_id) THEN
+            RAISE EXCEPTION ''Este associado está desligado. %'', OLD.fk_associado_id;
+        ELSE
+            IF VerificaMesReferenciaAberto(OLD.mensalidade_anomes) THEN
+                DELETE FROM lancamento 
+                    WHERE lancamento_anomes = OLD.mensalidade_anomes
+                    AND fk_associado_id = OLD.fk_associado_id
+                    AND fk_tipolancamento_id = 1
+                    AND fk_faixamensalidade_id = OLD.fk_faixamensalidade_id;
+            ELSE
+                RAISE EXCEPTION ''Este mês/ano já está fechado. %'', %OLD.mensalidade_anomes;
+            END IF;
+        END IF;
+        RETURN OLD;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER td_mensalidade BEFORE DELETE ON mensalidade
+    FOR EACH ROW EXECUTE PROCEDURE td_mensalidade();
+
+CREATE or REPLACE FUNCTION td_quadroassociativo() RETURNS trigger AS '
+    BEGIN
+        UPDATE associado set associado_desligado = ''t''
+	WHERE associado_id = OLD.fk_associado_id;
+        RETURN OLD;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER td_quadroassociativo BEFORE DELETE ON quadroassociativo
+    FOR EACH ROW EXECUTE PROCEDURE td_quadroassociativo();
+
+CREATE or REPLACE FUNCTION td_requisicao() RETURNS trigger AS '
+    DECLARE
+        anomes requisicao.requisicao_anomes%TYPE;
+    BEGIN
+        anomes := OLD.requisicao_anomes;
+        IF VerificaAssociadoDesligado(OLD.fk_associado_id) THEN
+            RAISE EXCEPTION ''Este associado está desligado. %s'', OLD.fk_associado_id;
+        ELSE
+            IF VerificaLancamentosAnterioresMes(OLD.fk_associado_id, OLD.requisicao_id, null, OLD.requisicao_anomes,2) THEN
+                FOR i IN 1..OLD.requisicao_nrvezes LOOP
+                    IF VerificaMesReferenciaAberto(anomes) THEN
+                        DELETE FROM lancamento 
+                            WHERE fk_associado_id = OLD.fk_associado_id
+                            AND fk_tipolancamento_id = 2
+                            AND lancamento_anomes = anomes
+                            AND fk_requisicao_id = OLD.requisicao_id;
+                    ELSE
+                        RAISE EXCEPTION ''Este mês/ano já está fechado. %'', anomes;
+                    END IF;
+                    anomes := AnoMesNext(anomes);
+                END LOOP;
+		    END IF;
+        END IF;
+        RETURN OLD;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER td_requisicao BEFORE DELETE ON requisicao
+    FOR EACH ROW EXECUTE PROCEDURE td_requisicao();
+
+CREATE or REPLACE FUNCTION ti_emprestimo() RETURNS trigger AS '
+    DECLARE
+        emp_anomes emprestimo.emprestimo_anomes%TYPE;
+    BEGIN
+        IF NEW.emprestimo_anomes IS NULL THEN
+            RAISE EXCEPTION ''Mês e ano precisam ser preenchidos.'';
+        END IF;
+        IF NEW.emprestimo_nrvezes IS NULL THEN
+             RAISE EXCEPTION ''É necessário preencher o número de vezes'';
+        END IF;
+        IF NEW.emprestimo_vlrprestacao IS NULL THEN
+             RAISE EXCEPTION ''É necessário preencher o valor da prestação'';
+        END IF;
+        IF NEW.emprestimo_descricao IS NULL THEN
+             RAISE EXCEPTION ''É necessário preencher a descrição'';
+        END IF;
+
+        IF VerificaAssociadoDesligado(NEW.fk_associado_id) THEN
+            RAISE EXCEPTION ''Este associado está desligado. %'', NEW.fk_associado_id;
+        ELSE
+            emp_anomes := NEW.emprestimo_anomes;
+            IF VerificaMesReferenciaAberto(emp_anomes) THEN
+                FOR i IN 1..NEW.emprestimo_nrvezes LOOP
+                    INSERT INTO lancamento( lancamento_anomes,
+                                            lancamento_nome,
+                                            lancamento_valordevido,
+                                            fk_associado_id,
+                                            fk_tipolancamento_id,
+                                            fk_emprestimo_id) 
+                    VALUES (emp_anomes,
+                            NEW.emprestimo_descricao,
+                            NEW.emprestimo_vlrprestacao,
+                            NEW.fk_associado_id,
+                            3,
+                            NEW.emprestimo_id);
+                    emp_anomes := anomesNext(emp_anomes);
+                END LOOP;
+		   ELSE
+                RAISE EXCEPTION ''Este mês já foi fechado. %'', emp_anomes;
+            END IF;
+        END IF;
+        RETURN NEW;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER ti_emprestimo BEFORE INSERT ON emprestimo
+    FOR EACH ROW EXECUTE PROCEDURE ti_emprestimo();
+
+CREATE or REPLACE FUNCTION ti_lancamento() RETURNS trigger AS '
+    DECLARE
+        anomesAnterior lancamento.lancamento_anomes%TYPE;
+        recconsignavel RECORD;
+        consignavelAnterior consignavel.consignavel_valordisponivel%TYPE;
+    BEGIN
+        IF NEW.lancamento_anomes IS NULL THEN
+            RAISE EXCEPTION ''Mês e ano precisam ser preenchidos.'';
+        END IF;
+        IF NEW.fk_associado_id IS NULL THEN
+            RAISE EXCEPTION ''É necessário escolher um associado.'';
+        END IF;
+        IF NEW.lancamento_valordevido IS NULL THEN
+            RAISE EXCEPTION ''É necessário preencher o valor do lançamento'';
+        END IF;
+        IF VerificaAssociadoDesligado(NEW.fk_associado_id) THEN
+            RAISE EXCEPTION ''Este associado está desligado. %'', NEW.fk_associado_id;
+        ELSE
+            IF VerificaMesReferenciaAberto(NEW.lancamento_anomes) then
+                SELECT INTO recconsignavel * 
+                FROM consignavel 
+                WHERE consignavel_anomes = NEW.lancamento_anomes
+                AND fk_associado_id = NEW.fk_associado_id;
+
+                IF NOT FOUND THEN
+                    anomesAnterior := anomesPrev(NEW.lancamento_anomes);
+                    SELECT INTO consignavelAnterior consignavel_valordisponivel
+                    FROM consignavel 
+                    WHERE consignavel_anomes = anomesAnterior
+                    AND fk_associado_id = NEW.fk_associado_id;
+
+				  IF NOT FOUND THEN
+                        RAISE EXCEPTION ''Não foi possível encontrar margem consignável para o associado.'';
+				  ELSE
+                        INSERT INTO consignavel( consignavel_anomes,
+                                                     fk_associado_id,
+                                                 consignavel_valordisponivel,
+                                                 consignavel_valorutilizado )
+                                         VALUES( NEW.lancamento_anomes,
+                                                 NEW.fk_associado_id,
+                                                 consignavelAnterior,
+                                                 0 );
+
+                        SELECT INTO recconsignavel * 
+                        FROM consignavel 
+                        WHERE consignavel_anomes = NEW.lancamento_anomes
+                        AND fk_associado_id = NEW.fk_associado_id;
+                        IF NOT FOUND THEN
+                            RAISE EXCEPTION ''Consignável não encontrado.'';
+                        END IF;
+				   END IF;
+                END IF;
+
+                IF NEW.lancamento_valordevido &gt;
+                      (recconsignavel.consignavel_valordisponivel-
+                       recconsignavel.consignavel_valorutilizado) THEN
+                    RAISE EXCEPTION ''Não há saldo consignável disponível. %'',NEW.lancamento_anomes;
+                ELSE
+                    UPDATE consignavel
+                    SET consignavel_valorutilizado = consignavel_valorutilizado+
+                                                     NEW.lancamento_valordevido
+                    WHERE consignavel_anomes = NEW.lancamento_anomes
+                    AND fk_associado_id = NEW.fk_associado_id;
+                    IF NOT FOUND THEN
+                        RAISE EXCEPTION ''Não foi possível atualizar o saldo consgnável'';
+                    END IF;
+                END IF;
+            END IF;
+        END IF;
+        RETURN NEW;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER ti_lancamento BEFORE INSERT ON lancamento
+    FOR EACH ROW EXECUTE PROCEDURE ti_lancamento();
+
+CREATE or REPLACE FUNCTION ti_mensalidade() RETURNS trigger AS '
+    DECLARE fxm_valor faixamensalidade.faixamensalidade_valorref%TYPE;
+    BEGIN
+        IF NEW.mensalidade_anomes IS NULL THEN
+            RAISE EXCEPTION ''Mês e ano precisam ser preenchidos.'';
+        END IF;
+        IF NEW.fk_faixamensalidade_id IS NULL THEN
+             RAISE EXCEPTION ''É necessário escolher uma faixa de mensalidade'';
+        END IF;
+        IF NEW.fk_associado_id IS NULL THEN
+             RAISE EXCEPTION ''É necessário escolher um associado'';
+        END IF;
+        IF VerificaAssociadoDesligado(NEW.fk_associado_id) THEN
+            RAISE EXCEPTION ''Este associado está desligado. %'', NEW.fk_associado_id;
+        ELSE
+            IF VerificaMesReferenciaAberto(NEW.mensalidade_anomes) THEN
+                SELECT INTO fxm_valor faixamensalidade_valorref 
+                FROM faixamensalidade 
+                WHERE faixamensalidade_id = NEW.fk_faixamensalidade_id;
+                IF NOT FOUND THEN
+                    RAISE EXCEPTION ''Não foi possível encontrar valor de referencia.'';
+                END IF;
+
+                INSERT INTO lancamento( lancamento_anomes,
+	                                lancamento_nome,
+	                                lancamento_valordevido,
+	                                fk_associado_id,
+	                                fk_tipolancamento_id,
+	                                fk_faixamensalidade_id) 
+                VALUES (NEW.mensalidade_anomes,
+                        ''MENSALIDADE'',
+                        fxm_valor,
+                        NEW.fk_associado_id,
+                        1,
+                        NEW.fk_faixamensalidade_id);
+            ELSE
+                RAISE EXCEPTION ''Este mês/ano já está fechado. %'', NEW.mensalidade_anomes;
+            END IF;
+        END IF;
+        RETURN NEW;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE or REPLACE FUNCTION ti_quadroassociativo() RETURNS trigger AS '
+    DECLARE
+        qaa_desligado boolean;
+    BEGIN
+        IF NEW.fk_associado_id IS NULL THEN
+            RAISE EXCEPTION ''É necessário escolher um associado'';
+        END IF;
+        IF NEW.quadroassociativo_admissao IS NULL THEN
+            RAISE EXCEPTION ''É necessário preencher a data de admissão.'';
+        END IF;
+        IF NEW.quadroassociativo_desligamento IS NULL THEN
+	    qaa_desligado := ''f'';
+	ELSE
+	    qaa_desligado := ''t'';
+        END IF;
+
+        UPDATE associado set associado_desligado = qaa_desligado
+	WHERE associado_id = NEW.fk_associado_id;
+        RETURN NEW;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER ti_quadroassociativo BEFORE INSERT ON quadroassociativo
+    FOR EACH ROW EXECUTE PROCEDURE ti_quadroassociativo();
+
+CREATE or REPLACE FUNCTION ti_requisicao() RETURNS trigger AS '
+    DECLARE
+        req_anomes requisicao.requisicao_anomes%TYPE;
+    BEGIN
+        IF NEW.requisicao_anomes IS NULL THEN
+            RAISE EXCEPTION ''Mês e ano precisam ser preenchidos.'';
+        END IF;
+        IF NOT VerificaMesReferenciaAberto(NEW.requisicao_anomes) THEN
+            RAISE EXCEPTION ''Este mês/ano já está fechado. %'', NEW.requisicao_anomes;
+        END IF;
+        IF NEW.requisicao_id IS NULL THEN
+             RAISE EXCEPTION ''É necessário escolher uma requisição'';
+        END IF;
+        IF NEW.FK_associado_id IS NULL THEN
+             RAISE EXCEPTION ''É necessário escolher um associado'';
+        END IF;
+        IF VerificaAssociadoDesligado(NEW.fk_associado_id) THEN
+             RAISE EXCEPTION ''Este associado está desligado. %'', NEW.fk_associado_id;
+        END IF;
+        IF NEW.requisicao_data IS NULL THEN
+             RAISE EXCEPTION ''É necessário preencher a data.'';
+        END IF;
+        IF NEW.requisicao_validade IS NULL THEN
+             RAISE EXCEPTION ''É necessário preencher a validade'';
+        END IF;
+        IF NEW.requisicao_valorprestacao IS NULL THEN
+             RAISE EXCEPTION ''É necessário preencher o valor.'';
+        END IF;
+        IF NEW.requisicao_valorprestacao &lt; 0 THEN
+            RAISE EXCEPTION ''O valor não pode ser negativo'';
+        END IF;
+        IF NEW.fk_convenio_id IS NULL THEN
+            RAISE EXCEPTION ''É necessário escolher um convenio'';
+        END IF;
+        IF NEW.fk_tiporequisicao_id IS NULL THEN
+            RAISE EXCEPTION ''É necessário escolher um tipo de requisição'';
+        END IF;
+
+        req_anomes := NEW.requisicao_anomes;
+	FOR i IN 1..NEW.requisicao_nrvezes LOOP
+            IF VerificaMesReferenciaAberto(req_anomes) THEN
+                INSERT INTO lancamento( lancamento_anomes,
+                                        lancamento_nome,
+                                        lancamento_valordevido,
+                                        fk_associado_id,
+                                        fk_tipolancamento_id,
+                                        fk_requisicao_id) 
+                VALUES ( req_anomes,
+                         NEW.requisicao_descricao,
+                         NEW.requisicao_valorprestacao,
+                         NEW.fk_associado_id,
+                         2,
+                         NEW.requisicao_id);
+            ELSE
+                RAISE EXCEPTION ''Este mês/ano já está fechado. %'', req_anomes;
+            END IF;
+            req_anomes := anomesNext(req_anomes);
+	END LOOP;
+        RETURN NEW;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER ti_requisicao BEFORE INSERT ON requisicao
+    FOR EACH ROW EXECUTE PROCEDURE ti_requisicao();
+
+CREATE or REPLACE FUNCTION tu_associado() RETURNS trigger AS '
+    DECLARE fxm_valor faixamensalidade.faixamensalidade_valorref%TYPE;
+        anomes mesreferencia.mesreferencia_anomes%TYPE;
+    BEGIN
+        IF VerificaAssociadoDesligado(OLD.associado_id) and (NEW.fk_faixamensalidade_id &lt;&gt; OLD.fk_faixamensalidade_id) THEN
+            RAISE EXCEPTION ''Este associado está desligado. %'', OLD.associado_id;
+        ELSE
+            IF NEW.fk_faixamensalidade_id &lt;&gt; OLD.fk_faixamensalidade_id THEN
+	        anomes := MesReferenciaAberto();
+                IF anomes IS NOT NULL THEN  
+                    SELECT INTO fxm_valor faixamensalidade_valorref FROM faixamensalidade WHERE faixamensalidade_id = NEW.fk_faixamensalidade_id;
+                    IF NOT FOUND THEN
+                        RAISE EXCEPTION ''Não foi possível encontrar valor de referência. %'', anomes;
+                    END IF;
+
+                    UPDATE lancamento 
+                    SET lancamento_valordevido = fxm_valor,
+                    fk_faixamensalidade_id = NEW.fk_faixamensalidade_id
+                    WHERE fk_associado_id = OLD.fk_associado_id
+	            AND fk_tipolancamento_id = 1
+        	    AND fk_faixamensalidade_id = OLD.fk_faixamensalidade_id
+                    AND lancamento_anomes = anomes;
+                ELSE
+                    RAISE EXCEPTION ''Este mês/ano já está fechado. %'', anomes;
+                END IF;
+            END IF;
+	END IF;
+        RETURN NEW;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER tu_associado BEFORE UPDATE ON associado
+    FOR EACH ROW EXECUTE PROCEDURE tu_associado();
+
+CREATE or REPLACE FUNCTION tu_emprestimo() RETURNS trigger AS '
+    DECLARE
+        emp_anomes emprestimo.emprestimo_anomes%TYPE;
+    BEGIN
+        IF NEW.emprestimo_anomes IS NULL THEN
+            RAISE EXCEPTION ''Mês e ano precisam ser preenchidos.'';
+        END IF;
+        IF VerificaAssociadoDesligado(NEW.fk_associado_id) THEN
+            RAISE EXCEPTION ''Este associado está desligado. %'', NEW.fk_associado_id;
+        ELSE
+            IF VerificaMesReferenciaAberto(NEW.emprestimo_anomes) THEN
+                IF NEW.emprestimo_nrvezes IS NULL THEN
+                     RAISE EXCEPTION ''É necessário preencher o número de vezes'';
+                END IF;
+                IF NEW.emprestimo_vlrprestacao IS NULL THEN
+                     RAISE EXCEPTION ''É necessário preencher o valor da prestação'';
+                END IF;
+                IF NEW.emprestimo_descricao IS NULL THEN
+                     RAISE EXCEPTION ''É necessário preencher a descrição'';
+                END IF;
+
+                SELECT INTO emp_mesanterior count(l.fk_emprestimo_id) 
+		       FROM lancamento l, mesreferencia m 
+		       WHERE l.fk_emprestimo_id = OLD.fk_emprestimo_id 
+		       AND l.lancamento_anomes &lt; NEW.emprestimo_anomes
+		       AND l.lancamento_anomes = m.mesreferencia_anomes
+		       AND m.mesreferencia_aberto = ''f'';
+
+                IF emp_mesanterior &gt;= 1 THEN
+                    DELETE FROM lancamento 
+                    WHERE fk_associado_id = OLD.fk_associado_id
+                    AND fk_tipolancamento_id = 3
+                    AND fk_emprestimo_id = OLD.emprestimo_id;
+
+                    emp_anomes := NEW.emprestimo_anomes;
+                    FOR i IN 1..NEW.emprestimo_nrvezes LOOP
+                        INSERT INTO lancamento( lancamento_anomes,
+                                                lancamento_nome,
+                                                lancamento_valordevido,
+                                                fk_associado_id,
+                                                fk_tipolancamento_id,
+                                                fk_emprestimo_id) 
+                        VALUES (emp_anomes,
+                                NEW.emprestimo_descricao,
+                                NEW.emprestimo_vlrprestacao,
+                                NEW.fk_associado_id,
+                                3,
+                                NEW.emprestimo_id);
+                        emp_anomes := anomesNext(emp_anomes);
+                    END LOOP;
+		       END IF;
+            END IF;
+        END IF;
+        RETURN NEW;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER tu_emprestimo BEFORE UPDATE ON emprestimo
+    FOR EACH ROW EXECUTE PROCEDURE tu_emprestimo();
+CREATE or REPLACE FUNCTION tu_faixamensalidade() RETURNS trigger AS '
+    DECLARE 
+        mesref_anomes mesreferencia.mesreferencia_anomes%TYPE;
+        ano integer;
+        mes integer;
+    BEGIN
+	SELECT INTO mesref_anomes min(mesreferencia_anomes) FROM mesreferencia WHERE mesreferencia_aberto = ''t'';
+	IF NOT FOUND THEN
+             RAISE EXCEPTION ''Não foi possível encontrar mês de referencia.'';
+        ELSE
+            ano := substr(mesref_anomes, 1, 4)::integer;
+            mes := substr(mesref_anomes, 5, 2)::integer;
+
+            UPDATE lancamento  
+            SET lancamento_valordevido = NEW.faixamensalidade_valorref
+            WHERE fk_tipolancamento_id = 1
+            AND fk_faixamensalidade_id = NEW.faixamensalidade_id
+            AND substr(lancamento_anomes,1,4)::integer &gt;= ano
+            AND substr(lancamento_anomes,5,2)::integer &gt;= mes
+            AND fk_associado_id IN (SELECT a.associado_id
+                                    FROM associado AS a, lancamento AS l
+                                    WHERE a.associado_desligado=''f''
+                                    AND l.fk_associado_id = a.associado_id
+                                    AND l.lancamento_id = lancamento_id);
+	END IF;
+        RETURN NEW;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER tu_faixamensalidade BEFORE UPDATE ON faixamensalidade
+    FOR EACH ROW EXECUTE PROCEDURE tu_faixamensalidade();
+
+CREATE or REPLACE FUNCTION tu_lancamento() RETURNS trigger AS '
+    DECLARE
+        recconsignavel RECORD;
+    BEGIN
+        IF NEW.lancamento_valordevido &lt; 0 THEN
+            RAISE EXCEPTION ''Não é permitido valores negativos.'';
+        ELSIF VerificaAssociadoDesligado(NEW.fk_associado_id) THEN
+            RAISE EXCEPTION ''Este associado está desligado. %'', NEW.fk_associado_id;
+        ELSIF VerificaMesReferenciaAberto(NEW.lancamento_anomes) THEN
+            SELECT INTO recconsignavel * 
+            FROM consignavel 
+            WHERE consignavel_anomes = NEW.lancamento_anomes
+            AND fk_associado_id = NEW.fk_associado_id;
+
+            IF OLD.lancamento_valordevido &gt; NEW.lancamento_valordevido THEN
+                upConsignvelAssociado(NEW.lancamento_anomes,
+                    consignavel_valorutilizado-(OLD.lancamento_valordevido-NEW.lancamento_valordevido),
+                    NEW.fk_associado_id);
+            ELSIF OLD.lancamento_valordevido &lt; NEW.lancamento_valordevido THEN
+                IF NEW.lancamento_valordevido &gt; (recconsignavel.consignavel_valordisponivel-recconsignavel.consignavel_valorutilizado) THEN
+                    RAISE EXCEPTION ''Não há saldo consignável disponível.'';
+                ELSE
+                upConsignvelAssociado(NEW.lancamento_anomes,
+                    consignavel_valorutilizado+(NEW.lancamento_valordevido-OLD.lancamento_valordevido),
+                    NEW.fk_associado_id);
+                END IF;
+            END IF;
+        ELSE
+            RAISE EXCEPTION ''Este mês/ano já está fechado. %'', NEW.lancamento_anomes;
+        END IF;
+
+        RETURN NEW;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER tu_lancamento BEFORE UPDATE ON lancamento
+    FOR EACH ROW EXECUTE PROCEDURE tu_lancamento();
+
+CREATE or REPLACE FUNCTION tu_mensalidade() RETURNS trigger AS '
+    DECLARE fxm_valor faixamensalidade.faixamensalidade_valorref%TYPE;
+    BEGIN
+        IF VerificaAssociadoDesligado(OLD.fk_associado_id) THEN
+            RAISE EXCEPTION ''Este associado está desligado. %'', OLD.fk_associado_id;
+        ELSE
+            IF VerificaMesReferenciaAberto(OLD.mensalidade_anomes) THEN  
+                SELECT INTO fxm_valor faixamensalidade_valorref FROM faixamensalidade WHERE faixamensalidade_id = NEW.fk_faixamensalidade_id;
+                IF NOT FOUND THEN
+                    RAISE EXCEPTION ''Não foi possível encontrar valor de referência.'';
+                END IF;
+
+                UPDATE lancamento 
+                SET lancamento_valordevido = fxm_valor,
+                    fk_faixamensalidade_id = NEW.fk_faixamensalidade_id
+                WHERE fk_associado_id = OLD.fk_associado_id
+                AND fk_tipolancamento_id = 1
+                AND fk_faixamensalidade_id = OLD.fk_faixamensalidade_id
+                AND lancamento_anomes = OLD.mensalidade_anomes;
+            ELSE
+                RAISE EXCEPTION ''Este mês/ano já está fechado. %'', OLD.mensalidade_anomes;
+            END IF;
+        END IF;
+        RETURN NEW;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE or REPLACE FUNCTION tu_quadroassociativo() RETURNS trigger AS '
+    BEGIN
+        IF (OLD.quadroassociativo_desligamento IS NULL) AND 
+           (NEW.quadroassociativo_desligamento IS NOT NULL) THEN
+            UPDATE associado SET associado_desligado = ''t''
+            WHERE associado_id = OLD.fk_associado_id;
+	ELSIF (OLD.quadroassociativo_desligamento IS NOT NULL) AND 
+              (NEW.quadroassociativo_desligamento IS NULL) THEN
+            UPDATE associado SET associado_desligado = ''f''
+            WHERE associado_id = OLD.fk_associado_id;
+	END IF;
+        RETURN NEW;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER tu_quadroassociativo BEFORE UPDATE ON quadroassociativo
+    FOR EACH ROW EXECUTE PROCEDURE tu_quadroassociativo();
+
+CREATE or REPLACE FUNCTION tu_requisicao() RETURNS trigger AS '
+    DECLARE
+        req_anomes requisicao.requisicao_anomes%TYPE;
+    BEGIN
+        IF VerificaAssociadoDesligado(NEW.fk_associado_id) THEN
+            RAISE EXCEPTION ''Este associado está desligado. %'', NEW.fk_associado_id;
+        ELSE
+            IF NEW.requisicao_anomes IS NULL THEN
+                RAISE EXCEPTION ''Mês e ano precisam ser preenchidos.'';
+            ELSIF VerificaMesReferenciaAberto(NEW.requisicao_anomes) THEN
+                IF NEW.requisicao_nrvezes IS NULL THEN
+                     RAISE EXCEPTION ''É necessário preencher o número de vezes'';
+                END IF;
+                IF NEW.requisicao_valorprestacao IS NULL THEN
+                     RAISE EXCEPTION ''É necessário preencher o valor da prestação'';
+                END IF;
+                IF NEW.requisicao_descricao IS NULL THEN
+                     RAISE EXCEPTION ''É necessário preencher a descrição'';
+                END IF;
+                IF VerificaMesReferenciaAberto(NEW.requisicao_anomes) AND
+                   VerificaLancamentosAnterioresMes(OLD.fk_associado_id, OLD.requisicao_id, NEW.requisicao_anomes,2) THEN
+                    DELETE FROM lancamento 
+                        WHERE fk_associado_id = OLD.fk_associado_id
+                        AND fk_tipolancamento_id = 2
+                        AND fk_requisicao_id = OLD.requisicao_id;
+
+                    req_anomes := NEW.requisicao_anomes;
+                    FOR i IN 1..NEW.requisicao_nrvezes LOOP
+                        IF VerificaMesReferenciaAberto(req_anomes) THEN
+                            INSERT INTO lancamento( lancamento_anomes,
+                                                    lancamento_nome,
+                                                    lancamento_valordevido,
+                                                    fk_associado_id,
+                                                    fk_tipolancamento_id,
+                                                    fk_requisicao_id) 
+                            VALUES (req_anomes,
+                                    NEW.requisicao_descricao,
+                                    NEW.requisicao_valorprestacao,
+                                    NEW.fk_associado_id,
+                                    2,
+                                    NEW.requisicao_id);
+                            req_anomes := anomesNext(req_anomes);
+                        ELSE
+                            RAISE EXCEPTION ''Este mês/ano já está fechado. %'', req_anomes;
+                        END IF;
+                    END LOOP;
+                ELSE
+                    RAISE EXCEPTION ''Este mês/ano já está fechado ou algum mês/ano anterior à este lançamento. %'', req_anomes;
+                END IF;
+            ELSE
+                RAISE EXCEPTION ''Este mês/ano já está fechado. %'', NEW.requisicao_anomes;
+            END IF;
+        END IF;
+        RETURN NEW;
+    END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER tu_requisicao BEFORE UPDATE ON requisicao
+    FOR EACH ROW EXECUTE PROCEDURE tu_requisicao();
+</pre>
+<p class='vspace'></p><h2>Utilização</h2>
+<p class='vspace'></p><p>Para testar o funcionamento é só conectar ao banco e ir inserindo dados, alterando e excluindo, a maior dificuldade deve ser a ordem correta de inserção, devido as dependencias entre as tabelas.
+</p><p class='vspace'></p>
+<p>Dúvidas e sugestões podem ser enviadas para ramiroluz em gmail .com Peço a quem for testar e inserir dados ficticios nas tabelas se possível fazer um dump e mandar pra cá, assim facilita a vida das outras pessoas que forem testar. :)
+</p><p class='vspace'></p>
+<p>Esses scripts fazem parte de um sistema [1], você pode pegar eles separados em [2] e ver toda árvore cvs em [3].
+</p><p class='vspace'></p>
+<p>[1] - <a class='urllink' href='http://savannah.nongnu.org/projects/conta/' rel='nofollow'>Controle adm. de associações</a>
+[2] - <a class='urllink' href='http://savannah.nongnu.org/cgi-bin/viewcvs/conta/conta/doc/sql/' rel='nofollow'>Scripts sql</a>
+[3] - <a class='urllink' href='http://savannah.nongnu.org/cgi-bin/viewcvs/conta' rel='nofollow'>Árvore cvs</a>
+</p><p class='vspace'></p>
+<p>Agradecimentos a Paulo Afonso que tem testado os scripts e enviado sugestões. 
+</p><p class='vspace'></p>
+<p>Copyleft (c) 2003 por Ramiro Batista da Luz (ramiroluz@gmail.com - <a class='urllink' href='http://ramiroluz.objectis.net' rel='nofollow'>site pessoal</a>)<br />Esse texto é licenciado sob a licença GNU FDL .<br />GNU FDL: GPL-pt_BR.txt
+</p>
+</div>
+
+      </td>
+    </tr></table>
+<!--PageFooterFmt-->
+  <div id='wikifoot'>
+    <div class='footnav'>
+      <a href='http://www.postgresql.org.br/pmwiki.php?n=Main.PgPlSql?action=edit'>Edit</a> -
+      <a href='http://www.postgresql.org.br/pmwiki.php?n=Main.PgPlSql?action=diff'>History</a> -
+      <a href='http://www.postgresql.org.br/pmwiki.php?n=Main.PgPlSql?action=print' target='_blank'>Print</a> -
+      <a href='http://www.postgresql.org.br/pmwiki.php?n=Main.RecentChanges'>Recent Changes</a> -
+      <a href='http://www.postgresql.org.br/pmwiki.php?n=Site.Search'>Search</a></div>
+    <div class='lastmod'>Page last modified on December 13, 2005, at 03:06 PM</div></div>
+<!--/PageFooterFmt-->
+</body>
+</html>

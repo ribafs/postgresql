@@ -1,0 +1,370 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+
+<title>Módulo Pessoa (Projeto Biblioteca) - Sub-área Banco de Dados - IME / USP </title>
+<meta name="Generator" content="EditPlus">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+</head><body>
+	<table width="95%">
+	  <tbody><tr>
+        <td bgcolor="#00557d">
+			<a name="emprestimo">
+			<font size="4" color="white"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Módulo Pessoa<br><br></p></b></font>
+		</a></td>
+	  </tr>
+	  <tr>
+        <td> 
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O
+módulo pessoa trata da modelagem das várias classes de pessoas
+envolvidas com a biblioteca, de usuários e bibliotecários a empresas
+fornecedoras e requisitantes. Estas classes relacionam-se entre si
+principalmente através de uma estrutura hierárquica de tipos de pessoa.
+Os relacionamentos e a hierarquia que há entre as entidades existentes
+no módulo de pessoa podem ser verificados no modelo conceitual,
+representado na figura 1.<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O
+modelo conceitual apresenta os tipos de pessoas e relações entre elas
+segundo a visão da biblioteca. Ele foi fruto de levantamento feito com
+os funcionários da biblioteca e serve como uma ilustração pouco técnica
+do modelo de dados. Assim, auxilia na comunicação com os funcionários,
+facilitando a modelagem e sua evolução.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No modelo lógico, estão
+representadas as especializações da hierarquia conceitual, além dos
+relacionamentos entre tipos em diferentes níveis da hierarquia. O
+resultado encontra-se na figura 2. Observe que a hierarquia foi
+representada particionando-se o conjunto de pessoas em três tipos
+principais: Pessoa Física, Pessoa Jurídica e Orgão.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Além disso, para pessoa física,
+podemos ter especializações - representadas pelas entidades Aluno USP,
+Professor USP, Funcionário e Pessoa de Fora. As pessoas jurídicas e
+orgãos também podem ser especializadas se forem requisitantes de
+livros, através da entidade Requisitante. Note que cada ocorrência
+dessas entidades de especialização deve obrigatoriamente ter associada
+a si uma ocorrência em um dos três tipos principais.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A partir do modelo lógico, o modelo
+físico relacional foi gerado naturamente. Para a representação das
+várias classes de pessoas, muitas vezes são usados atributos das
+tabelas. Por exemplo, para sabermos se uma pessoa física é classificada
+como pertencente ou não à USP, devemos consultar o atributo cod_vinculo
+da tabela Pessoa_Fisica. Os possíveis valores para o atributo
+encontram-se na tabela 4. Da mesma forma, para saber se um aluno da USP
+é do IME ou de outro instituto, consultamos o atributo cod_unidade da
+tabela Aluno_USP. Os possíveis valores para cod_unidade, encontram-se
+na tabela 5. Há uma série de tabelas (de 1 a 12) definindo atributos
+usados para classificar as pessoas, isto é, determinar seus tipos.
+Alterações nas tabelas de tipo devem ser feitas com muito cuidado, uma
+vez que a implementação do módulo é dependente e está acoplada aos
+valores nessas tabelas.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Outro aspecto muito importante do
+modelo físico é o modo de representação da hierarquia de tipos de
+pessoa. Toda pessoa estará representada em uma das três tabelas:
+Pessoa_Fisica, Pessoa_Juridica ou Orgao. Além disso, dependendo da
+especialização da pessoa, seus dados também poderão estar presentes nas
+tabelas Aluno_USP, Funcionario, Professor_USP, Pessoa_de_Fora, ou ainda
+Requisitante, no caso de pessoas jurídicas ou órgãos. A vinculação
+entre dada tupla de uma das três tabelas principais e uma tabela de
+especialização é feita através dos campos id, que deverão ter o mesmo
+valor em ambas. Além disso, para determinar a especialização de dada
+pessoa física, temos o atributo bitmap em Pessoa_Fisica, que indicará
+uma entre as quatro tabelas: Aluno USP, Funcionario, Professor_USP ou
+Pessoa_de_Fora. <br>
+
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O endereço <a href="http://malariadb.ime.usp.br/mac439/projetobiblioteca/modelos" target="_blannk"> http://malariadb.ime.usp.br/mac439/projetobiblioteca/modelos</a> contém os modelos lógico e físico completos do módulo <i>Pessoa</i>.</p>
+		</td>
+	  </tr>
+	  <tr>
+        <td><font size="4"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tabelas de Tipos do Módulo<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+        <td> 
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Além
+das tabelas que representam pessoas através de seus dados principais,
+temos tabelas que determinam os tipos da pessoa (como discutido
+anteriormente); tabelas contendo atributos multi-valorados &#8211; <i>endereco</i>, <i>fax</i>, <i>pagina_web</i>, <i>e_mail</i>, <i>telefone</i>, <i>contato</i> e <i>doc_gen</i> &#8211; e tabelas representando relacionamentos &#8211; <i>rel_req_fora</i> e <i>vinculo_posdoc</i>.<br>
+
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A tabela <i>doc_gen</i>
+possui um papel abrangente, armazenando um atributo multi-valorado de
+pessoas físicas e é usada para armazenar diversos tipos de documentos
+(ver tabela 2), entre eles RG, CPF, RNE e CRB.<br>
+
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Por fim, temos as tabelas <i>configuracao</i> e <i>tipo_usuario</i>. A tabela <i>configuracao</i> deve armazenar variáveis, como o próximo valor de identificador(id) a ser usado para identificar uma nova pessoa. A <i>tipo_usuario</i> possui os códigos e descrições de cada possível tipo de pessoa representada (ver tabela 1).</p>
+		 </td>
+	  </tr>
+	  <tr>
+		 <td align="center"> 
+		   <br>
+		   <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tipo_usuario</font></b></td></tr>
+			<tr><td align="center">desc_tipo</td><td align="center">cod_tipo</td></tr>
+			<tr><td align="center">1</td><td>Jurídica Fornecedor</td></tr>
+			<tr><td align="center">2</td><td>Jurídica Requisitante</td></tr>
+			<tr><td align="center">3</td><td>Jurídica Fornecedor e requisitante</td></tr>
+			<tr><td align="center">4</td><td>Jurídica Outro</td></tr>
+			<tr><td align="center">5</td><td>Orgão Fornecedor Biblioteca USP</td></tr>
+			<tr><td align="center">6</td><td>Orgão Fornecedor Não Biblioteca USP</td></tr>
+			<tr><td align="center">7</td><td>Orgão Requisitante Biblioteca USP</td></tr>
+			<tr><td align="center">8</td><td>Orgão Requisitante Não Biblioteca USP</td></tr>
+			<tr><td align="center">9</td><td>Orgão Fornecedor e requisitante Biblioteca USP</td></tr>
+			<tr><td align="center">10</td><td>Orgão Fornecedor e requisitante Não Biblioteca USP</td></tr>
+			<tr><td align="center">11</td><td>Orgão Outro</td></tr>
+			<tr><td align="center">12</td><td>Física USP IME Aluno Graduação</td></tr>
+			<tr><td align="center">13</td><td>Física USP IME Aluno Pós-Graduação Mestrado</td></tr>
+			<tr><td align="center">14</td><td>Física USP IME Aluno Pós-Graduação Doutorado</td></tr>
+			<tr><td align="center">15</td><td>Física USP IME Aluno Pós-Graduação Especialização</td></tr>
+			<tr><td align="center">16</td><td>Física USP IME Professor Ativo</td></tr>
+			<tr><td align="center">17</td><td>Física USP IME Professor Aposentado</td></tr>
+			<tr><td align="center">18</td><td>Física USP IME Funcionário Biblioteca Bibliotecário</td></tr>
+			<tr><td align="center">19</td><td>Física USP IME Funcionário Biblioteca Outro</td></tr>
+			<tr><td align="center">20</td><td>Física USP IME Funcionário Outro</td></tr>
+			<tr><td align="center">21</td><td>Física USP Outra unidade Aluno Graduação</td></tr>
+			<tr><td align="center">22</td><td>Física USP Outra unidade Aluno Pós-Graduação Mestrado</td></tr>
+			<tr><td align="center">23</td><td>Física USP Outra unidade Aluno Pós-Graduação Doutorado</td></tr>
+			<tr><td align="center">24</td><td>Física USP Outra unidade Aluno Pós-Graduação Especialização</td></tr>
+			<tr><td align="center">5</td><td>Física USP Outra unidade Professor</td></tr>
+			<tr><td align="center">26</td><td>Física USP Outra unidade Funcionário</td></tr>
+			<tr><td align="center">27</td><td>Física USP Aluno especial Graduação</td></tr>
+			<tr><td align="center">28</td><td>Física USP Aluno especial Pós-Graduação</td></tr>
+			<tr><td align="center">29</td><td>Física Fora Professor visitante</td></tr>
+			<tr><td align="center">30</td><td>Física Fora Pós-Graduação</td></tr>
+			<tr><td align="center">31</td><td>Física Fora Bibliotecário</td></tr>
+			<tr><td align="center">32</td><td>Física Fora Especialização Cultura e Extensão</td></tr>
+			<tr><td align="center">33</td><td>Física Fora Pós-Doc</td></tr>
+			<tr><td align="center">34</td><td>Física Fora Outro</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 1: Classificação para todo tipo de pessoa modelado</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">doc_gen_cod</font></b></td></tr>
+			<tr><td align="center">cod_docgen</td><td align="center">desc_docgen</td></tr>
+			<tr><td align="center">1</td><td>RG</td></tr>
+			<tr><td align="center">2</td><td>CPF</td></tr>
+			<tr><td align="center">3</td><td>RNE</td></tr>
+			<tr><td align="center">4</td><td>CRB</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 2: Tipos para documentos genéricos</b>
+        </td>
+	  </tr>
+	  <tr>
+		 <td align="center"> 
+		   <br>
+		   <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tp_status</font></b></td></tr>
+			<tr><td align="center">cod_status</td><td align="center">desc_status</td></tr>
+			<tr><td align="center">1</td><td>Ativo</td></tr>
+			<tr><td align="center">2</td><td>Inexistente</td></tr>
+			<tr><td align="center">3</td><td>Suspenso</td></tr>
+			<tr><td align="center">4</td><td>Atrasado</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 3: Tipos de status para qualquer pessoa</b>
+        </td>
+	  </tr>
+	  <tr>
+		 <td align="center"> 
+		   <br>
+		   <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tp_vinculo</font></b></td></tr>
+			<tr><td align="center">cod_vinculo</td><td align="center">desc_vinculo</td></tr>
+			<tr><td align="center">1</td><td>USP</td></tr>
+			<tr><td align="center">2</td><td>Fora</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 4: Tipos de vínculo com a USP para pessoas físicas</b>
+        </td>
+	  </tr>
+	  <tr>
+		 <td align="center"> 
+		   <br>
+		   <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tp_unidade</font></b></td></tr>
+			<tr><td align="center">cod_unidade</td><td align="center">desc_unidade</td></tr>
+			<tr><td align="center">1</td><td>Aluno Especial</td></tr>
+			<tr><td align="center">2</td><td>IME</td></tr>
+			<tr><td align="center">3</td><td>Outra Unidade</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 5: Tipos de unidade para pessoas físicas vinculadas à USP</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tp_departamento</font></b></td></tr>
+			<tr><td align="center">cod_dep</td><td align="center">desc_dep</td></tr>
+			<tr><td align="center">1</td><td>MAC</td></tr>
+			<tr><td align="center">2</td><td>MAT</td></tr>
+			<tr><td align="center">3</td><td>MAE</td></tr>
+			<tr><td align="center">4</td><td>MAP</td></tr>
+			<tr><td align="center">5</td><td>Outro</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 6: Tipos de departamento para professores da USP</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tp_professor</font></b></td></tr>
+			<tr><td align="center">cod_prof</td><td align="center">desc_prof</td></tr>
+			<tr><td align="center">1</td><td>Ativo</td></tr>
+			<tr><td align="center">2</td><td>Aposentado</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 7: Tipos de professores da USP</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="3" align="center" bgcolor="#990000"><b><font color="white">tp_fora</font></b></td></tr>
+			<tr><td align="center">cod_curso</td><td align="center">cat_curso</td><td align="center">nome_curso</td></tr>
+			<tr><td align="center">1</td><td>Graduação</td><td>Graduação Especial</td></tr>
+			<tr><td align="center">2</td><td>Pós-Graduação</td><td>Pós-Graduação Especial</td></tr>
+			<tr><td align="center">3</td><td>Graduação</td><td>Bacharelado em Ciência da Computação</td></tr>
+			<tr><td align="center">4</td><td>Graduação</td><td>Bacharelado em Matemática</td></tr>
+			<tr><td align="center">5</td><td>Graduação</td><td>Bacharelado em Estátistica</td></tr>
+			<tr><td align="center">6</td><td>Graduação</td><td>Bacharelado em Matemática Aplicada</td></tr>
+			<tr><td align="center">7</td><td>Graduação</td><td>Licenciatura em Matemática</td></tr>
+			<tr><td align="center">8</td><td>Graduação</td><td>Licenciatura em Matemática Aplicada</td></tr>
+			<tr><td align="center">9</td><td>Pós-Graduação Mestrado</td><td>Mestrado IME</td></tr>
+			<tr><td align="center">10</td><td>Pós-Graduação Doutorado</td><td>Doutorado IME</td></tr>
+			<tr><td align="center">11</td><td>Pós-Graduação Especialização</td><td>Especialização IME</td></tr>
+			<tr><td align="center">12</td><td>Graduação</td><td>Graduação Outro</td></tr>
+			<tr><td align="center">13</td><td>Pós-Graduação Mestrado</td><td>Mestrado Outro</td></tr>
+			<tr><td align="center">14</td><td>Pós-Graduação Doutorado</td><td>Doutorado Outro</td></tr>
+			<tr><td align="center">15</td><td>Pós-Graduação Especialização</td><td>Especialização Outro</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 8: Cursos para alunos da USP</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tp_funcao</font></b></td></tr>
+			<tr><td align="center">cod_funcao</td><td align="center">desc_funcao</td></tr>
+			<tr><td align="center">1</td><td>Bibliotecário</td></tr>
+			<tr><td align="center">2</td><td>Outro</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 9: Funções dos funcionários da biblioteca</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tp_dep_func</font></b></td></tr>
+			<tr><td align="center">cod_depfunc</td><td align="center">desc_depfunc</td></tr>
+			<tr><td align="center">1</td><td>Biblioteca</td></tr>
+			<tr><td align="center">2</td><td>Outro</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 10: Departamentos para funcionários do IME</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tp_fora</font></b></td></tr>
+			<tr><td align="center">cod_fora</td><td align="center">desc_fora</td></tr>
+			<tr><td align="center">1</td><td>Professor visitante</td></tr>
+			<tr><td align="center">2</td><td>Pós-Graduação</td></tr>
+			<tr><td align="center">3</td><td>Bibliotecário</td></tr>
+			<tr><td align="center">4</td><td>Especialização Cultura e Extensão</td></tr>
+			<tr><td align="center">5</td><td>Pós-Doc</td></tr>
+			<tr><td align="center">6</td><td>Outro</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 11: Tipos de pessoas físicas não pertencentes à USP</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <table border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			<tr><td colspan="2" align="center" bgcolor="#990000"><b><font color="white">tp_papel</font></b></td></tr>
+			<tr><td align="center">cod_papel</td><td align="center">desc_papel</td></tr>
+			<tr><td align="center">1</td><td>Fornecedor</td></tr>
+			<tr><td align="center">2</td><td>Requisitante</td></tr>
+			<tr><td align="center">3</td><td>Fornecedor e Requisitante</td></tr>
+			<tr><td align="center">4</td><td>Outro</td></tr>
+			</tbody>
+		  </table>
+		  <br>
+		  <b>Tabela 12: Tipos de orgão e pessoa jurídica</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="pessoa_arquivos/pessoa_conceitual.gif">
+		  <br><br>
+		  <b>Figura 1 &#8211; Modelo Conceitual do Módulo Pessoa</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="pessoa_arquivos/pessoa_logico.gif">
+		  <br><br>
+		  <b>Figura 2 &#8211; Modelo Lógico do Módulo Pessoa</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="pessoa_arquivos/pessoa_fisico.gif">
+		  <br><br>
+		  <b>Figura 3 &#8211; Modelo Físico do Módulo Pessoa</b>
+        </td>
+	  </tr>
+      <tr><td colspan="3"><br><br><hr width="100%" color="black"></td></tr>
+	  <tr>
+		<td>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Os dados desta página foram extraídos dos trabalhos dos alunos: 
+			<ul>
+				<li>Marcos Roberto Yukio Koga, Pedro Losco Takecian e João Vitor Baldini Soares, da disciplina MAC439, no ano de 2003.
+			</li></ul>
+		</td>
+	  </tr>
+	</tbody></table>
+</body></html>

@@ -1,0 +1,26 @@
+WAL - Write - Ahead Logging
+
+É o registro sequencial dos logs de cada troca feita nos arquivos de dados do 
+banco de dados (nas transações), que possibilita reduzir o número de gravações 
+de página de dados no disco (I/O).
+
+Ajuda a minimizar as escritas em disco.
+
+Garante a recuperação do banco de dados a um estado consistente, após uma falha
+de hardware ou do sistema operacional.
+
+Oferece suporte ao backup online e para PITR (point-in-timerecovery).
+
+
+WAL - Write ahead log. Registro prévio de escrita. As alterações nos arquivos de dados (onde as tabelas e os índices residem) devem ser escritas somente após estas alterações terem sido registradas, quando os registros tiverem sido descarregados em um meio de armazenamento permanente.
+
+O WAL ajuda a garantir a consistência em caso de problema no hardware.
+
+O WAL permite que se faça uma cópia de segurança em linha e recuperação para um ponto no tempo.
+
+O WAL é ativado automaticamente.
+
+É vantajoso que os arquivos do WAL fiquem em disco diferente do disco em que ficam os arquivos dos bancos de dados principais. Basta mover o diretório pg_xlog para outro disco (com o servidor desligado) e criando um link simbólico do local original dos bancos principais para o novo disco.
+
+
+

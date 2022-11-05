@@ -1,0 +1,292 @@
+<html>
+	<head>
+		<title>
+			Tutorials on using PostgreSQL		</title>
+		<META NAME="DESCRIPTION" CONTENT="PostgreSQL, PHP, Perl tutorials, an introduction to the world of server-side languages">
+		<META NAME="KEYWORDS" CONTENT="postgresql, php, perl, tutorial, introduction, basic, help, pgsql, postgres, howto">
+		<LINK REL="stylesheet" HREF="pgsql.css" TYPE="text/css">
+	</head>
+	<body background="" bgcolor="#FFFFFF">
+		<input type="hidden" name="action">
+		<table border="0" width="100%" bgcolor="#E3E4FF" cellspacing="0" cellpadding="0">
+			<tr>
+				<td valign="top" rowspan="3" width="140">
+					<a href="/"><img src="images/slonik.png" alt="Home" border="0"></a>
+				</td>
+				<td>
+					<table border="1" cellspacing="0" cellpadding="5" width="100%" align="center">
+						<tr>
+																<td align="center" width="25">
+										<nobr> 
+			<script language="JavaScript1.2" type="text/javascript">
+			<!--
+
+			
+HM_PG_ItemPadding = 3;
+HM_PG_BorderWidth = 0;
+HM_PG_BorderStyle = 'solid';
+HM_PG_SeparatorSize = 1;
+HM_PG_ImageSrc = './include/dhtml_menu/images/HM_More_black_right.gif';
+HM_PG_ImageSrcOver = './include/dhtml_menu/images/HM_More_white_right.gif';
+HM_PG_ImageSrcLeft = './include/dhtml_menu/images/HM_More_black_left.gif';
+HM_PG_ImageSrcLeftOver = './include/dhtml_menu/images/HM_More_white_left.gif';
+HM_PG_ImageSize = 5;
+HM_PG_ImageHorizSpace = 0;
+HM_PG_ImageVertSpace = 2;
+HM_PG_KeepHilite = true;
+HM_PG_ClickKill = false;
+HM_PG_ChildOverlap = 20;
+HM_PG_ChildOffset = 10;
+HM_PG_ChildPerCentOver = null;
+HM_PG_TopSecondsVisible = 0.5;
+HM_PG_StatusDisplayBuild = false;
+HM_PG_StatusDisplayLink = false;
+HM_PG_ShowLinkCursor = true; 
+
+				HM_PG_NSFontOver = true;
+
+			//-->
+			</script>
+
+		 
+		<script language="JavaScript1.2" type="text/javascript">
+		 
+			if (!window.HM_a_TreesToBuild) window.HM_a_TreesToBuild = [];
+			window.HM_a_TreesToBuild[HM_a_TreesToBuild.length] = 1;
+		</script>
+		<a href="news.php" NAME='menu_anchor_1' ID='menu_anchor_1' onMouseOver="javascript: HM_f_PopUp('elMenu1',event); return true;" onMouseOut="javascript: HM_f_PopDown('elMenu1'); return true;">News Items</a> 
+									</td>
+																	<td align="center" width="25">
+										<nobr> 
+		<script language="JavaScript1.2" type="text/javascript">
+		
+HM_Array2 = [
+	[
+		300,		// menu_width
+		'HM_f_PlaceAtElement(\'menu_anchor_2\',\'left\') +3',		// left_position
+		'HM_f_PlaceAtElement(\'menu_anchor_2\',\'top\') +20',		// top_position
+		'#E3E4FF',		// font_color
+		'#4e53ba',		// mouseover_font_color
+		'#4e53ba',		// background_color
+		'#E3E4FF',		// mouseover_background_color
+		'',		// border_color
+		'#a0a1a5',		// separator_color
+		false,		// top_is_permanent
+		false,		// top_is_horizontal
+		false,		// tree_is_horizontal
+		true,		// position_under
+		true,		// top_more_images_visible
+		true,		// tree_more_images_visible
+		'null',		// evaluate_upon_tree_show
+		'null',		// evaluate_upon_tree_hide
+		false,		// right_to_left
+		false,		// display_on_click
+		true,		// top_is_variable_width
+		false,		// tree_is_variable_width
+
+	],
+	['Introduction to PHP','tutorial.php?id=4',1,0,0],
+	['Installation of PostgreSQL, Apache and PHP','tutorial.php?id=3',1,0,0],
+	['Installation on FreeBSD','tutorial.php?id=14',1,0,0],
+	['Data Retrieval with PostgreSQL','tutorial.php?id=6',1,0,0],
+	['Adding Data to your database','tutorial.php?id=7',1,0,0],
+	['Updating the data already in your database','tutorial.php?id=8',1,0,0],
+	['Deleting the data in your database','tutorial.php?id=9',1,0,0],
+	['Checking your data for errors','tutorial.php?id=10',1,0,0],
+	['Simplifying your scripts by including files','tutorial.php?id=11',1,0,0],
+	['Introduction to Functions','tutorial.php?id=12',1,0,0],
+	['Introduction to Switches','tutorial.php?id=13',1,0,0],
+	['Importing Files in PostgreSQL','tutorial.php?id=15',1,0,0],
+	['Referential Integrity','tutorial.php?id=17',1,0,0],
+	['Creating and Using Views','tutorial.php?id=16',1,0,0],
+	['Introduction to Indexes','tutorial.php?id=18',1,0,0],
+	['Indexes Part 2 - When to use them','tutorial.php?id=19',1,0,0],
+	['Indexes Part 3 - Types of Indexes','tutorial.php?id=20',1,0,0],
+	['Using Explain','tutorial.php?id=21',1,0,0],
+	['Introduction to Object Oriented Programming','tutorial.php?id=22',1,0,0],
+	['<center>-- Full Listing --</center>','tutorial.php?listing=f',1,0,0]
+];
+ 
+			if (!window.HM_a_TreesToBuild) window.HM_a_TreesToBuild = [];
+			window.HM_a_TreesToBuild[HM_a_TreesToBuild.length] = 2;
+		</script>
+		<a href="tutorial.php" NAME='menu_anchor_2' ID='menu_anchor_2' onMouseOver="javascript: HM_f_PopUp('elMenu2',event); return true;" onMouseOut="javascript: HM_f_PopDown('elMenu2'); return true;">List Tutorials</a> 
+									</td>
+																	<td align="center" width="25">
+										<nobr> 
+		<script language="JavaScript1.2" type="text/javascript">
+		 
+			if (!window.HM_a_TreesToBuild) window.HM_a_TreesToBuild = [];
+			window.HM_a_TreesToBuild[HM_a_TreesToBuild.length] = 3;
+		</script>
+		<a href="affiliate.php" NAME='menu_anchor_3' ID='menu_anchor_3' onMouseOver="javascript: HM_f_PopUp('elMenu3',event); return true;" onMouseOut="javascript: HM_f_PopDown('elMenu3'); return true;">Affiliates</a> 
+									</td>
+																	<td align="center" width="25">
+										<nobr> 
+		<script language="JavaScript1.2" type="text/javascript">
+		 
+			if (!window.HM_a_TreesToBuild) window.HM_a_TreesToBuild = [];
+			window.HM_a_TreesToBuild[HM_a_TreesToBuild.length] = 4;
+		</script>
+		<a href="contactus.php" NAME='menu_anchor_4' ID='menu_anchor_4' onMouseOver="javascript: HM_f_PopUp('elMenu4',event); return true;" onMouseOut="javascript: HM_f_PopDown('elMenu4'); return true;">Contact Us</a> 
+									</td>
+																	<td align="center" width="25">
+										<nobr> 
+		<script language="JavaScript1.2" type="text/javascript">
+		 
+			if (!window.HM_a_TreesToBuild) window.HM_a_TreesToBuild = [];
+			window.HM_a_TreesToBuild[HM_a_TreesToBuild.length] = 5;
+		</script>
+		<a href="login.php" NAME='menu_anchor_5' ID='menu_anchor_5' onMouseOver="javascript: HM_f_PopUp('elMenu5',event); return true;" onMouseOut="javascript: HM_f_PopDown('elMenu5'); return true;">Member Area</a> 
+									</td>
+											<script language="JavaScript1.2" type='text/javascript'>
+				DHTML_MENU_rel_path = './include/dhtml_menu/images/';
+			</script>
+			<script language="JavaScript1.2" src="./include/dhtml_menu/images/HM_Loader.js" type='text/javascript'></script>
+								</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td valign="bottom" align="right">
+					<table border="0" cellspacing="0" cellpadding="3" width="100%">
+						<tr>
+							<td align="center">
+								<hr width="95%" size="1" noshade>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<table border="0" cellspacing="0" cellpadding="0" width="100%">
+			<tr>
+				<td valign="top">
+									</td>
+				<td align="center">
+	<table border="1" cellspacing="0" cellpadding="10" align="center">
+		<tr>
+			<td align="center" class="large">
+				Tutorial - Introduction to Indexes			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<pre><p>Database indexes are very similar to book indexes, they are used to speed up retrieval of data. 
+
+A book index lets you see where particular words are used in a book and a page number or numbers where it is used.
+
+A database index provides the same functionality, giving your database a shortcut to a row of data so it doesn't have to search
+through the whole table to find the row it wants.
+
+Through this tutorial, we will look at when to use them and how to set up indexes properly.
+
+Creating indexes on tables is easy. They are created after the table is created. There are also different types of indexes as we
+will see. We will only cover the basic datatypes (text, numeric and binary) but the principles cover any sort of data you want to
+store and retrieve.
+
+Let's create the new database for this exercise now:
+
+pgsql@elrond ~$ createdb indextest
+CREATE DATABASE
+pgsql@elrond ~$
+
+To create and populate the tables, we will use a simple perl script since we need a lot of data to make sure we are utilizing the
+indexes and to make it easier to see the benefits.
+
+#!/usr/bin/perl
+$count = 1;
+$outputfile = &quot;import.sql&quot;;
+@chars = (&quot;A&quot; .. &quot;Z&quot;, &quot;a&quot; .. &quot;z&quot;, 0 .. 9);
+@numbers = (0 .. 9);
+@single_chars = (&quot;a&quot; .. &quot;e&quot;);
+$totalrecords = 5000000; # 5 million
+
+open(OUTPUT, &quot;&gt; $outputfile&quot;);
+print OUTPUT &quot;CREATE TABLE indextest (&quot;;
+print OUTPUT &quot;id INT, name TEXT, number INT, letter CHAR(1)&quot;;
+print OUTPUT &quot;);\&quot;;
+print OUTPUT &quot;COPY indextest (id,name,number,letter) FROM stdin;\&quot;;
+
+while ($count &lt;= $totalrecords) {
+  $randstring = join(&quot;&quot;, @chars [map{rand @chars} (1 .. 8)]);
+  $randnum    = join(&quot;&quot;, @numbers [map{rand @numbers} (1 .. 8)]);
+  $randletter = join(&quot;&quot;, @single_chars [map{rand @single_chars}(1)]);
+  print OUTPUT $count.&quot;\t&quot;.$randstring.&quot;\t&quot;.$randnum.&quot;\t&quot;.$randletter.&quot;\n&quot;;
+  $count++;
+};
+print OUTPUT &quot;\.n&quot;;
+print OUTPUT &quot;VACUUM ANALYZE indextest;\n&quot;;
+close OUTPUT;
+exit 0;
+
+This will create a file import.sql with a table definition and 5 million rows of data ready to import it similar to this:
+
+1       l7S692Zy        57812383        c
+2       YR4d8IS2        38591827        e
+3       tiQrAR53        31930296        a
+4       pN4JWLdo        96351579        e
+5       ku5LvEBR        33878365        b
+
+Depending on your computer hardware this might take some time.
+
+Now we have the data ready to import, let's get to it:
+
+[pgsql@elrond pgsql]$ time psql -d indextest &lt; import.sql
+CREATE TABLE
+VACUUM
+
+real    5m8.690s
+user    0m22.190s
+sys     0m4.290s
+
+On my system, it took approximately 5 minutes to import the 5 million records.
+
+The vacuum command is important. PostgreSQL keeps statistics about table sizes, distribution of data and so on. Running vacuum
+analyze updates these statistics.
+
+So we have a large table, let's try and search it.
+
+Let's try to grab a specific row:
+
+[pgsql@elrond pgsql]$ time echo &quot;SELECT * FROM indextest WHERE id='50000'&quot; | psql -d indextest
+  id   |   name   | number  | letter
+-------+----------+---------+--------
+ 50000 | UrMQnH4s | 7536232 | b
+(1 row)
+
+
+real    0m32.482s
+user    0m0.000s
+sys     0m0.020s
+
+It took 32 seconds to retrieve one row from the table. This might seem reasonable considering the size of the table. Let's see if
+we can make it quicker.
+
+<i>Note: Throughout this tutorial, you will get different results to the ones shown here both in the time taken to perform
+actions and actual results of queries. This is because the data is randomly generated, the hardware you are running the tests on
+is different and what else your system is doing at the time.</i></p></pre>
+			</td>
+		</tr>
+	</table>
+	<p align="center">
+Page 1&nbsp;&nbsp;<a href="/tutorial.php?id=18&pid=26">Page 2</a>&nbsp;&nbsp;		<br><a href="#" onclick="window.open('print.php?type=t&id=18','pgsqlprintwindow','location=no,status=no,scrollbars=yes,height=600,width=850'); return false;">Printable Version</a><br><br>
+
+		<a href="#" onclick="window.open('genpdf.php?type=t&id=18','pgsqlpdfwindow','location=no,menubar=yes,status=yes,scrollbars=yes,height=600,width=850'); return false;">PDF Version</a><br><br>
+
+		<a href="#top">Top of Page</a>
+	</p>
+	<p align="center">
+		<a href="/tutorial.php">Back to tutorials list</a>
+	</p>
+	<center>
+	<p>
+	<hr width="85%" size="1" noshade>
+		<a href="#" onclick="javascript:window.open('feedback.php?type=t&id=18','feedback_form', 'toolbar=no,width=700,height=450,titlebar=false,status=no,scrollbars=yes,resizeable=no'); return false">Look at Feedback</a> (0 previous comment(s))<br><br>
+	<hr width="85%" size="1" noshade>
+	</p>
+	</center>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

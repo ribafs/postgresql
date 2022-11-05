@@ -1,0 +1,125 @@
+<html><head><!-- 
+Programador por: Fábio Berbert de Paula
+E-mail: fabio@vivaolinux.com.br
+Web Site: www.vivaolinux.com.br
+
+Tema: Harmonia Celeste
+-->
+<title>Instalando PostgreSQL no Slackware Linux [Dica]</title>
+  <Link Rel="Add Icon" Href="/favicon.ico">
+  <Link Rel="Shortcut Icon" Href="/favicon.ico">
+  <link rel="Icon" href="/favicon.ico" type="image/ico">
+<link rel="stylesheet" href="/linux003.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff" marginwidth="0" marginheight="0" leftmargin='0' topmargin='0'>
+
+<table border=0 cellpadding=3 cellspacing=3 width="100%">
+<tr><td>
+<h2>Instalando PostgreSQL no Slackware Linux</h2>
+Autor: Diego Pereira Grassato &lt;diego_mldo@hotmail.com&gt;<br>
+Data: 08/06/2009
+<br><br>
+</td></tr>
+
+<tr><td>
+<b>Instalando PostgreSQL no Slackware Linux</b>
+<br><br>
+<div>
+Por padrão o <em>Slackware</em> <a href="http://www.vivaolinux.com.br/linux/">Linux</a> não disponibiliza o <em>PostgreSQL</em> em sua distribuição. 
+<br/><br/>
+Baixaremos a versão já compilada para o Slackware:
+<br/><br/>
+<strong># wget</strong> <a href=" http://repository.slacky.eu/slackware-12. 2/database/postgresql/8.3.7/postgresql-8.3.7-i486-2sl.tgz"> http://repository.slacky.eu/slackware-12. 2/database/postgresql/8.3.7/postgresql-8.3.7-i486-2sl.tgz</a> 
+<br/><br/>
+Criaremos o diretório onde ficarão os arquivos do banco dados:
+<br/><br/>
+<strong># mkdir -p /var/lib/pgsql</strong>
+<br/><br/>
+Daremos agora permissões:
+<br/><br/>
+<strong># chown pgsql.pgsql /var/lib/pgsql -R</strong>
+<br/><br/>
+Daremos permissão ao arquivo de execução do PostgreSQL.
+<br/><br/>
+<strong># chmod +x /etc/rc.d/rc.pgsql</strong>
+<br/><br/>
+Iniciaremos agora o banco de dados:
+<br/><br/>
+<strong># su - pgsql<br/>
+$ initdb -D /var/lib/pgsql/data<br/>
+$ exit</strong>
+<br/><br/>
+Pronto, seu PostgreSQL está devidamente configurado. Feito isto basta iniciar o banco de dados:
+<br/><br/>
+<strong># /etc/rc.d/rc.pgsql start</strong>
+<br/><br/>
+Starting PostgreSQL...<br/>
+server starting
+<br/><br/>
+
+<h1>Configurações do SGDB </h1>
+
+Neste momento o banco de dados está plenamente funcional, é necessário no entanto configurar o <em>SGDB</em> para torná-lo seguro. O mínimo a ser efetuado seria algo do tipo:
+<br/><br/>
+<strong># su pgsql<br/>
+$ psql pgsql</strong><br/>
+postgres=# <strong>alter user pgsql with password 'senha';</strong>
+<br/><br/>
+O comando acima foi para definir uma senha para o superusuário pgsql.
+<br/><br/>
+Criaremos um usuário para acessar o Postgres:
+<br/><br/>
+postgres=# <strong>create user diego;</strong><br/>
+postgres=# <strong>alter user diego with password 'senha';</strong>
+<br/><br/>
+E editar o arquivo <em>/var/lib/pgsql/pg_hba.conf</em> para restringir quem pode acessar o banco de dados e como. O ideal seria comentar todas as três entradas default e acrescentar algo como:
+<br/><br/>
+<strong># cat pg_hba.conf | grep -Ev '^#|^$'</strong><br/>
+local&nbsp;&nbsp; postgres&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; postgres&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; password<br/>
+host&nbsp;&nbsp;&nbsp;&nbsp;postgres&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; postgres&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 127.0.0.1/32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password<br/>
+host&nbsp;&nbsp;&nbsp;&nbsp;banco&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conta&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.b.c.d/32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password
+<br/><br/>
+
+<h1>Conexões internas e externas</h1>
+
+Se não quiser apenas conexões locais (via socket), adicione as variáveis no arquivo de inicialização do PostGres BIND e HOST, HOST é a variável que guardará o endereço onde o servidor irá aguardar novas conexões, editando o arquivo:
+<br/><br/>
+<strong># vim /etc/rc.d/rc.pgsql</strong>
+<br/><br/>
+Adicionar as variáveis (no lugar de 192.168.2.10 o IP da máquina):
+<br/><br/>
+<div class="codigo">
+HOST=192.168.2.10<br/>
+BIND="-o '-i -h $HOST'"
+</div><br/>
+Na linha onde contem (su pgsql -c "pg_ctl start -D $DBCLUSTER -l $SERVERLOG), altere para:
+<br/><br/>
+<div class="codigo">
+su pgsql -c "pg_ctl start -D $DBCLUSTER -l $SERVERLOG $BIND"
+</div><br/>
+Para acessar pela rede será desta forma:
+<br/><br/>
+<strong># psql -h 192.168.2.10 banco -U conta</strong><br/>
+banco=&gt;
+<br/><br/>
+Se você estiver no Windows e estiver usando algum cliente PostgreSQL como PGADMIN III, conseguirá acessar normalmente.
+<br/><br/>
+</div>
+
+
+
+
+<br>
+</td></tr>
+
+<tr><td>
+<u>http://www.vivaolinux.com.br/dica/Instalando-PostgreSQL-no-Slackware-Linux</u>
+<br><br>
+<a href="/dica/Instalando-PostgreSQL-no-Slackware-Linux">Voltar para o site</a>
+<br><br>
+</td></tr>
+</table>
+
+</body>
+</html>

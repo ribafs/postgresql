@@ -1,0 +1,109 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2055"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-118_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-117.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-118_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-118_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-119.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-118_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P6133_335179"></a><span style="font-family: 'Times New Roman'; font-size: 12pt;">4.2.1 </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Arial'; font-size: 13pt;"> Block Structure</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Regardless of whether the program is a procedure, function, or trigger, an </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program has the same </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>block</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> structure</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A block consists of up to three sections - an optional declaration section, a mandatory executable section, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">and an optional exception section</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Minimally, a block has an executable section that consists of one or more </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statements within the keywords, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BEGIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">END</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">There
+may be an optional declaration section that is used to declare
+variables, cursors, and types that are used by the statements within
+the executable and exception sections. Declarations appear just prior
+to the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BEGIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+keyword of the executable section. Depending upon the context of where
+the block is used, the declaration section may begin with the keyword </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DECLARE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Finally, there may be an optional exception section which appears within the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BEGIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> - </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">END</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> block. The exception section begins with the keyword, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXCEPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,
+and continues until the end of the block in which it appears. If an
+exception is thrown by a statement within the block, program control
+goes to the exception section where the thrown exception may or may not
+be handled depending upon the exception and the contents of the
+exception section.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is the general structure of a block:</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">[</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ DECLARE ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt;">      </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>declarations</i></span><span style="font-family: 'Courier New'; font-size: 11pt;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> EXCEPTION</span>
+<span style="font-family: 'Courier New'; font-size: 11pt;">      WHEN </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>exception_condition</i></span><span style="font-family: 'Courier New'; font-size: 11pt;"> THEN</span>
+<span style="font-family: 'Courier New'; font-size: 11pt;">        </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span><span style="font-family: 'Courier New'; font-size: 11pt;"> [, ...] ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    END;</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>declarations</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are one or more variable, cursor, or type declarations that are local to the block</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Each </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">declaration must be terminated by a semicolon</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The use of the keyword </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DECLARE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> depends upon the context in wh</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ich the block appears.</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are one or more </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statements</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Each statement must be terminated by a semicolon</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The end of the block denoted by </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">the keyword </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">END</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> must also be terminated by a semicolon.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If present, the keyword </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXCEPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> marks the beginning of the exception section. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>exception_condition</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+is a conditional expression testing for one or more types of
+exceptions. If a thrown exception matches one of the exceptions in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>exception_condition</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> following the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WHEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>exception_condition</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause are executed. There may be one or more </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WHEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>exception_condition</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clauses, each followed by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><b>Note:</b></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> A </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BEGIN/END</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> block in itself, is considered a statement; thus, blocks may be nested. The exception section may also contain nested blocks.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is the simplest possible block consisting of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NULL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement within the executable section. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NULL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement is an executable statement that does nothing.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    NULL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following block contains a declaration section as well as the executable section.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_numerator     NUMBER(2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_denominator   NUMBER(2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_result        NUMBER(5,2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_numerator := 75;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_denominator := 14;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_result := v_numerator / v_denominator;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE(v_numerator || ' divided by ' || v_denominator ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        ' is ' || v_result);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In this example, three numeric variables are declared of data type </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In the executable s</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ection,
+values are assigned to two of the variables and then one number is
+divided by the other, storing the results in a third variable which is
+then displayed</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If this block is executed the output would be as fo</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">llows.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">75 divided by 14 is 5.36</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following block consists of all three sections - the declaration, executable, and exception sections.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_numerator     NUMBER(2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_denominator   NUMBER(2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_result        NUMBER(5,2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_numerator := 75;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_denominator := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_result := v_numerator / v_denominator;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE(v_numerator || ' divided by ' || v_denominator ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        ' is ' || v_result);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    EXCEPTION</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        WHEN OTHERS THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            DBMS_OUTPUT.PUT_LINE('An exception occurred');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following output shows that the statement within the exception section is executed as a result of the division by zero.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">An exception occurred</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-117.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-118_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-118_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-119.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-118_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-118_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-118_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

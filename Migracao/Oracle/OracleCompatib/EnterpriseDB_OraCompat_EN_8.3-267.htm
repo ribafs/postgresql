@@ -1,0 +1,213 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2204"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-267_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-266.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-267_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-267_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-268.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-267_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P12683_638142"></a><span style="font-family: 'Arial'; font-size: 13pt;">10.3.2 Catalog views</span></p>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.3.2.1 SYSTEM_WAITS </span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This
+summarizes the count of waits and the total wait time per session for
+each wait name. It also displays the average and max wait times.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Column   |     Type      | Modifiers       Definition</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">------------+---------------+-----------+------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> wait_count | numeric       |			number of times the event occurs</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> avg_wait   | numeric(50,6) |			average wait time in</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">						       microseconds</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> max_wait   | numeric       |			maximum wait time in microseconds</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> total_wait | numeric       |			total wait time in microseconds</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> wait_name  | text          |			name of the event</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.3.2.2 SESSION_WAITS</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This is the detail data summarized by SYSTEM_WAITS.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     Column      |     Type      | Modifiers	Definition</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> -----------------+---------------+-----------+----------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  backend_id      | bigint        |		session identifier</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  wait_count      | bigint        |		number of times the event occurs</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  avg_wait_time   | numeric       |	average wait time in microseconds</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  max_wait_time   | numeric(50,6) |	maximum wait time in microseconds</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  total_wait_time | numeric(50,6) |	total wait time in microseconds</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  wait_name       | text          |		name of the event</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.3.2.3 SESSION_WAIT_HISTORY</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This contains the last 25 wait events for the session.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Column   |  Type  | Modifiers  |	Definition</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> ------------+--------+-----------+--------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  backend_id | bigint |		|	session identifier</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  seq        | bigint |		|	number between 1 and 25 </span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  wait_name  | text   |		|	name of the event</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  elapsed    | bigint |		|	elapsed time in microseconds</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  p1         | bigint |		|	variable #1 - meaning dependent on  </span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                                      event</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  p2         | bigint |		|	variable #2 - meaning dependent on </span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                                      event</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  p3         | bigint |		|	variable #3 - meaning dependent on </span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                                      event</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See examples below:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">select * from public.system_waits;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">wait_count | avg_wait | max_wait | total_wait |           wait_name            </span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----------+----------+----------+------------+--------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       128 | 0.000999 | 0.006211 |   0.147253 | db file random read</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        44 | 0.001440 | 0.020071 |   0.121372 | query plan</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        52 | 0.000077 | 0.000211 |   0.003856 | sql parse</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       574 | 0.000000 | 0.000001 |   0.000038 | first buf mapping lock acquire</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       157 | 0.000000 | 0.000001 |   0.000022 | xid gen lock acquire</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       128 | 0.000000 | 0.000001 |   0.000012 | buffer free list lock acquire</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        14 | 0.000000 | 0.000000 |   0.000000 | clog control lock acquire</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(7 rows)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">select * from public.session_waits;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">backend_id | wait_count | avg_wait_time | max_wait_time | total_wait_time | wait_name            </span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----------+------------+---------------+---------------+-----------------+--------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11222 |         43 |      0.003658 |      0.020071 |        0.157311 |query plan</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11222 |         87 |      0.001488 |      0.006211 |        0.129423 | db file random read</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11222 |         53 |      0.000078 |      0.000211 |        0.004113 | sql parse</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11350 |          6 |      0.000612 |      0.001760 |        0.003671 |query plan</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11350 |          6 |      0.000102 |      0.000193 |        0.000609 | sql parse</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11354 |          2 |      0.000209 |      0.000346 |        0.000418 |query plan</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11354 |          1 |      0.000063 |      0.000063 |        0.000063 | sql parse</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11222 |        537 |      0.000000 |      0.000001 |        0.000038 |first buf mapping lock acquire</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11222 |        157 |      0.000000 |      0.000001 |        0.000021 | xid gen lock acquire</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11222 |         87 |      0.000000 |      0.000001 |        0.000009 |buffer free list lock acquire</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11350 |        120 |      0.000000 |      0.000001 |        0.000008 |first buf mapping lock acquire</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11350 |         19 |      0.000000 |      0.000001 |        0.000001 | xid gen lock acquire</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11349 |          1 |      0.000001 |      0.000001 |        0.000001 |first buf mapping lock acquire</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11222 |         14 |      0.000000 |      0.000000 |        0.000000 |clog control lock acquire</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11354 |          7 |      0.000000 |      0.000000 |        0.000000 |first buf mapping lock acquire</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11354 |          4 |      0.000000 |      0.000000 |        0.000000 | xid gen lock acquire</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     11349 |          1 |      0.000000 |      0.000000 |        0.000000 | xid gen lock acquire</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(17 rows)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">select * from public.session_wait_history;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> backend_id | seq |           wait_name            | elapsed | p1 | p2 | p3 </span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">------------+-----+--------------------------------+---------+----+----+----</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |   1 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |   2 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |   3 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |   4 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |   5 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |   6 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |   7 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |   8 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |   9 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  10 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  11 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  12 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  13 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  14 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  15 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  16 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  17 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  18 | xid gen lock acquire           |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  19 | query plan                     |    5694 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  20 | xid gen lock acquire           |       1 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  21 | sql parse                      |     164 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  22 | xid gen lock acquire           |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  23 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  24 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11222 |  25 | first buf mapping lock acquire |       1 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |   1 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |   2 | xid gen lock acquire           |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |   3 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |   4 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |   5 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |   6 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |   7 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |   8 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |   9 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  10 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  11 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  12 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  13 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  14 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  15 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  16 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  17 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  18 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  19 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  20 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  21 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  22 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  23 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  24 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11550 |  25 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |   1 | xid gen lock acquire           |       1 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |   2 | query plan                     |      40 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |   3 | xid gen lock acquire           |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |   4 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |   5 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |   6 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |   7 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |   8 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |   9 | sql parse                      |      30 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  10 | xid gen lock acquire           |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  11 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  12 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  13 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  14 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  15 | first buf mapping lock acquire |       1 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  16 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  17 | first buf mapping lock acquire |       1 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  18 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  19 | xid gen lock acquire           |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  20 | query plan                     |     486 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  21 | first buf mapping lock acquire |       1 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  22 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  23 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  24 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11554 |  25 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |   1 | xid gen lock acquire           |       1 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |   2 | query plan                     |      63 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |   3 | xid gen lock acquire           |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |   4 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |   5 | sql parse                      |      59 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |   6 | xid gen lock acquire           |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |   7 | first buf mapping lock acquire |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |   8 | xid gen lock acquire           |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |   9 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  10 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  11 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  12 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  13 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  14 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  15 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  16 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  17 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  18 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  19 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  20 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  21 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  22 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  23 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  24 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      11555 |  25 | empty wait event               |       0 |  0 |  0 |  0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(100 rows)</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-266.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-267_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-267_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-268.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-267_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-267_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-267_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

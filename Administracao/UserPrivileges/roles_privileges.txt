@@ -1,0 +1,139 @@
+Concedendo Privilégios no PostgreSQL
+
+GRANT permission_type ON table_name TO role_name;
+
+Criar uma tabela simples para testes:
+psql
+
+CREATE TABLE demo (
+	name varchar(25),
+	id serial,
+	start_date date
+);
+
+Vejamos o que fizemos:
+\d
+
+\d demo
+
+Concedendo privilégios para a role teste:
+GRANT UPDATE ON demo TO teste;
+
+Todos os privilégios:
+GRANT ALL ON demo TO teste2;
+
+Garantir permissão para qualquer usuário:
+GRANT INSERT ON demo TO PUBLIC;
+
+Visualizar as permissões:
+\z
+
+Veja:
+                                   Access privileges
+ Schema |    Name     |   Type   |     Access privileges     | Column access privileges 
+--------+-------------+----------+---------------------------+--------------------------
+ public | demo        | table    | postgres=arwdDxt/postgres | 
+                                 : teste=w/postgres            
+                                 : teste2=arwdDxt/postgres     
+                                 : =a/postgres                 
+ public | demo_id_seq | sequence |                           | 
+(2 rows)
+
+Observe que 
+teste tem o privilégio 	w
+teste2 tem todos		arwdDxt
+public					a
+
+Removendo Privilégios
+
+REVOKE permission_type ON table_name FROM user_name;
+
+REVOKE INSERT ON demo FROM PUBLIC;
+
+Execute e veja que a linha final desapareceu:
+\z
+
+Como usar Roles de grupo
+
+Roles de grupo são roles que permitem agrupar outras roles nelas, permitindo um controle maior de permissões.
+
+Criar uma role:
+
+create role admins;
+create role admin1;
+create role admin2;
+
+grant admins to admin1;
+grant admins to admin2;
+\du
+
+postgres=# \du
+            List of roles
+ Role name |  Attributes  | Member of 
+-----------+--------------+-----------
+ admin1    | Cannot login | {admins}
+ admin2    | Cannot login | {admins}
+ admins    | Cannot login | {}
+
+Alterando o usuário logado.
+Usando o usuário postgres executar:
+
+SET ROLE admins;
+
+Veja que o prompt mudou de postgres=# para postgres=>, indicando que:
+- Estamos no banco postgres
+- E que o usuário logado não é o super usuário.
+
+Criando uma tabela logado como admins:
+
+CREATE TABLE hello (
+	name varchar(25),
+	id serial,
+	start_date date
+);
+
+\d
+
+postgres=> \d
+              List of relations
+ Schema |     Name     |   Type   |  Owner   
+--------+--------------+----------+----------
+ public | demo         | table    | postgres
+ public | demo_id_seq  | sequence | postgres
+ public | hello        | table    | admins
+ public | hello_id_seq | sequence | admins
+
+Veja que admins é dono da tabela hello e da sequência.
+
+Quem cria um objeto será seu dono, por padrão.
+
+Voltando para o usuário anterior:
+
+RESET ROLE;
+
+Observe a mudança do prompt;
+
+Concedendo todos os privilégios para uma role:
+
+Se concedermos para um usuário a propriedade "inherit" com o comando "alter role", esse usuário terá automaticamente todos os privilégios das roles a que pertence, sem usar o comando "set role":
+
+ALTER ROLE admin1 INHERIT;
+
+Removendo roles:
+DROP ROLE admins;
+
+Acusará erro, pois precisaremos antes remover os objetos que pertencem a esta, ou mudar seu dono para outra role.
+
+ALTER TABLE hello OWNER TO admin1;
+\d
+
+Agora podemos remover:
+DROP ROLE admins;
+
+Agora podemos conceder permissões ao grupo admins (role admins), que automaticamente estaremos concedendo para admin1 e admin2, ao invés de precisar fazer com cada role.
+
+
+
+Referências:
+https://www.digitalocean.com/community/tutorials/how-to-use-roles-and-manage-grant-permissions-in-postgresql-on-a-vps--2
+

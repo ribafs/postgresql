@@ -1,0 +1,30 @@
+Entendendo e manipulando o arquivo pg_ident.conf
+
+O método de autenticação ident funciona obtendo o nome de usuário do sistema operacional do cliente, e determinando os nomes de usuário do PostgreSQL permitidos utilizando um arquivo de mapa que lista os pares de nomes de usuários correspondentes permitidos.  
+
+sameuser é o usuário padrão no ident.conf (significa o mesmo user do sistema operacional).
+
+Este script de autenticação é utilizado nos UNIX, pois no Windows o usuário não é usuário com direito a login.
+Exemplo de entrada no arquivo pg_hba.conf:
+
+host	all	all	10.0.0.7/32	ident		mapateste
+
+Todos os usuários da máquina 10.0.0.7 terão acesso a todos os bancos do PostgreSQL. Os usuários desta máquina serão mapeados pelo mapa ident mapateste. No caso teremos os seguintes registros no pg_ident.conf:
+
+mapateste	joao	joaozinho
+mapateste	mich	michael
+mapateste	dani	daniel
+
+Quando o usuário joao (em 10.0.0.7) se conecta remotamente ao servidor do PostgreSQL ele será mapeado para o usuário joaozinho, que é uma conta do sistema no servidor. Os demais de forma similar.
+Caso precise usar este arquivo e ele não exista, crie no diretório sugerido acima, com as entradas desejadas.
+
+Mais detalhes em:
+http://www.postgresql.org.br/Documenta%C3%A7%C3%A3o?action=AttachFile&do=get&target=postgresql.conf.pdf
+http://pgdocptbr.sourceforge.net/pg80/auth-methods.html#AUTH-IDENT
+http://www.postgresql.org/docs/8.3/interactive/client-authentication.html
+Livro PostgreSQL 8 for Windows de Richard Blum, capítulo 3.  
+
+
+
+Alerta Ao consultar a documentação fique atento para a versão do PostgreSQL que estás utilizando. Fortemente recomendada a consulta ao script postgresql.conf e sua documentação (comentários).
+

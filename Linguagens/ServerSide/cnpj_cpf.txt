@@ -1,0 +1,242 @@
+Juliano Ignácio Quarta-feira, 27 de agosto de 2003
+Stored procedures, triggers, functions...
+
+Stored procedures, triggers, functions...
+
+Na verdade, no PostgreSQL tudo é função! Por exemplo, uma função para validação do CPF ou CNPJ (não se assuste com o tamanho, é bem simples, o processo de cálculo é que exige esse passo-a-passo):
+	PostgreSQL Banner
+
+-- *****************************************************
+-- Função: f_cnpjcpf
+-- Objetivo:
+--   Validar o número do documento especificado
+--   (CNPJ ou CPF) ou não (livre)
+-- Argumentos:
+--   Pessoa [Jurídica(0),Física(1) ou
+--   Livre(2)] (integer), Número com dígitos
+--   verificadores e sem pontuação (bpchar)
+-- Retorno:
+--   -1: Tipo de Documento invalido.
+--   -2: Caracter inválido no numero do documento.
+--   -3: Numero do Documento invalido.
+--   1: OK (smallint)
+-- *****************************************************
+--
+CREATE OR REPLACE FUNCTION f_cnpjcpf (integer,bpchar)
+RETURNS integer
+AS '
+DECLARE
+
+-- Argumentos
+-- Tipo de verificacao : 0 (PJ), 1 (PF) e 2 (Livre)
+   pTipo ALIAS FOR $1;
+-- Numero do documento
+   pNumero ALIAS FOR $2;
+
+-- Variaveis
+   i INT4; -- Contador
+   iProd INT4; -- Somatório
+   iMult INT4; -- Fator
+   iDigito INT4; -- Digito verificador calculado
+   sNumero VARCHAR(20); -- numero do docto completo
+
+BEGIN
+
+-- verifica Argumentos validos
+   IF (pTipo < 0) OR (pTipo > 2) THEN
+      RETURN -1;
+   END IF;
+
+-- se for Livre, nao eh necessario a verificacao
+   IF pTipo = 2 THEN
+      RETURN 1;
+   END IF;
+
+   sNumero := trim(pNumero);
+   FOR i IN 1..char_length(sNumero) LOOP
+      IF position(substring(sNumero, i, 1) in ''1234567890'') = 0 THEN
+         RETURN -2;
+      END IF;
+   END LOOP;
+   sNumero := '''';
+
+-- *****************************************************
+-- Verifica a validade do CNPJ
+-- *****************************************************
+
+   IF (char_length(trim(pNumero)) = 14) AND (pTipo = 0) THEN
+
+-- primeiro digito
+      sNumero := substring(pNumero from 1 for 12);
+      iMult := 2;
+      iProd := 0;
+
+      FOR i IN REVERSE 12..1 LOOP
+         iProd := iProd + to_number(substring(sNumero from i for 1),''9'') * iMult;
+         IF iMult = 9 THEN
+            iMult := 2;
+         ELSE
+            iMult := iMult + 1;
+         END IF;
+      END LOOP;
+
+      iDigito := 11 - (iProd % 11);
+      IF iDigito >= 10 THEN
+         iDigito := 0;
+      END IF;
+
+      sNumero := substring(pNumero from 1 for 12) || trim(to_char(iDigito,''9'')) || ''0'';
+
+-- segundo digito
+      iMult := 2;
+      iProd := 0;
+
+      FOR i IN REVERSE 13..1 LOOP
+         iProd := iProd + to_number(substring(sNumero from i for 1),''9'') * iMult;
+         IF iMult = 9 THEN
+            iMult := 2;
+         ELSE
+            iMult := iMult + 1;
+         END IF;
+      END LOOP;
+
+      iDigito := 11 - (iProd % 11);
+      IF iDigito >= 10 THEN
+         iDigito := 0;
+      END IF;
+
+      sNumero := substring(sNumero from 1 for 13) || trim(to_char(iDigito,''9''));
+   END IF;
+
+-- *****************************************************
+-- Verifica a validade do CPF
+-- *****************************************************
+
+   IF (char_length(trim(pNumero)) = 11) AND (pTipo = 1) THEN
+
+-- primeiro digito
+      iDigito := 0;
+      iProd := 0;
+      sNumero := substring(pNumero from 1 for 9);
+
+      FOR i IN 1..9 LOOP
+         iProd := iProd + (to_number(substring(sNumero from i for 1),''9'') * (11 - i));
+      END LOOP;
+      iDigito := 11 - (iProd % 11);
+      IF (iDigito) >= 10 THEN
+         iDigito := 0;
+      END IF;
+      sNumero := substring(pNumero from 1 for 9) || trim(to_char(iDigito,''9'')) || ''0'';
+
+-- segundo digito
+      iProd := 0;
+      FOR i IN 1..10 LOOP
+         iProd := iProd + (to_number(substring(sNumero from i for 1),''9'') * (12 - i));
+      END LOOP;
+      iDigito := 11 - (iProd % 11);
+      IF (iDigito) >= 10 THEN
+         iDigito := 0;
+      END IF;
+      sNumero := substring(sNumero from 1 for 10) || trim(to_char(iDigito,''9''));
+
+   END IF;
+
+-- faz a verificacao do digito verificador calculado
+   IF pNumero = sNumero::bpchar THEN
+      RETURN 1;
+   ELSE
+      RETURN -3;
+   END IF;
+END;
+' LANGUAGE 'plpgsql';
+
+________________________________________
+
+Rode este script no seu banco, caso retorne um erro "ERROR: language 'plpgsql' does not exist" ou qualquer coisa parecida, é preciso dizer ao banco que esta base deve aceitar funções escritas em plpgsql. O PostgreSQL tem diversas linguagens PL, em uma das minhas colunas, menciona a maioria delas, dêem um olhada.
+
+Bom, para habilitar a base a aceitar o plpgsql execute o comando no prompt bash ($):
+
+createlang -U postgres pgplsql nomedabase
+
+Em seguida, rode o script novamente.
+Para executá-lo, digite no prompt da base (=#):
+
+SELECT f_cnpjcpf( 1, '12312312345' );
+
+Neste caso retorna um erro (-3) definido com documento inválido na função.
+
+SELECT f_cnpjcpf( 2, '12312312345' );
+
+Neste caso retorna (1) que significa que a operação foi bem sucedida! Porquê?!
+Lembre-se, o argumento Pessoa tipo 2 não faz a validação do documento digitado.
+
+Você também pode utilizar a função f_cnpjcpf na validação de um campo, por exemplo:
+
+CREATE TABLE cadastro (
+   nome       VARCHAR(50) NOT NULL,
+   tipopessoa INT2 NOT NULL
+              CHECK (tipopessoa IN (0,1)),
+   cpfcnpj    CHAR(20) NOT NULL
+              CHECK (f_cnpjcpf(tipopessoa, cpfcnpj)=1)
+);
+
+Ao tentar inserir um registro com um número de cpf ou cnpj inválido, volta um erro retornado pela Check Constraint responsável pela validação. Tente:
+
+INSERT INTO cadastro (nome, tipopessoa, cpfcnpj)
+VALUES ( 'Juliano S. Ignacio', 1, '12312312345');
+
+Coloque o seu nome e cpf e verá que o registro será inserido.
+
+Outra aplicação é na validação de cnpj (por exemplo) de uma tabela importada de uma origem qualquer:
+
+SELECT * FROM nomedatabela
+WHERE f_cnpjcpf( 0, campocnpjimportado ) < 1;
+
+Dessa maneira, irá selecionar todos os registros onde o número do cnpj estiver errado.
+
+________________________________________
+
+Retornando recordsets através de funções
+
+Se você já sabe fazer uma função, então é simples! - porque a diferença está no tipo de retorno da função.
+
+Versão >= 7.3.x
+
+CREATE OR REPLACE FUNCTION getcadastro()
+RETURNS setof cadastro
+AS '
+SELECT * FROM cadastro;
+' LANGUAGE SQL;
+
+Onde: "cadastro" é o nome da tabela (o nome da função é livre). Para executar, use:
+
+SELECT getcadastro();
+
+Ou então, você pode passar parâmetros:
+
+CREATE OR REPLACE FUNCTION getcadastro(text)
+RETURNS setof cadastro
+AS '
+SELECT * FROM cadastro WHERE nome LIKE $1 || ''%'';
+' LANGUAGE SQL;
+
+Execute:
+
+SELECT getcadastro('A');
+
+Todos registros com nomes que começam com a letra "A" serão exibidos.
+
+Veja mais sobre SETOF, em SQL Functions Returning Sets na documentação do PostgreSQL.
+
+Nas versões anteriores, 7.2.x, o SETOF não era tão simples assim, dê uma olhada também em REFCURSOR, este era o tipo que retornava recordsets, porém, era muito mais trabalhoso. Nas versões 7.1 e anteriores, não havia retorno de recordsets.
+
+________________________________________
+
+Agradecimento
+
+O meu muito obrigado a Ricardo Munhoz Cappi pela troca de experiências que originou este artigo. Sucesso para você!
+
+Um abraço à todos.
+
+Dúvidas, críticas e sugestões podem ser enviadas diretamente para meu e-mail, colocando no assunto (subject) "iMasters-PSQL".
+Um abraço a todos.

@@ -1,0 +1,82 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>EnterpriseDB Oracle Compatibility Developer's Guide: edb_stmt_level_tx</title>
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1944"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style>
+</head>
+<body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="http://www.enterprisedb.com/images/logo.gif" border="0"></a><p style="text-align: center"><a href="EnterpriseDB_OraCompat_EN_8.3-06.htm#TopOfPage"><img src="inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="invetoc.gif" alt="Table Of Contents" border="0"></a><a href="EnterpriseDB_OraCompat_EN_8.3-08.htm#TopOfPage"><img src="invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt"><p><a name="P424_17635"></a><span style="font-family: 'Arial'; font-size: 13pt">1.3.3 edb_stmt_level_tx</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">In </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">, when a runtime error occurs in a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> command, all the updates on the database caused by that single command are rolled back. This is called </span><i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">statement level transaction</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> isolation</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">. For example, if a single </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> command successfully updates five rows, but an attempt to update a sixth row results in an exception, the updates to all six rows made by this </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> command are rolled back. The effects of prior </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> commands that have not yet been committed or rolled back are pending until a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">COMMIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">ROLLBACK</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> command is executed.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">In </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">PostgreSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">, if an exception occurs while executing a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> command, all the updates on the database since the start of the transaction are rolled back. In addition, the transaction is left in an aborted state and either a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">COMMIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">ROLLBACK</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> command must be issued before another transaction can be started.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_stmt_level_tx</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> is set to &#8220;true&#8221;, then an exception will not automatically roll back prior uncommitted database updates, emulating the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> behavior. If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_stmt_level_tx</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> is set to &#8220;false&#8221;, then an exception will roll back uncommitted database updates.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"><b>Note:</b></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> Currently in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> programs, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_stmt_level_tx</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> always operates as if it were set to &#8220;false&#8221;. An exception in an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> program will always roll back uncommitted updates that have occurred within the scope of the block in which the exception is finally caught. Support of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_stmt_level_tx</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> = &#8220;true&#8221; in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> programs will be provided in a future release.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"><b>Note:</b></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> Use </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_stmt_level_tx</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> set to &#8220;true&#8221; only when absolutely necessary as this may cause a negative performance impact.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">The following example run in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">PSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> shows that when </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_stmt_level_tx</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> is &#8220;false&#8221;, the abort of the second </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> command also rolls back the first </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> command. Note that in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">PSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">, the command </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">\set AUTOCOMMIT off</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> must be issued, otherwise every statement commits automatically defeating the purpose of this demonstration of the effect of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_stmt_level_tx</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">.</span></p><div style="margin-left: 12pt"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">\set AUTOCOMMIT off</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">SET edb_stmt_level_tx TO off;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">INSERT INTO emp (empno,ename,deptno) VALUES (9001, 'JONES', 40);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">INSERT INTO emp (empno,ename,deptno) VALUES (9002, 'JONES', 00);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">ERROR:  insert or update on table &quot;emp&quot; violates foreign key constraint &quot;emp_ref_dept_fk&quot;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">DETAIL:  Key (deptno)=(0) is not present in table &quot;dept&quot;.</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">COMMIT;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">SELECT empno, ename, deptno FROM emp WHERE empno &gt; 9000;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">empno | ename | deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">-------+-------+--------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">(0 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">In the following example, with </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_stmt_level_tx</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> set to &#8220;true&#8221;, the first </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> command has not been rolled back after the error on the second </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> command. At this point, the first </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> command can either be committed or rolled back.</span></p><div style="margin-left: 12pt"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">\set AUTOCOMMIT off</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">SET edb_stmt_level_tx TO on;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">INSERT INTO emp (empno,ename,deptno) VALUES (9001, 'JONES', 40);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">INSERT INTO emp (empno,ename,deptno) VALUES (9002, 'JONES', 00);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">ERROR:  insert or update on table &quot;emp&quot; violates foreign key constraint &quot;emp_ref_dept_fk&quot;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">DETAIL:  Key (deptno)=(0) is not present in table &quot;dept&quot;.</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">SELECT empno, ename, deptno FROM emp WHERE empno &gt; 9000;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">empno | ename | deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">-------+-------+--------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">  9001 | JONES |     40</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">COMMIT;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">A </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">ROLLBACK</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> command could have been issued instead of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">COMMIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> command in which case the insert of employee number 9001 would have been rolled back as well.</span></p>
+
+<p style="text-align: center"><a href="EnterpriseDB_OraCompat_EN_8.3-06.htm#TopOfPage"><img src="inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="invetoc.gif" alt="Table Of Contents" border="0"></a><a href="EnterpriseDB_OraCompat_EN_8.3-08.htm#TopOfPage"><img src="invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com"><img src="transpwr.gif" alt="Powered by Transit"/></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body>
+</html>

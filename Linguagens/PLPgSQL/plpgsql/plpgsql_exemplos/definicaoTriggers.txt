@@ -1,0 +1,67 @@
+﻿ ----------------------------
+| Requisicao gera Lancamento |
+ ----------------------------
+Na inclusão: cria lancamento
+	Criado em 19 de abril de 2005
+Na Exclusão: remove lancamento
+	Criado em 19 de abril de 2005
+Na alteração do valor: altera lancamento.valordevido
+	Criado em 19 de abril de 2005
+
+ ------------------------------------
+| Emprestimo gera nrvezes Lancamento |
+ ------------------------------------
+Na inclusão: cria nrvezes lancamento iniciando no mesano do emprestimo e repercute para meses subsequentes
+	Criado em 21 de abril de 2005
+Na Exclusão: remove todos os lancamento subsequentes
+	Criado em 21 de abril de 2005
+Na alteração: remove todos os lancamentos de emprestimo e cria tudo de novo
+	Criado em 21 de abril de 2005
+
+ -----------------------------
+| Mensalidade gera Lancamento |
+ -----------------------------
+Na inclusão: cria lancamento
+	Criado em 21 de abril de 2005
+Na Exclusão: remove lancamento
+	Criado em 21 de abril de 2005
+Na alteração do valor: altera lancamento.valordevido
+	Criado em 21 de abril de 2005
+
+ -----------------------------------------------
+| Lancamento aumenta Consignavel.valorutilizado |
+ -----------------------------------------------
+Na inclusão: aumenta Consignavel.valorutilizado, se o registro de consignavel não existir gera 
+novo registro com base no mes anterior.
+	Criado em 22 de abril de 2005
+Na Exclusão: diminui Consignavel.valorutilizado
+	Criado em 22 de abril de 2005
+Na alteração do valor: altera Consignavel.valorutilizado
+	Criado em 22 de abril de 2005
+
+ --------------------
+| Quadro associativo |
+ --------------------
+Na inclusão seta flag desligado do associado.
+	Criado em 22 de abril de 2005
+Na exclusão seta flag desligado do associado.
+	Criado em 22 de abril de 2005
+Na alteração do campo desligamento altera flag de desligamento do associado.
+	Criado em 22 de abril de 2005
+
+ ----------------------
+| Faixa de mensalidade |
+ ----------------------
+Na alteração do campo valor referencia deve alterar a mensalidade do(s) mês(es) em aberto dos associados que estão nessa faixa.
+
+ --------------------
+| Fechamento mensal |
+ --------------------
+Na alteração do campo mesreferencia_aberto para falso devem ser feitos os seguintes procedimentos.
+   Alterar o flag de mesfechado do mês atual, inserir em mesreferencia novo registro de mes aberto.
+   Atualização de mensalidades do mês seguinte dos associados ativos de acordo com a tabela de faixa de mensalidade.
+      Selecionar os associados ativos, 
+      Inserir/alterar a mensalidade de acordo com a faixa de mensalidade dos associado.
+   Atualização do saldo consignavel do mês seguinte dos associados ativos(se não existir deve ser baseado no mês anterior).
+      OBS: Ao inserir mensalidade, é automaticamente criado lançamento. Ao criar lançamento é automaticamente criado(se 
+      necessário) registro de consignável de acordo com o mês anterior.

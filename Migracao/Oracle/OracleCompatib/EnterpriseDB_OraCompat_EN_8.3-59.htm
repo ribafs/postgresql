@@ -1,0 +1,148 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>CREATE SEQUENCE</title>
+
+
+<meta name="keywords" content="create sequence, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1996"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-59_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-58.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-59_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-59_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-60.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-59_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P2881_155983"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.21 CREATE SEQUENCE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2882_156005"></a>Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE SEQUENCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;define a new sequence generator</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2884_156061"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE SEQUENCE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ INCR</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EMENT BY </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>increment</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ { NOMINVALUE | MINVALUE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>minvalue</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> } ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ { NOMAXVALUE | MAXVALUE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>maxvalue</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> } ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ START WITH </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>start</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] [ CACHE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>cache</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | NOCACHE ] [ CYCLE ]</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2889_156254"></a>Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE SEQUENCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> creates a new sequence number generator.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This involves creating an</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">d initializing a new special single-row table with the name, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. The generator will be owned by the user issuing the command.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If
+a schema name is given then the sequence is created in the specified
+schema, otherwise it is created in the current schema. The sequence
+name must be distinct from the name of any other sequence, table,
+index, or view in the same schema.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">After a sequence is created, use the functions </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CURRVAL </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">to operate on the sequence. These functions are documented in Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-106.htm#P5829_314996">3.5.8</a></u>.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2893_156857"></a>Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name (optionally schema-qualified) of the sequence to be created.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>increment</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The optional clause INCREMENT BY </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>increment</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> specifies the value to add to the current sequence value to create a ne</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">w value.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A positive value will make an ascending sequence, a negative one a descending sequence.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The default value is 1.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOMINVALUE | MINVALUE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>minvalue</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The optional clause </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">MINVALUE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>minvalue</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> determines the minimum value a sequence can generate.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If this clau</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">se is not supplied, then defaults will be used.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The defaults are 1 and -2</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><sup>63</sup></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">-1 for ascending and descending sequences, respectively.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note that the key words, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOMINVALUE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, may be used to set this behavior to the default.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOMAXVALUE | MAXVALUE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>maxvalue</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The opt</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ional clause </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">MAXVALUE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>maxvalue</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> determines the maximum value for the sequence.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If this clause is not supplied, then default values will be used. The defaults are 2</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><sup>63</sup></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">-1 and -1 for ascending and descending sequences, respectively.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note that the key words, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NO</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">M</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">AX</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">VALUE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, may be used to set this behavior to the default.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>start</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The optional clause </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">START WITH</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>start</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> allows the sequence to begin anywhere.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The default starting value is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>minvalue</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> for ascending sequences and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>maxvalue</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> for descending ones.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>cache</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The optional clause </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CACHE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>cache</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> specifies how many sequence numbers are</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to be preallocated and stored in memory for faster access.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The minimum value is 1 (only one value can be generated at a time, i.e., </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOCACHE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">), and this is also the default.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CYCLE</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CYCLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> option allows the sequence to wrap around when the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>maxvalue</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">minv</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">alue</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> has been reached by an ascending or descending sequence respectively.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the limit is reached, the next number generated will be the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>minvalue</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>maxvalue</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, respectively.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CYCLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is omitted (the default), any calls to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> after the sequence has reached its maximum value will return an error. Note that the key words, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NO CYCLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, may be used to obtain the default behavior, however, this term is not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2909_158814"></a>Notes</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Sequences
+are based on big integer arithmetic, so the range cannot exceed the
+range of an eight-byte integer (-9223372036854775808 to
+9223372036854775807). On some older platforms, there may be no compiler
+support for eight-byte integers, in which case sequences use regular </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INTEGER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> arithmetic (range -2147483648 to +2147483647).</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Unexpected results may be obtained if a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>cache</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+setting greater than one is used for a sequence object that will be
+used concurrently by multiple sessions. Each session will allocate and
+cache successive sequence values during one access to the sequence
+object and increase the sequence object&#8217;s last value accordingly. Then,
+the next </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>cache</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">-1 uses of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+within that session simply return the preallocated values without
+touching the sequence object. So, any numbers allocated but not used
+within a session will be lost when that session ends, resulting in
+"holes" in the sequence.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Furthermore,
+although multiple sessions are guaranteed to allocate distinct sequence
+values, the values may be generated out of sequence when all the
+sessions are considered. For example, with a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>cache</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> setting of 10, session A might reserve values 1..10 and return </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">=1, then session B might reserve values 11..20 and return </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">=11 before session A has generated </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">=2. Thus, with a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>cache</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> setting of one it is safe to assume that </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTV</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">AL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> values are generated sequentially; with a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>cache</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> setting greater than one you should only assume that the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+values are all distinct, not that they are generated purely
+sequentially. Also, the last value will reflect the latest value
+reserved by any session, whether or not it has yet been returned by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2913_160497"></a>Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Create an ascending sequence called </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">serial</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, starting at 101:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE SEQUENCE serial START WITH 101;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Select the next number from this sequence:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT serial.NEXTVAL FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> nextval</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">---------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     101</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Create a sequence called </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">supplier_seq</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOCACHE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> option:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE SEQUENCE supplier_seq</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    MINVALUE 1</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    START WITH 1</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    INCREMENT BY 1</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    NOCACHE;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Select the next number from this sequence:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT supplier_seq.NEXTVAL FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> nextval</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">---------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       1</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-41.htm#P2010_108802"><u>ALTER SEQUENCE</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-73.htm#P3435_190074"><u>DROP SEQUENCE</u></a></span></p>
+
+<p><a name="P2938_161008"></a></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-58.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-59_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-59_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-60.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-59_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-59_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-59_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

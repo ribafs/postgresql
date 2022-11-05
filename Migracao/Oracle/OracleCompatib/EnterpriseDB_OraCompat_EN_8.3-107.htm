@@ -1,0 +1,126 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2044"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-107_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-106.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-107_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-107_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-108.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-107_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P5840_316825"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.5.9 Conditional Expressions</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This section describes the </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">-compliant conditional expressions available in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">3.5.9.1 CASE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> expression is a generic conditional expression, similar to if/else statements in other languages:</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASE WH</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EN </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>condition</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> THEN </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>result</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">   [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WHEN ... </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">   [ </span><span style="font-family: 'Courier New'; font-size: 11pt;">ELSE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>result</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">END</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clauses can be used wherever an expression is valid.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>condition</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is an expression that returns a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BOOLEAN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> result.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the result is true then the value of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> expression is the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>result</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> th</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">at follows the condition.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the result is false any subsequent </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WHEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clauses are searched in the same manner.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If no </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WHEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>condition</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is true then the value of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> expression is the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>result</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ELSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ELSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause is omitted and no condition matches, the result is null.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">An example:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT * FROM test;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> a</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">---</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 1</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 2</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 3</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(3 rows)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT a,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CASE WHEN a=1 THEN 'one'</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         WHEN a=2 THEN 'two'</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         ELSE 'other'</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">FROM test;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> a | case</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">---+-------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 1 | one</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 2 | two</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 3 | other</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(3 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The data types of all the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>result</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> expressions must be convertible to a single output type.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following &#8220;simple&#8221; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> expression is a specialized variant of the general form above:</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>expression</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    WHEN </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">value</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> THEN </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">result</span></i>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WHEN ... </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ELSE </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">resu</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">lt</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">END</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>expression</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is computed and compared to all the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> specifications in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WHEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clauses until one is found that is equal.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If no match is found, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>result</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ELSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause (or a null value) is returned.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The example above can be written using the simple </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> syntax:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT a,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CASE a WHEN 1 THEN 'one'</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">           WHEN 2 THEN 'two'</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">           ELSE 'other'</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">FROM test;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> a | case</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">---+-------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 1 | one</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 2 | two</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 3 | other</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(3 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> expression does not evaluate any subexpressions that</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are not needed to determine the result.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">For example, this is a possible way of avoiding a division-by-zero failure:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ... WHERE CASE WHEN x &lt;&gt; 0 THEN y/x &gt; 1.5 ELSE false END;</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">3.5.9.2 COALESCE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COALESCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function returns the first of its arguments that is </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">not null.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Null is returned only if all arguments are null.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COALESCE(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value2</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] ... )</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">It is often used to substitute a default value for null values when data is retrieved for display, for example:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT COALESCE(description, short_description, '(none)') ...</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Like a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> expression, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COALESCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+will not evaluate arguments that are not needed to determine the
+result; that is, arguments to the right of the first non-null argument
+are not evaluated.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">-standard function provides capabilities similar t</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">o </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NVL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IFNULL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, which are used in some other database systems.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">3.5.9.3 NULLIF</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NULLIF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function returns a null value if </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value1</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value2</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are equal; otherwise it returns </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value1</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NULLIF(</span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">valu</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">e</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">1</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">, </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">value</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">2</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This can be used to perform the inverse operation of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CO</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALESCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> example given above:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT NULLIF(value1, '(none)') ...</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value1</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is (none), return a null, otherwise return </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value1</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">3.5.9.4 GREATEST and LEAST</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GREATEST</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LEAST</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> functions select the largest or smallest value from a list of any number of expressions.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GREATEST(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value2</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] ... )</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LEAST(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value2</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] ... )</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+expressions must all be convertible to a common data type, which will
+be the type of the result. Null values in the list are ignored. The
+result will be null only if all the expressions evaluate to null.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note that </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GREATEST</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LEAST</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are not in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> standard, but are a common extension.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-106.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-107_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-107_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-108.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-107_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-107_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-107_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

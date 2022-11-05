@@ -1,0 +1,88 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>CREATE SCHEMA</title>
+
+
+<meta name="keywords" content="create schema, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1995"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-58_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-57.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-58_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-58_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-59.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-58_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P2858_153542"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.20 CREATE SCHEMA</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE SCHEMA</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> -- define a new schema</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE SCHEMA</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">AUTHORIZATION </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>username</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>schema_element</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ ... ]</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Description</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This variation of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE SCHEMA</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command creates a new schema owned by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>username</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+and populated with one or more objects. The creation of the schema and
+objects occur within a single transaction so either all objects are
+created or none of them including the schema. (</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatibility</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> note: In </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, no new schema is created &#8211; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>username</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and therefore the schema, must pre-exist.)</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A
+schema is essentially a namespace: it contains named objects (tables,
+views, etc.) whose names may duplicate those of other objects existing
+in other schemas. Named objects are accessed either by &#8220;qualifying&#8221;
+their names with the schema name as a prefix, or by setting a search
+path that includes the desired schema(s). Unqualified objects are
+created in the current schema (the one at the front of the search path,
+which can be determined with the function </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CURRENT_SCHEMA</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">). (The search path concept and the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CURRENT_SCHEMA</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function are not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.)</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE SCHEMA</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+includes subcommands to create objects within the schema. The
+subcommands are treated essentially the same as separate commands
+issued after creating the schema. All the created objects will be owned
+by the specified user.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>username</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of the user who will own the new schema. The schema will be named the same as </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">username</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">. Only superusers may create schemas owned by users other than themselves. (</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatibility</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> note: In </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> the role, </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">username</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">, must already exist, but the schema must not exist. In </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, the user (equivalently, the schema) must exist.)</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>schema_element</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">An </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> statement defining an object to be created within the schema. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CR</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EATE TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE VIEW</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> are accepted as clauses within </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE SCHEMA</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. Other kinds of objects may be created in separate commands after the schema is created.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Notes</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">To create a schema, the invoking user must have the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege for the current database. (Of course, superusers bypass this check.)</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, there are other forms of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE SCHEMA</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command that are not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE SCHEMA AUTHORIZATION enterprisedb</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CREATE TABLE empjobs (ename VARCHAR2(10), job VARCHAR2(9))</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CREATE VIEW managers AS SELECT ename FROM empjobs WHERE job = 'MANAGER'</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    GRANT SELECT ON managers TO PUBLIC;</span>
+<a name="P2880_155983"></a></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-57.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-58_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-58_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-59.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-58_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-58_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-58_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

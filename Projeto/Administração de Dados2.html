@@ -1,0 +1,389 @@
+<html><head>
+
+
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+
+
+</style>
+
+<link href="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados2_arquivos/estilo.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript">
+
+function EmptyString(s) { 
+var Count; 
+var Nblank = 0; 
+if (s.length == 0) return (true); // empty string 
+// count the number of blank chars 
+for (Count = 0; Count < s.length; Count++) { 
+if (s.charAt(Count) == " ") Nblank++; 
+} 
+if (Nblank == s.length) 
+return (true); 
+else 
+return (false); 
+} 
+
+function ValidEmail(s) { 
+var Count; 
+var s2; 
+// empty or blank email 
+if (EmptyString(s) == true) return (false); 
+// email without @ 
+if (s.indexOf('@') == -1) return (false); 
+// email with @ as the 1st char 
+if (s.indexOf('@') == 0) return (false); 
+// email with @ as the last char 
+if ((s.indexOf('@')+1) == s.length) return (false); 
+// email without . 
+if (s.indexOf('.') == -1) return (false); 
+// email with . as the 1st char 
+if (s.indexOf('.') == 0) return (false); 
+// email with . as the last char 
+if ((s.indexOf('.')+1) == s.length) return (false); 
+
+// Now look for the first . after the first @ 
+// s2 = string after the first @ 
+s2=s.substring(s.indexOf('@')+1,s.length); 
+// email without a dot after the first @ 
+if (s2.indexOf('.') == -1) return (false); 
+// email dot right after the first @ 
+if (s2.indexOf('.') == 0) return (false); 
+return (true); 
+} 
+</script>
+
+
+<script language="JavaScript">
+
+function EmptyString(s) { 
+var Count; 
+var Nblank = 0; 
+if (s.length == 0) return (true); // empty string 
+// count the number of blank chars 
+for (Count = 0; Count < s.length; Count++) { 
+if (s.charAt(Count) == " ") Nblank++; 
+} 
+if (Nblank == s.length) 
+return (true); 
+else 
+return (false); 
+} 
+
+function ValidEmail(s) { 
+var Count; 
+var s2; 
+// empty or blank email 
+if (EmptyString(s) == true) return (false); 
+// email without @ 
+if (s.indexOf('@') == -1) return (false); 
+// email with @ as the 1st char 
+if (s.indexOf('@') == 0) return (false); 
+// email with @ as the last char 
+if ((s.indexOf('@')+1) == s.length) return (false); 
+// email without . 
+if (s.indexOf('.') == -1) return (false); 
+// email with . as the 1st char 
+if (s.indexOf('.') == 0) return (false); 
+// email with . as the last char 
+if ((s.indexOf('.')+1) == s.length) return (false); 
+
+// Now look for the first . after the first @ 
+// s2 = string after the first @ 
+s2=s.substring(s.indexOf('@')+1,s.length); 
+// email without a dot after the first @ 
+if (s2.indexOf('.') == -1) return (false); 
+// email dot right after the first @ 
+if (s2.indexOf('.') == 0) return (false); 
+return (true); 
+} 
+</script>
+
+
+
+<meta http-equiv="refresh" content="1300">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta name="description" content="Portal para analistas, desenvolvedores de sistemas e webdesigners. Artigos, dicas e vídeo aulas sobre C#, Java, Visual Basic .NET, PHP, ASP, Delphi, Visual Basic, ColdFusion, Javascript, HTML, Oracle, SQL Server, InterBase, Firebird, e muito mais.">
+<meta name="keywords" content="c#, visual basic .net, asp.net, java, php, programação, análise, web, apostilas, gratuito, grátis, projeto, engenharia de software, visual basic, delphi, sql, xml, asp, coldfusion, css, stylesheet, javascript, webmaster, ti, linux, windows, livros, empregos, oportunidades, aplicativos, componentes, tecnologia, desenvolvimento, eventos, software, downloads, artigos, cursos online, flash, interbase, fireworks, dreamweaver, xsql"><!--include file="../include/countpageview.asp" --><title>Devmedia - SQL Magazine - Administração de Dados &#8211; Como Implementar II</title></head><body>
+
+
+<!--include file="../include/barradevmedia.asp"-->
+
+
+ <table>
+   <tbody><tr><td bgcolor="" valign="top" width="3"></td>
+     <td valign="top">
+	   <img src="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados2_arquivos/logo_devmedia_.gif">
+	   </td>
+	   <td valign="center">
+	   <font face="verdana" size="4">www.devmedia.com.br
+	   <!--include file="../include/topo.html" --> 
+     </font></td>
+   </tr>
+    <tr><td bgcolor="" valign="top" width="3"></td>
+          <td colspan="2" background="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados2_arquivos/line.gif"><img src="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados2_arquivos/casper.gif" height="1" width="1"></td></tr>
+         
+
+ </tbody></table>
+
+ <table border="0">
+  <tbody><tr> 
+    <td bgcolor="" valign="top" width="3">
+		<!-- include esquerda.html -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+	</td>
+    <td valign="top" width="651">
+		
+		<table width="100%">
+		  <tbody><tr>
+		    <td><!--include file="../include/box_renova.asp" -->
+			</td>
+		  </tr>
+		</tbody></table>
+		
+		
+			<!-- aqui entra o box de servicos -->
+			
+		
+
+
+		<table cellpadding="0" cellspacing="0">
+		  <tbody><tr>
+		    <td>
+			   	<!--include file="exibe_anotacoes.asp" -->
+			</td>
+		  </tr>
+		</tbody></table>
+
+		
+		
+		<table>
+		  <tbody><tr>
+		    <td bgcolor="#ffff99">
+			 
+     			  <!--<a href="#feedback"> <font face=Tahoma><b>Ajude-nos! Clique aqui e dê o seu feedback sobre este conteúdo!</a><br>-->
+			    
+
+			</td>
+		  </tr>
+		</tbody></table>
+		
+
+	   <table border="0">
+	    <tbody><tr>
+		 <td>
+
+    			
+					<table border="0">
+					<tbody><tr>
+					  <td>  
+						<table border="0">
+						  <tbody><tr valign="top">
+							<td>
+							  
+							     <a href="http://www.devmedia.com.br/space.asp?id=174005"><img src="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados2_arquivos/Col_174005_Roberta_E.jpg" border="0"></a>
+							  
+							</td>
+							<td><span id="lblCurriculo"><span class="font4-preto">
+							<a href="http://www.devmedia.com.br/space.asp?id=174005">Roberta Emerenciano Berrondo<span><br><br>
+							  <span id="lblCurriculo"><span class="font1-preto">Roberta
+Emerenciano Berrondo (rberrondo@yahoo.com.br), analista de sistemas há
+9 anos, especializada em banco de dados atuando com diversos SGBDs.
+Comecei a atuar em administração de dados em 2002 e desde de então
+venho implementado e difundindo a área em diversas empresas. Atualmente
+atuo com Consultoria em administração de dados e auditoria em banco de
+dados, administração de dados, modelagem de dados e sistemas.</span></span></span></a>
+							</span></span></td>
+						  </tr>
+						</tbody></table>
+					  </td>
+					</tr>
+					</tbody></table>
+					
+
+         </td>
+        </tr>
+		
+
+		
+
+		<tr>
+		 <td>
+		   
+		 </td>
+		</tr>
+	    <tr>
+		  <td>
+		   <h1 style="margin: 12pt 0cm 3pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><font size="5">Administração de Dados &#8211; Como Implementar II</font></span></h1>
+<h1 style="margin: 12pt 0cm 3pt;"><span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';"><br>Implantação da estrutura de AD</span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p></o:p></span></h1>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><br>Para
+que seja implantada uma estrutura de administração de dados em sua
+organização, é preciso antes de tudo que se estabeleça um planejamento
+focado na expectativa da organização aliado a função da administração
+de dados como conceito, bem como apoio irrestrito da alta administração
+à criação da área tendo em vista que como em qualquer mudança
+administrativa, a criação da área irá encontrar grande rejeição de
+outras áreas de T.I. dentro da organização, especialmente as de análise
+e banco de dados que tendem a enxergar no AD alguém que está chegando
+para<span style="">&nbsp; </span>diminuir a importância antes exercida
+pelos analistas e DBA&#8217;s e não como alguém que vem para agregar valor ao
+trabalho antes exercido por eles. Trata-se na ampla maioria dos casos
+de uma mudança cultural dentro das organizações e como tal deve ser
+tratada. <o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><br>Não
+existe uma receita de bolo para isto, mas existem situações já
+vivenciadas que nos levam a sugerir algumas boas práticas para se
+estruturar uma área de administração de dados.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Podemos citar alguns itens fundamentais para a implementação da administração de dados em uma organização:<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.25pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">- Conhecer as expectativas da organização com relação à atuação da área de AD;<span style="">&nbsp;&nbsp; </span><o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.25pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">-
+Definir uma equipe sólida, procurando mesclar profissionais experientes
+disponíveis no mercado para trazer para a organização know-how e
+vivência na área, aliando com profissionais da própria organização para
+proporcionar a integridade das necessidades do negócio;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt; text-indent: 35.25pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">- Desenvolver um processo de atuação para a administração de dados;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.25pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">- Verificar a atuação da área de DBA na organização, e identificar possíveis redundâncias de atividades;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.25pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">- Definir as atribuições especificas e a integração entre as áreas de AD e DBA da organização;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.25pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">- Definir documentos de controle a serem desenvolvidos e/ou administrados pela área de AD tais como:<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.25pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.4pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">?</span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"> </span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Check-list;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.4pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">?</span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">&nbsp;P</span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">adrões;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.4pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">?</span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"> </span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Laudos;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.4pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">?</span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"> </span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Dicionário de Dados;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.4pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">- Definir ferramentas CASES para a modelagem de dados e um repositório para os seus MODELOS;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">- Promover a integração entre as áreas envolvidas na estruturação de modelagem lógica e conceitual;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">- Definir métricas para gerar relatórios que ilustrem as atividades executas pela AD, e os benefícios para a organização;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">- Fazer benchmarking com outras organizações para identificar oportunidades de soluções eficazes para a empresa;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">- Promover workshops informando as iniciativas de sua área;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Cultura de AD nas empresas<o:p></o:p></span></b></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">A
+administração de dados tem como primeiro passo quebrar paradigmas nas
+organizações que possuem apenas área de DBA. Esta preocupação é muito
+importante para a sobrevivência da AD e para cooperação das áreas
+parceiras no desenvolvimento dos trabalhos. &nbsp;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Para
+isto é muito importante se estabelecer métricas e indicadores para
+demonstrar a qualidade dos trabalhos realizados pela AD tais como:<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><span style="">&nbsp;</span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>? Modelagens mais eficientes;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">&nbsp;<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>? Documentação padronizada;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><span style="">&nbsp;</span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>? Garantia da qualidade dos dados;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><span style="">&nbsp;</span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>? Diminuição da redundância de dados;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">? Diminuição de retrabalho;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><span style="">&nbsp;</span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>? Entre outras.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Outra
+forma extremamente eficaz de disseminar a cultura da administração de
+dados dentro de sua organização é promover workshops que mostre as
+iniciativas da AD e o que existe de atual no mercado de TI com relação
+à administração de dados.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Esta
+preocupação é importante, pois é necessário que haja um patrocínio de
+toda a organização para promover a gestão da informação, de uma forma
+eficaz e conjunta trazendo benefícios diretos a todas as áreas
+envolvidas.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Modelando os Dados<o:p></o:p></span></b></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><b style=""><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></b></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Cada organização tem uma estrutura de TI, na qual não existe a melhor, e sim a mais eficaz para aquela determinada organização. <span style="">&nbsp;</span>Entretanto,
+muitas organizações se focam apenas na modelagem lógica e física de
+suas estruturas de dados deixando de lado a modelagem conceitual dos
+mesmos, que envolve tanto os dados como o negócio da organização.<span style="">&nbsp; </span>Porém
+não podemos nos esquecer que a T.I. serve antes de tudo para dar
+sustentação para o negócio da organização não devendo desta forma ser
+tratada como um ser independente. <o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Desta
+forma, efetuar uma modelagem lógica sem se preocupar com a necessidade
+do negócio ou produto ao qual se modela esta aplicação é 90% do
+insucesso de uma solução de T.I.. Estruturar toda uma aplicação sem se
+ater ao negócio é um risco que muitas empresas correm, e no final arcam
+com o prejuízo de não conseguirem soluções que realmente sejam eficazes
+no suporte ao negócio ao qual se destinam, <span style="">&nbsp;</span>diluindo-se
+toda a economia que se acreditou ter em retrabalhos intermináveis que
+continuarão sem alcançar seu objetivo principal,por não dedicar tempo a
+entender o negócio e conceituar esta visão.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Como boa prática em modelagem de dados, deve-se seguir as seguintes etapas para a modelagem de dados de uma organização:<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">? Modelagem Conceitual do Negócio; <o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">? Modelagem Lógica; <o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">? Modelagem Física.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+		  </td>
+		</tr>	
+		
+		<tr>
+		 <td><!--include file="../include/barra_digg.asp" -->
+		 </td>
+		</tr>
+           
+
+		<tr>
+		  <td>
+				
+    	<!--include file="visualizacomentarios.asp" -->
+
+		  </td>
+		</tr>
+	   
+	   	
+		 <tr>
+	     	  <td>
+					
+					<!--include file="posts_relacionados.asp" -->
+				</td>
+			</tr>
+
+		
+
+			  
+			  <tr>
+	     	  <td>
+					
+					<!--include file="noticia_ultimas_autor.asp" -->
+				</td>
+			</tr>
+
+
+
+        <tr>
+          <td background="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados2_arquivos/line.gif"><img src="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados2_arquivos/casper.gif" height="1" width="1"></td></tr>
+         
+
+		<tr>
+		  <td>
+		    <table><tbody><tr><td>
+		  	<img src="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados2_arquivos/logo_devmedia_.gif"> </td>
+			<td valign="center"><font face="verdana">www.devmedia.com.br/articles/viewcomp.asp?comp=7020</font></td></tr>
+			</tbody></table>
+
+		  </td>
+		</tr>
+
+	   </tbody></table>	
+    </td>
+	<td width="30"></td>
+    <td valign="top" width="250">
+				<!--include file="../include/box_bemvindo2.asp" -->
+
+     </td>
+   </tr>
+</tbody></table>
+
+</body></html>

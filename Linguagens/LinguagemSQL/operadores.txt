@@ -1,0 +1,125 @@
+Tipos de Operadores
+
+== Operadores Aritméticos
+
+Mathematical Operators
+Operator 	Description 	Example 	Result
++ 			addition	 	2 + 3	 	5
+- 			subtraction 	2 - 3 		-1
+* 			multiplication 	2 * 3 		6
+/ 			division 	 	4 / 2 		2
+% 			modulo 		 	5 % 4 		1
+^ 			exponentiation 	2.0 ^ 3.0 	8
+|/ 			square root 	|/ 25.0 	5
+||/ 		cube root 		||/ 27.0 	3
+! 			factorial 		5 !		 	120
+!! 			factorial 	 	!! 5 		120
+@ 			absolute value 	@ -5.0 		5
+& 			bitwise AND 	91 & 15 	11
+| 			bitwise OR 		32 | 3 		35
+# 			bitwise XOR 	17 # 5 		20
+~ 			bitwise NOT 	~1 			-2
+<< 			bitwise shift left 	1 << 4 	16
+>> 			bitwise shift right 8 >> 2 	2
+
+
+Precedência controlada com parêntesis, como em matemática.
+
+
+== Operadores de Comparação
+
+=
+>
+>=
+<
+<=
+!= ou <>
+
+Usados na cláusula WHERE
+
+Todos estão disponíveis para todos os tipos de dados
+
+
+Operador BETWEEN
+
+a between x and y;
+
+a NOT BETWEEN x AND y
+
+Operador IN
+
+na lista
+
+where cor in('verde', 'vermelho', 'azul', 'preto');
+
+
+Operador LIKE
+
+Recuperar valores parecidos com a string de pesquisa quando você não sabe o valor
+exato.
+
+LIKE '%975';
+Pode retornar, se existirem:
+1975
+2975
+3975
+...
+9975
+
+LIKE 'A%'	- começa com A
+	'%A%'	- Contém A em qualquer posição
+	'_A%'	- Contém A na segunda posição
+	'A%'	- Termina com A
+	'A%B%C'	- Começa com A, tem B em qualquer posição e termina com C
+NOT LIKE '%A' - Não contém A no início
+
+
+Operador ILIKE - busca case sensitiva.
+
+
+Operador SIMILAR TO
+
+Semelhante ao LIKE mas com algumas facilidades a mais.
+
+% e - semelhante ao LIKE
+
+[A-F] - de A a F
+[AEF] - A, E ou F
+[^AEF] - Qualquer coisa diferente de A, E ou F
+| e || - ou e concatenação
+
+
+Operador IS NULL
+
+Trata de campos com valor NULL
+Como NULL não é uma string vazia, nem é zero nem podemos usar com = para tratar
+com NULL precisamos usar IS NULL.
+
+select nome, nascimento from servidores where nascimento is null;
+
+Não podemos usar ...  nascimento = null;
+Nem ...  nascimento = 0;
+Nem ...  nascimento = '';
+
+
+Operadores Lógicos
+
+AND, OR e NOT
+
+Tabela Verdade
+
+a		b		a AND b	a OR b
+TRUE	TRUE	TRUE	TRUE
+TRUE	FALSE	FALSE	TRUE
+TRUE	NULL	NULL	TRUE
+FALSE	FALSE	FALSE	FALSE
+FALSE	NULL	FALSE	NULL
+NULL	NULL	NULL	NULL
+
+a		NOT a
+TRUE	FALSE
+FALSE	TRUE
+NULL	NULL
+
+
+

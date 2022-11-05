@@ -1,0 +1,95 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2199"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-262_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-261.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-262_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-262_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-263.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-262_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P12592_631684"></a><span style="font-family: 'Arial'; font-size: 13pt;">10.2.3 Starting EDB*Loader from the command Line</span></p></div><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">edbldr -d dbname -p port userid={user[/passwd]|/} control=control_file_path log=log_file_path bad=bad_file_path parfile=param_file_path skip=skip_count  skip_index_maintenance={true|false} direct={true|false} errors = error_count</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Options for data load:</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">  -d DBNAME       database name </span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">  -p PORT             port number to connect to</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Parameters for data load: </span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">USERID={username[/password]|/} </span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Specifies
+the username and password to use when connecting to the database. The
+utility will prompt for the username and or password if any one of them
+is omitted. If &#8220;/&#8221; is used, it will attempt to connect to the database
+using operating system authentication (i.e. OS username/password
+combination)</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CONTROL=control_ file_name </span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Specifies the name, which can include the absolute path, of the control file. The default extension is  </span><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;"><i><b>.ctl</b></i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. </span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOG=log_file_name</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Specifies
+the name, which can include the absolute path, of the log file. If this
+parameter is not specified, the log file name follows the control file
+name albeit with a .log extension. It is also written to the same
+directory location as the control file. The default extension is .log.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DIRECT={TRUE | FALSE} </span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Indicates
+the mechanism to use for the load. A value of FALSE results in a
+conventional based path load. A value of TRUE is for direct path
+loading.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ERRORS=error_count</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Specifies
+a limit on the number of errors that can be entertained before aborting
+the load operation. The default value for the error count is 50.</span> </p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SKIP=skip_count</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Specifies the number of initial rows that should be skipped from the input data file from the load.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SKIP_INDEX_MAINTENCE={true|false}</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If
+this parameter is true, for direct path loads index maintenance will
+not be carried out as part of the load. If the involved table has any
+indexes on it, they will be marked as invalid. A subsequent reindex
+will need to be done on the indexes to make them valid again.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PARFILE=param_file_name</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Specifies
+the name, which can include the absolute path of the parameter file.
+This file does not have any default extension. All the parameters that
+are accepted on the command line can be mentioned in this parameter
+file.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BAD=bad_file_name</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Specifies
+the name, which can include the absolute path of the bad file. If this
+parameter is not specified, the bad file name follows the control file
+name with a <i>.bad </i>extension.  It is also written to the same directory location as the control file. The default extension is <i>.bad</i>.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DISCARD=discard_file_name</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Specifies
+the name, which can include the absolute path of the discard file. If
+this parameter is not specified, the discard file name follows the
+control file name with a .<i>dsc</i> extension.  It is also written to the same directory location as the control file. The default extension is .<i>dsc</i>.
+Only those records which cannot be loaded into any of the involved
+tables, because of failure to match the corresponding WHEN clause, will
+be logged into this file. Note that such records are not rejected by
+the backend, but by the selective loading logic only.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-261.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-262_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-262_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-263.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-262_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-262_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-262_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

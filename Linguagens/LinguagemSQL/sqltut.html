@@ -1,0 +1,2862 @@
+<!--IM-0023-->
+
+<!--6/3/2008 8:39:53 AM-->
+<html>
+<head>
+<a name="top"></a><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="/_styles/intermedia.css" type="text/css">
+<link rel="stylesheet" href="/_styles/legacystyles.css" type="text/css">
+<meta name="description" content="Intermedia.NET offers excellence in Web Hosting and Exchange Hosting">
+<meta name="keywords" content="Shared Web Hosting, Dedicated Web Hosting, Exchange Hosting">
+<SCRIPT LANGUAGE="JavaScript">
+<!-- Overture Services, Inc
+    var pm_tagname    = "universalTag.txt";
+    var pm_tagversion = "1.4";
+    var pm_accountid  = "KDKT1NVQECI0GM2B78CVG78KJ4";
+    var pm_scripthost = "srv.perf.overture.com";
+    var pm_customargs = "";
+    var pm_querystr = "?" + "ver=" + pm_tagversion + "&aid=" + pm_accountid + pm_customargs;
+    var pm_tag = "<SCR" + "IPT LANGUAGE='JavaScript' " + "SRC=//" + pm_scripthost + "/collweb/ScriptServlet" + pm_querystr + "></SCR" + "IPT>";
+    document.write(pm_tag);
+// -->
+</SCRIPT>
+
+<title>Intermedia.NET - MS SQL Tutorial</title>
+<script>
+//Preloading Images 
+var1 = new Image();
+var1.src = "/images/trans.gif";
+var2 = new Image();
+var2.src = "/images/check.gif";
+var3 = new Image();
+var3.src = "/images/gray.gif";
+var4 = new Image();
+var4.src = "/images/b_sig_02.gif";
+</script>
+</head>
+<body bgcolor="#E2E2CD" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" marginwidth="0" marginheight="0" text="#000000" vlink="#000000" alink="#000000" link="#000000"><center><center>
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#FFFFFF">
+    <tr>
+      <td width="100%">
+        <center>
+        <table border="0" cellpadding="0" cellspacing="0" width="777">
+          <tr>
+            <td height="50" WIDTH="222" ALIGN="left">
+            <a HREF="/">
+            <img BORDER="0" SRC="/images/top/top-logo.gif" WIDTH="200" HEIGHT="31" alt="Intermedia.NET - Web and E-mail Hosting Company"></a></td>
+            <td WIDTH="100%">
+            <p ALIGN="right">
+            <a HREF="https://hosting.intermedia.net/asp/User/Login.asp">
+            <img BORDER="0" SRC="/images/top/top-login-btn.gif" WIDTH="82" HEIGHT="22" alt="Customer login"></a><img BORDER="0" SRC="/images/trans.gif" WIDTH="20" HEIGHT="1"><a href='https://server.iad.liveperson.net/hc/27209311/?cmd=file&file=visitorWantsToChat&site=27209311&byhref=1' target='chat27209311' onClick="window.open('https://server.iad.liveperson.net/hc/27209311/?cmd=file&file=visitorWantsToChat&site=27209311&referrer='+document.location,'chat27209311','width=472,height=320');return false;"><img src='https://server.iad.liveperson.net/hc/27209311/?cmd=repstate&site=27209311&imageUrl=https://www.intermedia.net/images/top/&ver=1' name='hcIcon' width=91 height=22 border=0></a><img BORDER='0' SRC='/images/trans.gif' WIDTH='20' HEIGHT='1'><img BORDER="0" SRC="/images/trans.gif" WIDTH="20" HEIGHT="1"></td>
+            <td WIDTH="102" ALIGN="right">
+            <a HREF="/contact">
+            <img BORDER="0" SRC="/images/top/top-logo-phone.gif" WIDTH="102" HEIGHT="31" alt="Call sales toll-free at 800-379-7729"></a></td>
+          </tr>
+        </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+  </center><center>
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+      <td width="100%" bgcolor="#FFFFFF">
+
+        <center>
+        <table border="0" cellpadding="0" cellspacing="0" width="777">
+          <tr>
+
+            <td bgcolor="#B1BABF" height="44" class="navbar" width="777">
+            
+ <!--text used in the movie-->
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="https://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="777" height="44" id="navbar_03" align="middle" VIEWASTEXT>
+<param name="allowScriptAccess" value="sameDomain" />
+<param name="movie" value="/_navbar/navbar_04.swf" />
+<param name="quality" value="high" />
+<param name="bgcolor" value="#ffffff" />
+<embed src="/_navbar/navbar_04.swf" quality="high" bgcolor="#ffffff" width="777" height="44" name="navbar_03" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="https://www.macromedia.com/go/getflashplayer" />
+</object>
+            
+            </td>
+
+          </tr>
+          </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+    <center>
+      <table border="0" cellpadding="0" cellspacing="0"  width="100%">
+          <tr><div align="center">
+                    <center>
+                      </center>
+                </td>
+          </tr>
+      </table>
+    </center><center>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td width="100%"><center>
+		<table border="0" cellpadding="0" cellspacing="0" width="777">
+			<tr>
+				<td><center>
+				<table border="0" cellpadding="0" cellspacing="0" width="777">
+          <tr>
+          <td width="576" class="text_header_colorline2" colspan="2">
+          <img border="0" src="/images/trans.gif" width="777" height="4"></td></tr>
+          <tr><td width="757" height="44" class="text_header_background1"><h1 class="header">MS SQL Tutorial</h1></td>
+          <td width="20" class="text_header_background1"><img border="0" src="/images/trans.gif" width="20" height="1"></td></tr></table></center>
+				<table border="0" cellpadding=8 cellspacing="0" width="100%">
+					<tr>
+						<td bgcolor="#FFFFFF" valign="top" height="500">
+						<table border="0" cellpadding="4" cellspacing="0" width="100%" id="table26">
+							<tr>
+								<td valign="top" width="100%" class="text1">
+								<table align="right" border="0" cellpadding="4" height="0" cellspacing="0" class="smtext" id="table28">
+									<tr>
+										<td width="176" height="64" class="smtext">
+										<a href="/hosting/shared/windows/defaultSQLtut.asp">
+										<img border="0" width="176" height="140" src="/images/bs-ads-09.gif" alt="Put Your competition On Ice With MSSQL Hosting. Click for details"></a><br><br>
+										<table border="0" cellpadding="4" cellspacing="0" width="100%" height="1">
+    <tr>
+          <td class="smtext" BGCOLOR="#A1A11A"><font COLOR="#FFFFFF"><b>TABLE OF 
+			CONTENTS</b></font></td>
+    </tr>
+    <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Basics of the SELECT Statement">Basics 
+			of the<br>
+			<img border="0" src="/images/trans.gif" width="5" height="1">SELECT Statement</a> </td>
+    </tr>
+    <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Conditional Selection">Conditional Selection</a></td>
+    </tr>
+    <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Relational Operators">Relational Operators</a> </td>
+    </tr>
+    <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Compound Conditions">Compound Conditions</a></td>
+    </tr>
+    <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#IN & BETWEEN">IN &amp; BETWEEN</a> </td>
+    </tr>
+    <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Using LIKE">Using LIKE</a></td>
+    </tr>
+    <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/gray.gif" width="100%" height="1"></font></td>
+    </tr>
+    <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Joins">Joins</a></td>
+    </tr>
+    <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Keys">Keys</a> </td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Performing a Join">Performing a Join</a> </td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Eliminating Duplicates">Eliminating Duplicates</a> </td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Aliases & In/Subqueries">Aliases &amp; In/Subqueries</a> 
+			</td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/gray.gif" width="100%" height="1"></font></td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Aggregate Functions">Aggregate Functions</a></td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Views">Views</a></td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Creating New Tables">Creating New Tables</a></td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Altering Tables">Altering Tables</a> </td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Adding Data">Adding Data</a></td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Deleting Data">Deleting Data</a></td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Updating Data">Updating Data</a></td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/gray.gif" width="100%" height="1"></font></td>
+    </tr>
+    <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Indexes">Indexes</a> </td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#GROUP BY & HAVING">GROUP BY &amp; HAVING</a> </td>
+    </tr>
+    <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#More Subqueries">More Subqueries</a> </td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#EXISTS & ALL">EXISTS &amp; ALL</a> </td>
+    </tr>
+    <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#UNION & Outer Joins">UNION &amp; Outer Joins</a> </td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Embedded SQL">Embedded SQL</a> </td>
+    </tr>
+    <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Common SQL Questions">Common SQL Questions</a> </td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Nonstandard SQL">Nonstandard SQL</a> </td>
+    </tr>
+    <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Syntax Summary">Syntax Summary</a> </td>
+    </tr>
+        <tr>
+          <td class="smtext" BGCOLOR="#FAFADE">
+          <font COLOR="#828215">
+          <img border="0" src="/images/trans.gif" width="5" height="1"></font><a CLASS="smtext" href="#Important Links">Important Links</a></td>
+    </tr>
+    </table>
+<table id="rmenuads"><tr><td><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/ecommerce/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-003.gif" alt="Intermedia.NET Recognized As One Of The Top E-Commerce Web Hosting Providers by Web Host Directory"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/fax/"><img border="0" width="160" height="143" src="/images/firstpage/b-ban-005.gif" alt="Special promotion: Fax via E-mail"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/ecommerce/miva/"><img border="0" width="160" height="140" src="/images/bs-ads-01b.gif" alt="Miva Merchant"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/shared/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-001.gif" alt="Hosted MS Exchange"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/wireless/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-002.gif" alt="Go Wireless"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/gallery/"><img border="0" width="160" height="127" src="/images/coppermine_ad.gif" alt="Coppermine Photo gallery"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/windows/defaultSQLtut.asp"><img border="0" width="160" height="140" src="/images/bs-ads-09b.gif" alt="Put Your Competition On Ice With MSSQL Hosting"></a><br /><br /><br /><br /><br /><br /><br />
+
+<a href="/hosting/shared/ecommerce/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-003.gif" alt="Intermedia.NET Recognized As One Of The Top E-Commerce Web Hosting Providers by Web Host Directory"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/fax/"><img border="0" width="160" height="143" src="/images/firstpage/b-ban-005.gif" alt="Special promotion: Fax via E-mail"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/ecommerce/miva/"><img border="0" width="160" height="140" src="/images/bs-ads-01b.gif" alt="Miva Merchant"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/shared/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-001.gif" alt="Hosted MS Exchange"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/wireless/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-002.gif" alt="Go Wireless"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/gallery/"><img border="0" width="160" height="127" src="/images/coppermine_ad.gif" alt="Coppermine Photo gallery"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/windows/defaultSQLtut.asp"><img border="0" width="160" height="140" src="/images/bs-ads-09b.gif" alt="Put Your Competition On Ice With MSSQL Hosting"></a><br /><br /><br /><br /><br /><br /><br />
+
+<a href="/hosting/shared/ecommerce/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-003.gif" alt="Intermedia.NET Recognized As One Of The Top E-Commerce Web Hosting Providers by Web Host Directory"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/fax/"><img border="0" width="160" height="143" src="/images/firstpage/b-ban-005.gif" alt="Special promotion: Fax via E-mail"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/ecommerce/miva/"><img border="0" width="160" height="140" src="/images/bs-ads-01b.gif" alt="Miva Merchant"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/shared/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-001.gif" alt="Hosted MS Exchange"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/wireless/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-002.gif" alt="Go Wireless"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/gallery/"><img border="0" width="160" height="127" src="/images/coppermine_ad.gif" alt="Coppermine Photo gallery"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/windows/defaultSQLtut.asp"><img border="0" width="160" height="140" src="/images/bs-ads-09b.gif" alt="Put Your Competition On Ice With MSSQL Hosting"></a><br /><br /><br /><br /><br /><br /><br />
+
+<a href="/hosting/shared/ecommerce/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-003.gif" alt="Intermedia.NET Recognized As One Of The Top E-Commerce Web Hosting Providers by Web Host Directory"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/fax/"><img border="0" width="160" height="143" src="/images/firstpage/b-ban-005.gif" alt="Special promotion: Fax via E-mail"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/ecommerce/miva/"><img border="0" width="160" height="140" src="/images/bs-ads-01b.gif" alt="Miva Merchant"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/shared/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-001.gif" alt="Hosted MS Exchange"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/wireless/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-002.gif" alt="Go Wireless"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/gallery/"><img border="0" width="160" height="127" src="/images/coppermine_ad.gif" alt="Coppermine Photo gallery"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/windows/defaultSQLtut.asp"><img border="0" width="160" height="140" src="/images/bs-ads-09b.gif" alt="Put Your Competition On Ice With MSSQL Hosting"></a><br /><br /><br /><br /><br /><br /><br />
+
+<a href="/hosting/shared/ecommerce/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-003.gif" alt="Intermedia.NET Recognized As One Of The Top E-Commerce Web Hosting Providers by Web Host Directory"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/fax/"><img border="0" width="160" height="143" src="/images/firstpage/b-ban-005.gif" alt="Special promotion: Fax via E-mail"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/ecommerce/miva/"><img border="0" width="160" height="140" src="/images/bs-ads-01b.gif" alt="Miva Merchant"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/shared/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-001.gif" alt="Hosted MS Exchange"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/wireless/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-002.gif" alt="Go Wireless"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/gallery/"><img border="0" width="160" height="127" src="/images/coppermine_ad.gif" alt="Coppermine Photo gallery"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/windows/defaultSQLtut.asp"><img border="0" width="160" height="140" src="/images/bs-ads-09b.gif" alt="Put Your Competition On Ice With MSSQL Hosting"></a><br /><br /><br /><br /><br /><br /><br />
+
+<a href="/hosting/shared/ecommerce/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-003.gif" alt="Intermedia.NET Recognized As One Of The Top E-Commerce Web Hosting Providers by Web Host Directory"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/fax/"><img border="0" width="160" height="143" src="/images/firstpage/b-ban-005.gif" alt="Special promotion: Fax via E-mail"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/ecommerce/miva/"><img border="0" width="160" height="140" src="/images/bs-ads-01b.gif" alt="Miva Merchant"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/shared/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-001.gif" alt="Hosted MS Exchange"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/wireless/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-002.gif" alt="Go Wireless"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/gallery/"><img border="0" width="160" height="127" src="/images/coppermine_ad.gif" alt="Coppermine Photo gallery"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/windows/defaultSQLtut.asp"><img border="0" width="160" height="140" src="/images/bs-ads-09b.gif" alt="Put Your Competition On Ice With MSSQL Hosting"></a><br /><br /><br /><br /><br /><br /><br />
+
+<a href="/hosting/shared/ecommerce/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-003.gif" alt="Intermedia.NET Recognized As One Of The Top E-Commerce Web Hosting Providers by Web Host Directory"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/fax/"><img border="0" width="160" height="143" src="/images/firstpage/b-ban-005.gif" alt="Special promotion: Fax via E-mail"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/ecommerce/miva/"><img border="0" width="160" height="140" src="/images/bs-ads-01b.gif" alt="Miva Merchant"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/shared/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-001.gif" alt="Hosted MS Exchange"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/wireless/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-002.gif" alt="Go Wireless"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/gallery/"><img border="0" width="160" height="127" src="/images/coppermine_ad.gif" alt="Coppermine Photo gallery"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/windows/defaultSQLtut.asp"><img border="0" width="160" height="140" src="/images/bs-ads-09b.gif" alt="Put Your Competition On Ice With MSSQL Hosting"></a><br /><br /><br /><br /><br /><br /><br />
+
+<a href="/hosting/shared/ecommerce/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-003.gif" alt="Intermedia.NET Recognized As One Of The Top E-Commerce Web Hosting Providers by Web Host Directory"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/fax/"><img border="0" width="160" height="143" src="/images/firstpage/b-ban-005.gif" alt="Special promotion: Fax via E-mail"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/ecommerce/miva/"><img border="0" width="160" height="140" src="/images/bs-ads-01b.gif" alt="Miva Merchant"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/shared/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-001.gif" alt="Hosted MS Exchange"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/wireless/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-002.gif" alt="Go Wireless"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/gallery/"><img border="0" width="160" height="127" src="/images/coppermine_ad.gif" alt="Coppermine Photo gallery"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/windows/defaultSQLtut.asp"><img border="0" width="160" height="140" src="/images/bs-ads-09b.gif" alt="Put Your Competition On Ice With MSSQL Hosting"></a><br /><br /><br /><br /><br /><br /><br />
+
+<a href="/hosting/shared/ecommerce/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-003.gif" alt="Intermedia.NET Recognized As One Of The Top E-Commerce Web Hosting Providers by Web Host Directory"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/fax/"><img border="0" width="160" height="143" src="/images/firstpage/b-ban-005.gif" alt="Special promotion: Fax via E-mail"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/ecommerce/miva/"><img border="0" width="160" height="140" src="/images/bs-ads-01b.gif" alt="Miva Merchant"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/shared/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-001.gif" alt="Hosted MS Exchange"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/wireless/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-002.gif" alt="Go Wireless"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/gallery/"><img border="0" width="160" height="127" src="/images/coppermine_ad.gif" alt="Coppermine Photo gallery"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/windows/defaultSQLtut.asp"><img border="0" width="160" height="140" src="/images/bs-ads-09b.gif" alt="Put Your Competition On Ice With MSSQL Hosting"></a><br /><br /><br /><br /><br /><br /><br />
+
+<a href="/hosting/shared/ecommerce/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-003.gif" alt="Intermedia.NET Recognized As One Of The Top E-Commerce Web Hosting Providers by Web Host Directory"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/fax/"><img border="0" width="160" height="143" src="/images/firstpage/b-ban-005.gif" alt="Special promotion: Fax via E-mail"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/ecommerce/miva/"><img border="0" width="160" height="140" src="/images/bs-ads-01b.gif" alt="Miva Merchant"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/shared/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-001.gif" alt="Hosted MS Exchange"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/wireless/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-002.gif" alt="Go Wireless"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/gallery/"><img border="0" width="160" height="127" src="/images/coppermine_ad.gif" alt="Coppermine Photo gallery"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/windows/defaultSQLtut.asp"><img border="0" width="160" height="140" src="/images/bs-ads-09b.gif" alt="Put Your Competition On Ice With MSSQL Hosting"></a><br /><br /><br /><br /><br /><br /><br />
+
+<a href="/hosting/shared/ecommerce/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-003.gif" alt="Intermedia.NET Recognized As One Of The Top E-Commerce Web Hosting Providers by Web Host Directory"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/fax/"><img border="0" width="160" height="143" src="/images/firstpage/b-ban-005.gif" alt="Special promotion: Fax via E-mail"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/ecommerce/miva/"><img border="0" width="160" height="140" src="/images/bs-ads-01b.gif" alt="Miva Merchant"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/shared/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-001.gif" alt="Hosted MS Exchange"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/wireless/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-002.gif" alt="Go Wireless"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/gallery/"><img border="0" width="160" height="127" src="/images/coppermine_ad.gif" alt="Coppermine Photo gallery"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/windows/defaultSQLtut.asp"><img border="0" width="160" height="140" src="/images/bs-ads-09b.gif" alt="Put Your Competition On Ice With MSSQL Hosting"></a><br /><br /><br /><br /><br /><br /><br />
+
+<a href="/hosting/shared/ecommerce/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-003.gif" alt="Intermedia.NET Recognized As One Of The Top E-Commerce Web Hosting Providers by Web Host Directory"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/fax/"><img border="0" width="160" height="143" src="/images/firstpage/b-ban-005.gif" alt="Special promotion: Fax via E-mail"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/ecommerce/miva/"><img border="0" width="160" height="140" src="/images/bs-ads-01b.gif" alt="Miva Merchant"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/shared/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-001.gif" alt="Hosted MS Exchange"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/exchange/wireless/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-002.gif" alt="Go Wireless"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/gallery/"><img border="0" width="160" height="127" src="/images/coppermine_ad.gif" alt="Coppermine Photo gallery"></a><br /><br /><br /><br /><br /><br /><br />
+<a href="/hosting/shared/windows/defaultSQLtut.asp"><img border="0" width="160" height="140" src="/images/bs-ads-09b.gif" alt="Put Your Competition On Ice With MSSQL Hosting"></a><br /><br /><br /><br /><br /><br /><br />
+
+<a href="/hosting/shared/ecommerce/"><img border="0" width="160" height="116" src="/images/firstpage/b-ban-003.gif" alt="Intermedia.NET Recognized As One Of The Top E-Commerce Web Hosting Providers by Web Host Directory"></a><br /><br /><br /><br /><br /><br /><br />
+</td></tr></table>
+										<center>
+										<br>&nbsp;</center></td>
+									</tr>
+								</table>
+								<center>
+								<table border="0" cellpadding="0" cellspacing="0" width="75%" id="table27" align="left">
+																		<tr>
+										<td width="100%" height="30" valign="top" class="header">Introduction to Structured Query Language: Version 4.11</td>
+									</tr>
+								</table>
+								</center>
+								
+								<p align="left"><br>
+								<br>
+								
+								This page is a tutorial of the <i>Structured 
+									Query Language </i>(also known as <b>SQL</b>) 
+									and is a pioneering effort on the World Wide 
+									Web, as this is the first comprehensive SQL 
+									tutorial available on the Internet. SQL allows 
+									users to access data in relational database 
+									management systems, such as Oracle, Sybase, 
+									Informix, Microsoft SQL Server, Access, and 
+									others, by allowing users to describe the data 
+									the user wishes to see. SQL also allows users 
+									to define the data in a database, and manipulate 
+									that data. This page will describe how to use 
+									SQL, and give examples. The SQL used in this 
+									document is &quot;ANSI&quot;, or standard SQL, and no 
+									SQL features of specific database management 
+									systems will be discussed until the &quot;Nonstandard 
+									SQL&quot; section. It is recommended that you print 
+									this page, so that you can easily refer back 
+									to previous examples. <br>
+&nbsp;</p>
+																		<hr size="1"  width="97%" align=left></center>
+									
+									</center>
+									<p align="left"><a name="Basics of the SELECT Statement"></a><font class="header">Basics 
+									of the SELECT Statement</font>
+									</p>
+									In a relational database, data is stored 
+									in tables. An example table would relate Social 
+									Security Number, Name, and Address: <br>
+&nbsp; 
+																		<table border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse" width="75%">
+										<tr>
+											<td nowrap colspan="6">
+											<p align="center"><b>EmployeeAddressTable</b></td>
+										</tr>
+										<tr>
+											<td nowrap bgcolor="#F0F0F0"><b>SSN</b></td>
+											<td nowrap bgcolor="#F0F0F0"><b>FirstName</b></td>
+											<td nowrap bgcolor="#F0F0F0"><b>LastName</b></td>
+											<td nowrap bgcolor="#F0F0F0"><b>Address</b></td>
+											<td nowrap bgcolor="#F0F0F0"><b>City</b></td>
+											<td nowrap bgcolor="#F0F0F0"><b>State</b></td>
+										</tr>
+										<tr>
+											<td nowrap>512687458</td>
+											<td nowrap>Joe</td>
+											<td nowrap>Smith </td>
+											<td nowrap>83 First Street</td>
+											<td nowrap>Howard</td>
+											<td nowrap>Ohio </td>
+										</tr>
+										<tr>
+											<td nowrap bgcolor="#FAFADE">758420012</td>
+											<td nowrap bgcolor="#FAFADE">Mary</td>
+											<td nowrap bgcolor="#FAFADE">Scott </td>
+											<td nowrap bgcolor="#FAFADE">842 Vine Ave.</td>
+											<td nowrap bgcolor="#FAFADE">Losantiville</td>
+											<td nowrap bgcolor="#FAFADE">Ohio </td>
+										</tr>
+										<tr>
+											<td nowrap>102254896</td>
+											<td nowrap>Sam</td>
+											<td nowrap>Jones </td>
+											<td nowrap>33 Elm St.</td>
+											<td nowrap>Paris</td>
+											<td nowrap>New York </td>
+										</tr>
+										<tr>
+											<td nowrap bgcolor="#FAFADE">876512563</td>
+											<td nowrap bgcolor="#FAFADE">Sarah</td>
+											<td nowrap bgcolor="#FAFADE">Ackerman </td>
+											<td nowrap bgcolor="#FAFADE">440 U.S. 110</td>
+											<td nowrap bgcolor="#FAFADE">Upton</td>
+											<td nowrap bgcolor="#FAFADE">Michigan </td>
+										</tr>
+									</table>
+									
+									</center>
+								</center>
+									
+									<p align="left">Now, let&#39;s say you want to see the address 
+									of each employee. Use the SELECT statement, 
+									like so: </p>
+																		<p align="left"><tt>SELECT FirstName, LastName, Address, 
+									City, State</tt> <br>
+									<tt>FROM EmployeeAddressTable;</tt> </p>
+																		<p align="left">The following is the results of your <i>query</i> 
+									of the database: <br>
+&nbsp; </p>
+																		<table border="1" id="table44" cellpadding="4" cellspacing="0" style="border-collapse: collapse" width="75%">
+										<tr>
+											<td nowrap bgcolor="#F0F0F0"><b>First Name</b></td>
+											<td nowrap bgcolor="#F0F0F0"><b>Last Name</b></td>
+											<td nowrap bgcolor="#F0F0F0"><b>Address</b></td>
+											<td nowrap bgcolor="#F0F0F0"><b>City</b></td>
+											<td nowrap bgcolor="#F0F0F0"><b>State</b></td>
+										</tr>
+										<tr>
+											<td nowrap>Joe</td>
+											<td nowrap>Smith</td>
+											<td nowrap>83 First Street </td>
+											<td nowrap>Howard</td>
+											<td nowrap>Ohio</td>
+										</tr>
+										<tr>
+											<td nowrap bgcolor="#FAFADE">Mary</td>
+											<td nowrap bgcolor="#FAFADE">Scott</td>
+											<td nowrap bgcolor="#FAFADE">842 Vine Ave. </td>
+											<td nowrap bgcolor="#FAFADE">Losantiville</td>
+											<td nowrap bgcolor="#FAFADE">Ohio</td>
+										</tr>
+										<tr>
+											<td nowrap>Sam</td>
+											<td nowrap>Jones</td>
+											<td nowrap>33 Elm St. </td>
+											<td nowrap>Paris</td>
+											<td nowrap>New York</td>
+										</tr>
+										<tr>
+											<td nowrap bgcolor="#FAFADE">Sarah</td>
+											<td nowrap bgcolor="#FAFADE">Ackerman</td>
+											<td nowrap bgcolor="#FAFADE">440 U.S. 110 </td>
+											<td nowrap bgcolor="#FAFADE">Upton</td>
+											<td nowrap bgcolor="#FAFADE">Michigan</td>
+										</tr>
+									</table>
+									
+									</center>
+									
+								
+									
+									<p align="left">To explain what you just did, you asked for 
+									the all of data in the EmployeeAddressTable, 
+									and specifically, you asked for the <i>columns</i> 
+									called FirstName, LastName, Address, City, and 
+									State. Note that column names and table names 
+									do not have spaces...they must be typed as one 
+									word; and that the statement ends with a semicolon 
+									(;). The general form for a SELECT statement, 
+									retrieving all of the <i>rows</i> in the table 
+									is: </p>
+									
+									<p align="left"><tt>SELECT ColumnName, ColumnName, ...</tt>
+									<br>
+									<tt>FROM TableName;</tt> </p>
+									
+									<p align="left">To get all columns of a table without typing 
+									all column names, use: </p>
+									
+									<p align="left"><tt>SELECT * FROM TableName;</tt> </p>
+									
+									<p align="left">Each database management system (DBMS) and 
+									database software has different methods for 
+									logging in to the database and entering SQL 
+									commands; see the local computer &quot;guru&quot; to help 
+									you get onto the system, so that you can use 
+									SQL.&nbsp; </p>
+									
+									<hr size="1" align="left">
+									<p align="left"><a name="Conditional Selection"></a>
+									<font class="header">Conditional Selection</font>
+									</p>
+									
+									<p align="left">To further discuss the SELECT statement, 
+									let&#39;s look at a new example table (for hypothetical 
+									purposes only): <br>
+&nbsp; </p>
+								<center>	
+									<table border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse" width="400px">
+										<tr>
+											<td colspan="4"><center>
+											<b>EmployeeStatisticsTable</b></center>
+											</td>
+										</tr>
+										<tr>
+											<td bgcolor="#F0F0F0"><b>EmployeeIDNo</b></td>
+											<td bgcolor="#F0F0F0"><b>Salary</b></td>
+											<td bgcolor="#F0F0F0"><b>Benefits</b></td>
+											<td bgcolor="#F0F0F0"><b>Position</b></td>
+										</tr>
+										<tr>
+											<td>010</td>
+											<td>75000</td>
+											<td>15000 </td>
+											<td>Manager</td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">105</td>
+											<td bgcolor="#FAFADE">65000</td>
+											<td bgcolor="#FAFADE">15000 </td>
+											<td bgcolor="#FAFADE">Manager</td>
+										</tr>
+										<tr>
+											<td>152</td>
+											<td>60000</td>
+											<td>15000 </td>
+											<td>Manager</td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">215</td>
+											<td bgcolor="#FAFADE">60000</td>
+											<td bgcolor="#FAFADE">12500 </td>
+											<td bgcolor="#FAFADE">Manager</td>
+										</tr>
+										<tr>
+											<td>244</td>
+											<td>50000</td>
+											<td>12000 </td>
+											<td>Staff</td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">300</td>
+											<td bgcolor="#FAFADE">45000</td>
+											<td bgcolor="#FAFADE">10000 </td>
+											<td bgcolor="#FAFADE">Staff</td>
+										</tr>
+										<tr>
+											<td>335</td>
+											<td>40000</td>
+											<td>10000 </td>
+											<td>Staff</td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">400</td>
+											<td bgcolor="#FAFADE">32000</td>
+											<td bgcolor="#FAFADE">7500 </td>
+											<td bgcolor="#FAFADE">Entry-Level</td>
+										</tr>
+										<tr>
+											<td>441</td>
+											<td>28000</td>
+											<td>7500 </td>
+											<td>Entry-Level</td>
+										</tr>
+									</table>
+									</center>
+									<h4></h4>
+									<hr size="1">
+									</center>
+									
+								
+									
+									</center>
+								<p align="left">
+									<a name="Relational Operators"></a><font class="header">Relational 
+									Operators</font></p>
+									<center>
+									
+									<center>
+									<h4 align="left"></h4>
+									<center>
+									
+									<center>
+									<p align="left">There are six Relational Operators in SQL, and 
+									after introducing them, we&#39;ll see how they&#39;re 
+									used: <br>
+&nbsp;
+									</p>
+									<center>
+									<table border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse" width="50%">
+										<tr>
+											<td bgcolor="#FAFADE">=</td>
+											<td bgcolor="#FAFADE"><b>Equal</b></td>
+										</tr>
+										<tr>
+											<td>&lt;&gt; or != (see manual)</td>
+											<td><b>Not Equal </b> </td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">&lt;</td>
+											<td bgcolor="#FAFADE"><b>Less Than</b></td>
+										</tr>
+										<tr>
+											<td>&gt;</td>
+											<td><b>Greater Than</b></td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">&lt;=</td>
+											<td bgcolor="#FAFADE"><b>Less Than or Equal To</b></td>
+										</tr>
+										<tr>
+											<td>&gt;=</td>
+											<td><b>Greater Than or Equal 
+											To </b> </td>
+										</tr>
+									</table>
+									</center>
+									
+									<p align="left">The <i>WHERE </i>clause is used to specify 
+									that only certain rows of the table are displayed, 
+									based on the criteria described in that <i>WHERE 
+									clause</i>. It is most easily understood by 
+									looking at a couple of examples. </p>
+									
+									
+									<p align="left">If you wanted to see the EMPLOYEEIDNO&#39;s of 
+									those making at or over $50,000, use the following:
+									</p>
+									
+									
+									<p align="left"><tt>SELECT EMPLOYEEIDNO</tt> <br>
+									<tt>FROM EMPLOYEESTATISTICSTABLE</tt> <br>
+									<tt>WHERE SALARY &gt;= 50000;</tt> </p>
+									
+									
+									<p align="left">Notice that the &gt;= (greater than or equal 
+									to) sign is used, as we wanted to see those 
+									who made greater than $50,000, or equal to $50,000, 
+									listed together. This displays: </p>
+									
+									
+									<center>
+									<p align="center"><tt>EMPLOYEEIDNO</tt> <br>
+									<tt>------------</tt> <br>
+									<tt>010</tt> <br>
+									<tt>105</tt> <br>
+									<tt>152</tt> <br>
+									<tt>215</tt> <br>
+									<tt>244</tt> </p>
+									</center>
+									
+									
+									<p align="left">The <i>WHERE</i> description, SALARY &gt;= 50000, 
+									is known as a <i>condition</i> (an operation 
+									which evaluates to True or False)<i>.</i> The 
+									same can be done for text columns: </p>
+									
+									<p align="left"><tt>SELECT EMPLOYEEIDNO</tt> <br>
+									<tt>FROM EMPLOYEESTATISTICSTABLE</tt> <br>
+									<tt>WHERE POSITION = &#39;Manager&#39;;</tt> </p>
+									
+									<p align="left">This displays the ID Numbers of all Managers. 
+									Generally, with text columns, stick to equal 
+									to or not equal to, and make sure that any text 
+									that appears in the statement is surrounded 
+									by single quotes (&#39;). </p>
+																																																																																																																																																																																													<center>
+									
+																		
+																		
+																																																																																																																																																																																																						
+																		
+																		
+																																																																																																																																																																																																						
+																		
+																		
+																																																																																																																																																																																																						
+																		
+																		
+									<center>
+									<p align="left"></p>
+									<hr size="1">
+									<p align="left"><a name="Compound Conditions"></a>
+									<font class="header">More Complex Conditions: Compound 
+									Conditions / Logical Operators</font>
+									<p align="left">The <i>AND</i> operator joins two or more 
+									conditions, and displays a row only if that 
+									row&#39;s data satisfies <b>ALL</b> conditions listed 
+									(i.e. all conditions hold true). For example, 
+									to display all staff making over $40,000, use:
+									</p>
+									<p align="left"><tt>SELECT EMPLOYEEIDNO</tt> <br>
+									<tt>FROM EMPLOYEESTATISTICSTABLE</tt> <br>
+									<tt>WHERE SALARY &gt; 40000 AND POSITION = &#39;Staff&#39;;</tt>
+									</p>
+									<p align="left">The <i>OR</i> operator joins two or more 
+									conditions, but returns a row if <b>ANY</b> 
+									of the conditions listed hold true. To see all 
+									those who make less than $40,000 or have less 
+									than $10,000 in benefits, listed together, use 
+									the following query: </p>
+									<p align="left"><tt>SELECT EMPLOYEEIDNO</tt> <br>
+									<tt>FROM EMPLOYEESTATISTICSTABLE</tt> <br>
+									<tt>WHERE SALARY &lt; 40000 OR BENEFITS &lt; 10000;</tt>
+									</p>
+									<p align="left">AND &amp; OR can be combined, for example:
+									</p>
+									<p align="left"><tt>SELECT EMPLOYEEIDNO</tt> <br>
+									<tt>FROM EMPLOYEESTATISTICSTABLE</tt> <br>
+									<tt>WHERE POSITION = &#39;Manager&#39; AND SALARY &gt; 
+									60000 OR BENEFITS &gt; 12000;</tt> </p>
+									<p align="left">First, SQL finds the rows where the salary 
+									is greater than $60,000 and the position column 
+									is equal to Manager, then taking this new list 
+									of rows, SQL then sees if any of these rows 
+									satisfies the previous AND condition or the 
+									condition that the Benefits column is greater 
+									then $12,000. Subsequently, SQL only displays 
+									this second new list of rows, keeping in mind 
+									that anyone with Benefits over $12,000 will 
+									be included as the OR operator includes a row 
+									if either resulting condition is True. Also 
+									note that the AND operation is done first.
+									</p>
+									<p align="left">To generalize this process, SQL performs 
+									the AND operation(s) to determine the rows where 
+									the AND operation(s) hold true (remember: all 
+									of the conditions are true), then these results 
+									are used to compare with the OR conditions, 
+									and only display those remaining rows where 
+									any of the conditions joined by the OR operator 
+									hold true (where a condition or result from 
+									an AND is paired with another condition or AND 
+									result to use to evaluate the OR, which evaluates 
+									to true if either value is true). Mathematically, 
+									SQL evaluates all of the conditions, then evaluates 
+									the AND &quot;pairs&quot;, and then evaluates the OR&#39;s 
+									(where both operators evaluate left to right).
+									</p>
+									<p align="left">To look at an example, for a given row for 
+									which the DBMS is evaluating the SQL statement 
+									Where clause to determine whether to include 
+									the row in the query result (the whole Where 
+									clause evaluates to True), the DBMS has evaluated 
+									all of the conditions, and is ready to do the 
+									logical comparisons on this result: </p>
+									<p align="left"><tt>True AND False OR True AND True OR False 
+									AND False</tt> </p>
+									<p align="left">First simplify the AND pairs: </p>
+									<p align="left"><tt>False OR True OR False</tt> </p>
+									<p align="left">Now do the OR&#39;s, left to right: </p>
+									<p align="left"><tt>True OR False</tt> <br>
+									<tt>True</tt> </p>
+									<p align="left">The result is True, and the row passes the 
+									query conditions. Be sure to see the next section 
+									on NOT&#39;s, and the order of logical operations. 
+									I hope that this section has helped you understand 
+									AND&#39;s or OR&#39;s, as it&#39;s a difficult subject to 
+									explain briefly (especially when you write a 
+									version and the editor loses the changes--on 
+									multiple occasions no less!). </p>
+									<p align="left">To perform OR&#39;s before AND&#39;s, like if you 
+									wanted to see a list of employees making a large 
+									salary (&gt;$50,000) or have a large benefit package 
+									(&gt;$10,000), and that happen to be a manager, 
+									use parentheses: </p>
+									<p align="left"><tt>SELECT EMPLOYEEIDNO</tt> <br>
+									<tt>FROM EMPLOYEESTATISTICSTABLE</tt> <br>
+									<tt>WHERE POSITION = &#39;Manager&#39; AND (SALARY &gt; 
+									50000 OR BENEFIT &gt; 10000);</tt> </p>
+									<p align="left"></p>
+									<hr size="1"><p align="left"><a name="IN &amp; BETWEEN">
+									</a><font class="header"><i>IN &amp; BETWEEN</i></font>
+									<p align="left">An easier method of using compound conditions 
+									uses <i>IN</i> or <i>BETWEEN.</i> <br>
+									For example, 
+									if you wanted to list all managers and staff:
+									</p>
+									<p align="left"><tt>SELECT EMPLOYEEIDNO</tt> <br>
+									<tt>FROM EMPLOYEESTATISTICSTABLE</tt> <br>
+									<tt>WHERE POSITION IN (&#39;Manager&#39;, &#39;Staff&#39;);</tt>
+									</p>
+									<p align="left">or to list those making greater than or equal 
+									to $30,000, but less than or equal to $50,000, 
+									use: </p>
+									<p align="left"><tt>SELECT EMPLOYEEIDNO</tt> <br>
+									<tt>FROM EMPLOYEESTATISTICSTABLE</tt> <br>
+									<tt>WHERE SALARY BETWEEN 30000 AND 50000;</tt>
+									</p>
+									<p align="left">To list everyone not in this range, try:
+									</p>
+									<p align="left"><tt>SELECT EMPLOYEEIDNO</tt> <br>
+									<tt>FROM EMPLOYEESTATISTICSTABLE</tt> <br>
+									<tt>WHERE SALARY NOT BETWEEN 30000 AND 50000;</tt>
+									</p>
+									<p align="left">Similarly, NOT IN lists all rows excluded 
+									from the <i>IN</i> list. </p>
+									<p align="left">Additionally, NOT&#39;s can be thrown in with 
+									AND&#39;s &amp; OR&#39;s, except that NOT is a unary operator 
+									(evaluates one condition, reversing its value, 
+									whereas, AND&#39;s &amp; OR&#39;s evaluate two conditions), 
+									and that all NOT&#39;s are performed before any 
+									AND&#39;s or OR&#39;s. </p>
+									<p align="left"><b><i>SQL Order of Logical Operations (each 
+									operates from left to right)</i></b> </p>
+									<ol>
+										<li>NOT</font></li>
+										<li>AND</font></li>
+										<li>&nbsp;&nbsp;OR</font></li>
+									</ol>
+									<hr size="1"><p align="left"><a name="Using LIKE"></a>
+									<font class="header">Using<i> LIKE</i></font>
+									<p align="left">Look at the EmployeeStatisticsTable, and 
+									say you wanted to see all people whose last 
+									names started with &quot;L&quot;; try: </p>
+									<p align="left"><tt>SELECT EMPLOYEEIDNO</tt> <br>
+									<tt>FROM EMPLOYEESTATISTICSTABLE</tt> <br>
+									<tt>WHERE LASTNAME LIKE &#39;L%&#39;;</tt> </p>
+									<p align="left">The percent sign (%) is used to represent 
+									any possible character (number, letter, or punctuation) 
+									or set of characters that might appear after 
+									the &quot;L&quot;. To find those people with LastName&#39;s 
+									ending in &quot;L&quot;, use &#39;%L&#39;, or if you wanted the 
+									&quot;L&quot; in the middle of the word, try &#39;%L%&#39;. The 
+									&#39;%&#39; can be used for any characters in the same 
+									position relative to the given characters. NOT 
+									LIKE displays rows not fitting the given description. 
+									Other possiblities of using LIKE, or any of 
+									these discussed conditionals, are available, 
+									though it depends on what DBMS you are using; 
+									as usual, consult a manual or your system manager 
+									or administrator for the available features 
+									on your system, or just to make sure that what 
+									you are trying to do is available and allowed. 
+									This disclaimer holds for the features of SQL 
+									that will be discussed below. This section is 
+									just to give you an idea of the possibilities 
+									of queries that can be written in SQL.&nbsp;
+									</p>
+									<hr size="1"><p align="left"><a name="Joins"></a>
+									<font class="header">Joins</font>
+									<p align="left">In this section, we will only discuss <i>
+									inner</i> joins, and <i>equijoins</i>, as in 
+									general, they are the most useful. For more 
+									information, try the SQL links at the bottom 
+									of the page. </p>
+									<p align="left">Good database design suggests that each table 
+									lists data only about a single <i>entity</i>, 
+									and detailed information can be obtained in 
+									a relational database, by using additional tables, 
+									and by using a <i>join</i>. </p>
+									<p align="left">First, take a look at these example tables:
+									</p>
+									<table border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse" width="50%">
+										<b>AntiqueOwners</b> <br>
+&nbsp;<tr>
+											<td bgcolor="#F0F0F0"><b>OwnerID</b></td>
+											<td bgcolor="#F0F0F0"><b>OwnerLastName</b></td>
+											<td bgcolor="#F0F0F0"><b>OwnerFirstName</b></td>
+										</tr>
+										<tr>
+											<td>01</td>
+											<td>Jones</td>
+											<td>Bill</td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">02</td>
+											<td bgcolor="#FAFADE">Smith</td>
+											<td bgcolor="#FAFADE">Bob</td>
+										</tr>
+										<tr>
+											<td>15</td>
+											<td>Lawson</td>
+											<td>Patricia</td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">21</td>
+											<td bgcolor="#FAFADE">Akins</td>
+											<td bgcolor="#FAFADE">Jane</td>
+										</tr>
+										<tr>
+											<td>50</td>
+											<td>Fowler</td>
+											<td>Sam</td>
+										</tr>
+									</table>
+									<p align="left"></p>
+									<table border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse" width="50%">
+										<b>Orders</b> <br>
+&nbsp;<tr>
+											<td bgcolor="#F0F0F0"><b>OwnerID</b></td>
+											<td bgcolor="#F0F0F0"><b>ItemDesired</b></td>
+										</tr>
+										<tr>
+											<td>02</td>
+											<td>Table</td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">02</td>
+											<td bgcolor="#FAFADE">Desk</td>
+										</tr>
+										<tr>
+											<td>21</td>
+											<td>Chair</td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">15</td>
+											<td bgcolor="#FAFADE">Mirror</td>
+										</tr>
+									</table>
+									<p align="left"></p>
+									<table border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse" width="50%">
+										<b>Antiques</b> <br>
+&nbsp;<tr>
+											<td bgcolor="#F0F0F0"><b>SellerID</b></td>
+											<td bgcolor="#F0F0F0"><b>BuyerID</b></td>
+											<td bgcolor="#F0F0F0"><b>Item</b></td>
+										</tr>
+										<tr>
+											<td>01</td>
+											<td>50</td>
+											<td>Bed</td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">02</td>
+											<td bgcolor="#FAFADE">15</td>
+											<td bgcolor="#FAFADE">Table</td>
+										</tr>
+										<tr>
+											<td>15</td>
+											<td>02</td>
+											<td>Chair</td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">21</td>
+											<td bgcolor="#FAFADE">50</td>
+											<td bgcolor="#FAFADE">Mirror</td>
+										</tr>
+										<tr>
+											<td>50</td>
+											<td>01</td>
+											<td>Desk</td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">01</td>
+											<td bgcolor="#FAFADE">21</td>
+											<td bgcolor="#FAFADE">Cabinet</td>
+										</tr>
+										<tr>
+											<td>02</td>
+											<td>21</td>
+											<td>Coffee Table</td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">15</td>
+											<td bgcolor="#FAFADE">50</td>
+											<td bgcolor="#FAFADE">Chair</td>
+										</tr>
+										<tr>
+											<td>01</td>
+											<td>15</td>
+											<td>Jewelry Box</td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">02</td>
+											<td bgcolor="#FAFADE">21</td>
+											<td bgcolor="#FAFADE">Pottery</td>
+										</tr>
+										<tr>
+											<td>21</td>
+											<td>02</td>
+											<td>Bookcase</td>
+										</tr>
+										<tr>
+											<td bgcolor="#FAFADE">50</td>
+											<td bgcolor="#FAFADE">01</td>
+											<td bgcolor="#FAFADE">Plant Stand</td>
+										</tr>
+									</table>
+									
+									<hr size="1"><p align="left"><a name="Keys"></a><font class="header">Keys</font>
+									<p align="left">First, let&#39;s discuss the concept of <i>keys</i>. 
+									A <i>primary key</i> is a column or set of columns 
+									that uniquely identifies the rest of the data 
+									in any given row. For example, in the AntiqueOwners 
+									table, the OwnerID column uniquely identifies 
+									that row. This means two things: no two rows 
+									can have the same OwnerID, and, even if two 
+									owners have the same first and last names, the 
+									OwnerID column ensures that the two owners will 
+									not be confused with each other, because the 
+									unique OwnerID column will be used throughout 
+									the database to track the owners, rather than 
+									the names. </p>
+									<p align="left">A<i> foreign key</i> is a column in a table 
+									where that column is a primary key of another 
+									table, which means that any data in a foreign 
+									key column must have corresponding data in the 
+									other table where that column is the primary 
+									key. In DBMS-speak, this correspondence is known 
+									as <i>referential integrity</i>. For example, 
+									in the Antiques table, both the BuyerID and 
+									SellerID are foreign keys to the primary key 
+									of the AntiqueOwners table (OwnerID; for purposes 
+									of argument, one has to be an Antique Owner 
+									before one can buy or sell any items), as, in 
+									both tables, the ID rows are used to identify 
+									the owners or buyers and sellers, and that the 
+									OwnerID is the primary key of the AntiqueOwners 
+									table. In other words, all of this &quot;ID&quot; data 
+									is used to refer to the owners, buyers, or sellers 
+									of antiques, themselves, without having to use 
+									the actual names. </p>
+									
+									<hr size="1"><p align="left">
+									<a name="Performing a Join"></a><font class="header">Performing 
+									a Join</font>
+									<p align="left">The purpose of these <i>keys</i> is so that 
+									data can be related across tables, without having 
+									to repeat data in every table--this is the power 
+									of relational databases. For example, you can 
+									find the names of those who bought a chair without 
+									having to list the full name of the buyer in 
+									the Antiques table...you can get the name by 
+									relating those who bought a chair with the names 
+									in the AntiqueOwners table through the use of 
+									the OwnerID, which <i>relates</i> the data in 
+									the two tables. To find the names of those who 
+									bought a chair, use the following query: </p>
+									<p align="left"><tt>SELECT OWNERLASTNAME, OWNERFIRSTNAME</tt>
+									<br>
+									<tt>FROM ANTIQUEOWNERS, ANTIQUES</tt> <br>
+									<tt>WHERE BUYERID = OWNERID AND ITEM = &#39;Chair&#39;;</tt>
+									</p>
+									<p align="left">Note the following about this query...notice 
+									that both tables involved in the relation are 
+									listed in the FROM clause of the statement. 
+									In the WHERE clause, first notice that the ITEM 
+									= &#39;Chair&#39; part restricts the listing to those 
+									who have bought (and in this example, thereby 
+									owns) a chair. Secondly, notice how the ID columns 
+									are related from one table to the next by use 
+									of the BUYERID = OWNERID clause. Only where 
+									ID&#39;s match across tables and the item purchased 
+									is a chair (because of the AND), will the names 
+									from the AntiqueOwners table be listed. Because 
+									the joining condition used an equal sign, this 
+									join is called an <i>equijoin</i>. The result 
+									of this query is two names: Smith, Bob &amp; Fowler, 
+									Sam. </p>
+									<p align="left"><i>Dot notation</i> refers to prefixing the 
+									table names to column names, to avoid ambiguity, 
+									as such: </p>
+									<p align="left"><tt>SELECT ANTIQUEOWNERS.OWNERLASTNAME, ANTIQUEOWNERS.OWNERFIRSTNAME</tt>
+									<br>
+									<tt>FROM ANTIQUEOWNERS, ANTIQUES</tt> <br>
+									<tt>WHERE ANTIQUES.BUYERID = ANTIQUEOWNERS.OWNERID 
+									AND ANTIQUES.ITEM = &#39;Chair&#39;;</tt> </p>
+									<p align="left">As the column names are different in each 
+									table, however, this wasn&#39;t necessary. </p>
+									
+									<hr size="1"><p align="left">
+									<a name="Eliminating Duplicates"></a><font class="header"><i>DISTINCT</i> 
+									and Eliminating Duplicates</font>
+									<p align="left">Let&#39;s say that you want to list the ID and 
+									names of <b>only</b> those people who have sold 
+									an antique. Obviously, you want a list where 
+									each seller is only listed once--you don&#39;t want 
+									to know how many antiques a person sold, just 
+									the fact that this person sold one (for counts, 
+									see the Aggregate Function section below). This 
+									means that you will need to tell SQL to eliminate 
+									duplicate sales rows, and just list each person 
+									only once. To do this, use the <i>DISTINCT</i> 
+									keyword. </p>
+									<p align="left">First, we will need an equijoin to the AntiqueOwners 
+									table to get the detail data of the person&#39;s 
+									LastName and FirstName. However, keep in mind 
+									that since the SellerID column in the Antiques 
+									table is a foreign key to the AntiqueOwners 
+									table, a seller will only be listed if there 
+									is a row in the AntiqueOwners table listing 
+									the ID and names. We also want to eliminate 
+									multiple occurences of the SellerID in our listing, 
+									so we use <i>DISTINCT </i><b>on the column where 
+									the repeats may occur.</b> </p>
+									<p align="left">To throw in one more twist, we will also 
+									want the list alphabetized by LastName, then 
+									by FirstName (on a LastName tie). Thus, we will 
+									use the <i>ORDER BY</i> clause: </p>
+									<p align="left"><tt>SELECT DISTINCT SELLERID, OWNERLASTNAME, 
+									OWNERFIRSTNAME</tt> <br>
+									<tt>FROM ANTIQUES, ANTIQUEOWNERS</tt> <br>
+									<tt>WHERE SELLERID = OWNERID</tt> <br>
+									<tt>ORDER BY OWNERLASTNAME, OWNERFIRSTNAME;</tt>
+									</p>
+									<p align="left">In this example, since everyone has sold 
+									an item, we will get a listing of all of the 
+									owners, in alphabetical order by last name. 
+									For future reference (and in case anyone asks), 
+									this type of join is considered to be in the 
+									category of <i>inner joins.</i> </p>
+									
+									<hr size="1"><p align="left">
+									<a name="Aliases &amp; In/Subqueries"></a><font class="header">
+									Aliases &amp; <i>In</i>/Subqueries</font>
+									<p align="left">In this section, we will talk about <i>Aliases</i>,
+									<i>In</i> and the use of subqueries, and how 
+									these can be used in a 3-table example. First, 
+									look at this query which prints the last name 
+									of those owners who have placed an order and 
+									what the order is, only listing those orders 
+									which can be filled (that is, there is a buyer 
+									who owns that ordered item): </p>
+									<p align="left"><tt>SELECT OWN.OWNERLASTNAME Last Name, ORD.ITEMDESIRED 
+									Item Ordered</tt> <br>
+									<tt>FROM ORDERS ORD, ANTIQUEOWNERS OWN</tt>
+									<br>
+									<tt>WHERE ORD.OWNERID = OWN.OWNERID</tt> <br>
+									<tt>AND ORD.ITEMDESIRED IN</tt> 
+									<p align="left">
+									<ul>
+										<tt>(SELECT ITEM</tt> <br>
+										<tt>FROM ANTIQUES);</tt></ul>
+									This gives:
+									<tt><br>
+									Last Name Item Ordered</tt> <br>
+									<tt>--------- ------------</tt> <br>
+									<tt>Smith&nbsp;&nbsp;&nbsp;&nbsp; Table</tt>
+									<br>
+									<tt>Smith&nbsp;&nbsp;&nbsp;&nbsp; Desk</tt>
+									<br>
+									<tt>Akins&nbsp;&nbsp;&nbsp;&nbsp; Chair</tt>
+									<br>
+									<tt>Lawson&nbsp;&nbsp;&nbsp; Mirror</tt> <br>
+&nbsp;</center>
+									
+										<div align="left"><b>There are several things to note about this 
+									query:
+										</b>
+										<ol>
+										<li>First, the "Last Name" and "Item Ordered" in the Select lines gives the headers on the report.<br>
+&nbsp;<li>The OWN &amp; ORD are aliases; these are 
+										new names for the two tables listed in the 
+										FROM clause that are used as prefixes for 
+										all dot notations of column names in the 
+										query (see above). This eliminates ambiguity, 
+										especially in the equijoin WHERE clause 
+										where both tables have the column named 
+										OwnerID, and the dot notation tells SQL 
+										that we are talking about two different 
+										OwnerID&#39;s from the two different tables.<br>
+&nbsp;</li>
+										<li>Note that the Orders table is listed 
+										first in the FROM clause; this makes sure 
+										listing is done off of that table, and the 
+										AntiqueOwners table is only used for the 
+										detail information (Last Name).<br>
+&nbsp;</li>
+										<li>Most importantly, the AND in the WHERE 
+										clause forces the In Subquery to be invoked 
+										(&quot;= ANY&quot; or &quot;= SOME&quot; are two equivalent 
+										uses of IN). What this does is, the subquery 
+										is performed, returning all of the Items 
+										owned from the Antiques table, as there 
+										is no WHERE clause. Then, for a row from 
+										the Orders table to be listed, the ItemDesired 
+										must be in that returned list of Items owned 
+										from the Antiques table, thus listing an 
+										item only if the order can be filled from 
+										another owner. You can think of it this 
+										way: the subquery returns a <i>set</i> of 
+										Items from which each ItemDesired in the 
+										Orders table is compared; the In condition 
+										is true only if the ItemDesired is in that 
+										returned set from the Antiques table.<br>
+&nbsp;</li>
+										<li>Also notice, that in this case, that 
+										there happened to be an antique available 
+										for each one desired...obviously, that won&#39;t 
+										always be the case. In addition, notice 
+										that when the IN, &quot;= ANY&quot;, or &quot;= SOME&quot; is 
+										used, that these keywords refer to any possible 
+										row matches, not column matches...that is, 
+										you cannot put multiple columns in the subquery 
+										Select clause, in an attempt to match the 
+										column in the outer Where clause to one 
+										of multiple possible column values in the 
+										subquery; only one column can be listed 
+										in the subquery, and the possible match 
+										comes from multiple <i>row</i> values in 
+										that <i>one</i> column, not vice-versa.</li>
+									</ol>
+									Whew! That&#39;s enough on the topic of complex 
+									SELECT queries for now. Now on to other SQL 
+									statements.&nbsp;</div> <hr size="1"><b>
+									<p align="left"><font class="header">Miscellaneous SQL Statements</font></b>
+									<p align="left"><a name="Aggregate Functions"></a><b>Aggregate 
+									Functions</b> </p>
+									<p align="left">I will discuss five important <i>aggregate 
+									functions</i>: SUM, AVG, MAX, MIN, and COUNT. 
+									They are called aggregate functions because 
+									they summarize the results of a query, rather 
+									than listing all of the rows. 
+									<div align="left">
+									<ul>
+										<li>SUM () gives the total of all the rows, 
+										satisfying any conditions, of the given 
+										column, where the given column is numeric.</li>
+										<li>AVG () gives the average of the given 
+										column.</li>
+										<li>MAX () gives the largest figure in the 
+										given column.</li>
+										<li>MIN () gives the smallest figure in 
+										the given column.</li>
+										<li>COUNT(*) gives the number of rows satisfying 
+										the conditions.</li>
+									</ul>
+									Looking at the tables at the top of the document, 
+									let&#39;s look at three examples:
+									<p align="left"><tt>SELECT SUM(SALARY), AVG(SALARY)</tt>
+									<br>
+									<tt>FROM EMPLOYEESTATISTICSTABLE;</tt> </p>
+									<p align="left">This query shows the total of all salaries 
+									in the table, and the average salary of all 
+									of the entries in the table. </p>
+									<p align="left"><tt>SELECT MIN(BENEFITS)</tt> <br>
+									<tt>FROM EMPLOYEESTATISTICSTABLE</tt> <br>
+									<tt>WHERE POSITION = &#39;Manager&#39;;</tt> </p>
+									<p align="left">This query gives the smallest figure of the 
+									Benefits column, of the employees who are Managers, 
+									which is 12500. </p>
+									<p align="left"><tt>SELECT COUNT(*)</tt> <br>
+									<tt>FROM EMPLOYEESTATISTICSTABLE</tt> <br>
+									<tt>WHERE POSITION = &#39;Staff&#39;;</tt> </p>
+									<p align="left">This query tells you how many employees have 
+									Staff status (3). </p>
+									<p align="left"></p>
+									<hr size="1"><a name="Views"></a><b>Views</b>
+									<p align="left">In SQL, you might (check your DBA) have access 
+									to create views for yourself. What a view does 
+									is to allow you to assign the results of a query 
+									to a new, personal table, that you can use in 
+									other queries, where this new table is given 
+									the view name in your FROM clause. When you 
+									access a view, the query that is defined in 
+									your view creation statement is performed (generally), 
+									and the results of that query look just like 
+									another table in the query that you wrote invoking 
+									the view. For example, to create a view: </p>
+									<p align="left"><tt>CREATE VIEW ANTVIEW AS SELECT ITEMDESIRED 
+									FROM ORDERS;</tt> </p>
+									<p align="left">Now, write a query using this view as a table, 
+									where the table is just a listing of all Items 
+									Desired from the Orders table: </p>
+									<p align="left"><tt>SELECT SELLERID</tt> <br>
+									<tt>FROM ANTIQUES, ANTVIEW</tt> <br>
+									<tt>WHERE ITEMDESIRED = ITEM;</tt> </p>
+									<p align="left">This query shows all SellerID&#39;s from the 
+									Antiques table where the Item in that table 
+									happens to appear in the Antview view, which 
+									is just all of the Items Desired in the Orders 
+									table. The listing is generated by going through 
+									the Antique Items one-by-one until there&#39;s a 
+									match with the Antview view. Views can be used 
+									to restrict database access, as well as, in 
+									this case, simplify a complex query. </p>
+									<p align="left"></p>
+									<hr size="1">
+									<a name="Creating New Tables"></a><b>Creating 
+									New Tables</b>
+									<p align="left">All tables within a database must be created 
+									at some point in time...let&#39;s see how we would 
+									create the Orders table: </p>
+									<p align="left"><tt>CREATE TABLE ORDERS</tt> <br>
+									<tt>(OWNERID INTEGER NOT NULL,</tt> <br>
+									<tt>ITEMDESIRED CHAR(40) NOT NULL);</tt> </p>
+									<p align="left">This statement gives the table name and tells 
+									the DBMS about each column in the table. <b>
+									<i>Please note</i></b> that this statement uses 
+									generic data types, and that the data types 
+									might be different, depending on what DBMS you 
+									are using. As usual, check local listings. Some 
+									common generic data types are: </p>
+									<ul>
+										<li>Char(x) - A column of characters, where 
+										x is a number designating the maximum number 
+										of characters allowed (maximum length) in 
+										the column.</li>
+										<li>Integer - A column of whole numbers, 
+										positive or negative.</li>
+										<li>Decimal(x, y) - A column of decimal 
+										numbers, where x is the maximum length in 
+										digits of the decimal numbers in this column, 
+										and y is the maximum number of digits allowed 
+										after the decimal point. The maximum (4,2) 
+										number would be 99.99.</li>
+										<li>Date - A date column in a DBMS-specific 
+										format.</li>
+										<li>Logical - A column that can hold only 
+										two values: TRUE or FALSE.</li>
+									</ul>
+									One other note, the NOT NULL means that the 
+									column must have a value in each row. If NULL 
+									was used, that column may be left empty in a 
+									given row.
+									<p align="left"></p>
+									<hr size="1"><a name="Altering Tables">
+									</a><b>Altering Tables</b>
+									<p align="left">Let&#39;s add a column to the Antiques table 
+									to allow the entry of the price of a given Item:
+									</p>
+									<p align="left"><tt>ALTER TABLE ANTIQUES ADD (PRICE DECIMAL(8,2) 
+									NULL);</tt> </p>
+									<p align="left">The data for this new column can be updated 
+									or inserted as shown later. </p>
+									<p align="left"></p>
+									<hr size="1"><a name="Adding Data"></a>
+									<b>Adding Data</b>
+									<p align="left">To insert rows into a table, do the following:
+									</p>
+									<p align="left"><tt>INSERT INTO ANTIQUES VALUES (21, 01, 
+									&#39;Ottoman&#39;, 200.00);</tt> </p>
+									<p align="left">This inserts the data into the table, as 
+									a new row, column-by-column, in the pre-defined 
+									order. Instead, let&#39;s change the order and leave 
+									Price blank: </p>
+									<p align="left"><tt>INSERT INTO ANTIQUES (BUYERID, SELLERID, 
+									ITEM)</tt> <br>
+									<tt>VALUES (01, 21, &#39;Ottoman&#39;);</tt> </p>
+									<p align="left"></p>
+									<hr size="1"><a name="Deleting Data">
+									</a><b>Deleting Data</b>
+									<p align="left">Let&#39;s delete this new row back out of the 
+									database: </p>
+									<p align="left"><tt>DELETE FROM ANTIQUES</tt> <br>
+									<tt>WHERE ITEM = &#39;Ottoman&#39;;</tt> </p>
+									<p align="left">But if there is another row that contains 
+									&#39;Ottoman&#39;, that row will be deleted also. Let&#39;s 
+									delete all rows (one, in this case) that contain 
+									the specific data we added before: </p>
+									<p align="left"><tt>DELETE FROM ANTIQUES</tt> <br>
+									<tt>WHERE ITEM = &#39;Ottoman&#39; AND BUYERID = 01 
+									AND SELLERID = 21;</tt> </p>
+									<p align="left"></p>
+									<hr size="1"><a name="Updating Data">
+									</a><b>Updating Data</b>
+									<p align="left">Let&#39;s update a Price into a row that doesn&#39;t 
+									have a price listed yet: </p>
+									<p align="left"><tt>UPDATE ANTIQUES SET PRICE = 500.00 WHERE 
+									ITEM = &#39;Chair&#39;;</tt> </p>
+									<p align="left">This sets all Chair&#39;s Prices to 500.00. As 
+									shown above, more WHERE conditionals, using 
+									AND, must be used to limit the updating to more 
+									specific rows. Also, additional columns may 
+									be set by separating equal statements with commas.
+									</p>
+									<p align="left"></p>
+									<hr size="1"><b><font class="header">Miscellaneous 
+									Topics</font></b>
+									<p align="left"><a name="Indexes"></a><b><i>
+									Indexes</font></i></b> </p>
+									<p align="left">Indexes allow a DBMS to access data quicker 
+									(<i>please note:</i> this feature is nonstandard/not 
+									available on all systems). The system creates 
+									this internal data structure (the index) which 
+									causes selection of rows, when the selection 
+									is based on indexed columns, to occur faster. 
+									This index tells the DBMS where a certain row 
+									is in the table given an indexed-column value, 
+									much like a book index tells you what page a 
+									given word appears. Let&#39;s create an index for 
+									the OwnerID in the AntiqueOwners column: </p>
+									<p align="left"><tt>CREATE INDEX OID_IDX ON ANTIQUEOWNERS 
+									(OWNERID);</tt> </p>
+									<p align="left">Now on the names: </p>
+									<p align="left"><tt>CREATE INDEX NAME_IDX ON ANTIQUEOWNERS 
+									(OWNERLASTNAME, OWNERFIRSTNAME);</tt> </p>
+									<p align="left">To get rid of an index, drop it: </p>
+									<p align="left"><tt>DROP INDEX OID_IDX;</tt> </p>
+									<p align="left">By the way, you can also &quot;drop&quot; a table, 
+									as well (careful!--that means that your table 
+									is deleted). In the second example, the index 
+									is kept on the two columns, aggregated together--strange 
+									behavior might occur in this situation...check 
+									the manual before performing such an operation.
+									</p>
+									<p align="left">Some DBMS&#39;s do not enforce primary keys; 
+									in other words, the uniqueness of a column is 
+									not enforced automatically. What that means 
+									is, if, for example, I tried to insert another 
+									row into the AntiqueOwners table with an OwnerID 
+									of 02, some systems will allow me to do that, 
+									even though, we do not, as that column is supposed 
+									to be unique to that table (every row value 
+									is supposed to be different). One way to get 
+									around that is to create a unique index on the 
+									column that we want to be a primary key, to 
+									force the system to enforce prohibition of duplicates:
+									</p>
+									<p align="left"><tt>CREATE UNIQUE INDEX OID_IDX ON ANTIQUEOWNERS 
+									(OWNERID);</tt> </p>
+									<p align="left"></p>
+									<hr size="1">
+									<a name="GROUP BY &amp; HAVING"></a><b><i>
+									GROUP BY &amp; HAVING</font></i></b>
+									<p align="left">One special use of GROUP BY is to associate 
+									an aggregate function (especially COUNT; counting 
+									the number of rows in each group) with groups 
+									of rows. First, assume that the Antiques table 
+									has the Price column, and each row has a value 
+									for that column. We want to see the price of 
+									the most expensive item bought by each owner. 
+									We have to tell SQL to <i>group</i> each owner&#39;s 
+									purchases, and tell us the maximum purchase 
+									price: </p>
+									<p align="left"><tt>SELECT BUYERID, MAX(PRICE)</tt> <br>
+									<tt>FROM ANTIQUES</tt> <br>
+									<tt>GROUP BY BUYERID;</tt> </p>
+									<p align="left">Now, say we only want to see the maximum 
+									purchase price if the purchase is over $1000, 
+									so we use the HAVING clause: </p>
+									<p align="left"><tt>SELECT BUYERID, MAX(PRICE)</tt> <br>
+									<tt>FROM ANTIQUES</tt> <br>
+									<tt>GROUP BY BUYERID</tt> <br>
+									<tt>HAVING PRICE &gt; 1000;</tt> </p>
+									<p align="left"></p>
+									<hr size="1"><a name="More Subqueries">
+									</a><b><i>More Subqueries</font></i></b>
+									<p align="left">Another common usage of subqueries involves 
+									the use of operators to allow a Where condition 
+									to include the Select output of a subquery. 
+									First, list the buyers who purchased an expensive 
+									item (the Price of the item is $100 greater 
+									than the average price of all items purchased):
+									</p>
+									<p align="left"><tt>SELECT BUYERID</tt> <br>
+									<tt>FROM ANTIQUES</tt> <br>
+									<tt>WHERE PRICE &gt;</tt> </p>
+									<ul>
+										<tt>(SELECT AVG(PRICE) + 100</tt> <br>
+										<tt>FROM ANTIQUES);</tt></ul>
+									The subquery calculates the average Price, plus 
+									$100, and using that figure, an OwnerID is printed 
+									for every item costing over that figure. One 
+									could use DISTINCT BUYERID, to eliminate duplicates.
+									<p align="left">List the Last Names of those in the AntiqueOwners 
+									table, ONLY if they have bought an item: </p>
+									<p align="left"><tt>SELECT OWNERLASTNAME</tt> <br>
+									<tt>FROM ANTIQUEOWNERS</tt> <br>
+									<tt>WHERE OWNERID IN</tt> </p>
+									<ul>
+										<tt>(SELECT DISTINCT BUYERID</tt> <br>
+										<tt>FROM ANTIQUES);</tt></ul>
+									The subquery returns a list of buyers, and the 
+									Last Name is printed for an Antique Owner if 
+									and only if the Owner&#39;s ID appears in the subquery 
+									list (sometimes called a <i>candidate list</i>).
+									<i>Note:</i> on some DBMS&#39;s, equals can be used 
+									instead of IN, but for clarity&#39;s sake, since 
+									a set is returned from the subquery, IN is the 
+									better choice.
+									<p align="left">For an Update example, we know that the gentleman 
+									who bought the bookcase has the wrong First 
+									Name in the database...it should be John:
+									</p>
+									<p align="left"><tt>UPDATE ANTIQUEOWNERS</tt> <br>
+									<tt>SET OWNERFIRSTNAME = &#39;John&#39;</tt> <br>
+									<tt>WHERE OWNERID =</tt> </p>
+									<ul>
+										<tt>(SELECT BUYERID</tt> <br>
+										<tt>FROM ANTIQUES</tt> <br>
+										<tt>WHERE ITEM = &#39;Bookcase&#39;);</tt></ul>
+									First, the subquery finds the BuyerID for the 
+									person(s) who bought the Bookcase, then the 
+									outer query updates his First Name.
+									<p align="left"><b>Remember this rule about subqueries:</b> 
+									when you have a subquery as part of a WHERE 
+									condition, the Select clause in the subquery 
+									must have columns that match in number and type 
+									to those in the Where clause of the outer query. 
+									In other words, if you have &quot;<tt>WHERE ColumnName 
+									= (SELECT...);</tt>&quot;, the Select must have only 
+									one column in it, to match the ColumnName in 
+									the outer Where clause, <i>and</i> they must 
+									match in type (both being integers, both being 
+									character strings, etc.). </p>
+									<p align="left"></p>
+									<hr size="1"><a name="EXISTS &amp; ALL">
+									</a><b><i>EXISTS &amp; ALL</font></i></b>
+									<p align="left">EXISTS uses a subquery as a condition, where 
+									the condition is True if the subquery returns 
+									any rows, and False if the subquery does not 
+									return any rows; this is a nonintuitive feature 
+									with few unique uses. However, if a prospective 
+									customer wanted to see the list of Owners only 
+									if the shop dealt in Chairs, try: </p>
+									<p align="left"><tt>SELECT OWNERFIRSTNAME, OWNERLASTNAME</tt>
+									<br>
+									<tt>FROM ANTIQUEOWNERS</tt> <br>
+									<tt>WHERE EXISTS</tt> </p>
+									<ul>
+										<tt>(SELECT *</tt> <br>
+										<tt>FROM ANTIQUES</tt> <br>
+										<tt>WHERE ITEM = &#39;Chair&#39;);</tt></ul>
+									If there are any Chairs in the Antiques column, 
+									the subquery would return a row or rows, making 
+									the EXISTS clause true, causing SQL to list 
+									the Antique Owners. If there had been no Chairs, 
+									no rows would have been returned by the outside 
+									query.
+									<p align="left">ALL is another unusual feature, as ALL queries 
+									can usually be done with different, and possibly 
+									simpler methods; let&#39;s take a look at an example 
+									query: </p>
+									<p align="left"><tt>SELECT BUYERID, ITEM</tt> <br>
+									<tt>FROM ANTIQUES</tt> <br>
+									<tt>WHERE PRICE &gt;= ALL</tt> </p>
+									<ul>
+										<tt>(SELECT PRICE</tt> <br>
+										<tt>FROM ANTIQUES);</tt></ul>
+									This will return the largest priced item (or 
+									more than one item if there is a tie), and its 
+									buyer. The subquery returns a list of all Prices 
+									in the Antiques table, and the outer query goes 
+									through each row of the Antiques table, and 
+									if its Price is greater than or equal to every 
+									(or ALL) Prices in the list, it is listed, giving 
+									the highest priced Item. The reason &quot;&gt;=&quot; must 
+									be used is that the highest priced item will 
+									be equal to the highest price on the list, because 
+									this Item is in the Price list.
+									<p align="left"></p>
+									<hr size="1">
+									<a name="UNION &amp; Outer Joins"></a><b><i>
+									UNION &amp; Outer Joins (briefly 
+									explained)</font></i></b>
+									<p align="left">There are occasions where you might want 
+									to see the results of multiple queries together, 
+									combining their output; use UNION. To merge 
+									the output of the following two queries, displaying 
+									the ID&#39;s of all Buyers, plus all those who have 
+									an Order placed: </p>
+									<p align="left"><tt>SELECT BUYERID</tt> <br>
+									<tt>FROM ANTIQUES</tt> <br>
+									<tt>UNION</tt> <br>
+									<tt>SELECT OWNERID</tt> <br>
+									<tt>FROM ORDERS;</tt> </p>
+									<p align="left">Notice that SQL requires that the Select 
+									list (of columns) must match, column-by-column, 
+									in data type. In this case BuyerID and OwnerID 
+									are of the same data type (integer). Also notice 
+									that SQL does automatic duplicate elimination 
+									when using UNION (as if they were two &quot;sets&quot;); 
+									in single queries, you have to use DISTINCT.
+									</p>
+									<p align="left">The <i>outer join</i> is used when a join 
+									query is &quot;united&quot; with the rows not included 
+									in the join, and are especially useful if constant 
+									text &quot;flags&quot; are included. First, look at the 
+									query: </p>
+									<p align="left"><tt>SELECT OWNERID, &#39;is in both Orders &amp; 
+									Antiques&#39;</tt> <br>
+									<tt>FROM ORDERS, ANTIQUES</tt> <br>
+									<tt>WHERE OWNERID = BUYERID</tt> <br>
+									<tt>UNION</tt> <br>
+									<tt>SELECT BUYERID, &#39;is in Antiques only&#39;</tt>
+									<br>
+									<tt>FROM ANTIQUES</tt> <br>
+									<tt>WHERE BUYERID NOT IN</tt> </p>
+									<ul>
+										<tt>(SELECT OWNERID</tt> <br>
+										<tt>FROM ORDERS);</tt></ul>
+									The first query does a join to list any owners 
+									who are in both tables, and putting a tag line 
+									after the ID repeating the quote. The UNION 
+									merges this list with the next list. The second 
+									list is generated by first listing those ID&#39;s 
+									not in the Orders table, thus generating a list 
+									of ID&#39;s excluded from the join query. Then, 
+									each row in the Antiques table is scanned, and 
+									if the BuyerID is not in this exclusion list, 
+									it is listed with its quoted tag. There might 
+									be an easier way to make this list, but it&#39;s 
+									difficult to generate the informational quoted 
+									strings of text.
+									<p align="left">This concept is useful in situations where 
+									a primary key is related to a foreign key, but 
+									the foreign key value for some primary keys 
+									is NULL. For example, in one table, the primary 
+									key is a salesperson, and in another table is 
+									customers, with their salesperson listed in 
+									the same row. However, if a salesperson has 
+									no customers, that person&#39;s name won&#39;t appear 
+									in the customer table. The outer join is used 
+									if the listing of <b>all</b> salespersons is 
+									to be printed, listed with their customers, 
+									whether the salesperson has a customer or not--that 
+									is, no customer is printed (a logical NULL value) 
+									if the salesperson has no customers, but is 
+									in the salespersons table. Otherwise, the salesperson 
+									will be listed with each customer. </p>
+									<p align="left">Another important related point about Nulls 
+									having to do with joins: the order of tables 
+									listed in the From clause is very important. 
+									The rule states that SQL &quot;adds&quot; the second table 
+									to the first; the first table listed has any 
+									rows where there is a null on the join column 
+									displayed; if the second table has a row with 
+									a null on the join column, that row from the 
+									table listed second does not get joined, and 
+									thus included with the first table&#39;s row data. 
+									This is another occasion (should you wish that 
+									data included in the result) where an outer 
+									join is commonly used. The concept of nulls 
+									is important, and it may be worth your time 
+									to investigate them further. </p>
+									<p align="left">ENOUGH QUERIES!!! you say?...now on to something 
+									completely different... </p>
+									<p align="left"></p>
+									<hr size="1"><a name="Embedded SQL"></a>
+									<b><i>Embedded SQL--an ugly 
+									example (do not write a program like this...for 
+									purposes of argument ONLY)</font></i></b>
+									<p align="left"><tt>/* -To get right to it, here is an example 
+									program that uses Embedded</tt> <br>
+									<tt>&nbsp;&nbsp;&nbsp; SQL. Embedded SQL allows 
+									programmers to connect to a database and</tt>
+									<br>
+									<tt>&nbsp;&nbsp;&nbsp; include SQL code right 
+									in the program, so that their programs can</tt>
+									<br>
+									<tt>&nbsp;&nbsp;&nbsp; use, manipulate, and 
+									process data from a database.</tt> <br>
+									<tt>&nbsp;&nbsp; -This example C Program (using 
+									Embedded SQL) will print a report.</tt> <br>
+									<tt>&nbsp;&nbsp; -This program will have to 
+									be precompiled for the SQL statements,</tt>
+									<br>
+									<tt>&nbsp;&nbsp;&nbsp; before regular compilation.</tt>
+									<br>
+									<tt>&nbsp;&nbsp; -The EXEC SQL parts are the 
+									same (standard), but the surrounding C</tt>
+									<br>
+									<tt>&nbsp;&nbsp;&nbsp; code will need to be 
+									changed, including the host variable</tt>
+									<br>
+									<tt>&nbsp;&nbsp;&nbsp; declarations, if you 
+									are using a different language.</tt> <br>
+									<tt>&nbsp;&nbsp; -Embedded SQL changes from 
+									system to system, so, once again, check</tt>
+									<br>
+									<tt>&nbsp;&nbsp;&nbsp; local documentation, 
+									especially variable declarations and logging</tt>
+									<br>
+									<tt>&nbsp;&nbsp;&nbsp; in procedures, in which 
+									network, DBMS, and operating system</tt> <br>
+									<tt>&nbsp;&nbsp;&nbsp; considerations are crucial. 
+									*/</tt> </p>
+									<p align="left"><tt>/************************************************/</tt>
+									<br>
+									<tt>/* THIS PROGRAM IS NOT COMPILABLE OR EXECUTABLE 
+									*/</tt> <br>
+									<tt>/* IT IS FOR EXAMPLE PURPOSES ONLY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+									*/</tt> <br>
+									<tt>/************************************************/</tt>
+									</p>
+									<p align="left"><tt>#include &lt;stdio.h&gt;</tt> </p>
+									<p align="left"><tt>/* This section declares the host variables; 
+									these will be the</tt> <br>
+									<tt>&nbsp;&nbsp; variables your program uses, 
+									but also the variable SQL will put</tt> <br>
+									<tt>&nbsp;&nbsp; values in or take values out. 
+									*/</tt> <br>
+									<tt>EXEC SQL BEGIN DECLARE SECTION;</tt> <br>
+									<tt>&nbsp; int BuyerID;</tt> <br>
+									<tt>&nbsp; char FirstName[100], LastName[100], 
+									Item[100];</tt> <br>
+									<tt>EXEC SQL END DECLARE SECTION;</tt> </p>
+									<p align="left"><tt>/* This includes the SQLCA variable, 
+									so that some error checking can be done. */</tt>
+									<br>
+									<tt>EXEC SQL INCLUDE SQLCA;</tt> </p>
+									<p align="left"><tt>main() {</tt> </p>
+									<p align="left"><tt>/* This is a possible way to log into 
+									the database */</tt> <br>
+									<tt>EXEC SQL CONNECT UserID/Password;</tt>
+									</p>
+									<p align="left"><tt>/* This code either says that you are 
+									connected or checks if an error</tt> <br>
+									<tt>&nbsp;&nbsp; code was generated, meaning 
+									log in was incorrect or not possible. */&nbsp;&nbsp; 
+									if(sqlca.sqlcode) {</tt> <br>
+									<tt>&nbsp;&nbsp;&nbsp; printf(Printer, &quot;Error 
+									connecting to database server.\n&quot;);</tt> <br>
+									<tt>&nbsp;&nbsp;&nbsp; exit();</tt> <br>
+									<tt>&nbsp; }</tt> <br>
+									<tt>&nbsp; printf(&quot;Connected to database server.\n&quot;);</tt>
+									</p>
+									<p align="left"><tt>/* This declares a &quot;Cursor&quot;. This is 
+									used when a query returns more</tt> <br>
+									<tt>&nbsp;&nbsp; than one row, and an operation 
+									is to be performed on each row</tt> <br>
+									<tt>&nbsp;&nbsp; resulting from the query. With 
+									each row established by this query,</tt> <br>
+									<tt>&nbsp;&nbsp; I&#39;m going to use it in the 
+									report. Later, &quot;Fetch&quot; will be used to</tt>
+									<br>
+									<tt>&nbsp;&nbsp; pick off each row, one at a 
+									time, but for the query to actually</tt> <br>
+									<tt>&nbsp;&nbsp; be executed, the &quot;Open&quot; statement 
+									is used. The &quot;Declare&quot; just</tt> <br>
+									<tt>&nbsp;&nbsp; establishes the query. */</tt>
+									<br>
+									<tt>EXEC SQL DECLARE ItemCursor CURSOR FOR</tt>
+									<br>
+									<tt>&nbsp; SELECT ITEM, BUYERID</tt> <br>
+									<tt>&nbsp; FROM ANTIQUES</tt> <br>
+									<tt>&nbsp; ORDER BY ITEM;</tt> <br>
+									<tt>EXEC SQL OPEN ItemCursor;</tt> </p>
+									<p align="left"><tt>/* +-- You may wish to put a similar 
+									error checking block here --+ */</tt> </p>
+									<p align="left"><tt>/* Fetch puts the values of the &quot;next&quot; 
+									row of the query in the host</tt> <br>
+									<tt>&nbsp;&nbsp; variables, respectively. However, 
+									a &quot;priming fetch&quot; (programming</tt> <br>
+									<tt>&nbsp;&nbsp; technique) must first be done. 
+									When the cursor is out of data, a</tt> <br>
+									<tt>&nbsp;&nbsp; sqlcode will be generated allowing 
+									us to leave the loop. Notice</tt> <br>
+									<tt>&nbsp;&nbsp; that, for simplicity&#39;s sake, 
+									the loop will leave on any sqlcode,</tt> <br>
+									<tt>&nbsp;&nbsp; even if it is an error code. 
+									Otherwise, specific code checking must</tt>
+									<br>
+									<tt>&nbsp;&nbsp; be performed. */</tt> <br>
+									<tt>EXEC SQL FETCH ItemCursor INTO :Item, :BuyerID;</tt>
+									<br>
+									<tt>&nbsp; while(!sqlca.sqlcode) {</tt> </p>
+									<p align="left"><tt>/* With each row, we will also do a couple 
+									of things. First, bump the</tt> <br>
+									<tt>&nbsp;&nbsp; price up by $5 (dealer&#39;s fee) 
+									and get the buyer&#39;s name to put in</tt> <br>
+									<tt>&nbsp;&nbsp; the report. To do this, I&#39;ll 
+									use an Update and a Select, before</tt> <br>
+									<tt>&nbsp;&nbsp; printing the line on the screen. 
+									The update assumes however, that</tt> <br>
+									<tt>&nbsp;&nbsp; a given buyer has only bought 
+									one of any given item, or else the</tt> <br>
+									<tt>&nbsp;&nbsp; price will be increased too 
+									many times. Otherwise, a &quot;RowID&quot; logic</tt>
+									<br>
+									<tt>&nbsp;&nbsp; would have to be used (see 
+									documentation). Also notice the colon&nbsp;&nbsp;<br>
+									before host variable names when used inside 
+									of SQL statements. */</tt> </p>
+									<p align="left"><tt>EXEC SQL UPDATE ANTIQUES</tt> <br>
+									<tt>&nbsp; SET PRICE = PRICE + 5</tt> <br>
+									<tt>&nbsp; WHERE ITEM = :Item AND BUYERID = 
+									:BuyerID;</tt> </p>
+									<p align="left"><tt>EXEC SQL SELECT OWNERFIRSTNAME, OWNERLASTNAME</tt>
+									<br>
+									<tt>&nbsp; INTO :FirstName, :LastName</tt>
+									<br>
+									<tt>&nbsp; FROM ANTIQUEOWNERS</tt> <br>
+									<tt>&nbsp; WHERE BUYERID = :BuyerID;</tt>
+									</p>
+									<p align="left"><tt>&nbsp;&nbsp;&nbsp; printf(&quot;%25s %25s 
+									%25s&quot;, FirstName, LastName, Item);</tt> </p>
+									<p align="left"><tt>/* Ugly report--for example purposes 
+									only! Get the next row. */</tt> <br>
+									<tt>EXEC SQL FETCH ItemCursor INTO :Item, :BuyerID;</tt>
+									<br>
+									<tt>&nbsp; }</tt> </p>
+									<p align="left"><tt>/* Close the cursor, commit the changes 
+									(see below), and exit the</tt> <br>
+									<tt>&nbsp;&nbsp; program. */</tt> <br>
+									<tt>EXEC SQL CLOSE ItemCursor;</tt> <br>
+									<tt>EXEC SQL COMMIT RELEASE;</tt> <br>
+									<tt>&nbsp; exit();</tt> <br>
+									<tt>}</tt> </p>
+									<p align="left"></p>
+									<hr size="1">
+									<a name="Common SQL Questions"></a><b><i>
+									Common SQL Questions--Advanced 
+									Topics (see FAQ link for several more)</font></i></b>
+									<ol>
+										<li>Why can&#39;t I just ask for the first three 
+										rows in a table? --Because in relational 
+										databases, rows are inserted in no particular 
+										order, that is, the system inserts them 
+										in an arbitrary order; so, you can only 
+										request rows using valid SQL features, like 
+										ORDER BY, etc.<br>
+&nbsp;</li>
+										<li>What is this DDL and DML I hear about? 
+										--DDL (Data Definition Language) refers 
+										to (in SQL) the Create Table statement...DML 
+										(Data Manipulation Language) refers to the 
+										Select, Update, Insert, and Delete statements.<br>
+&nbsp;</li>
+										<li>Aren&#39;t database tables just files? --Well, 
+										DBMS&#39;s store data in files declared by system 
+										managers before new tables are created (on 
+										large systems), but the system stores the 
+										data in a special format, and may spread 
+										data from one table over several files. 
+										In the database world, a set of files created 
+										for a database is called a <i>tablespace</i>. 
+										In general, on small systems, everything 
+										about a database (definitions and all table 
+										data) is kept in one file.<br>
+&nbsp;</li>
+										<li>(Related question) Aren&#39;t database tables 
+										just like spreadsheets? --No, for two reasons. 
+										First, spreadsheets can have data in a cell, 
+										but a cell is more than just a row-column-intersection. 
+										Depending on your spreadsheet software, 
+										a cell might also contain formulas and formatting, 
+										which database tables cannot have (currently). 
+										Secondly, spreadsheet cells are often dependent 
+										on the data in other cells. In databases, 
+										&quot;cells&quot; are independent, except that columns 
+										are logically related (hopefully; together 
+										a row of columns describe an entity), and, 
+										other than primary key and foreign key constraints, 
+										each row in a table is independent from 
+										one another.<br>
+&nbsp;</li>
+										<li>How do I import a text file of data 
+										into a database? --Well, you can&#39;t do it 
+										directly...you must use a utility, such 
+										as Oracle&#39;s SQL*Loader, or write a program 
+										to load the data into the database. A program 
+										to do this would simply go through each 
+										record of a text file, break it up into 
+										columns, and do an Insert into the database.<br>
+&nbsp;</li>
+										<li>What web sites and computer books would 
+										you recommend for more information about 
+										SQL and databases? --First, look at the 
+										sites at the bottom of this page. I would 
+										especially suggest the following:
+										<a href="http://www.inquiry.com/techtips/thesqlpro/">
+										Ask the SQL Pro</a> (self-explanatory),
+										<a href="http://www.compapp.dcu.ie/databases/f017.html">
+										DB Ingredients</a> (more theorical topics),
+										<a href="http://www-ccs.cs.umass.edu/db.html">
+										DBMS Lab/Links</a> (comprehensive academic 
+										DBMS link listing),
+										<a href="http://www.princeton.edu/~hannahk/WebPubl.htm">
+										Access on the Web</a> (about web access 
+										of Access databases),
+										<a href="http://www.muppetlabs.com/library/tech/tutorials.html">
+										Tutorial Page</a> (listing of other tutorials), 
+										and
+										<a href="http://www.let.rug.nl/~s0367672/pm_int_e.htm">
+										miniSQL</a> (more information about the 
+										best known free DBMS). Unfortunately, there 
+										is not a great deal of information on the 
+										web about SQL; the list I have below is 
+										fairly comprehensive (definitely representative).</li>
+										<br>
+										<br>
+										As far as books are concerned (go to
+										<a href="http://www.amazon.com">amazon.com</a> 
+										or
+										<a href="http://www.barnesandnoble.com">
+										Barnes &amp; Noble</a> for more information), 
+										I would suggest (for beginners to intermediate-level) 
+										&quot;Oracle: The Complete Reference&quot; from Oracle 
+										and &quot;Understanding SQL&quot; from Sybex for general 
+										SQL information. Also, I would recommend 
+										O&#39;Reilly Publishing&#39;s books, and Joe Celko&#39;s 
+										writings for advanced users. Additionally, 
+										I would suggest
+										<a href="http://www.mcp.com">mcp.com</a> 
+										for samples of computer books, and for specific 
+										DBMS info (especially in the Access area), 
+										I recommend Que&#39;s &quot;Using&quot; series, and the 
+										books of Alison Balter (search for these 
+										names at the bookstore sites for a list 
+										of titles). <br>
+										<br>
+										</li>
+										<li>What is a <i>schema</i>? --A schema 
+										is a logical set of tables, such as the 
+										Antiques database above...usually, it is 
+										thought of as simply &quot;the database&quot;, but 
+										a database can hold more than one schema. 
+										For example, a <i>star schema</i> is a set 
+										of tables where one large, central table 
+										holds all of the important information, 
+										and is linked, via foreign keys, to <i>dimension</i> 
+										tables which hold detail information, and 
+										can be used in a join to create detailed 
+										reports.<br>
+&nbsp;</li>
+										<li>Show me an example of an <i>outer join.</i> 
+										--Well, from the questions I receive, this 
+										is an extremely common example, and I&#39;ll 
+										show you both the Oracle and Access queries...</li>
+										<p align="left"><br>
+										<b>Think of the following Employee table (the 
+										employees are given numbers, for simplicity):
+										</b>
+										</p>
+										<table border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse" width="50%" align=center>
+											<tr>
+												<td bgcolor="#F0F0F0"><b>Name</b></td>
+												<td bgcolor="#F0F0F0"><b>Department</b></td>
+											</tr>
+											<tr>
+												<td>1</td>
+												<td>10</td>
+											</tr>
+											<tr>
+												<td bgcolor="#FAFADE">2</td>
+												<td bgcolor="#FAFADE">10</td>
+											</tr>
+											<tr>
+												<td>3</td>
+												<td>20</td>
+											</tr>
+											<tr>
+												<td bgcolor="#FAFADE">4</td>
+												<td bgcolor="#FAFADE">30</td>
+											</tr>
+											<tr>
+												<td>5</td>
+												<td>30</td>
+											</tr>
+										</table>
+										<p align="left"><b>Now think of a department table: 
+										</b> </p>
+										<table border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse" width="50%" align=center>
+											<tr>
+												<td align="center" bgcolor="#F0F0F0">
+												<b>Department</b></td>
+											</tr>
+											<tr>
+												<td align="center">10</td>
+											</tr>
+											<tr>
+												<td align="center" bgcolor="#FAFADE">20</td>
+											</tr>
+											<tr>
+												<td align="center">30</td>
+											</tr>
+											<tr>
+												<td align="center" bgcolor="#FAFADE">40</td>
+											</tr>
+										</table>
+										<p align="left">Now suppose you want to join the tables, 
+										seeing all of the employees and all of the 
+										departments together...you&#39;ll have to use 
+										an outer join which includes a null employee 
+										to go with Dept. 40. </p>
+										<p align="left">In the book, &quot;Oracle 7: the Complete 
+										Reference&quot;, about outer joins, &quot;think of 
+										the (+), which must immediately follow the 
+										join column of the table, as saying add 
+										an extra (null) row anytime there&#39;s no match&quot;. 
+										So, in Oracle, try this query (the + goes 
+										on Employee, which adds the null row on 
+										no match): </p>
+										<p align="left"><tt>Select E.Name, D.Department</tt>
+										<br>
+										<tt>From Department D, Employee E</tt>
+										<br>
+										<tt>Where E.Department(+) = D.Department;</tt>
+										</p>
+										<p align="left">This is a left (outer) join, in Access:
+										</p>
+										<p align="left"><tt>SELECT DISTINCTROW Employee.Name, 
+										Department.Department</tt> <br>
+										<tt>FROM Department LEFT JOIN Employee ON 
+										Department.Department = Employee.Department;</tt>
+										</p>
+										<p align="left"><b>And you get this result: 
+										</b> </p>
+										<table border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse" width="50%" align="center">
+											<tr>
+												<td bgcolor="#F0F0F0"><b>Name</b></td>
+												<td bgcolor="#F0F0F0"><b>Department</b></td>
+											</tr>
+											<tr>
+												<td>1</td>
+												<td>10</td>
+											</tr>
+											<tr>
+												<td bgcolor="#FAFADE">2</td>
+												<td bgcolor="#FAFADE">10</td>
+											</tr>
+											<tr>
+												<td>3</td>
+												<td>20</td>
+											</tr>
+											<tr>
+												<td bgcolor="#FAFADE">4</td>
+												<td bgcolor="#FAFADE">30</td>
+											</tr>
+											<tr>
+												<td>5</td>
+												<td>30</td>
+											</tr>
+											<tr>
+												<td bgcolor="#FAFADE">&nbsp;</td>
+												<td bgcolor="#FAFADE">40</td>
+											</tr>
+										</table>
+										<br>
+&nbsp;</li>
+										<li>What are some general tips you would 
+										give to make my SQL queries and databases 
+										better and faster (<i>optimized</i>)?</li>
+										<br>
+&nbsp;<ul>
+											<li>You should try, if you can, to avoid 
+											expressions in Selects, such as SELECT 
+											ColumnA + ColumnB, etc. The <i>query 
+											optimizer</i> of the database, the portion 
+											of the DBMS that determines the best 
+											way to get the required data out of 
+											the database itself, handles expressions 
+											in such a way that would normally require 
+											more time to retrieve the data than 
+											if columns were normally selected, and 
+											the expression itself handled programmatically.<br>
+&nbsp;</li>
+											<li>Minimize the number of columns included 
+											in a Group By clause.<br>
+&nbsp;</li>
+											<li>If you are using a join, try to 
+											have the columns joined on (from both 
+											tables) indexed.<br>
+&nbsp;</li>
+											<li>When in doubt, index.<br>
+&nbsp;</li>
+											<li>Unless doing multiple counts or 
+											a complex query, use COUNT(*) (the number 
+											of rows generated by the query) rather 
+											than COUNT(Column_Name).<br>
+&nbsp;</li>
+										</ul>
+										</li>
+										<li>What is <i>normalization</i>? --Normalization 
+										is a technique of database design that suggests 
+										that certain criteria be used when constructing 
+										a table layout (deciding what columns each 
+										table will have, and creating the key structure), 
+										where the idea is to eliminate redundancy 
+										of non-key data across tables. Normalization 
+										is usually referred to in terms of <i>forms</i>, 
+										and I will introduce only the first three, 
+										even though it is somewhat common to use 
+										other, more advanced forms (fourth, fifth, 
+										Boyce-Codd; see documentation).</li>
+										<p align="left"><br>
+										<i>First Normal Form</i> refers to moving 
+										data into separate tables where the data 
+										in each table is of a similar type, and 
+										by giving each table a primary key. </p>
+										<p align="left">Putting data in <i>Second Normal Form</i> 
+										involves removing to other tables data that 
+										is only dependent of a part of the key. 
+										For example, if I had left the names of 
+										the Antique Owners in the items table, that 
+										would not be in Second Normal Form because 
+										that data would be redundant; the name would 
+										be repeated for each item owned; as such, 
+										the names were placed in their own table. 
+										The names themselves don&#39;t have anything 
+										to do with the items, only the identities 
+										of the buyers and sellers. </p>
+										<p align="left"><i>Third Normal Form</i> involves getting 
+										rid of anything in the tables that doesn&#39;t 
+										depend solely on the primary key. Only include 
+										information that is dependent on the key, 
+										and move off data to other tables that are 
+										independent of the primary key, and create 
+										a primary keys for the new tables. </p>
+										<p align="left">There is some redundancy to each form, 
+										and if data is in <i>3NF </i>(shorthand 
+										for 3rd normal form), it is already in
+										<i>1NF </i>and <i>2NF</i>. In terms of data 
+										design then, arrange data so that any non-primary 
+										key columns are dependent only on the <i>
+										whole primary key</i>. If you take a look 
+										at the sample database, you will see that 
+										the way then to navigate through the database 
+										is through joins using common key columns.
+										</p>
+										<p align="left">Two other important points in database 
+										design are using good, consistent, logical, 
+										full-word names for the tables and columns, 
+										and the use of full words in the database 
+										itself. On the last point, my database is 
+										lacking, as I use numeric codes for identification. 
+										It is usually best, if possible, to come 
+										up with keys that are, by themselves, self-explanatory; 
+										for example, a better key would be the first 
+										four letters of the last name and first 
+										initial of the owner, like JONEB for Bill 
+										Jones (or for tiebreaking purposes, add 
+										numbers to the end to differentiate two 
+										or more people with similar names, so you 
+										could try JONEB1, JONEB2, etc.). <br>
+&nbsp;</p>
+										</li>
+										<li>What is the difference between a <i>
+										single-row query</i> and a <i>multiple-row 
+										query</i> and why is it important to know 
+										the difference? --First, to cover the obvious, 
+										a single-row query is a query that returns 
+										one row as its result, and a multiple-row 
+										query is a query that returns more than 
+										one row as its result. Whether a query returns 
+										one row or more than one row is entirely 
+										dependent on the design (or <i>schema</i>) 
+										of the tables of the database. As query-writer, 
+										you must be aware of the schema, be sure 
+										to include enough conditions, and structure 
+										your SQL statement properly, so that you 
+										will get the desired result (either one 
+										row or multiple rows). For example, if you 
+										wanted to be sure that a query of the AntiqueOwners 
+										table returned only one row, consider an 
+										equal condition of the primary key-column, 
+										OwnerID.</li>
+										<br>
+										<br>
+										Three reasons immediately come to mind as 
+										to why this is important. First, getting 
+										multiple rows when you were expecting only 
+										one, or vice-versa, may mean that the query 
+										is erroneous, that the database is incomplete, 
+										or simply, you learned something new about 
+										your data. Second, if you are using an update 
+										or delete statement, you had better be sure 
+										that the statement that you write performs 
+										the operation on the desired row (or rows)...or 
+										else, you might be deleting or updating 
+										more rows than you intend. Third, any queries 
+										written in Embedded SQL must be carefully 
+										thought out as to the number of rows returned. 
+										If you write a single-row query, only one 
+										SQL statement may need to be performed to 
+										complete the programming logic required. 
+										If your query, on the other hand, returns 
+										multiple rows, you will have to use the 
+										Fetch statement, and quite probably, some 
+										sort of looping structure in your program 
+										will be required to iterate processing on 
+										each returned row of the query. <br>
+&nbsp;</li>
+										<li>Tell me about a simple approach to relational 
+										database design. --This was sent to me via 
+										a news posting; it was submitted by John 
+										Frame (
+										<a href="mailto:jframe@jframe.com">jframe@jframe.com</a> 
+										) and Richard Freedman (
+										<a href="mailto:rfreedm@voicenet.com">rfreedm@voicenet.com</a> 
+										); I offer a shortened version as advice, 
+										but I&#39;m not responsible for it, and some 
+										of the concepts are readdressed in the next 
+										question...</li>
+										<p align="left"><br>
+										First, create a list of important things 
+										(entities) and include those things you 
+										may not initially believe is important. 
+										Second, draw a line between any two entities 
+										that have any connection whatsoever; except 
+										that no two entities can connect without 
+										a &#39;rule&#39;; e.g.: families have children, 
+										employees work for a department. Therefore 
+										put the &#39;connection&#39; in a diamond, the &#39;entities&#39; 
+										in squares. Third, your picture should now 
+										have many squares (entities) connected to 
+										other entities through diamonds (a square 
+										enclosing an entity, with a line to a diamond 
+										describing the relationship, and then another 
+										line to the other entity). Fourth, put descriptors 
+										on each square and each diamond, such as 
+										customer -- airline -- trip. Fifth, give 
+										each diamond and square any attributes it 
+										may have (a person has a name, an invoice 
+										has a number), but some relationships have 
+										none (a parent just owns a child). Sixth, 
+										everything on your page that has attributes 
+										is now a table, whenever two entities have 
+										a relationship where the relationship has 
+										no attributes, there is merely a foreign 
+										key between the tables. Seventh, in general 
+										you want to make tables not repeat data. 
+										So, if a customer has a name and several 
+										addresses, you can see that for every address 
+										of a customer, there will be repeated the 
+										customer&#39;s first name, last name, etc. So, 
+										record Name in one table, and put all his 
+										addresses in another. Eighth, each row (record) 
+										should be unique from every other one; Mr. 
+										Freedman suggests a &#39;auto-increment number&#39; 
+										primary key, where a new, unique number 
+										is generated for each new inserted row. 
+										Ninth, a key is any way to uniquely identify 
+										a row in a table...first and last name together 
+										are good as a &#39;composite&#39; key. That&#39;s the 
+										technique. <br>
+										</li>
+										<li>What are <i>relationships?</i> --Another 
+										design question...the term &quot;relationships&quot; 
+										(often termed &quot;relation&quot;) usually refers 
+										to the relationships among primary and foreign 
+										keys between tables. This concept is important 
+										because when the tables of a relational 
+										database are designed, these relationships 
+										must be defined because they determine which 
+										columns are or are not primary or foreign 
+										keys. You may have heard of an <b>Entity-Relationship 
+										Diagram</b>, which is a graphical view of 
+										tables in a database schema, with lines 
+										connecting related columns across tables. 
+										See the sample diagram at the end of this 
+										section or some of the sites below in regard 
+										to this topic, as there are many different 
+										ways of drawing E-R diagrams. But first, 
+										let&#39;s look at each kind of relationship...</li>
+										<p align="left"><br>
+										A <i>One-to-one relationship</i> means that 
+										you have a primary key column that is related 
+										to a foreign key column, and that for every 
+										primary key value, there is <b>one</b> foreign 
+										key value. For example, in the first example, 
+										the EmployeeAddressTable, we add an EmployeeIDNo 
+										column. Then, the EmployeeAddressTable is 
+										related to the EmployeeStatisticsTable (second 
+										example table) by means of that EmployeeIDNo. 
+										Specifically, each employee in the EmployeeAddressTable
+										<b>has</b> statistics (one row of data) 
+										in the EmployeeStatisticsTable. Even though 
+										this is a contrived example, this is a &quot;1-1&quot; 
+										relationship. Also notice the &quot;has&quot; in bold...when 
+										expressing a relationship, it is important 
+										to describe the relationship with a verb.
+										</p>
+										<p align="left">The other two kinds of relationships 
+										may or may not use logical primary key and 
+										foreign key constraints...it is strictly 
+										a call of the designer. The first of these 
+										is the <i>one-to-many relationship</i> (&quot;1-M&quot;). 
+										This means that for every column value in 
+										one table, there is <b>one or more</b> related 
+										values in another table. Key constraints 
+										may be added to the design, or possibly 
+										just the use of some sort of identifier 
+										column may be used to establish the relationship. 
+										An example would be that for every OwnerID 
+										in the AntiqueOwners table, there are one 
+										or more (zero is permissible too) Items
+										<b>bought</b> in the Antiques table (verb: 
+										buy). </p>
+										<p align="left">Finally, the <i>many-to-many relationship</i> 
+										(&quot;M-M&quot;) does not involve keys generally, 
+										and usually involves idenifying columns. 
+										The unusual occurence of a &quot;M-M&quot; means that 
+										one column in one table is related to another 
+										column in another table, and for every value 
+										of one of these two columns, there are one 
+										or more related values in the corresponding 
+										column in the other table (and vice-versa), 
+										or more a common possibility, two tables 
+										have a 1-M relationship to each other (two 
+										relationships, one 1-M going each way). 
+										A [bad] example of the more common situation 
+										would be if you had a job assignment database, 
+										where one table held one row for each employee 
+										and a job assignment, and another table 
+										held one row for each job with one of the 
+										assigned employees. Here, you would have 
+										multiple rows for each employee in the first 
+										table, one for each job assignment, and 
+										multiple rows for each job in the second 
+										table, one for each employee assigned to 
+										the project. These tables have a M-M: each 
+										employee in the first table <b>has</b> many 
+										job assignments from the second table, and 
+										each job <b>has</b> many employees assigned 
+										to it from the first table. This is the 
+										tip of the iceberg on this topic...see the 
+										links below for more information and see 
+										the diagram below for a <i>simplified</i> 
+										example of an E-R diagram. 
+										</p>
+										<div align="center">
+											<table border="0" cellpadding="4" cellspacing="0" width="90%" id="table55">
+												<tr>
+													<td>
+										<p align="center">
+										<img src="erdiagrm.gif" border="0" alt="Sample Simplified Entity-Relationship Diagram"></td>
+												</tr>
+											</table>
+											<center><br></div>
+										</li>
+										<li>What are some important nonstandard 
+										SQL features (extremely common question)? 
+										--Well, see the next section...</li>
+									</ol><div align="left">
+									<hr size="1"><a name="Nonstandard SQL">
+									</a><b><i>Nonstandard SQL...&quot;check 
+									local listings&quot;</font></i></b>
+									<ul>
+										<li>INTERSECT and MINUS are like the UNION 
+										statement, except that INTERSECT produces 
+										rows that appear in both queries, and MINUS 
+										produces rows that result from the first 
+										query, but not the second.<br>
+&nbsp;</li>
+										<li>Report Generation Features: the COMPUTE 
+										clause is placed at the end of a query to 
+										place the result of an aggregate function 
+										at the end of a listing, like <tt>COMPUTE 
+										SUM (PRICE); </tt>Another option is to use 
+										break logic: define a break to divide the 
+										query results into groups based on a column, 
+										like <tt>BREAK ON BUYERID</tt>. Then, to 
+										produce a result after the listing of a 
+										group, use <tt>COMPUTE SUM OF PRICE ON BUYERID</tt>. 
+										If, for example, you used all three of these 
+										clauses (BREAK first, COMPUTE on break second, 
+										COMPUTE overall sum third), you would get 
+										a report that grouped items by their BuyerID, 
+										listing the sum of Prices after each group 
+										of a BuyerID&#39;s items, then, after all groups 
+										are listed, the sum of all Prices is listed, 
+										all with SQL-generated headers and lines.<br>
+&nbsp;</li>
+										<li>In addition to the above listed aggregate 
+										functions, some DBMS&#39;s allow more functions 
+										to be used in Select lists, except that 
+										these functions (some character functions 
+										allow multiple-row results) are to be used 
+										with an individual value (not groups), on
+										<i>single-row queries. </i>The functions 
+										are to be used only on appropriate data 
+										types, also. Here are some <b>
+										<br></li>
+									</ul>
+										Mathematical 
+										Functions</b>:
+										
+										<br>
+&nbsp;<table border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse" width="550px">
+											<tr>
+												<td bgcolor="#FAFADE" width="25%"><b>ABS(X)</b></td>
+												<td bgcolor="#FAFADE">Absolute value-converts negative 
+												numbers to positive, or leaves positive 
+												numbers alone</td>
+											</tr>
+											<tr>
+												<td><b>CEIL(X)</b></td>
+												<td>X is a decimal value that will 
+												be rounded up.</td>
+											</tr>
+											<tr>
+												<td bgcolor="#FAFADE"><b>FLOOR(X)</b></td>
+												<td bgcolor="#FAFADE">X is a decimal value that will 
+												be rounded down.</td>
+											</tr>
+											<tr>
+												<td><b>GREATEST(X,Y)</b></td>
+												<td>Returns the largest of the two 
+												values.</td>
+											</tr>
+											<tr>
+												<td bgcolor="#FAFADE"><b>LEAST(X,Y)</b></td>
+												<td bgcolor="#FAFADE">Returns the smallest of the 
+												two values.</td>
+											</tr>
+											<tr>
+												<td><b>MOD(X,Y)</b></td>
+												<td>Returns the remainder of X / 
+												Y.</td>
+											</tr>
+											<tr>
+												<td bgcolor="#FAFADE"><b>POWER(X,Y)</b></td>
+												<td bgcolor="#FAFADE">Returns X to the power of Y.</td>
+											</tr>
+											<tr>
+												<td><b>ROUND(X,Y)</b></td>
+												<td>Rounds X to Y decimal places. 
+												If Y is omitted, X is rounded to 
+												the nearest integer.</td>
+											</tr>
+											<tr>
+												<td bgcolor="#FAFADE"><b>SIGN(X)</b></td>
+												<td bgcolor="#FAFADE">Returns a minus if X &lt; 0, else 
+												a plus.</td>
+											</tr>
+											<tr>
+												<td><b>SQRT(X)</b></td>
+												<td>Returns the square root of X.</td>
+											</tr>
+										</table>
+										<table border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse" width="550px">
+											<p align="left"><b><br>
+											Character Functions<br>
+&nbsp;</b>										
+											<tr>
+												<td bgcolor="#FAFADE" width="25%"><b>LEFT(&lt;string&gt;,X)</b></td>
+												<td bgcolor="#FAFADE">Returns the leftmost X characters 
+												of the string.</td>
+											</tr>
+											<tr>
+												<td><b>RIGHT(&lt;string&gt;,X)</b></td>
+												<td>Returns the rightmost X characters 
+												of the string.</td>
+											</tr>
+											<tr>
+												<td bgcolor="#FAFADE"><b>UPPER(&lt;string&gt;)</b></td>
+												<td bgcolor="#FAFADE">Converts the string to all uppercase 
+												letters.</td>
+											</tr>
+											<tr>
+												<td><b>LOWER(&lt;string&gt;)</b></td>
+												<td>Converts the string to all lowercase 
+												letters.</td>
+											</tr>
+											<tr>
+												<td bgcolor="#FAFADE"><b>INITCAP(&lt;string&gt;)</b></td>
+												<td bgcolor="#FAFADE">Converts the string to initial 
+												caps.</td>
+											</tr>
+											<tr>
+												<td><b>LENGTH(&lt;string&gt;)</b></td>
+												<td>Returns the number of characters 
+												in the string.</td>
+											</tr>
+											<tr>
+												<td bgcolor="#FAFADE"><b>&lt;string&gt;||&lt;string&gt;</b></td>
+												<td bgcolor="#FAFADE">Combines the two strings of 
+												text into one, <i>concatenated</i> 
+												string, where the first string is 
+												immediately followed by the second.</td>
+											</tr>
+											<tr>
+												<td><b>LPAD(&lt;string&gt;,X,&#39;*&#39;)</b></td>
+												<td>Pads the string on the left 
+												with the * (or whatever character 
+												is inside the quotes), to make the 
+												string X characters long.</td>
+											</tr>
+											<tr>
+												<td bgcolor="#FAFADE"><b>RPAD(&lt;string&gt;,X,&#39;*&#39;)</b></td>
+												<td bgcolor="#FAFADE">Pads the string on the right 
+												with the * (or whatever character 
+												is inside the quotes), to make the 
+												string X characters long.</td>
+											</tr>
+											<tr>
+												<td><b>SUBSTR(&lt;string&gt;,X,Y)</b></td>
+												<td>Extracts Y letters from the 
+												string beginning at position X.</td>
+											</tr>
+											<tr>
+												<td bgcolor="#FAFADE"><b>NVL(&lt;column&gt;,&lt;value&gt;)</b></td>
+												<td bgcolor="#FAFADE">The Null value function will 
+												substitute &lt;value&gt; for any NULLs 
+												for in the &lt;column&gt;. If the current 
+												value of &lt;column&gt; is not NULL, NVL 
+												has no effect.</td>
+											</tr>
+										</table>
+										
+									<hr size="1"><br><a name="Syntax Summary">
+									</a><b><font class="header">Syntax Summary - For Advanced 
+									Users Only</font></b>
+									<p align="left">Here are the general forms of the statements 
+									discussed in this tutorial, plus some extra 
+									important ones (explanations given). <b>REMEMBER</b> 
+									that all of these statements may or may not 
+									be available on your system, so check documentation 
+									regarding availability: </p>
+									<p align="left"><tt><b>ALTER TABLE </b>&lt;TABLE NAME&gt; ADD|DROP|MODIFY 
+									(COLUMN SPECIFICATION[S]...see Create Table);
+									</tt>--allows you to add or delete a column 
+									or columns from a table, or change the specification 
+									(data type, etc.) on an existing column; this 
+									statement is also used to change the physical 
+									specifications of a table (how a table is stored, 
+									etc.), but these definitions are DBMS-specific, 
+									so read the documentation. Also, these physical 
+									specifications are used with the Create Table 
+									statement, when a table is first created. In 
+									addition, only one option can be performed per 
+									Alter Table statement--either add, drop, <b>
+									OR </b>modify in a single statement. </p>
+									<p align="left"><tt><b>COMMIT</b>;</tt> --makes changes made 
+									to some database systems permanent (since the 
+									last COMMIT; known as a <i>transaction</i>)
+									</p>
+									<p align="left"><tt><b>CREATE [UNIQUE] INDEX</b> &lt;INDEX NAME&gt;</tt>
+									<br>
+									<tt>ON &lt;TABLE NAME&gt; (&lt;COLUMN LIST&gt;); </tt>--UNIQUE 
+									is optional; within brackets. </p>
+									<p align="left"><tt><b>CREATE TABLE</b> &lt;TABLE NAME&gt;</tt>
+									<br>
+									<tt>(&lt;COLUMN NAME&gt; &lt;DATA TYPE&gt; [(&lt;SIZE&gt;)] &lt;COLUMN 
+									CONSTRAINT&gt;,</tt> <br>
+									<tt>...other columns); (</tt>also valid with 
+									ALTER TABLE) <br>
+									--where SIZE is only used on certain data types 
+									(see above), and constraints include the following 
+									possibilities (automatically enforced by the 
+									DBMS; failure causes an error to be generated):
+									</p>
+									<ol>
+										<li>NULL or NOT NULL (see above)<br>
+&nbsp;</li>
+										<li>UNIQUE enforces that no two rows will 
+										have the same value for this column<br>
+&nbsp;</li>
+										<li>PRIMARY KEY tells the database that 
+										this column is the primary key column (only 
+										used if the key is a one column key, otherwise 
+										a PRIMARY KEY (column, column, ...) statement 
+										appears after the last column definition.<br>
+&nbsp;</li>
+										<li>CHECK allows a condition to be checked 
+										for when data in that column is updated 
+										or inserted; for example, <tt>CHECK (PRICE 
+										&gt; 0)</tt> causes the system to check that 
+										the Price column is greater than zero before 
+										accepting the value...sometimes implemented 
+										as the CONSTRAINT statement.<br>
+&nbsp;</li>
+										<li>DEFAULT inserts the default value into 
+										the database if a row is inserted without 
+										that column&#39;s data being inserted; for example,
+										<tt>BENEFITS INTEGER DEFAULT = 10000<br>
+&nbsp;</tt></li>
+										<li>FOREIGN KEY works the same as Primary 
+										Key, but is followed by: <tt>REFERENCES 
+										&lt;TABLE NAME&gt; (&lt;COLUMN NAME&gt;)</tt>, which 
+										refers to the referential primary key.</li>
+									</ol>
+									<tt><b>CREATE VIEW</b> &lt;TABLE NAME&gt; AS &lt;QUERY&gt;;</tt>
+									<p align="left"><tt><b>DELETE</b> FROM &lt;TABLE NAME&gt; WHERE 
+									&lt;CONDITION&gt;;</tt> </p>
+									<p align="left"><tt><b>INSERT</b> INTO &lt;TABLE NAME&gt; [(&lt;COLUMN 
+									LIST&gt;)]</tt> <br>
+									<tt>VALUES (&lt;VALUE LIST&gt;);</tt> </p>
+									<p align="left"><tt><b>ROLLBACK</b>; </tt>--Takes back any 
+									changes to the database that you have made, 
+									back to the last time you gave a Commit command...beware! 
+									Some software uses automatic committing on systems 
+									that use the transaction features, so the Rollback 
+									command may not work. </p>
+									<p align="left"><tt><b>SELECT</b> [DISTINCT|ALL] &lt;LIST OF 
+									COLUMNS, FUNCTIONS, CONSTANTS, ETC.&gt;</tt>
+									<br>
+									<tt>FROM &lt;LIST OF TABLES OR VIEWS&gt;</tt> <br>
+									<tt>[WHERE &lt;CONDITION(S)&gt;]</tt> <br>
+									<tt>[GROUP BY &lt;GROUPING COLUMN(S)&gt;]</tt> <br>
+									<tt>[HAVING &lt;CONDITION&gt;]</tt> <br>
+									<tt>[ORDER BY &lt;ORDERING COLUMN(S)&gt; [ASC|DESC]];
+									</tt>--where ASC|DESC allows the ordering to 
+									be done in ASCending or DESCending order </p>
+									<p align="left"><tt><b>UPDATE</b> &lt;TABLE NAME&gt;</tt> <br>
+									<tt>SET &lt;COLUMN NAME&gt; = &lt;VALUE&gt;</tt> <br>
+									<tt>[WHERE &lt;CONDITION&gt;]; </tt>--if the Where 
+									clause is left out, all rows will be updated 
+									according to the Set statement </p>
+									<p align="left"></p>
+									<hr size="1"><a name="Important Links">
+									</a><b>Important Links</b>
+									<p align="center">Computing &amp; SQL/DB Links:
+									<a href="http://home.netscape.com">Netscape</a> 
+									-- <a href="http://www.oracle.com">Oracle</a> 
+									-- <a href="http://www.sybase.com">Sybase</a> 
+									-- <a href="http://www.informix.com">Informix</a> 
+									--<a href="http://www.microsoft.com">Microsoft</a>
+									<br>
+									<a href="http://www.contrib.andrew.cmu.edu/~shadow/sql.html">
+									SQL Reference Page</a> --
+									<a href="http://www.inquiry.com/techtips/thesqlpro/">
+									Ask the SQL Pro</a> --
+									<a href="http://www.inquiry.com/techtips/thesqlpro/usefulsites.html">
+									SQL Pro&#39;s Relational DB Useful Sites</a> <br>
+									<a href="http://www.progsource.com/index.html">
+									Programmer&#39;s Source</a> --
+									<a href="http://info.itu.ch/special/wwwfiles/comp_db.html">
+									DBMS Sites</a> --
+									<a href="http://www.inquiry.com">inquiry.com</a> 
+									--
+									<a href="http://www.compapp.dcu.ie/databases/f017.html">
+									DB Ingredients</a> <br>
+									<a href="http://www.stars.com/Tutorial/CGI/">
+									Web Authoring</a> --
+									<a href="http://www-ccs.cs.umass.edu/db.html">
+									DBMS Lab/Links</a> --
+									<a href="http://epoch.CS.Berkeley.EDU:8000/sequoia/dba/montage/FAQ/SQL_TOC.html">
+									SQL FAQ</a> --
+									<a href="http://ashok.pair.com/sql.htm">Query 
+									List</a> -- <a href="http://www.tcx.se/">MySQL</a>
+									<br>
+									<a href="http://www.pcslink.com/~ej/dbweb.html">
+									Database Jump Site</a> --
+									<a href="http://www.eng.uc.edu/~jtilley/tutorial.html">
+									Programming Tutorials on the Web</a> --
+									<a href="http://www.postgresql.org/">PostgreSQL</a>
+									<br>
+									<a href="http://thebestweb.com/db/sqlrefs.htm">
+									DB Stuff</a> --
+									<a href="http://faculty.babson.edu/gordon/ispages/chapt7.htm">
+									DBMS/IS Pages</a> --
+									<a href="http://www.princeton.edu/~hannahk/WebPubl.htm">
+									Access on the Web</a> --
+									<a href="http://www.cs.ucsb.edu/~jingw/tutor.html">
+									Online Books</a> --
+									<a href="http://www.shelby.net/abotts/database.htm">
+									A Good DB Course</a> <br>
+									<a href="http://www.muppetlabs.com/library/tech/tutorials.html">
+									Tutorial Page</a> --
+									<a href="http://www.dbmsmag.com">DBMS Magazine</a> 
+									-- <a href="http://databases.miningco.com">Database 
+									Mining</a> --
+									<a href="http://www.let.rug.nl/~s0367672/pm_int_e.htm">
+									miniSQL</a> </p>
+									<p align="left">Miscellaneous:
+									<a href="http://www.cnn.com">CNN</a> --
+									<a href="http://www.usatoday.com">USA Today</a> 
+									-- <a href="http://www.pathfinder.com">Pathfinder</a> 
+									-- <a href="http://www.zdnet.com">ZDNet</a> 
+									-- <a href="http://www.cnet.com">CNet</a> --
+									<a href="http://www.techweb.com">TechWeb</a> 
+									-- <a href="http://www.looksmart.com">LookSmart</a> 
+									-- <a href="http://www.amazon.com">Amazon.com 
+									Books</a> </p>
+									<p align="left">Search Engines:
+									<a href="http://www.yahoo.com">Yahoo</a> --
+									<a href="http://www.altavista.digital.com">Alta 
+									Vista</a> -- <a href="http://www.excite.com">
+									Excite</a> --
+									<a href="http://webcrawler.com">WebCrawler</a> 
+									-- <a href="http://www.lycos.com">Lycos</a> 
+									-- <a href="http://www.infoseek.com">Infoseek</a> 
+									-- <a href="http://www.search.com">search.com</a>
+									</p>
+									<p align="left"><font size="-1">These sites are encouraged, 
+									but not officially endorsed by the author.&nbsp;
+									</p>
+									<hr size="1"></font><b>Disclaimer</b>
+									<p align="left">I hope you have learned something from this 
+									introductory look at a very important language 
+									that is becoming more prevalent in the world 
+									of client-server computing. I wrote this web 
+									page in order to contribute something of value 
+									to the web and the Internet community. In fact, 
+									I have been informed that this document is being 
+									used at several colleges and companies for use 
+									in database classes, and as a resource for many 
+									others. In addition, I would like to thank all 
+									of the people from across five continents who 
+									have contacted me regarding this web page.
+									</p>
+									<p align="left">In addition, I strongly urge you to visit 
+									some of the database links shown above, especially 
+									if you&#39;re interested in advanced topics, such 
+									as the SQL-92 standard, different relational 
+									DBMS&#39;s, and advanced query processing. Unfortunately, 
+									however, the number of database web sites remains 
+									small, and if you are unable to find the information 
+									for which you are looking at the links displayed 
+									above, the information may not be available 
+									on the web, and that you will have to potentially 
+									contact a database vendor for the information 
+									you seek. In fact, if you&#39;re using a well-known, 
+									name-brand DBMS, the web site of your vendor 
+									is often the first and best place to look for 
+									information...you&#39;ll just have to do some hunting 
+									for the documentation when you get there. Another 
+									good place is to search for book publisher sites; 
+									you&#39;ll occasionally find some gems. </p>
+									<p align="left">I also hope to continue to add more material 
+									to this tutorial, such as topics about database 
+									design and nonstandard SQL extensions, even 
+									though I wish to stay away from material about 
+									individual Database Management Systems. Good 
+									luck in your SQL and other computing adventures.
+									</p>
+									<p align="left"></p>
+									<hr size="1">
+									<p align="center"><font class="smtext">Copyright 1996-1998, 
+									<a target="_blank" href="http://w3.one.net/~jhoffman/sqltut.htm">James 
+									Hoffman</a>. <i>Last updated: 11-1-1998.</i> </font>									
+									
+													
+																		
+																		
+																		
+								<div align="center">
+																		<BR>
+									
+									</center>
+									
+									</center></div>
+								</td>
+							</tr>
+							</center>
+														</table>
+						<center>
+												</center></td>
+					</tr>
+					
+				</table>
+				</center></td>
+			</tr>
+		</table>
+		<center>
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+      <td width="100%">
+        <center>
+        <table border="0" cellpadding="0" cellspacing="0" width="777" height="1">
+          <tr>
+            <td bgcolor="#CCCCCC" height="1" class="copyright" width="777" colspan="5"><center>
+<img border="0" src="/images/trans.gif" width="777" height="1"></td>
+          </tr>
+          <tr>
+            <td height="70" class="copyright">&nbsp;
+            </td>
+            <td height="70" class="copyright">
+            <p align="right">Copyright &copy; Intermedia.NET, Inc. 1995 - 2006. All Rights Reserved.<br>
+<img border="0" src="/images/trans.gif" width="8" height="8"><br>
+Users of this site agree to be bound by the Intermedia.NET Service Agreement,<br>
+Service Level Agreement, and Acceptable Use Policies.</td>
+            <td height="70" class="copyright"><img border="0" src="/images/trans.gif" width="1" height="1"></td>
+            <td height="70" class="copyright">
+            <p align="center"><a CLASS="copyright2" HREF="/legal/overview/">Legal</a> | <a class="copyright2" href="/legal/acceptable-use-policy.asp">
+            AUP</a> |
+            <a class="copyright2" href="/legal/privacy-statement.asp">Privacy Statement</a></td>
+            <td height="70" class="copyright">&nbsp;
+            </td>
+          </tr>
+          <tr>
+            <td height="1" class="copyright">
+            <img border="0" src="/images/trans.gif" width="10" height="1"></td>
+            <td height="1" class="copyright">
+       <img border="0" src="/images/trans.gif" width="487" height="1"></td>
+            <td height="1" class="copyright">
+            <img border="0" src="/images/trans.gif" width="1" height="1"></td><td height="1" class="copyright">
+       <img border="0" src="/images/trans.gif" width="269" height="1"></td>
+            <td height="1" class="copyright">
+            <img border="0" src="/images/trans.gif" width="10" height="1"></td>
+          </tr>
+        </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+  </center>
+<!-- BEGIN CartViewer code. -->
+<script language="javascript">
+var lpPosY = 105;
+var lpOperatorViewable="true";
+var lpOperatorPageType= "CartViewer";
+</script>
+<!-- END CartViewer code. -->
+
+<!-- BEGIN LiveEngage  -->
+<script language="JavaScript1.2">
+if (typeof(lpCV) == "undefined") lpCV = "";
+lpEngageSeconds = 60;   // seconds before chat window opens
+lpNumber = "27209311";                   // Account number 
+lpServerName = "server.iad.liveperson.net";                   // Site server 
+lpCV+="&SESSIONVAR!Call=LiveEngageInvitation";          //  LiveEngage type : Invitation
+</script>
+<script src="https://server.iad.liveperson.net/hcp/html/liveengage1.js"></script>
+<!-- End LiveEngage  -->
+
+<!-- BEGIN HumanTag Monitor.--><script language='javascript' src='https://server.iad.liveperson.net/hc/27209311/x.js?cmd=file&file=chatScript3&site=27209311&imageUrl=https://www.intermedia.net/images/top/'> </script><!-- END HumanTag Monitor. -->
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-214873-2";
+urchinTracker();
+</script>
+
+</body>
+</html>
+</center></td>
+	</tr>
+</table></cente>

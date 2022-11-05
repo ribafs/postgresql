@@ -1,0 +1,42 @@
+Instalando e Usando o AndLinux no WindowsXP
+
+1) Fazer o Download de http://www.andlinux.org
+Existem duas versões, uma mais leve, para o ambiente gráfico XFce
+e outra com o KDE.
+
+2) Antes de instalar crie uma pasta no XP e compartilhe da seguinte forma:
+
+3) Criando uma pasta compartilhada
+
+Abra o Windows Explorer
+Ferramentas 
+Opçoes de Pastas
+Visualizar
+Role a tela até a opção Utilizar compartilhamento de arquivos simples (recomendável) e desmarque
+
+Crie a pasta, exemplo: andlinux
+
+Clique com o botão direito sobre a pasta - Compartilhamento e Segurança
+Clique em Compartilhar esta pasta e deixe o nome 'andlinux'
+Clique no botão Permissões
+Abaixo marque em Permitir 'Controle total' e clique em OK e OK novamente.
+
+4) Instalação do AndLinux
+Execute o arquivo que baixou (aqui usei o andlinux-beta1rc6-minimal.exe).
+Aceitei as opções default até a tela File Access Using Samba, onde entrei com os dados da pasta criada:
+
+Name of windows file share - andlinux
+User name to access file share - ribafs
+Password of that user - ribafs
+Repeat the password - ribafs
+
+Também alterei a tela Witch additional tasks should be performed?
+
+Onde marquei todas as opções.
+
+E conclui a instalação.
+
+Após a instalação teremos alguns ícones na barra de tarefas e outros no desktop, com acesso 
+ao terminal, ao gerenciador de arquivos Thunar e ao Instalador Synaptic.
+
+

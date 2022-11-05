@@ -1,0 +1,6 @@
+Explain
+https://www.postgresql.org/docs/9.6/static/using-explain.html
+
+https://www.postgresql.org/docs/9.6/static/sql-explain.html
+
+https://www.postgresql.org/docs/9.6/static/auto-explain.html

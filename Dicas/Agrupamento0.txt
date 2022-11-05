@@ -1,0 +1,42 @@
+Funções de Agregação (Agrupamento)
+
+max, min, sum, count, avg, stddev, variance
+
+max
+
+Trazendo o cpf do cliente que tem o maior bonus:
+select cpf_cliente, max(bonus) as maior from bonus group by cpf_cliente order by maior desc limit 1;
+Obs.: lembrar que só traz 1 mas não garante que tenha só um cliente com este valor.
+
+min
+
+Trazendo o cpf do cliente que tem o menor bonus:
+select cpf_cliente, min(bonus) as maior from bonus group by cpf_cliente order by maior asc limit 1;
+Cuidado, pois podem existir vários com o mesmo valor, que é o nosso caso.
+
+count
+
+select count(*) from bonus;
+select count(cpf_cliente) from bonus;
+Caso algum registro tenha o cpf_cliente = NULL este registro será ignorado. Isso ocorre com todas as funções de agrupamento.
+
+Testemos:
+update bonus set cpf_cliente= null where codigo_bonus=13;
+select count(cpf_cliente) from bonus;
+
+Veja que agora ele não conta o registro que tornamos NULL seu cpf_cliente.
+
+sum
+select count(*) as "Total", sum(bonus) as "Soma" from bonus;
+Observe que para o PostgreSQL escrever em maiúsculas ou com acentos os nomes de objetos, requer escrever entre aspas duplas.
+
+avg
+select avg(bonus) as "Média" from bonus;
+select round(avg(bonus),2) as "Média" from bonus;
+
+stddev
+select stddev(bonus) as "Desvio Padrão" from bonus;
+
+variance
+select variance(bonus) as "Variância" from bonus;
+

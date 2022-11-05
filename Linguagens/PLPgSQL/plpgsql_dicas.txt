@@ -1,0 +1,87 @@
+pl/pgsql - Usando parâmetros (2/n)
+January 2nd, 2008
+
+A construção de uma função na linguagem plpgsql segue a ideia de uma função em qualquer linguagem. Um subcódigo que executa um algoritmo determinado com um objetivo bem definido que pode receber parâmetros e retornar valores.
+Logo, podemos escrever uma função que recebe parametros e utiliza-la normalmente em nossos sistemas assim como utilizamos outras funções nativas do SGDB.
+
+Essa é a função que escrevemos na primeira parte da série.
+
+1. create function helloworld() returns varchar as
+2. $$
+3. begin
+4. return ‘Hello World!’;
+5. end
+6. $$ language ‘plpgsql’;
+
+Ela descreve através dos () que não recebe valor algum. O objeto dessa função é retornar a frase “hello world”.
+Se desejássemos utilizar essa função para escrever “hello world Alice”, deveríamos utilizar da seguinte forma:
+
+select helloworld()||’ Alice’;
+>> hello world! Alice
+
+Isso é bom mas e se o objeto que desejássemos atingir fosse “hello world Alice!”. Isso já não seria possível com a função do jeito que esta.
+Alterando a função para atender aos nossos requisitos temos:
+
+1. create function helloworld(nome varchar(30)) returns varchar as
+2. $$
+3. begin
+4. return ‘Hello World ‘||nome||’!';
+5. end
+6. $$ language ‘plpgsql’;
+
+e teríamos:
+
+select helloworld(’Alice’);
+>> Hello World Alice!
+
+Tudo que temos de observar aqui, num primeiro instante é:
+a) Atualmente podemos dar nomes ao parâmetros que são passados para a função.
+b) O operador || (duas barras verticais continuas) é usado para concatenar valores.
+c) Os tipos de dados para os parâmetros podem ser os nativos ou os criados pelo programador(depois veremos isso).
+d) A função tem o mesmo nome da primeira função. O postgreSQL aceita sobrecarga de métodos.
+
+Pelo que podemos ver então, utilizar parâmetros, ao menos nessa abordagem que temos aqui, é uma muito simples.
+
+Vamos então falar sobre a sobrecarga de métodos.
+Sobrecarregar um método é ter duas funções/métodos com o mesmo nome dentro do mesmo espaço de nomes. Isso é um recurso que muitas linguagens não suportam mas que não se apresenta como nosso caso aqui.
+Temos agora uma função helloworld que não aceita parâmetros e outra função que aceita varchar com o comprimento de 30 caracteres.
+O que as diferencia(como disse no parágrafo anterior é o uso ou não de parâmetros. Mais especificamente, a assinatura do método.
+Uma assinatura de método é consituida pelo seu nome, seu conjunto de parâmetros e tipos e pelo seu tipo de retorno.
+Então, para o postgreSQL decidir qual das duas helloword ira utilizar basta que ele verifique inicialmente a existência ou não de parâmetros, seus tipos e seu retorno na sequência.
+
+
+No próximo artigo iremos ver mais detalhes sobre parâmetros e sobrecarga.
+
+Tags: plpgsql, PostgreSQL
+Posted in PostgreSQL, plpgsql | No Comments »
+pl/pgsql - O início (1/n)
+January 1st, 2008
+
+Stored procedures são funções ou procedimentos que ficam guardados dentro do servidor de banco de dados e que ficam responsáveis pela aplicação de algoritmos, seja na transformação de um dado para geração de informação, na validação de entrada de dados ou até mesmo para execução de processos que de outra forma ficariam à cargo de outro ambiente de aplicação, em outra linguagem de programação.
+Para se escrever uma sp em qualquer linguagem suportada pelo PostgreSQL devemos primeiro instalar a linguagem no servidor. Este procedimento pode ser realizado através da aplicação createlang que acompanha o servidor ou através da instrução “create language plpgsql;”.
+Um linguagem instalada pode ser do tipo trusted(cuja reflexo das ações fica restrito ao domínio do servidor SGDB) e untrusted(situação em que a linguagem consegue interagir com outros serviços além do SGDB como e-mail e também o filesystem).
+
+Escrevendo a primeira Stored Procedure:
+
+1. create function helloworld() returns varchar as
+2. $$
+3. begin
+4. return ‘Hello World!’;
+5. end
+6. $$ language ‘plpgsql’;
+
+A primeira linha temos a instrução que indica que esta é uma função chamada helloworld que retorna uma única informação do tipo varchar.
+A ultima palavra da primeira linha é “as” e indica o início do conteúdo da sp.
+Na linha 2 temos o delimitador de conteúdo $$, Ele deve ser usado para “conter” todas as instruções da sp.
+O uso desse limitador facilita a escrita do conteúdo da função em muito. Antigamente era utilizada a aspa simples e devido a isso toda vez que se tinha uma aspa simples dentro do código ela acabava sendo duplicada. Eram tempos mais difíceis onde com certeza se você não tivesse familiaridade com as aspas, voce não conseguia escrever uma função dinâmica.
+O begin inicia as instruções da sp.
+Quando todos nós que estamos acostumados com SQL vemos uma instrução begin, automaticamente pensamos em uma transação, porém, neste caso essa instrução indica somente o início de um bloco de código.
+Muitas pessoas esclarecem que uma stored procedure não consegue trabalhar com transações encadeadas dizendo que ela tem somente uma transação, ou melhor, que ela é uma única transação e isto esta correto.
+Esse fato ocorre por que para facilitar a gerência de recursos e destinados internamente à sp como estruturas de controle de processo, estado da execução das sql e outros ele foi restrito a somente uma transação e também por que esse modelo de implementação melhora a performance da execução de uma stored procedure. Se olharmos o código da implementação da plpgsql, por exemplo em pl_exec.c(41) veremos que o autor informa que através desse modelo ele consegue preparar as instruções e mante-las preparadas para caso de repetição de seu uso, aumentando assim a performance.
+Esse é um dos motivos. Mais para a frente veremos como trabalhar com sp’s de forma que ela possam ter controle dos processos e “simular” transações.
+O return devolve o valor para a função, encerrando o processo.
+A instrução end da linha 5 finaliza o bloco de código da função e na linha 6 temos a instrução que informa para o postgreSQL qual parser deve ser utilizado para rodar a função. Isso implica também que se a linguagem tiver um validator o conteúdo da função sera verificado no momento de sua gravação.
+Antigamente só tinhamos essa operação no momento em que executávamos a sp.
+
+Esse é o primeiro artigo de uma série que irá falar bastante sobre as sp. Primeiramente irei abordar a plpgsql, mas depois passarei para as outras linguagens de pl.
+Uma coisa mais é que muitas vezes irei anotar alguma stored procedures e coloca-las aqui com explicação para podermos cada vez mais utilizar seus recursos e transformar essa seção em um tipo de repositório de código que há muito desejo que exista.

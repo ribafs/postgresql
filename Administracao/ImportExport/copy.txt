@@ -1,0 +1,18 @@
+Usando o Comando Copy
+
+Exportar dados de uma tabela para a saída padrão
+
+Exportar dados de uma tabela para um arquivo
+
+Copia de uma tabela para a saída padrão:
+\c intranet
+set search_path to dp_k1
+copy lotes to stdout;
+
+Exportar a tabela lotes para o arquivo lotes.sql:
+copy lotes to '/home/ribafs/lotes.sql';
+
+Importar dados do arquivo lotes.sql para a tabela lotes:
+copy lotes from '/home/ribafs/lotes.sql';
+
+

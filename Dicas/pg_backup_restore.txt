@@ -1,0 +1,93 @@
+PostgreSQL - Backup e Restore
+
+Gerar backup de um banco:
+pg_dump -U postgres nomebanco > nomebanco.sql
+
+Restaurar o backup do banco num banco recem-criado:
+psql -U postgres -d nomebanco -f novobanco.sql
+
+Restaurar backup de um servidor para outro (remoto):
+pg_dump -U postgres -h host1 nomebanco | psql -h host2 nomebanco
+
+
+Backup de todos os bancos do servidor:
+pg_dumpall -U postgres > todos.sql
+
+Restaurando todos os bancos no banco postgres (ou template1):
+psql -U postgres -f todos.sql postgres
+
+Manipulando grandes bancos de dados:
+pg_dump -U postgres banco | gzip > banco.gz
+
+Restaurar com:
+gunzip -c banco.gz | psql banco
+
+ou:
+
+cat banco.gz | gunzip | psql banco
+
+Usando split:pg_dump -Fc mydb > db.dump
+pg_dump -U postgres banco | split -b 1m - banco.sql
+
+Restaurar com:
+cat banco* | psql banco
+
+
+Usando formatos personalizados:
+pg_dump -U postgres -Fc banco > banco.sql
+
+Restaurando:
+pg_restore -U postgres -d banco banco.sql
+
+
+Usando o pg_restore:
+Quando usamos formatos personalizados: Fc ou Ft então podemos restaurar com pg_restore
+
+Assumindo que o dump foi feito usando um formato personalizado:
+pg_dump -U postgres -Fc banco > banco.dump
+
+dropdb -U postgres banco
+
+pg_restore -U postgres -C -d postgres banco.dump  -- Criar o abnco e então restaurar o dump
+
+
+Restaurando num novo e limpo banco:
+createdb -U postgres -T template0 novobanco
+pg_restore -U postgres -d novobanco banco.dump
+
+pg_dump -U postgres -Fc banco > banco.sql
+pg_dump -U postgres -Ft banco > banco.tar
+
+pg_restore -U postgres -d novobanco banco.tar
+
+Gerar o backup de uma única tabela:
+pg_dump -U postgres -t tabela banco > banco.sql
+
+Gerar um backup de todas as tabelas que começam com emp do esquema pessoal, exceto a tabela empregados_log:
+pg_dump -U postgres -t 'pessoal.emp*' -T pessoal.empregados_log banco > banco.sql
+
+
+Gerar backup de todos os objetos dos bancos de dados exceto tabelas com nomes iniciados com ar_:
+pg_dump -U postgres -T 'ar_*' banco > banco.sql
+
+Restaurar apenas a estrutura de um banco, sem os dados:
+pg_restore -U postgres -s -d novobanco banco.sql
+
+Restaurar somente os dados de um banco sem a estrutura:
+pg_restore -U postgres -a -d novobanco banco.sql
+
+Restaurar somente um esquema de um banco:
+pg_restore -U postgres -d novobanco -n nomeesquema banco.sql
+
+Restaurar somente uma tabela de um banco:
+pg_restore -U postgres -d novobanco -t nometabela banco.sql
+
+
+Criar banco limpo, tendo como base o template0:
+CREATE DATABASE foo WITH TEMPLATE template0;
+
+
+Referências:
+http://www.postgresql.org/docs/8.3/interactive/app-pgdump.html
+http://www.postgresql.org/docs/current/static/backup.html
+http://www.postgresql.org/docs/8.3/interactive/app-pgrestore.html

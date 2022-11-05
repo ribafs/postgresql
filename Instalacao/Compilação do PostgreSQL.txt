@@ -1,0 +1,336 @@
+Instalação do PostgreSQL através dos Fontes
+
+Conhecimentos requeridos:
+
+Para compilar algo no linux subentende-se que você tenha pelo menos alguns 
+conhecimentos anteriores: uso do terminal do Linux, compactar e descompactar
+arquivos, uso de shell script e da compilação de programas, além da instalação
+de pacotes da distribuição.
+
+
+Compilação do PostgreSQL 9.5.3
+
+A compilação permite interferir nas características do postgresql instalado e 
+ter mais controle do que temos ao final do que instalando pelos pacotes. Na 
+configuração podemos indicar em que diretório ficarão os binários do nosso SGBD, 
+em que diretório ficará o cluster com nossos bancos de dados.
+
+Usar os fontes permite muita flexibilidade. Permite até que usemos uma 
+distribuição para a qual ainda não existam pacotes. Não precisamos nos preocupar
+com qual distribuição usar, a arquitetura, etc.
+
+Para uma experiência mais simples iremos começar:
+
+- Parando o postgresql existente
+- Dexinstando completamente
+
+sudo service postgresql stop
+sudo apt-get remove --purge postgresql postgresql-contrib
+
+
+Plataformas suportadas:
+https://www.postgresql.org/docs/9.5/static/supported-platforms.html
+
+Notas para algumas plataformas:
+https://www.postgresql.org/docs/9.5/static/installation-platform-notes.html
+
+Resumo dos procedimentos de compilação para quem já sabe o que fazer:
+https://www.postgresql.org/docs/9.5/static/install-short.html
+
+Pré-requisitos
+https://www.postgresql.org/docs/9.5/static/install-requirements.html
+
+Download
+https://www.postgresql.org/ftp/source/
+
+Na página acima temos as versões da 1.08 até a 9.6.3. (Hoje)
+
+
+A recomendação é usar a versão estável mais recente. No caso baixarei a 9.5.3.
+
+Baixar o bz2, que é menor
+https://ftp.postgresql.org/pub/source/v9.5.3/postgresql-9.5.3.tar.bz2
+https://ftp.postgresql.org/pub/source/v9.5.3/postgresql-9.5.3.tar.bz2.md5
+
+Uma boa sugestão é usar o wget para fazer o download:
+wget -c https://ftp.postgresql.org/pub/source/v9.5.3/postgresql-9.5.3.tar.bz2
+
+Checar autenticidade do pacote baixado:
+md5sum -c postgresql-9.5.3.tar.bz2
+SUCESSO
+
+Descompactar
+bunzip2 postgresql-9.5.3.tar.bz2 (criará o arquivo postgresql-9.5.3.tar)
+
+sudo su
+tar xpvf postgresql-9.5.3.tar -C /usr/local/src
+
+cd /usr/local/src/
+mv postgresql-9.5.3 pgsql
+
+Veja o conteúdo dos fontes:
+
+cd pgsql
+
+Listar somente os diretórios do primeiro nível
+find ./ -maxdepth 1 -type d
+
+/config - configurações
+/contrib - diversos pacotes recebidos de contribuições que não fazem parte do core
+/doc - documentação
+/src - core com muita coisa
+
+
+Instalar dependências:
+
+Header do kernel
+apt-get install build-essential linux-headers-$(uname -r)
+
+Outras dependências
+apt-get install ncurses-dev bison gawk python-setproctitle zlib1g-dev
+apt-get install libreadline6 libreadline6-dev ledit gcc g++ zlibc gettext
+
+readline - importante para o psql
+zlib - importante para backups com pg_dump
+
+No Ubuntu o make é o gmake. Caso queira pode criar um link simbólico:
+sudo ln -s /usr/bin/make /usr/bin/gmake
+
+Guardar o help da configuração
+./configure --prefix=/usr/local/pgsql > configure.txt
+
+Configurar, indicando o diretório do PostgreSQL
+No configure podemos passar vários parâmetros que customizam a instalação. Eles
+produzirão um makefile que será usado pelo make na instalação. Podemos passar o
+diretório de destino, número da porta padrão, habilitar e desabilitar várias
+características e diretórios.
+
+./configure --prefix=/usr/local/pgsql
+
+
+Guardar o make (esta etapa talvez não valha a pena. A saída não deve ser muito
+interessante):
+make world > make_world.txt
+
+Compilar tudo: core, docs e contribs:
+make world
+
+Caso receba a mensagem:
+PostgreSQL, contrib, and documentation successfully made. Ready to install.
+Significa que foi bem sucedido na compilação e pode agora instalar, como a seguir.
+
+
+Antes vamos fazer os Testes de Regressão
+Os testes de regressão são uma forma de testar pra valer o suporte do seu servidor
+ao PostgreSQL.
+
+Mas para ser executado, você deve deixar os fontes na pasta de um usuário comum
+e executar os mesmo como usuário comum e não como root. Lembre que toda a pasta
+com os fotnes deve ter o usuário como dono e dar permissão de escrita para ele.
+
+sudo cp -ra /usr/local/src/pgsql /home/ribafs
+sudo chmod -R 755 /home/ribafs/pgsql
+sudo chown -R ribafs:ribafs /home/ribafs/pgsql
+
+Para executar os testes de regressão, estando na home do usuário, execute:
+cd /home/ribafs/pgsql
+make check
+
+Aqui ao final recebi:
+All 157 tests passed. 
+
+Mais detalhes:
+https://www.postgresql.org/docs/9.5/static/install-procedure.html
+
+Guardar o resultado da instalação:
+make install-world > make_install_world.txt
+
+Instalar
+make install-world
+
+Aguarde...
+Como a última mensagem foi:
+PostgreSQL, contrib, and documentation installation complete.
+
+Nossa instalação foi bem sucedida.
+
+Prontinho os fontes do PostgreSQL estão instalados em sua máquina. Mas lembre que apenas instalamos, seu processo não está em execução, nem sua porta está aberta nem o cluster foi criado ainda.
+
+Criar o super usuário do PostgreSQL:
+
+groupadd postgres
+useradd -g postgres -d /usr/local/pgsql postgres
+chown -R postgres:postgres /usr/local/pgsql
+passwd postgres
+
+Criar o diretório data. Como instalamos em /usr/local/pgsql, criaremos o data em:
+mkdir /usr/local/pgsql/data
+
+Mas é bom lembrar que este diretório, que guardará todo o cluster, pode ficar em
+qualquer diretório. Idealmente em um disco mais rápido para os bancos de dados.
+
+Tornar o postgres seu dono:
+chown -R postgres:postgres /usr/local/pgsql/data
+
+Criar o novo cluster:
+
+su - postgres
+
+Adicionar /usr/local/pgsql/bin ao PATH:
+
+nano ~/.bash_profile
+
+Adicione isto:
+if [ -d "$HOME/bin" ] ; then
+  PATH="$PATH:$HOME/bin"
+fi
+
+PATH=$PATH:/usr/local/pgsql/bin
+PGDATA=/usr/local/pgsql/data
+LD_LIBRARY_PATH=/usr/local/pgsql/lib
+export PATH
+export PGDATA
+export LD_LIBRARY_PATH
+
+Atualizar ambiente:
+exit
+su - postgres
+
+Criar o novo cluster
+initdb -D /usr/local/pgsql/data
+
+Se aparecer a mensagem:
+Success. You can now start the database server using:
+pg_ctl -D /usr/local/pgsql/data -l logfile start
+
+Foi bem sucedido.
+
+Detalhes sobre o initdb:
+https://www.postgresql.org/docs/current/static/app-initdb.html
+
+Veja os diretórios do novo cluster:
+
+cd /usr/local/pgsql/data
+find ./ -maxdepth 1 -type d
+./global
+./pg_stat
+./pg_replslot
+./base
+./pg_logical
+./pg_twophase
+./pg_clog
+./pg_notify
+./pg_xlog
+./pg_dynshmem
+./pg_stat_tmp
+./pg_multixact
+./pg_serial
+./pg_tblspc
+./pg_subtrans
+./pg_snapshots
+./pg_commit_ts
+
+Caso queira mudar a posta default (5432) para outra:
+nano /usr/local/pgsql/data/postgresql.conf
+
+Adicionar a variável PGDATA
+
+Iniciar o novo postgresql instalado
+pg_ctl start
+
+Detalhes sobre o pg_ctl
+https://www.postgresql.org/docs/current/static/app-pg-ctl.html
+
+Para verificar se processo postgres foi ativado:
+ps -A | grep postgres
+
+Caso haja instalado e desinstalado o postgresql através dos pacotes, ele pode
+ter deixado alguns binários instalados, como é o caso do psql. Para se certificar
+execute:
+
+which psql
+
+Se retornar /usr/bin/psql então é o binário deixado pelos pacotes, visto que o
+nosso está em /usr/local/pgsql/bin. Então execute assim.
+Exclua o /usr/bin/psql, feche todas as janelas do terminal abertas e abra novamente
+que agora o psql encotnrado será este. Não só o psql, mas o createdb e outros 
+precisará excluir para que seja encontrado o da compilação.
+
+Aparecerão 6 processos. Caso apareçam 12, os outros 6 são do outro postgresql.
+
+Criar um banco teste no nosso novo postgresql:
+createdb teste
+
+Entrar na console
+psql
+\l
+
+Executando comandos do sistema operacional dentro do psql
+\! comando
+
+\! ls
+
+Vamos adicionar ao PATH
+Se no Ubuntu ou outro Debian:
+
+Para todos os usuários
+sudo nano /etc/profile (e adicione a linha):
+PATH=$PATH:/usr/local/pgsql/bin
+export PATH
+
+Depois execute:
+exit
+
+login novamente
+
+Para apenas um usuário
+nano ~/.bash_profile
+
+PATH=$PATH:/usr/local/pgsql/bin
+export PATH
+
+Depois execute:
+exit
+login novamente
+
+
+    initdb – inicializa o cluster, cria os scripts de configuração default.
+    postmaster – inicia o processo do servidor responsável por escutar por pedidos de conexão.
+
+Caso em alguma etapa se perca e queira apagar tudo e recomeçar, precisará destruir os processos:
+killall postgres
+
+
+Automatizar o Postgresql
+Antes de tudo, vamos parar os serviços postgresql que estejam rodando:
+
+killall postgres
+
+Agora, aos procedimentos de automatização:
+
+cp /usr/local/src/pgsql/contrib/start-scripts/linux /etc/init.d/postgresql
+
+chmod +x /etc/init.d/postgresql
+
+Agora o administrador já poderá utilizar os comandos:
+
+/etc/init.d/postgresql stop
+/etc/init.d/postgresql start
+/etc/init.d/postgresql restart
+
+Agora já podemos proceder da mesma forma como procediamos com os pacotes instalados:
+
+service postgresql stop
+service postgresql start
+
+su - postgres
+psql
+
+\l
+
+
+Referências:
+https://www.postgresql.org/docs/9.5/static/installation.html
+https://pt.wikibooks.org/wiki/PostgreSQL_Pr%C3%A1tico/Instala%C3%A7%C3%A3o/No_Linux
+https://concani3.wordpress.com/2012/09/04/compilar-postgresql-e-fazer-a-instalacao-manual-em-ambiente-linux-debian/
+

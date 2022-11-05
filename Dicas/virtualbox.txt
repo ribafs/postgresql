@@ -1,0 +1,5 @@
+Máquina virtual simples de instalar e com suporte a Windows, Linux, Mac e outros.
+
+Após instalar já conecta a Internet sem nenhuma configuração adicional.
+
+Site - http://www.virtualbox.org

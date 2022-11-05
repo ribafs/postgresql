@@ -1,0 +1,590 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <title>
+      Power PostgreSQL - Random Aggregate
+    </title>
+    <link rel="stylesheet" href="/css/BasicBlue/CSS/style.css" type="text/css" />
+    <meta http-equiv="generator" content="Framewerk - http://framewerk.org" />
+<script type="text/javascript" src="/JavaScript/jQuery/jQuery.js">
+</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        Power PostgreSQL
+      </h1>
+      <h2>
+        PostgreSQL Performance Pontificated
+      </h2>
+    </div>
+    <ul class="menu">
+      <li>
+        <a href="/">Home</a>
+      </li>
+      <li>
+        <a href="/About">About</a>
+      </li>
+      <li>
+        <a href="/Docs">Docs</a>
+      </li>
+      <li>
+        <a href="/search">Search</a>
+      </li>
+    </ul>
+    <div id="contentBox">
+      <div id="blocks">
+        <div class="block">
+          <h1>
+            Site Search
+          </h1>
+          <form method="get" action="/search/">
+            <p>
+              <input id="googleBox" type="text" name="q" size="20" maxlength="255" value="" /> <input type="submit" value="Search" />
+            </p>
+          </form>
+        </div>
+        <div class="block">
+          <h1>
+            Article Archives
+          </h1>
+          <ul>
+            <li>
+              <a href='/articles/xhtml/?archive=2007-06'>June 2007</a> (2)
+            </li>
+            <li>
+              <a href='/articles/xhtml/?archive=2007-05'>May 2007</a> (1)
+            </li>
+            <li>
+              <a href='/articles/xhtml/?archive=2006-03'>March 2006</a> (2)
+            </li>
+            <li>
+              <a href='/articles/xhtml/?archive=2006-01'>January 2006</a> (1)
+            </li>
+            <li>
+              <a href='/articles/xhtml/?archive=2005-09'>September 2005</a> (2)
+            </li>
+            <li>
+              <a href='/articles/xhtml/?archive=2005-08'>August 2005</a> (1)
+            </li>
+            <li>
+              <a href='/articles/xhtml/?archive=2005-04'>April 2005</a> (2)
+            </li>
+            <li>
+              <a href='/articles/xhtml/?archive=2005-03'>March 2005</a> (3)
+            </li>
+            <li>
+              <a href='/articles/xhtml/?archive=2005-02'>February 2005</a> (3)
+            </li>
+            <li>
+              <a href='/articles/xhtml/?archive=2005-01'>January 2005</a> (2)
+            </li>
+          </ul>
+        </div>
+        <div class="block">
+          <h1>
+            Article Topics
+          </h1>
+          <ul>
+            <li>
+              <a href='/articles/xhtml/?topic=Announcement'>Announcement</a> (6)
+            </li>
+            <li>
+              <a href='/articles/xhtml/?topic=Article'>Article</a> (7)
+            </li>
+            <li>
+              <a href='/articles/xhtml/?topic=Musing'>Musing</a> (1)
+            </li>
+            <li>
+              <a href='/articles/xhtml/?topic=Presentations'>Presentations</a> (4)
+            </li>
+            <li>
+              <a href='/articles/xhtml/?topic=Snippet'>Snippet</a> (1)
+            </li>
+          </ul>
+        </div>
+        <div class="badges">
+          <a href="http://www.framewerk.org"><img src="/Themes/BasicBlue/Graphics/framewerk.gif" alt="Powered by Framewerk" /></a>
+        </div>
+      </div>
+      <div id="content">
+        <h3>
+          <span class="Title">random_agg()</span>
+        </h3>Earlier today a user came onto the #postgresql channel on IRC.freenode.net with an interesting challenge: he wanted a "random" aggregate.&nbsp; Jan Wieck stated that it couldn't be done, but I thought there might be a way.&nbsp; Oddly, the user wasn't satisfied with my solution (I'm really not clear on what he really wanted), but <span style="font-style: italic;">I</span> liked it a great deal so I'm sharing it here.<br />
+        <br />
+        If you check out the <a href="http://www.joeconway.com/plr/">PL/R</a> project, you'll see some of Joe Conway's innovative solutions for special aggregates like MEDIAN().&nbsp; Medians can't be done as simple, classic aggregates; using brute force approaches they require two passes over the data, which postgresql can't support in an aggregate function.&nbsp; However, Joe does some very creative things with storing running values in registers which I thought could be adapted to the RANDOM_AGG() problem, and I was right.<br />
+        <br />
+        First off, in order to hold multiple values in the state variable of the aggregate function we're going to need a composite type.&nbsp; I tend to define types and functions which exist only for internal use by starting their names with an underscore, as I do here:<br />
+        <br />
+        <pre>
+CREATE TYPE _random_text AS (
+</pre>
+        <pre>
+    runcount BIGINT,
+</pre>
+        <pre>
+    choice TEXT
+</pre>
+        <pre>
+);
+</pre><br />
+        Next, we're going to need two functions.&nbsp; One does the calculation of the aggregate, and the other is the final function which "formats" the exit value for the query.&nbsp; I'll actually start with the final function because it's easy, it just strips out the final random value from the composite and gives it to the query:<br />
+        <br />
+        <pre>
+CREATE OR REPLACE FUNCTION _exit_random_text (
+</pre>
+        <pre>
+    _random_text )
+</pre>
+        <pre>
+RETURNS TEXT AS $f$
+</pre>
+        <pre>
+SELECT $1.choice;
+</pre>
+        <pre>
+$f$ LANGUAGE sql IMMUTABLE STRICT;
+</pre><br />
+        The other function is conceptually more complex.&nbsp; Aggregate functions iterate through the data set, in no particular row order, performing their operation once per row.&nbsp; So, at any given time our aggregate function can know two things: the number of rows it's covered so far, and the value of the current row.&nbsp;&nbsp; Based on that we can follow this logic with each row:<br />
+        <br />
+        <pre>
+ n = iteration number
+</pre>
+        <pre>
+ v = value held by current row
+</pre>
+        <pre>
+ b = value held in the "buffer" of the state variable
+</pre>
+        <pre>
+<br />
+IF random &lt; ( 1 / n ) THEN v ELSE b
+</pre><br />
+        What's all that, you ask?&nbsp; Simple: for each row, compare a random number (between 0 and 1) with one divided by the number of rows you've processed so far.&nbsp; If the random number is less, choose the value of the current row; otherwise, keep the value held in the state variable.&nbsp; Now, the user who had originally asked for this was convinced that the math couldn't work; he insisted that the chance of getting stuck with the first value was unreasonably high.&nbsp; Probability theory was one of my favorite areas of math, though, so I could see that it did work.&nbsp; For example, for a series of 5 values, the chance of keeping the first value is:<br />
+        <br />
+        <pre>
+ 1/1 * 1/2 * 2/3 * 3/4 * 4/5 = 24/120 = 1/5
+</pre><br />
+        The proability equation for this calculation is:<br />
+        <br />
+        <pre>
+ (n - 1)! / n!  =  1 / n
+</pre><br />
+        Now, 1/n is exactly the value we want; in any large enough sample over n values we would expect any individual value to appear 1/n times.&nbsp; So it works mathematically.&nbsp; In code, it works this way:<br />
+        <br />
+        <pre>
+ CREATE OR REPLACE FUNCTION _choose_random_text (
+</pre>
+        <pre>
+     thestate _random_text,
+</pre>
+        <pre>
+     newvalue TEXT )
+</pre>
+        <pre>
+ RETURNS _random_text AS $f$
+</pre>
+        <pre>
+ DECLARE result _random_text;
+</pre>
+        <pre>
+ BEGIN
+</pre>
+        <pre>
+     result.runcount := COALESCE(thestate.runcount, 0) + 1;
+</pre>
+        <pre>
+     IF random() &lt; ( 1::FLOAT / result.runcount::FLOAT ) THEN
+</pre>
+        <pre>
+         result.choice := newvalue;
+</pre>
+        <pre>
+     ELSE
+</pre>
+        <pre>
+         result.choice := thestate.choice;
+</pre>
+        <pre>
+     END IF;
+</pre>
+        <pre>
+     RETURN result;
+</pre>
+        <pre>
+ END; $f$ LANGUAGE plpgsql;
+</pre>
+        <pre>
+<br />
+CREATE AGGREGATE random_agg(
+</pre>
+        <pre>
+     BASETYPE = text,
+</pre>
+        <pre>
+     SFUNC = _choose_random_text,
+</pre>
+        <pre>
+     STYPE = _random_text,
+</pre>
+        <pre>
+     FINALFUNC = _exit_random_text
+</pre>
+        <pre>
+ );
+</pre><br />
+        Now, the question was, how does it work?&nbsp; Do we actually get a random value?&nbsp; And if so, how long does it take compared to the traditional approach, "SELECT value FROM table ORDER BY random() LIMIT 1"?&nbsp;&nbsp; The answer is, surprisingly well.&nbsp; Here's some examples of using it on a small table, which happens to be the regional contact list for the PostgreSQL project:<br />
+        <br />
+        <pre>
+ pgpr=# \timing
+</pre>
+        <pre>
+ Timing is on.
+</pre>
+        <pre>
+ pgpr=# select name from contacts order by random() limit 1;
+</pre>
+        <pre>
+         name
+</pre>
+        <pre>
+ ---------------------
+</pre>
+        <pre>
+  Michalis Kamprianis<br />
+<br />
+ (1 row)<br />
+Time: 2.445 ms
+</pre>
+        <pre>
+ pgpr=# select name from contacts order by random() limit 1;
+</pre>
+        <pre>
+       name
+</pre>
+        <pre>
+ ----------------
+</pre>
+        <pre>
+  Francois Suter
+</pre>
+        <pre>
+ (1 row)<br />
+Time: 0.903 ms
+</pre>
+        <pre>
+ pgpr=# select name from contacts order by random() limit 1;
+</pre>
+        <pre>
+      name
+</pre>
+        <pre>
+ ---------------
+</pre>
+        <pre>
+  Jussi Mikkola
+</pre>
+        <pre>
+ (1 row)<br />
+Time: 0.712 ms
+</pre>
+        <pre>
+ pgpr=# select random_agg(name) from contacts;
+</pre>
+        <pre>
+     random_agg
+</pre>
+        <pre>
+ -------------------
+</pre>
+        <pre>
+  Anastasios Hatzis
+</pre>
+        <pre>
+ (1 row)<br />
+Time: 4.014 ms
+</pre>
+        <pre>
+ pgpr=# select random_agg(name) from contacts;
+</pre>
+        <pre>
+    random_agg
+</pre>
+        <pre>
+ ----------------
+</pre>
+        <pre>
+  Dawid Kuroczko
+</pre>
+        <pre>
+ (1 row)<br />
+Time: 1.037 ms
+</pre>
+        <pre>
+ pgpr=# select random_agg(name) from contacts;
+</pre>
+        <pre>
+     random_agg
+</pre>
+        <pre>
+ ------------------
+</pre>
+        <pre>
+  Dennis Bjorklund
+</pre>
+        <pre>
+ (1 row)<br />
+Time: 1.117 ms
+</pre><br />
+        As you can see, for a small dataset (70 rows) it's a bit slower than ORDER BY random(), about 30%.&nbsp; However, another user on #postgresql had the theory that on large datasets, ones which were larger than work_mem, random_agg() would be faster than ORDER BY random() because the aggregate does not require a sort.&nbsp; Let's see if he's right.&nbsp; This time, the time the table is the downloads log for ftp.postgresql.org, about 3.6 million rows of up-to-100-character values.&nbsp; Larger than I've set work_mem.<br />
+        <br />
+        <pre>
+ pg_downloads=# explain analyze select path from clickthrus order by random() limit 1;
+</pre>
+        <pre>
+                    QUERY PLAN         
+</pre>
+        <pre>
+ -----------------------------------------------------------------------------
+</pre>
+        <pre>
+  Limit  (cost=358037.96..358037.96 rows=1 width=54) <br />
+(actual time=54360.854..54360.856 rows=1 loops=1)
+</pre>
+        <pre>
+    -&gt;  Sort  (cost=358037.96..361194.77 rows=3156808 width=54) <br />
+(actual time=54360.851..54360.851 rows=1 loops=1)
+</pre>
+        <pre>
+          Sort Key: random()
+</pre>
+        <pre>
+          -&gt;  Seq Scan on clickthrus  (cost=0.00..78278.85 rows=3156808 width=54) <br />
+(actual time=0.065..5376.734 rows=3068298 loops=1)
+</pre>
+        <pre>
+  Total runtime: 54523.907 ms
+</pre>
+        <pre>
+ (5 rows)<br />
+</pre>
+        <pre>
+ pg_downloads=# explain analyze select random_agg(path) from clickthrus;
+</pre>
+        <pre>
+                           QUERY PLAN            
+</pre>
+        <pre>
+ --------------------------------------------------------------------------
+</pre>
+        <pre>
+  Aggregate  (cost=78278.85..78278.85 rows=1 width=54) <br />
+(actual time=27084.871..27084.871 rows=1 loops=1)
+</pre>
+        <pre>
+    -&gt;  Seq Scan on clickthrus  (cost=0.00..75122.04 rows=3156808 width=54) <br />
+(actual time=0.036..2890.440 rows=3068298 loops=1)
+</pre>
+        <pre>
+  Total runtime: 27084.921 ms
+</pre>
+        <pre>
+ (3 rows)
+</pre><br />
+        Looks like he was right!&nbsp; Cutting out the sort step cut our query time in half.&nbsp; Imagine what we could do if the aggregate were written in C!<br />
+        <br />
+        However, on performance values alone this aggregate isn't very useful.&nbsp;&nbsp; Its main utility is the ability to do queries which would require extensive subquerying via the ORDER BY random() method.&nbsp; For example, imagine that (for some reason) I wanted to select each continent from by contacts database and one random contact from that continent.&nbsp; Using ORDER BY random() that would be pretty messy; with random_agg() it becomes easy and fast:<br />
+        <br />
+        <pre>
+ pgpr=# select continent, random_agg(name) from contacts group by continent order by continent;
+</pre>
+        <pre>
+  continent |    random_agg
+</pre>
+        <pre>
+ -----------+-------------------
+</pre>
+        <pre>
+  Africa    | Anton de Wet
+</pre>
+        <pre>
+  Americas  | Bruce Momjian
+</pre>
+        <pre>
+  Asia      | Abhijit Menon-Sen
+</pre>
+        <pre>
+  Europe    | Aleksander Kmetec
+</pre>
+        <pre>
+  Oceania   | Andrej Ricnik
+</pre>
+        <pre>
+ (5 rows)<br />
+Time: 1.690 ms
+</pre><br />
+        Much nicer than:<br />
+        <br />
+        <pre>
+ pgpr=# select continent, <br />
+pgpr=# (select name from contacts where contacts.continent = continents.continent<br />
+pgpr=# order by random() limit 1) as name from ( select distinct continent from contacts )<br />
+pgpe=# as continents order by continent;
+</pre>
+        <pre>
+  continent |       name
+</pre>
+        <pre>
+ -----------+------------------
+</pre>
+        <pre>
+  Africa    | Anton de Wet
+</pre>
+        <pre>
+  Americas  | Bruce Momjian
+</pre>
+        <pre>
+  Asia      | Samer Abukhait
+</pre>
+        <pre>
+  Europe    | Dennis Bjorklund
+</pre>
+        <pre>
+  Oceania   | Andrej Ricnik
+</pre>
+        <pre>
+ (5 rows)<br />
+Time: 2.212 ms
+</pre><br />
+        ... don't you think?<br />
+        <br />
+        Or say I wanted to pick a random region, continent, and contact out of my table but wanted each to be independently random and not match up.&nbsp; There is no way to do this with ORDER BY random() at all except by three independant subqueries.&nbsp; With random_agg() it's simple!<br />
+        <br />
+        <pre>
+ pgpr=# select random_agg(continent), random_agg(region), random_agg(name) from contacts;
+</pre>
+        <pre>
+  random_agg | random_agg | random_agg
+</pre>
+        <pre>
+ ------------+------------+-------------
+</pre>
+        <pre>
+  Oceania    | Argentina  | Simon Riggs
+</pre>
+        <pre>
+ (1 row)<br />
+Time: 1.951 ms
+</pre><br />
+        On the other hand, of course, random_agg is not much use for picking a coherent random row.&nbsp; For that, ORDER BY random() is better.<br />
+        <br />
+        So here's random_agg() again all together for your cut-and-paste pleasure.&nbsp; Note that you'll need to create one for each data type you want to randomize.&nbsp; Have fun with it!<br />
+        <br />
+        <pre>
+ BEGIN TRANSACTION;
+</pre>
+        <pre>
+<br />
+CREATE TYPE _random_text AS (
+</pre>
+        <pre>
+     runcount BIGINT,
+</pre>
+        <pre>
+     choice TEXT
+</pre>
+        <pre>
+ );
+</pre>
+        <pre>
+<br />
+CREATE OR REPLACE FUNCTION _choose_random_text (
+</pre>
+        <pre>
+     thestate _random_text,
+</pre>
+        <pre>
+     newvalue TEXT )
+</pre>
+        <pre>
+ RETURNS _random_text AS $f$
+</pre>
+        <pre>
+ DECLARE result _random_text;
+</pre>
+        <pre>
+ BEGIN
+</pre>
+        <pre>
+     result.runcount := COALESCE(thestate.runcount, 0) + 1;
+</pre>
+        <pre>
+     IF random() &lt; ( 1::FLOAT / result.runcount::FLOAT ) THEN
+</pre>
+        <pre>
+         result.choice := newvalue;
+</pre>
+        <pre>
+     ELSE
+</pre>
+        <pre>
+         result.choice := thestate.choice;
+</pre>
+        <pre>
+     END IF;
+</pre>
+        <pre>
+     RETURN result;
+</pre>
+        <pre>
+ END; $f$ LANGUAGE plpgsql;
+</pre>
+        <pre>
+<br />
+CREATE OR REPLACE FUNCTION _exit_random_text (
+</pre>
+        <pre>
+     _random_text )
+</pre>
+        <pre>
+ RETURNS TEXT AS $f$
+</pre>
+        <pre>
+ SELECT $1.choice;
+</pre>
+        <pre>
+ $f$ LANGUAGE sql IMMUTABLE STRICT;
+</pre>
+        <pre>
+<br />
+CREATE AGGREGATE random_agg(
+</pre>
+        <pre>
+     BASETYPE = text,
+</pre>
+        <pre>
+     SFUNC = _choose_random_text,
+</pre>
+        <pre>
+     STYPE = _random_text,
+</pre>
+        <pre>
+     FINALFUNC = _exit_random_text
+</pre>
+        <pre>
+ );
+</pre>
+        <pre>
+<br />
+COMMIT;
+</pre>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div id="TEngineInformation"></div>
+    <p id="footer">
+      Copyright &copy; 2005-2008 Josh Berkus - <a href="http://validator.w3.org/check?uri=referer">Valid XHTML 1.0 Strict</a>
+    </p>
+  </body>
+</html>

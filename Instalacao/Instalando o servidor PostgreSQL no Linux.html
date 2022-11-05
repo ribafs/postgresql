@@ -1,0 +1,136 @@
+<html><head><!-- 
+Programador por: Fábio Berbert de Paula
+E-mail: fabio@vivaolinux.com.br
+Web Site: www.vivaolinux.com.br
+
+Tema: Harmonia Celeste
+-->
+<title>Instalando o servidor PostgreSQL no Linux [Dica]</title>
+  <Link Rel="Add Icon" Href="/favicon.ico">
+  <Link Rel="Shortcut Icon" Href="/favicon.ico">
+  <link rel="Icon" href="/favicon.ico" type="image/ico">
+<link rel="stylesheet" href="/linux003.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff" marginwidth="0" marginheight="0" leftmargin='0' topmargin='0'>
+
+<table border=0 cellpadding=3 cellspacing=3 width="100%">
+<tr><td>
+<h2>Instalando o servidor PostgreSQL no Linux</h2>
+Autor: Cesar Augustus Silva &lt;cesaraugustussilva@linuxmail.org&gt;<br>
+Data: 08/12/2010
+<br><br>
+</td></tr>
+
+<tr><td>
+<b>Instalando o servidor PostgreSQL no Linux</b>
+<br><br>
+<div>
+Instalando os pacotes:
+<br/><br/>
+Debian/Ubuntu.
+<br/><br/>
+<strong># apt-get install postgresql</strong>
+<br/><br/>
+Fedora/CentOS.
+<br/><br/>
+<strong># yum install postgresql-server</strong>
+<br/><br/>
+Feita a instalação, crie a base de dados, inicie o serviço e já habilite para iniciar durante o boot:
+<br/><br/>
+<strong># service postgresql initdb<br/>
+# service postgresql start<br/>
+# chkconfig postgresql on</strong>
+<br/><br/>
+
+<h1>Configurando o PostgreSQL</h1>
+
+Atribua a senha no usuário postgres do PostgreSQL:
+<br/><br/>
+<strong># su postgres -c psql<br/>
+ALTER USER postgres WITH PASSWORD 'senha';<br/>
+\q</strong>
+<br/><br/>
+Para permitir que acesse o banco apenas informando a senha, configure no arquivo <em>pg_hba.conf</em>, alterando a coluna METHOD de todas as linhas de "ident" para "md5".
+<br/><br/>
+O diretório dos arquivos de configuração do PostgreSQL:
+<ul>
+<li> Debian/Ubuntu: /etc/postgresql/8.4/main/
+<li> Fedora/CentOS: /var/lib/pgsql/data/
+</ul><br/>
+
+Feito a instalação e mudança de senha do usuário postgres, você estará apto a desenvolver o trabalho no seu computador conectando normalmente ao postgres, porém, se a ideia é disponibilizar o acesso ao banco para receber conexões de outras máquinas, você vai ter que alterar dois arquivos no diretório do PostgreSQL: postgresql.conf e pg_hba.conf.
+<br/><br/>
+No arquivo postgresql.conf, na linha listen_addresses, descomente-o removendo o "#" e troque o "localhost" por "*", deixando a linha assim:
+<br/><br/>
+<div class="codigo">
+listen_addresses = '*'
+</div><br/>
+
+Dessa forma seu PostgreSQL vai "escutar" não só conexões provenientes da sua própria máquina. A próxima configuração no mesmo arquivo é habilitar a encriptação de passwords, para fazer isso descomente a linha abaixo removendo o "#", ficando a linha assim:
+<br/><br/>
+<div class="codigo">
+password_encryption = on
+</div><br/>
+
+Finalmente a próxima configuração no arquivo pg_hba.conf. Neste arquivo você consegue restringir o acesso ao seu banco de dados por IP. Normalmente queremos liberar o acesso para todos os IPs em uma faixa, no meu exemplo, quero liberar para todas as máquinas da rede 10.5.2.0/16, então eu adiciono a seguinte linha:
+<br/><br/>
+<div class="codigo">
+host all all 10.5.2.0 255.255.0.0 md5
+</div><br/>
+
+Terminando a configuração, reinicie o PostgreSQL.
+<br/><br/>
+Debian/Ubuntu:
+<br/><br/>
+<strong># /etc/init.d/postgresql-8.4 restart</strong>
+<br/><br/>
+Fedora/CentOS:
+<br/><br/>
+<strong># service postgresql restart</strong>
+<br/><br/>
+
+Testando a conexão:
+<br/><br/>
+<strong># psql -U postgres</strong><br/>
+Senha para usuário postgres:<br/>
+psql (8.4.4)<br/>
+Digite "help" para ajuda.<br/>
+<br/>
+postgres=#
+<br/><br/>
+Pronto!
+<br/><br/>
+
+Esse artigo foi originalmente publicado em meu blog: <a href="http://blog.cesar.augustus.nom.br:8081/content.php?id=20100509150726">http://blog.cesar.augustus.nom.br:8081/content.php?id=20100509150726</a> 
+<br/><br/>
+
+<h1>Vídeo-aula</h1>
+
+Debian/Ubuntu:
+
+<div class="figura">
+<object width="480" height="385"><param name="movie" value="http://www.youtube.com/v/qU97kPLtU84?fs=1&amp;hl=pt_BR&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/qU97kPLtU84?fs=1&amp;hl=pt_BR&amp;rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="385"></embed>
+</div>
+
+Fedora/CentOS:
+
+<div class="figura">
+<object width="480" height="385"><param name="movie" value="http://www.youtube.com/v/Gn0CNfiOXKA?fs=1&amp;hl=pt_BR&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/Gn0CNfiOXKA?fs=1&amp;hl=pt_BR&amp;rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="385"></embed>
+</div>
+</div>
+
+
+<br>
+</td></tr>
+
+<tr><td>
+<u>http://www.vivaolinux.com.br/dica/Instalando-o-servidor-PostgreSQL-no-Linux</u>
+<br><br>
+<a href="/dica/Instalando-o-servidor-PostgreSQL-no-Linux">Voltar para o site</a>
+<br><br>
+</td></tr>
+</table>
+
+</body>
+</html>

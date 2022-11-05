@@ -1,0 +1,42 @@
+Beta 3 of plPHP released
+Posted on 2003-09-26
+Posted by jd.nospam@commandprompt.com
+
+PL/PHP is a loadable procedural language that enables you to write PostgreSQL functions 
+in the PHP programming language. 
+
+It currently supports triggers, trusted, and untrusted modes. 
+
+It is the hope that this will be the last beta before RC status is achieved. 
+
+New features include the ability to access trigger operations, e.g; 
+$_TD["new"] 
+An associative array containing the values of the new table row for INSERT/UPDATE 
+actions, or empty for DELETE. The array is indexed by field name. Fields that are 
+NULL will not appear in the array! 
+
+$_TD["old"] 
+An associative array containing the values of the old table row for UPDATE/DELETE 
+actions, or empty for INSERT. The array is indexed by field name. Fields that are 
+NULL will not appear in the array! 
+
+$_TD["name"] 
+contains the trigger name. 
+
+$_TD["event"] 
+contains the event as a string (INSERT, UPDATE, DELETE, or UNKNOWN). 
+
+$_TD["when"] 
+contains one of BEFORE, AFTER, and UNKNOWN. 
+
+$_TD["level"] 
+contains one of ROW, STATEMENT, and UNKNOWN. 
+
+$_TD["relid"] 
+contains the relation ID of the table on which the trigger occurred. 
+
+$_TD["relname"] 
+contains the relation name. 
+
+$_TD["argc"] 
+contains the arguments count. 

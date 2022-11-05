@@ -1,0 +1,80 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>EnterpriseDB Oracle Compatibility Developer's Guide: Deletions</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1956"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-19_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-18.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-19_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-19_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-20.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-19_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P1348_62571"></a><span style="font-family: 'Arial'; font-size: 13pt;">2.1.8 Deletions</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Rows can be removed from a table using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command. For example, the following sequence of commands shows the
+before and after results of deleting all employees in department 20.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ename, deptno FROM emp;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> ename  | deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------+--------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> SMITH  |     20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> ALLEN  |     30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> WARD   |     30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> JONES  |     20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> MARTIN |     30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> BLAKE  |     30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> CLARK  |     10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> SCOTT  |     20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> KING   |     10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> TURNER |     30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> ADAMS  |     20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> JAMES  |     30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> FORD   |     20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> MILLER |     10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(14 rows)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DELETE FROM emp WHERE deptno = 20;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ename, deptno FROM emp;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> ename  | deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------+--------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> ALLEN  |     30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> WARD   |     30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> MARTIN |     30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> BLAKE  |     30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> CLARK  |     10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> KING   |     10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> TURNER |     30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> JAMES  |     30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> MILLER |     10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(9 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Be extremely careful of giving a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command without a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WHERE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause such as the following:</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE FROM </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>tablename</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This
+statement will remove all rows from the given table, leaving it
+completely empty. The system will not request confirmation before doing
+this.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-18.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-19_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-19_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-20.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-19_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-19_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-19_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

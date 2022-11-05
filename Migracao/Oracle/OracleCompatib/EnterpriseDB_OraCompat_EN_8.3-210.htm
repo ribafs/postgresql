@@ -1,0 +1,143 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>DBMS_PIPE</title>
+
+<meta name="keywords" content="dbms_pipe, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2147"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-210_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-209.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-210_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-210_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-211.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-210_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 28pt;"><p><a name="P10429_555720"></a><span style="font-family: 'Arial'; font-size: 14pt;"><i>7.3 DBMS_PIPE</i></span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DBMS_PIPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+package provides the capability to send messages through a pipe within
+or between sessions connected to the same database cluster.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The procedures and functions available in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DBMS_PI</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package are listed in the following table.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 7-4 DBMS_PIPE Functions/Procedures</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="241"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function/Procedure</span></p>
+</td>
+<td valign="top" width="72"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Return Type</span></p>
+</td>
+<td valign="top" width="264"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CREATE_PIPE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>pipename</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">[, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>maxpipesize</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">] [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>private</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ])</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Explicitly create </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">a private pipe</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> if </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>private</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> is &#8220;true&#8221; (the default) or a public pipe if </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>private</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> is &#8220;false&#8221;.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NEXT_ITEM_TYPE</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Determine the data type of the next item in a received message.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">PACK_MESSAGE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>item</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Place </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>item</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">in the session&#8217;s local message buffer.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">PUR</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">GE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>pipename</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Remove unreceived messages from </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">the</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> specified pipe.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">RECEIVE_MESSAGE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>pipename</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">[, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>timeout</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ])</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get a message from a specified pipe.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REMOVE_PIPE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>pipename</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Delete an explicitly created pipe.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">RESET_BUFFER</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Reset the local me</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ssage buffer.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SEND_MESSAGE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>pipename</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">[, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>timeout</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ] [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>maxpipesize</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">])</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Send a message on a pipe.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">UNIQUE_SESSION_NAME</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Obtain a unique session name.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">UNPACK_MESSAGE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>item</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OUT)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Retrieve </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">the next data item from </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">a message</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> into a type-compatibl</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">e variable, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>item</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Pipes are categorized as implicit or explicit. An </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>implicit pipe</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is created if a reference is made to a pipe name that was not previously created by the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE_PIPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function. For example, if the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SEND_MESSAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function is executed using a non-existent pipe name, a new implicit pipe is created with that name. An </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>explicit pipe</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is created using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE_PIPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function whereby the first parameter specifies the pipe name for the new pipe.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Pipes are also categorized as private or public. A </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>private pipe</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+can only be accessed by the user who created the pipe. Even a superuser
+cannot access a private pipe that was created by another user. A </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>public pipe</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> can be accessed by any user who has access to the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DBMS_PIPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A public pipe can only be created by using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE_PIPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function with the third parameter set to &#8220;false&#8221;. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE_PIPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+function can be used to create a private pipe by setting the third
+parameter to &#8220;true&#8221; or by omitting the third parameter. All implicit
+pipes are private.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The individual data items or &#8220;lines&#8221; of a message are first built in a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>local message buffer</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, unique to the current session. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PACK_MESSAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure builds the message in the session&#8217;s local message buffer. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SEND_MESSAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function is then used to send the message through the pipe.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Receipt of a message involves the reverse operation. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RECEIVE_MESSAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function is used to get a message from the specified pipe. The message is written to the session&#8217;s local message buffer. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UNPACK_MESSAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+procedure is then used to transfer the message data items from the
+message buffer to program variables. If a pipe contains multiple
+messages, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RECEIVE_MESSAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> gets the messages in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>FIFO</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> (first-in-first-out) order.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Each session maintains separate message buffers for messages created with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PACK_MESSAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure and messages retrieved by the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RECEIVE_MESSAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function. Thus messages can be both built and received in the same session. However, if consecutive </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RECEIVE_MESSAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> calls are made, only the message from the last </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RECEIVE_MESSAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> call will be preserved in the local message buffer.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-209.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-210_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-210_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-211.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-210_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-210_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-210_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

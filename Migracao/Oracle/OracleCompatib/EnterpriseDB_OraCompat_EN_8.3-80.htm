@@ -1,0 +1,134 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>INSERT</title>
+
+
+<meta name="keywords" content="insert, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2017"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-80_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-79.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-80_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-80_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-81.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-80_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P3637_204215"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.42 INSERT</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3638_204228"></a>Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;create new rows in a table</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3640_204270"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT INTO </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">[@</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>dblink</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] [ ( </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...] ) ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  { VALUES ( { </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | DEFAULT } [, ...] )</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    [ RETURNING </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>return_expression</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">        { INTO { </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>record</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>variable</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...] }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">        | BULK COLLECT INTO </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...] } ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>query</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> }</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3647_204521"></a>Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> allows you to insert new rows into a table. You can insert a single row at a time or several rows as a result of a query.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+columns in the target list may be listed in any order. Each column not
+present in the target list will be inserted using a default value,
+either its declared default value or null.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the expression for each column is not of the correct data type, automatic type conversion will be attempted.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RETURNING INTO { </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>record</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>variable</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...] }</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause may only be specified when the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command is used within an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program and only when the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">VALUES</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause is used.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RETURNING BULK COLLECT INTO </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...]</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause may only be specified if the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command is used within an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program. If more than one </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is specified as the target of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BULK COLLECT INTO</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause, then each </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> must consist of a single, scalar field &#8211; i.e., </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> must not be a record. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>return_expression</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> evaluated for each inserted row, becomes an element in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> starting with the first element. Any existing rows in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are deleted. If the result set is empty, then </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> will be empty.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">You must have </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege to a table in order to insert into it. If you use the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>query</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause to insert rows from a query, you also need to have </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege on any table used in the query.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3654_205868"></a>Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name (optionally schema-qualified) of an existing table.</span></p>
+
+</div><p><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">d</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">blink</span></i></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Database link name identifying a remote database. See the <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-49.htm#P2245_121013"><u>CREATE DATABASE LINK</u></a> command for information on database links.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of a column in </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">table</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>expression</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">An expression or value to assign to </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">c</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">olumn</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFAULT</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">This column will be filled with its default value.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>query</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">A query (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> statement) that supplies the rows to be inserted. Refer to the <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-86.htm#P3860_222577">SELECT</a></u> command for a description of the syntax.</span></p>
+
+</div><p><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">return_expressi</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">on</span></i></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">An expression that may include one or more columns from </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">table</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">. If a column name from </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">table</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is specified in </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">return_expression</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">, the value substituted for the column when </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">return_expression</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is evaluated is determined as follows:</span></p>
+
+    </div><div style="margin-left: 72pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If the column specified in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>return_expression</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is assigned a value in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> command, then the assigned value is used in the evaluation of </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">return_expre</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ssion</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+    <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If the column specified in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>return_expression</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is not assigned a value in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> command and there is no default value for the column in the table&#8217;s column definition, then null is used in the evaluation of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>return_expression</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+    <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If the column specified in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>return_expression</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is not assigned a value in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+command and there is a default value for the column in the table&#8217;s
+column definition, then the default value is used in the evaluation of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>return_expression</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>record</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">A record whose field the evaluated </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">return_expression</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is to be assigned. The first </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">return_expression</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is assigned to the first field in </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">record</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">, the second </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">return_expression</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is assigned to the second field in </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">record</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">, etc. The number of fields in </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">record</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> must exactly match the number of expressions and the fields must be type-compatible with their assigned expressions.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>variable</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">A variable to which the evaluated </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">return_expression</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is to be assigned. If more than one </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">return_expression</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> and </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">variable</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> are specified, the first </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">return_expression</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is assigned to the first </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">variable</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">, the second </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">return_expression</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is assigned to the second </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">variable</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">, etc. The number of variables specified following the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INTO</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> keyword must exactly match the number of expressions following the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RETURNING</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> keyword and the variables must be type-compatible with their assigned expressions.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>collection</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">A collection in which an element is created from the evaluated </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">return_expression</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">.
+There can be either a single collection which may be a collection of a
+single field or a collection of a record type, or there may be more
+than one collection in which case each collection must consist of a
+single field. The number of return expressions must match in number and
+order the number of fields in all specified collections. Each
+corresponding </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">return_expression</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> and </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">collection</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> field must be type-compatible. </span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3678_208587"></a>Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Insert a single row into table </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">INSERT INTO emp VALUES (8021,'JOHN','SALESMAN',7698,'22-FEB-07',1250,500,30);</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In this second example, the column, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">comm</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, is omitted and therefore it will have the default value of null:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">INSERT INTO emp (empno, ename, job, mgr, hiredate, sal, deptno)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    VALUES (8022,'PETERS','CLERK',7698,'03-DEC-06',950,30);</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The third example uses the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFAULT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause for the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hire</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">date</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">comm</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> columns rather than specifying a value:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">INSERT INTO emp VALUES (8023,'FORD','ANALYST',7566,NULL,3000,NULL,20);</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This example creates a table for the department names and then inserts into the table by selecting from the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">dname</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> column of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">dept</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE deptnames (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    deptname        VARCHAR2(14)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">INSERT INTO deptnames SELECT dname FROM dept;</span></pre></div><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-79.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-80_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-80_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-81.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-80_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-80_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-80_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

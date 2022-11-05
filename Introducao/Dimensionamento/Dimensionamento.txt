@@ -1,0 +1,22 @@
+Projeto para Instalação de um Servidor de Bancos de Dados com PostgreSQL
+
+O objetivo deste projeto é o de elaborar um planejamento para a administração de bancos de dados com o PostgreSQL, partindo do dimensionamento do hardware, a instalação do sistema operacional, a virtualização, a instalação do PostgreSQL e sua administração, com foco na administração.
+
+Dimensionamento do Hardware
+- Computador(es), memória, CPU, discos, etc
+- Placas de rede e cabos
+- Switchs
+- Garantias
+- Storages
+- Nobreaks
+- Internet e banda
+- Sugestão de fabricantes
+
+Vantagens da Virtualização:
+- Incrementar a utilização do hardware
+- Economizar energia elétrica e reduzir a emissão de Dióxido de Carbono
+- Redução de hardware físico e de pessoal de manutenção
+- Simplificação de backup e restore
+
+Para virtualizar precisa prever este requisito na aquisição do Hardware (Intel VT ou AMD-V) na CPU.
+

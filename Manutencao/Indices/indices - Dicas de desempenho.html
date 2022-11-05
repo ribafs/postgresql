@@ -1,0 +1,119 @@
+<html><head><link href="indices%20-%20Dicas%20de%20desempenho_files/padrao.css" rel="stylesheet" type="text/css"><meta name="description" content="Comunidade de profissionais, estudantes e mestres em tecnlogias e ferramentas voltadas para o desenvolvimento web. Microsoft, linux, programação asp, php, css, javascript, delphi, sql, oracle, interbase, dreamweaver, photoshop, fireworks e flash.">
+<meta name="keywords" content="programação, microsoft, asp, php, internet, linux, curso online, webmaster, java, flash, delphi, sql, oracle, cursos online, javascript, css, photoshop, interbase, fireworks, dreamweaver">
+<meta name="url" content="http://www.imasters.com.br">
+<meta name="Language" content="PT-BR">
+<meta name="robots" content="INDEX,FOLLOW"><link rel="shortcut icon" href="http://www.imasters.com.br/favicon.ico" type="image/x-icon"><script src="indices%20-%20Dicas%20de%20desempenho_files/jscolab.js"></script><script src="indices%20-%20Dicas%20de%20desempenho_files/selects.js"></script><script src="indices%20-%20Dicas%20de%20desempenho_files/padrao.js"></script><script src="indices%20-%20Dicas%20de%20desempenho_files/padrao_ie.js"></script></head><body><table class="texto" width="487"><tbody><tr><td><img src="indices%20-%20Dicas%20de%20desempenho_files/marca.gif" border="0"><br>Daniel Oslei<br><span class="c333333">Segunda-feira, 19 de abril de 2004 </span><br>
+		<span class="size16 bold c000000">Índices - Dicas de desempenho</span><br>
+		<br><p class="texto">Olá comunidade iMasters! Depois de três 
+                artigos mostrando conceitos de índices no PostgreSQL, enfim 
+                chegamos à última parte. E nesse artigo teremos 
+                como objetivo obter idéias mais avançadas na criação 
+                de índice, tentando conduzir sempre ao melhor desempenho 
+                possível. </p>
+              <p class="texto">Para que esse objetivo seja conquistado, dependerá 
+                do responsável pela administração do banco 
+                de dados fazer una análise correta da situação 
+                que se passa com auxílio de algumas estatísticas 
+                sobre o banco. Como obter estas estatísticas ficará 
+                para ser aprofundado num próximo artigo, mas desde já 
+                comessem a se acostumar com algumas idéias interessantes. 
+                Colocarei em forma de itens uma breve seqüência de 
+                dicas:</p>
+              <p class="texto"><font color="#0066cc" size="2">- </font>É 
+                importante utilizar índices em chaves estrangeiras, já 
+                que estes são muito utilizados em <em><b>joins</b>. </em>O 
+                índice será útil quando a tabela que possui 
+                uma chave estrangeira tentar acessar dados na tabela que dá 
+                suporte à esta chave. Também será útil 
+                no caso em que for excluir determinada linha de uma tabela que 
+                possui uma chave estrangeira, terá que ser feita uma leitura 
+                na tabela de onde vem os dados para a chave estrangeira para excluir 
+                os dados nesta segunda tabela no caso em que foi definido <font color="#669900">ON 
+                DELETE CASCADE</font>, ou para não permitir a deleção 
+                na primeira tabela se caso foi determinado <font color="#669900">ON 
+                DELETE RESTRICT</font>.</p>
+              <p class="texto"><font color="#0066cc" size="2">- </font>As expressões 
+                de índice são relativamente dispendiosas de serem 
+                mantidas, uma vez que a expressão derivada deve ser computada 
+                para cada linha ao ser inserida ou sempre que for atualizada. 
+                Portanto, devem ser utilizadas somente quando as consultas que 
+                usam o índice são muito freqüentes. </p>
+              <p class="texto"><font color="#0066cc" size="2">- </font>Deve-se 
+                haver muito cuidado em comparações de proporcionalidade 
+                envolvendo números relativamente pequenos. Enquanto selecionar 
+                1.000 de cada 100.000 linhas (1% do total) pode ser um candidato 
+                para um índice, selecionar 1 de cada 100 linhas, que também 
+                corresponde a 1% do total, dificilmente será, porque as 
+                100 linhas provavelmente cabem dentro de uma única página 
+                do disco, não havendo nenhum plano melhor que uma busca 
+                seqüencial em uma página do disco.</p>
+              <p class="texto"><font color="#0066cc" size="2">- </font>Quando 
+                os índices não são usados, pode ser útil 
+                como teste forçar sua utilização. Existem 
+                parâmetros em tempo de execução que podem 
+                desativar vários tipos de planos. Por exemplo, desativar 
+                varreduras seqüenciais (enable_seqscan) e junções 
+                de laço-aninhado (nested-loop joins) (enable_nestloop), 
+                que são os planos mais básicos, forçam o 
+                sistema a utilizar um plano diferente. Se o sistema ainda assim 
+                escolher a varredura seqüencial ou a junção 
+                de laço-aninhado então existe, provavelmente, algum 
+                problema mais fundamental devido ao qual o índice não 
+                está sendo utilizado como, por exemplo, a condição 
+                da consulta não corresponder ao índice.</p>
+              <p class="texto"><font color="#0066cc" size="2">- </font>Se forçar 
+                a utilização do índice não faz o índice 
+                ser usado, então existem duas possibilidades: ou o sistema 
+                está correto e a utilização do índice 
+                não é apropriada, ou a estimativa de custo dos planos 
+                de comando não estão refletindo a realidade. Portanto, 
+                deve ser medido o tempo da consulta com e sem índices. 
+                O comando <font color="#669900">EXPLAIN ANALYZE</font> pode ser 
+                útil neste caso.</p>
+              <p class="texto"><font color="#0066cc" size="2">- </font>Quando 
+                achar necessário que determinadas informações 
+                tenham que ser únicas em uma determinada coluna, evite 
+                que a aplicação que utiliza o banco de dados faça 
+                isto. Haverá mais vantagens se o SGBD se responsabilizar 
+                pela unicidade dos dados.</p>
+              <p class="texto"><font color="#0066cc" size="2">- </font>Se estiver 
+                sendo carregada uma tabela recém criada, a maneira mais 
+                rápida é criar a tabela, carregar os dados usando 
+                o <font color="#669900">COPY</font> e, depois, criar todos os 
+                índices necessários para a tabela. Criar um índice 
+                sobre dados pré-existentes é mais rápido 
+                que atualizar de forma incremental durante a carga de cada linha. 
+                Para carregar uma tabela existente, pode-se remover o índice, 
+                carregar a tabela e, depois, recriar o índice. É 
+                claro que o desempenho do banco de dados para os outros usuários 
+                será afetado negativamente durante o tempo que o índice 
+                não existir. Deve-se pensar duas vezes antes de remover 
+                um índice único, porque a verificação 
+                de erro efetuada pela restrição de unicidade não 
+                existirá enquanto o índice não tiver sido 
+                criado novamente.</p>
+              <p class="texto"><font color="#0066cc" size="2">- </font>Utilizando 
+                o comando abaixo, poderá se obter informações 
+                sobre os índices contidos no banco de dados, como por exemplo, 
+                o número total de varreduras que utilizaram um determinado 
+                índice e o número de linhas lidas com aquele índice.</p>
+              <p class="texto"><font color="#0066cc">SELECT * FROM pg_stat_all_indexes</font></p>
+              <p class="texto"><font color="#0066cc" size="2">- </font>Em determinados 
+                casos, em que haja várias consultas que utilizem os comandos 
+                <font color="#669900">ORDER BY</font>, <font color="#669900">GROUP 
+                BY</font> e <font color="#669900">DISTINCT</font> é aconselhável 
+                criar um índice para a coluna que está sendo utilizada 
+                nestas consultas. Isso se deve ao fato de que cada vez que ocorre 
+                isto, o SGBD dispara um <font color="#669900">SORT</font> para 
+                a ordenação dos dados, o que pode corromper desempenho. 
+                Havendo índices para este caso, os dados já poderão 
+                estar ordenados e no final das contas economizando alguns milissegundos 
+                em processamento.</p>
+              <p class="texto">Brevemente será lançado um artigo 
+                para esclarecimento da utilização de informações 
+                estatísticas que o PostgreSQL possibilita para que se possa 
+                melhor planejar o caminho que o SGBD terá que percorrer 
+                e também para que se possa mais facilmente encontrar pontos 
+                que causem problemas no seu desempenho.</p>
+              <p class="texto">Por enquanto é isso pessoal, até 
+                a próxima semana. </p></td></tr></tbody></table></body></html>

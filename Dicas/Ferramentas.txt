@@ -1,0 +1,33 @@
+pg_live
+andlinux - totalmente integrado ao sistema operacional, usando as configurações locais, de
+hardware,etc. Aceitando copiar e colar entre os aplicativos windows e linux, etc.
+
+sysstat
+
+-------------
+
+>   Vocês conhecer alguma ferramenta mesmo que seja paga, que faça debug e
+>  stored procedures e que rode em linux e windows? Pois minha aplicação
+>  esta ficando grande e com vários stored procedures e trigger e para
+>  verificar algum erro esta ficando dificil.
+>
+
+
+A EnterpriseDB possui uma "PLpgSQL Debugger tool".
+Verifique se atende.
+http://postgres.enterprisedb.com/
+
+
+Veja também esta outra:
+http://archives.postgresql.org/pgsql-announce/2008-03/msg00007.php
+
+------------
+Ferramentas
+
+Windows na console
+tasklist /?
+
+Modo GrÃ¡fico:
+
+Ctrl+Alt+Del e Exibir colunas - Exibir PID.
+

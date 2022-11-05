@@ -1,0 +1,26 @@
+Conversão Explícita de Tipos (CAST)
+
+CAST ( expressão AS tipo ) AS apelido;  -- Sintaxe SQL ANSI
+
+Outra forma:
+
+Tipo ( expressão );
+
+Exemplo:
+
+SELECT DATE '10/05/2002' - DATE '10/05/2001'; -- Retorna a quantidade de dias 									   - -entre as duas datas
+
+Para este tipo de conversão devemos:
+Usar float8 ao invés de double precision;
+Usar entre aspas alguns tipos como interval, time e timestamp
+
+Obs.: aplicações portáveis devem evitar esta forma de conversão e em seu lugar usar o CAST explicitamente.
+
+
+A função CAST() é utilizada para converter explicitamente tipos de dados em outros.
+SELECT CAST(2 AS double precision) ^ CAST(3 AS double precision) AS "exp";
+SELECT ~ CAST('20' AS int8) AS "negativo"; - Retorna -21
+SELECT round(CAST (4 AS numeric), 4); - Retorna 4.0000
+SELECT substr(CAST (1234 AS text), 3);
+SELECT 1 AS "real" UNION SELECT CAST('2.2' AS REAL);
+

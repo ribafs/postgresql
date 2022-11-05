@@ -1,0 +1,689 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2041"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-104_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-103.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-104_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-104_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-105.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-104_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P4993_288530"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.5.6 Data Type Formatting Functions</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> formatting functions prov</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ide
+a powerful set of tools for converting various data types (date/time,
+integer, floating point, numeric) to formatted strings and for
+converting from formatted strings to specific data types</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt;"><u><a href="#P4995_289033">Table 3-22</a></u></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> lists th</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">em</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">These functions all follow a common calling convention:</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">the first argument is the value to be formatted and the second argument is a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">string </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">template that defines the output or input</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">format.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;"><a name="P4995_289033"></a>Table 3-22 Formatting Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="148"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="71"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Return Type</span></p>
+</td>
+<td valign="top" width="120"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td>
+<td valign="top" width="205"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Example</span></p>
+</td>
+<td valign="top" width="93"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Result</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(DATE [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ]</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> a date/time </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">to a string</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">with output</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">,</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">. If omitted default format is DD-MON-YY.</span></p>
+</td>
+<td valign="top" width="205"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(SYSDATE, '</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MM/DD/</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">YY</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">YY </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">HH12:MI:SS AM')</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">07/25/2007 09:43</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">:02 AM</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(INTEGER [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ])</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert an integer to a string </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">with output</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">,</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span></p>
+</td>
+<td valign="top" width="205"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(2412, '999,999S')</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">2,412+</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(NUMBER</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ]</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert a </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">decimal </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">number to a string </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">with output</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">,</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span></p>
+</td>
+<td valign="top" width="205"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(1</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">0</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">125.35, '9</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">99</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">,999.99')</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">1</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">0</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">,125.</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">35</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(DOUBLE PRECISION, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert a floating-point number to a string </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">with output</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">,</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span></p>
+</td>
+<td valign="top" width="205"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(CAST(123.5282</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> AS REAL), '999.99')</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">123.53</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_DATE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ])</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert a </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">date </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">formatted</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> string</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> data type</span></p>
+</td>
+<td valign="top" width="205"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_DATE('</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">2007-</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">07-04 13:39:10', 'YYYY-MM-DD </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">HH</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">24:MI:SS</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">')</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">04-JUL-07 13:39:10</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_NUMBER(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ])</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert a number</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">formatted</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> string </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">to a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> data type</span></p>
+</td>
+<td valign="top" width="205"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_NUMBER('2,412-', '999,999S')</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">-2412</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_TIMESTAMP(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TIMESTAMP</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert a timestamp for</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">matted string to a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TIMESTAMP</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> data type</span></p>
+</td>
+<td valign="top" width="205"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_TIMESTAMP('05&nbsp;Dec&nbsp;2000 08:30:25 pm', 'DD&nbsp;Mon&nbsp;YYYY hh12:mi:ss pm')</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">05-DEC-00 20:30:25</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In an output template string (for </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TO_CHAR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">), there are certain patterns that are recognized and replaced with appropriately-forma</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">tted data from the value to be formatted.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Any text that is not a template pattern is simply copied verbatim.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Similarly, in an input template string (for anything but </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TO_CHAR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">), template patterns identify the parts of the input data string to be looked at and the values to be found there.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following table shows the template patterns available for formatting date values using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TO_CHAR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TO_DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> functions.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-23 Template Date/Time Format Patterns</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="122"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Pattern</span></p>
+</td>
+<td valign="top" width="502"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">HH</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Hour of day (</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">01-12)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">HH12</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Hour of day (01-12)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">HH24</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Hour of day (00-23)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MI</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Minute (00-59)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SS</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Second (00-59)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SSSSS</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Seconds past midnight (0-86399)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">AM or A.M. or PM or P.M.</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Meridian indicator (uppercase)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">am or a.m. or pm or p.m.</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Meridian indicator (lowercase)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Y,YYY</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Year (4 and more digits) with comma</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">YEAR</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Year (spelled out)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SYEAR</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Year (spelled out) (BC dates prefixed by a minus sign)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">YYYY</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Year (4 and more digits)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SYYYY</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Year (4 and more digits) (BC dates prefixed by a minus sign)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">YYY</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Last 3 digits of year</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">YY</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">La</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">st 2 digits of year</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Y</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Last digit of year</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">IYYY</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ISO year (4 and more digits)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">IYY</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Last 3 digits of ISO year</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">IY</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Last 2 digits of ISO year</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">I</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Last 1 digit of ISO year</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">BC or B.C. or AD or A.D.</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Era indicator (uppercase)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">bc or b.c. or ad or a.d.</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Era indicato</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">r (lowercase)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MONTH</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Full uppercase month name</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Month</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Full mixed-case month name</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">month</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Full lowercase month name</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MON</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Abbreviated uppercase month name (3 chars in English, localized lengths vary)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Mon</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Abbreviated mixed-case month name (3 chars in English,</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> localized lengths vary)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">mon</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Abbreviated lowercase month name (3 chars in English, localized lengths vary)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MM</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Month number (01-12)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DAY</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Full </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">uppercase </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">day name</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Day</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Full mixed-case day name</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">day</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Full lowercase day name</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DY</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Abbreviated uppercase day name </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">(3 chars in English, localized lengths vary)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Dy</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Abbreviated mixed-case day name (3 chars in English, localized lengths vary)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">dy</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Abbreviated lowercase day name (3 chars in English, localized lengths vary)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DDD</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Day of year (</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">00</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">1-366)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DD</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Day of month (01-31</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">D</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Day of week (1-7; Sunday is 1)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">W</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Week of month (1-5) (The first week starts on the first day of the month)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">WW</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Week number of year (1-53) (The first week starts on the first day of the year)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">IW</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ISO week number of year; the first Thursday of the new </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">year is in week 1</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CC</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Century (2 digits); the 21st century starts on 2001-01-01</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SCC</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as CC except BC dates are prefixed by a minus sign</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">J</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Julian Day (days since January 1, </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">4712 BC)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Q</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Quarter</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">RM</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Month in Roman numerals (I-XII; I=January) (uppercase)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">rm</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Month in Roman numerals (i-xii; i=January) (lowercase)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">RR</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">First 2 digits of</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the year when</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> given</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">only the last 2 </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">digit</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">s</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">of the </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">year</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">. Result is </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">based upon</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> an algorithm using</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the current year</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> and the given 2-digit year</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">The first 2 digits of the given 2</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">-digit year will be the same as the first 2 digits of the current year with the following exceptions:</span></p>
+<p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">If the </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">given </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">2-digit year is &lt; 50 and the last 2 digits of the current year is &gt;= 50, then the first 2</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> digits for the given year is 1 greater than the fi</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">rst 2 di</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">gits of the current year.</span></p>
+<p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">If
+the given 2-digit year is &gt;= 50 and the last 2 digits of the current
+year is &lt; 50, then the first 2 digits for the given year is 1 less
+than the first 2 digits of the current year</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">RRRR</span></p>
+</td>
+<td valign="top" width="502"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Only affects TO_DATE function. </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Allows
+specification of 2-digit or 4-digit year. If 2-digit year given, then
+returns first 2 digits of year like RR format. If 4-digit year given,
+returns the given 4-digit year.</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Certain modifiers may be applied to any template pattern to alter its behavi</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">or. For example, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FMMonth</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">Month</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> pattern with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FM</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> modifier.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following table shows </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">the modifier pat</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">terns for date/time formatting.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-24 Template Pattern Modifiers for Date/Time Formatting</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="122"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Modifier</span></p>
+</td>
+<td valign="top" width="338"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td>
+<td valign="top" width="167"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Example</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FM </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">prefix</span></p>
+</td>
+<td valign="top" width="338"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Fill mode (suppress padding blanks and zeros)</span></p>
+</td>
+<td valign="top" width="167"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FMMonth</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TH </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">suffix</span></p>
+</td>
+<td valign="top" width="338"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Uppercase ordinal number suffix</span></p>
+</td>
+<td valign="top" width="167"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DDTH</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">th </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">suffix</span></p>
+</td>
+<td valign="top" width="338"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Lowercase ordinal number suffix</span></p>
+</td>
+<td valign="top" width="167"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DDth</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FX</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">prefix</span></p>
+</td>
+<td valign="top" width="338"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Fixed format global option (see usage notes)</span></p>
+</td>
+<td valign="top" width="167"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FX Month DD Da</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">y</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SP </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">suffix</span></p>
+</td>
+<td valign="top" width="338"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Spell mode</span></p>
+</td>
+<td valign="top" width="167"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DDSP</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Usage notes for date/time formatting:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FM</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> suppresses leading zeroes and trailing blanks that would otherwise be added to make the output of a pattern fixed-width.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TO_TIMESTAMP</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TO_DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> skip multiple blank spaces in the input string if the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FX</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> option is no</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">t used.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FX</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> must be specified as the first item in the template.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">For example </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TO_TIMESTAMP('2000&nbsp;&nbsp;&nbsp;&nbsp;JUN', 'YYYY MON')</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is correct, but </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TO_TIMESTAMP('2000&nbsp;&nbsp;&nbsp;&nbsp;JUN', 'FXYYYY MON')</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> returns an error, because </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TO_TIMESTAMP</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> expects one space only.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Ordinary text is allowed in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TO_CHAR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> templates and will be output literally.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In conversions from string to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">timestamp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">date</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> field is ignored if there is a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">YYY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">YYYY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">Y,YYY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> field. If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is used with </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">YY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">Y</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> then the year is computed as </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">(CC-1)*100+YY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following table shows the template patterns available for formatting numeric values.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-25 Template Patterns for Numeric Formatting</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="98"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Pattern</span></p>
+</td>
+<td valign="top" width="478"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="98"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">9</span></p>
+</td>
+<td valign="top" width="478"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Value with the specified number of digits</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="98"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">0</span></p>
+</td>
+<td valign="top" width="478"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Value with lead</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ing zeroes</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="98"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">. </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">(period)</span></p>
+</td>
+<td valign="top" width="478"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Decimal point</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="98"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">(comma)</span></p>
+</td>
+<td valign="top" width="478"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Group (thousand) separator</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="98"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">$</span></p>
+</td>
+<td valign="top" width="478"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Dollar sign</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="98"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">PR</span></p>
+</td>
+<td valign="top" width="478"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Negative value in angle brackets</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="98"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">S</span></p>
+</td>
+<td valign="top" width="478"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Sign anchored to number (uses locale)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="98"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">L</span></p>
+</td>
+<td valign="top" width="478"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Currency symbol (uses locale)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="98"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">D</span></p>
+</td>
+<td valign="top" width="478"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Decimal point (uses locale)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="98"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">G</span></p>
+</td>
+<td valign="top" width="478"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Group separator (uses</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> locale)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="98"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MI</span></p>
+</td>
+<td valign="top" width="478"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Minus sign specified </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">in right-most </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">position (if number &lt; 0)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="98"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">RN </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">or</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> rn</span></p>
+</td>
+<td valign="top" width="478"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Roman numeral (input between 1 and 3999)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="98"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">V</span></p>
+</td>
+<td valign="top" width="478"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Shift specified number of digits (see notes)</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Usage notes for numeric formatting:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">9</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> results in a value with the same number of di</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">gits as there are </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">9s</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If a digit is not available it outputs a space.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TH</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">does not convert values less than zero and does not convert fractional numbers.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">V</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> effectively multiplies the input values by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">10</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><sup><i>n</i></sup></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, where </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the number of digits following </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">V</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TO_CHAR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">does not support the use of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">V</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> combined with a decimal point.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">(E.g., </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">99.9V99</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is not allowed.)</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following table shows some examples of the use of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TO_CHAR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TO_DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> functions.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-26 TO_CHAR Examples</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="365"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Expression</span></p>
+</td>
+<td valign="top" width="211"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Result</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CURRENT_TIMESTAMP</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, 'Day,&nbsp;DD&nbsp;&nbsp;HH12:MI:SS')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'Tuesday&nbsp;&nbsp;,&nbsp;06&nbsp;&nbsp;05:39:18'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(CURRENT_TIMESTAMP, 'FMDay,&nbsp;FMDD&nbsp;&nbsp;HH12:MI:SS')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'Tuesday,&nbsp;6&nbsp;&nbsp;05:39:18'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(-0.1, '99.99')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'&nbsp;&nbsp;-.10'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(-0.1, 'FM9.99')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'-.1'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(0.1, '0.9</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'&nbsp;0.1'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(12, '9990999.9')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'&nbsp;&nbsp;&nbsp;&nbsp;0012.0'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(12, 'FM9990999.9')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'0012.'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(485, '999')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'&nbsp;485'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(-485, '999')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'-485'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(1485, '9,999')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'&nbsp;1,485'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(1485, '9G999')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'&nbsp;1,485'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(148.5, '999.999')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'&nbsp;148.500'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(1</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">48.5, 'FM999.999')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'148.5'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(148.5, 'FM999.990')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'148.500'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(148.5, '999D999')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'&nbsp;148.500'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(3148.5, '9G999D999')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'&nbsp;3,148.500'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(-485, '999S')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'485-'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(-485, '999MI')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'485-'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(485, '999MI')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'485&nbsp;'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(485, 'FM9</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">99MI')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'485'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(-485, '999PR')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'&lt;485&gt;'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(485, 'L999')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'$ 485'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(485, 'RN')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CDLXXXV'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(485, 'FMRN')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'CDLXXXV'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(5.2, 'FMRN')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'V'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(12, '99V999')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'&nbsp;12000'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(12.4, '99V999')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'&nbsp;12400'</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="365"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_CHAR(12.45, '99</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">V9')</span></p>
+</td>
+<td valign="top" width="211"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'&nbsp;125'</span></p>
+</td></tr></tbody></table></p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-103.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-104_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-104_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-105.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-104_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-104_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-104_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

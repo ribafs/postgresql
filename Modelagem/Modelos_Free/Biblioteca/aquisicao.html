@@ -1,0 +1,600 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+
+<title>Ciclo de Aquisição (Projeto Biblioteca) - Sub-área Banco de Dados - IME / USP </title>
+<meta name="Generator" content="EditPlus">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+</head><body>
+	<table width="95%" align="center">
+	<tbody><tr>
+        <td bgcolor="#00557d">
+			<a name="emprestimo">
+			<font size="4" color="white"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ciclo Aquisição de Item de Acervo<br><br></p></b></font>
+		</a></td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="4" color="#990000"><b><p><br>1. Introdução<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+        <td> 
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Este
+módulo é composto por um fluxo de processos (figura 1) que representa a
+aquisição de um item acervo para a biblioteca.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Esse fluxograma tem sentido único,
+e apresenta os estados (processos) pelos quais passa um item acervo,
+desde quando é solicitado até o momento em que é colocado na estante da
+Biblioteca. Cada processo pode conter mais de uma instância.</p>
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="aquisicao_arquivos/fluxo_aquisicao.gif">
+		  <br><br>
+		  <b>Figura 1 &#8211; Fluxo de processos para a aquisição de um item de acervo</b>
+        </td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="4" color="#990000"><b></b></font><p><font size="4" color="#990000"><b><br>2. Descrição Detalhada do Fluxo<br><br></b></font></p><font size="4" color="#990000"><b></b></font>
+		</td>
+	  </tr>
+	  <tr>
+        <td><font size="4"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Os Processos<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+        <td> 
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A
+tabela 17 descreve cada um dos subprocessos do fluxo. Com o intuito de
+facilitar a leitura, optou-se por designar os setores de <i>AQUISIÇÃO</i> e <i>DEPARTAMENTO TÉCNICO</i> pelos nomes de seus responsáveis: Eunice e Maria Lúcia, respectivamente.<br>
+
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Na coluna de <i>SUBPROCESSO</i>,
+há, para cada subprocesso, uma lista dos dados até então obtidos. Estes
+subprocessos, posteriormente, serão divididos em dois grandes
+processos: <i>Pedido</i> e <i>Compra</i>.</p>
+		 </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <table width="90%" border="2" bordercolor="black" cellpadding="2" cellspacing="2">
+		    <tbody>
+			
+			<tr><td align="center" bgcolor="#990000"><b><font color="white">Ordem</font></b></td>
+				<td align="center" bgcolor="#990000"><b><font color="white">Subprocesso</font></b></td>
+				<td align="center" bgcolor="#990000"><b><font color="white">Descrição</font></b></td></tr>
+			<tr><td align="center">1</td>
+				<td>SOLICITAÇÃO:<br>
+					título<br>
+					autor<br>
+					ano<br>
+					número da edição<br>
+					ISBN e/ou ISSN<br>
+					quem/quando solicitou<br>
+				</td>
+				<td>Qualquer
+aluno ou professor pode solicitar uma obra. O solicitante deve fornecer
+, para a Eunice, os seguintes dados mínimos: título e autor. A partir
+desses dados, a Eunice procura a edição, o ano e o ISBN e/ou o ISSN da
+obra. </td></tr>
+			<tr><td align="center">2</td>
+				<td>DEPARTAMENTALIZAÇÃO:<br>
+					título<br>
+					autor<br>
+					ano<br>
+					número da edição<br>
+					ISBN e/ou ISSN<br>
+					quem/quando solicitou<br>
+					departamento<br>
+				</td>
+				<td>Cada
+departamento possui um orçamento para aquisição de itens novos. Nesse
+processo, é preciso definir em qual lista a obra solicitada deve estar.<br>
+				É um processo nem sempre trivial, já que muitas obras abrangem assuntos relacionados a mais de um departamento.<br>
+No geral, como são os próprios professores que solicitam os livros, a
+obra é incluída na lista do departamento do respectivo
+professor-solicitante. Caso haja dúvidas em relação à lista, deve ser
+feita uma consulta ao Coordenador. </td></tr>
+			<tr><td align="center">3</td>
+				<td>ORDENAÇÃO:<br>
+					título<br>
+					autor<br>
+					ano<br>
+					número da edição<br>
+					ISBN e/ou ISSN<br>
+					quem/quando solicitou<br>
+					departamento<br>
+					ordem<br>
+					quem estabeleceu ordem<br>
+					quando a ordem foi estabelecida
+				</td>
+				<td>Cada
+departamento deve organizar sua lista de solicitações, definindo quais
+itens devem ser comprados primeiro. Como a lista de solicitações pode
+ser extensa, não é necessário ordenar todos os itens. Numa lista de 200
+solicitações, por exemplo, podem ser ordenados apenas os 10 primeiros. </td></tr>
+			<tr><td align="center">4</td>
+				<td>ORÇAMENTO:<br>
+					título<br>
+					autor<br>
+					ano<br>
+					número da edição<br>
+					ISBN e/ou ISSN<br>
+					departamento<br>
+					ordem<br>
+					quem estabeleceu ordem<br>
+					quando a ordem foi estabelecida<br>
+					preços<br>
+				</td>
+				<td>A
+partir da lista ordenada, a Eunice faz uma consulta de preços para cada
+uma das obras da lista. Alguns itens podem não estar mais disponíveis
+no mercado. </td></tr>
+			<tr><td align="center">5</td>
+				<td>PRIORIZAÇÃO:<br>
+					título<br>
+					autor<br>
+					ano<br>
+					número da edição<br>
+					ISBN e/ou ISSN<br>
+					quem/quando solicitou<br>
+					departamento<br>
+					ordem<br>
+					quem estabeleceu ordem<br>
+					quando a ordem foi estabelecida<br>
+					preços<br>
+					prioridade<br>
+					motivos da reordenação (quando houver)
+				</td>
+				<td>Dados
+os preços, é preciso reavaliar a lista e priorizar a compra dos itens.
+Caso ocorra uma reordenação, deve-se guardar os motivos da troca.
+Possíveis motivos: caro demais, não disponível no mercado. </td></tr>
+			<tr><td align="center">6</td>
+				<td>COMPRA:<br>
+					título<br>
+					autor<br>
+					ano<br>
+					número da edição<br>
+					ISBN e/ou ISSN<br>
+					quem/quando solicitou<br>
+					departamento<br>
+					ordem<br>
+					quem estabeleceu ordem<br>
+					quando a ordem foi estabelecida<br>
+					preços<br>
+					prioridade<br>
+					motivos da reordenação (quando houver)<br>
+					motivos para não efetivação da compra (quando houver)<br>
+				</td>
+				<td>Definida
+a lista, a efetivação da compra fica a cargo do Setor de Compras. Este
+também faz uma outra consulta de preços, levando também em conta o
+histórico de seus fornecedores.<br>
+				No momento da compra, pode ocorrer "falta de estoque" do item solicitado. Este evento deve constar no histórico do item. 
+				</td></tr>
+			<tr><td align="center">7</td>
+				<td>PROCESSAMENTO TÉCNICO:<br>
+					título<br>
+					autor<br>
+					ano<br>
+					número da edição<br>
+					ISBN e/ou ISSN<br>
+					quem/quando solicitou<br>
+					departamento<br>
+					ordem<br>
+					quem estabeleceu ordem<br>
+					quando a ordem foi estabelecida<br>
+					preços<br>
+					prioridade<br>
+					motivos da reordenação (quando houver)<br>
+					assunto<br>
+					tombo<br>
+					número de chamada
+				</td>
+				<td>O item de acervo chega à Biblioteca. A Eunice deve acusar o recebimento ao Setor de Compras.<br>
+				Cada item adquirido deve ser tombado como patrimônio da USP.<br>
+A classificação é feita pela Maria Lúcia. Assim que o item chega, a
+Maria Lúcia envia um email para o professor solicitante, pedindo para
+definir a qual (quais) assuntos ele gostaria que o item estivesse
+associado. Caso o professor solicitante não responda a este email, a
+Maria Lúcia pede ao Coordenador que defina um ou mais assuntos para
+aquele item. Definido o assunto, o número de chamada é acrescentado ao
+item. </td></tr>			
+			<tr><td align="center">7</td>
+				<td>ENTRADA
+				</td>
+				<td>O
+item é colocado na estante e disponibilizado para consulta e/ou
+empréstimo. O item fica na estante de livros novos por 15 dias. Após
+este período, o item é colocado na estante de acordo com seu número de
+chamada. </td></tr>
+ 			</tbody>
+		  </table>
+		  <br><br>
+        </td>
+	  </tr>
+	  <tr>
+        <td> 
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Outros detalhes:
+			</p><ul>
+				<li>No geral, a compra é feita uma vez por ano (logo no  início), assim que é definida uma verba para a aquisição.
+				</li><li>Processo de aquisição de um item é demorado, e processos de compra distintos podem ocorrem separadamente.
+				</li><li>Livros
+solicitados por bolsistas: caso especial em que um bolsista pede à
+biblioteca que compre determinada obra com dinheiro fornecido por ele. </li><li>Doações: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a) O doador traz um
+livro. Neste momento, a Eunice pergunta se, caso não haja interesse da
+biblioteca pela obra, o doador autoriza repassar o item para outra
+instituitção.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b) O coordenador avalia
+o item. Caso haja interesse, a Eunice deve acusar o recebimento no
+setor de Compras e entregar o item para o Processamento Técnico.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c) Se não houver
+interesse pelo item, e caso o doador tenha autorizado a repassagem, o
+item é encaminhado para outra biblioteca/instituição. </li><li>Fichas-papel (do Arquivo): É importante salientar que as
+fichas-papel, que podem ser consultadas nos Arquivos, são organizadas
+de modo a facilitar a procura por algum item. Nessas fichas, um item
+pode estar classificado como "ÁLGEGRA - Álgebra Linear - Exercícios" e
+também como "Exercícios - Álgebra Linear". Essa ordem serve apenas para
+facilitar a consulta nos Arquivos. Nos registros eletrônicos, cada obra
+está associada aos assuntos definidos no Processamento Técnico, e não
+aos modos distintos de se listar tais assuntos. </li></ul> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;As principais
+preocupações relacionadas ao fluxo são os requisitos mínimos para que
+se possa passar de um estado para outro. A estes requisitos dos
+processo, damos o nome de consistências. Para que as consistências
+necessárias fossem melhor levantadas e validadas pelos usuários do
+sistema da biblioteca, foi desenvolvida com o framework Naked Objects
+uma aplicação computacional que implementa todo o processo de aquisição
+de item de acervo. O framework Naked Objects [4] permite a melhor
+interação com os usuários, pois demonstra graficamente como será o
+fluxo do sistema - o que faz com que esses se sintam mais à vontade
+para "brincar" com a modelagem e detectar erros.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O fluxo da figura 1 foi quebrado em
+dois processos - Pedido e Compra &#8211; que aparecem mais detalhados nas
+figuras 2 e 3; a descrição destes processos, já validada pelos usuários
+do sistema da biblioteca através da aplicação em Naked Objects, se
+encontra na seqüência.<p></p>
+		 </td>
+	  </tr>
+	  <tr>
+        <td><font size="4"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Descrição do Fluxo de um Pedido<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+        <td> 
+			<ul>
+				<li>O
+processo se inicia quando uma requisição é feita por algum professor ou
+aluno. Os dados dessa requisição são verificados e cadastrados no
+sistema. A partir desse ponto, a requisição se transforma em um Pedido.
+</li><li>Se os dados não forem consistentes ou já existir um item
+igual no acervo, o pedido retorna ao representante do departamento
+relacionado e aguarda uma confirmação ou cancelamento. </li><li>Se os dados estiverem corretos, esse pedido permanecerá
+numa lista de pedidos até ser tomada uma decisão de compra. Depois
+disso, ocorre a fase de priorização dos itens feita pelos
+representantes de cada departamento, onde os itens são ordenados de
+acordo com a sua importância. </li><li>Com a lista priorizada, é feita uma consulta de preços.
+O resultado da consulta é enviado a cada departamento, que
+eventualmente poderá modificar a prioridade dos itens. </li><li>De acordo com o orçamento, os n primeiros itens vão para
+a lista de compras e os demais retornam à lista de pedidos. Uma vez
+solicitada a compra, uma das seguintes situações pode ocorrer: <ul>
+					<li>comprado
+					</li><li>problemático
+				</li></ul>
+Caso ocorra a última situação, o motivo do problema deve ser
+encaminhado ao representante do departamento responsável pelo pedido.
+Este decidirá pelo cancelamento, substituição ou espera da compra. </li></ul>
+		 </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="aquisicao_arquivos/fluxo_pedido_item.jpg">
+		  <br><br>
+		  <b>Figura 2 &#8211; Fluxo detalhado do processo de pedido de item de acervo</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="aquisicao_arquivos/fluxo_compra_item.jpg">
+		  <br><br>
+		  <b>Figura 3 &#8211; Fluxo detalhado do processo de compra de item de acervo</b>
+        </td>
+	  </tr>
+	  <tr>
+        <td><font size="4"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consistências<br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+        <td><font size="4"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Item de Acervo</i><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+        <td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Os requisitos mínimos a serem
+preenchidos para que um ItemAcervo possa ser associado a um Pedido são:
+<ul>
+				<li>Fascículo - título e número;
+				</li><li>Livro e Série - título e autor;
+				</li><li>Multimídia - título e tipo de mídia;
+				</li><li>Tese - título e autor.
+			</li></ul>
+		 </td>
+	  </tr>
+	   <tr>
+        <td><font size="4"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Requisitante</i><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+        <td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Os requisitos mínimos a serem
+preenchidos para que um Requisitante possa ser associado a um Pedido
+são: <ul>
+				<li>nome;
+				</li><li>e-mail;
+				</li><li>título.
+			</li></ul>
+		 </td>
+	  </tr>
+	   <tr>
+        <td><font size="4"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Departamento</i><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+        <td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Os requisitos mínimos a serem
+preenchidos para que um Departamento possa ser associado a um Pedido
+são: <ul>
+				<li>nome;
+				</li><li>sigla.
+			</li></ul>
+		 </td>
+	  </tr>
+	  <tr>
+        <td><font size="4"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Orçamento</i><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+        <td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Os requisitos mínimos a serem
+preenchidos para que um Orçamento possa ser associado a um Pedido são: <ul>
+				<li>preço;
+				</li><li>fornecedor.
+			</li></ul>
+		 </td>
+	  </tr>
+	  <tr>
+        <td><font size="4"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Fornecedor</i><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+        <td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Os requisitos mínimos a serem
+preenchidos para que um Fornecedor possa ser associado a uma Compra
+são: <ul>
+				<li>razão social;
+				</li><li>nome fantasia.
+			</li></ul>
+		 </td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="4" color="#990000"><b><p><br>3. Modelagem do Fluxo<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Em uma descrição breve do processo,
+podemos dizer que este se inicia quando um professor ou aluno faz uma
+requisição de compra de um item de acervo (livro, revista, multimidia ,
+etc...) e registra no sistema. Em seguida, esta requisição
+transforma-se em um pedido que tem terá seus dados validados. Caso o
+pedido seja validado, este aguarda a liberação de verba para sua compra.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neste ponto, há uma lista de itens
+de acervo aguardando liberação. Os itens são organizados em ordem de
+prioridade e inicia-se o processo de cotação. Muitas vezes, a cotação
+necessita que a lista volte para o processo de priorização.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Após a cotação, o pedido aguarda
+liberação da compra. Uma vez liberada, o responsável pela compra faz a
+encomenda dos itens aos fornecedores e se não houver nenhum problema
+com o pedido, a compra é efetivada.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;É importante dizer que a qualquer
+momento durante a execução do pedido de compra, este pode ser cancelado.<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A figura 4 mostra a representação em rede de Petri: 
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="aquisicao_arquivos/rdp_aquisicao.png">
+		  <br><br>
+		  <b>Figura 5 &#8211; Modelo em rede de Petri do fluxo de Aquisição</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td>
+			 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para a modelagem do Módulo
+Aquisição em Álgebra de Processos, foi necessário particionar o
+processo principal em 5 subprocessos para que fosse possível
+representar os loops existentes no modelo em rede de Petri.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;É importante dizer que a cada ação
+do processo de aquisição, este pode ser cancelado (isto é melhor
+visualizado nos diagramas apresentados abaixo). Para isto utilizamos o
+padrão Cancel Case que cancela o processo. A seguir estão representados
+os diagramas referentes a cada subprocesso. <br>
+	    </td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="3" color="#00557d"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Processo1 - Registro de requisição<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Este é o processo que dá início ao
+fluxo. Aqui uma requisição de um item de acervo é registrado por um
+professor ou aluno. O pedido de requisição deve conter: <ul>
+				<li>Item Acervo com título e número no caso de
+Fascículo, título e autor no caso de livro Série, título e autor no
+caso de tese e título e tipo de mídia no caso de multimídia. </li><li>Requisitante com nome, email e tipo.
+				</li><li>Departamento com nome e sigla.
+			 </li></ul>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Por isso, a cada passo as
+informações são checadas para que se algum dado esteja faltando, a
+requisição não possa ser registrada. </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="aquisicao_arquivos/aq_p1.jpg">
+		  <br>
+		  <img src="aquisicao_arquivos/pa_aq_p1.gif">
+		  <br><br>
+		  <b>Figura 6 &#8211; Modelo do Processo1 usando <i>workflow patterns</i> e a expressão correspondente em álgebra de processos</b>
+        </td>
+	  </tr>
+	   <tr>
+        <td>
+			<font size="3" color="#00557d"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Processo2 - Validação de registro de requisição<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neste momento, há uma requisição
+registrada e suas informações devem ser validadas para que o processo
+de aquisição possa ter seguimento. Como exemplo de informação que deve
+ser verificada, podemos citar o departamento. Deve-se indicar um
+departamento que exista no Instituto e que possa fazer requisições de
+itens de acervo.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Estas informações podem válidas,
+inválidas ou repetidas. No caso de serem válidas, seguem para o
+processo 3.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Já se forem inválidas, isto é,
+dados inconsistentes, devem ser corrigidas antes de seguirem para o
+processo 3. Aqui encontramos o padrão Arbitrary Cycles, pois após serem
+corrigidas voltam ao início do processo 2 para a validação.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E se forem repetidas, isto é, já
+existe um item de acervo com esta descrição na biblioteca, é necessário
+que uma pessoa autorizada comfirme a compra deste item. <br>
+		  </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="aquisicao_arquivos/aq_p2.jpg">
+		  <br>
+		  <img src="aquisicao_arquivos/pa_aq_p2.gif">
+		  <br><br>
+		  <b>Figura 7 &#8211; Modelo do Processo2 usando <i>workflow patterns</i> e a expressão correspondente em álgebra de processos</b>
+        </td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="3" color="#00557d"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Processo3 - Liberação de verba<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Este processo representa a
+liberação de verba para a compra dos itens de acervo contidos em uma
+lista. Após a verba ser liberada, a lista passa por um processo de
+priorização e cotação, o processo 4.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Uma vez que o processo 4 foi
+executado com sucesso, o pedido aguarda liberação de compra. Caso seja
+liberado, segue para o processo 5 (Compra). Se não for liberado, o
+pedido volta para o início deste processo para que o problema seja
+resolvido.<br>
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="aquisicao_arquivos/aq_p3.jpg">
+		  <br>
+		  <img src="aquisicao_arquivos/pa_aq_p3.gif">
+		  <br><br>
+		  <b>Figura 8 &#8211; Modelo do Processo3 usando <i>workflow patterns</i> e a expressão correspondente em álgebra de processos</b>
+        </td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="3" color="#00557d"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Processo4 - Priorização e Cotação<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aqui ocorrem as ações de priorizar
+e cotar a lista de itens de acervo. A ação de priorizar consiste em
+ordenar a lista de itens de acervo de acordo com a prioridade de compra
+de cada item. Depois de ordenada, esta lista passa por uma cotação
+junto aos fornecedores para levantar orçamentos e prazos de entrega.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Durante a cotação, algum problema
+pode ser identificado como algum pode estar item fora de catálogo ou
+verba disponível ser insuficiente. Então, o pedido volta para o início
+deste processo para que a lista passe novamente pela priorização e
+cotação a fim de que o problema seja solucionado. </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="aquisicao_arquivos/aq_p4.jpg">
+		  <br>
+		  <img src="aquisicao_arquivos/pa_aq_p4.gif">
+		  <br><br>
+		  <b>Figura 8 &#8211; Modelo do Processo4 usando <i>workflow patterns</i> e a expressão correspondente em álgebra de processos</b>
+        </td>
+	  </tr>
+	  	  <tr>
+        <td>
+			<font size="3" color="#00557d"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Processo5 - Compra<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Este processo contém as ações de
+compra da lista de itens acervo. Após a liberação da compra, temos 2
+possibilidades: compra efetivada e compra não efetivada.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Se a compra foi efetivada, o pedido
+é considerado atendido e quando a encomenda chegar à biblioteca, é
+considerado finalizado. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Caso não
+seja efetivada, tenta-se corrigir o problema com a compra. Se o
+problema foi corrigido, o pedido volta ao início deste processo. Caso
+contrário, volta ao início do processo 3 para que o problema seja
+corrigido. </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="aquisicao_arquivos/aq_p5.jpg">
+		  <br>
+		  <img src="aquisicao_arquivos/pa_aq_p5.gif">
+		  <br><br>
+		  <b>Figura 8 &#8211; Modelo do Processo5 usando <i>workflow patterns</i> e a expressão correspondente em álgebra de processos</b>
+        </td>
+	  </tr>
+	  <tr><td colspan="3"><br><br><hr width="100%" color="black"></td></tr>
+	  <tr>
+		<td>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Os dados desta página foram extraídos dos trabalhos dos alunos: 
+			<ul>
+				<li>Ana
+Paula dos Santos Mota, Luciana Maria Gregolin Dias, Patrícia Megumi
+Matsumoto e Sandra Mari Hebihara, da disciplina MAC439/MAC5762, no ano
+de 2005; </li><li>Anderson R. P. Bueno, André Kowaltowski, César
+Seragiotto, Elisa Kameda, Fernando de Souza Prado, Luciano Mezzanotte
+Soares, Marcos Nakashima, Ricardo Nishikido e Tessie Ikemori , da
+disciplina MAC439, no ano de 2004. </li></ul>
+		</td>
+	  </tr>
+	</tbody></table>
+</body></html>

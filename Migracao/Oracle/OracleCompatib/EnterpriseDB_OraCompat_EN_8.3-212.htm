@@ -1,0 +1,170 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>DBMS_PIPE.NEXT_ITEM_TYPE</title>
+
+<meta name="keywords" content="dbms_pipe.next_item_type, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2149"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-212_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-211.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-212_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-212_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-213.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-212_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P10506_559946"></a><span style="font-family: 'Arial'; font-size: 13pt;">7.3.2 NEXT_ITEM_TYPE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXT_ITEM_TYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+function returns an integer code identifying the data type of the next
+data item in a message that has been retrieved into the session&#8217;s local
+message buffer. As each item is moved off of the local message buffer
+with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UNPACK_MESSAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXT_ITEM_TYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+function will return the data type code for the next available item. A
+code of 0 is returned when there are no more items left in the message.</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>typecode</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> INTEGER NEXT_ITEM_TYPE</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>typecode</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Code identifying the data type of the next data item as shown in <a href="#P10512_560520"><u>Table 7-5</u></a>.</span></p>
+
+</div><p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;"><a name="P10512_560520"></a>Table 7-5 NEXT_ITEM_TYPE Data Type Codes</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="145"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Type Code</span></p>
+</td>
+<td valign="top" width="156"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Data Type</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">0</span></p>
+</td>
+<td valign="top" width="156"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">No more data items</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">9</span></p>
+</td>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">11</span></p>
+</td>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">13</span></p>
+</td>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">23</span></p>
+</td>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">RAW</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><b>Note</b></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">: The type codes list in the table are not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> assigns a different numbering sequence to the data types.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example shows a pipe packed with a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> item, a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">VARCHAR2</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> item, a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> item, and a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RAW</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> item. A second anonymous block then uses the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXT_ITEM_TYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function to display the type code of each item.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_number        NUMBER := 123;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_varchar       VARCHAR2(20) := 'Character data';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_date          DATE := SYSDATE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_raw           RAW(4) := '21222324';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_status        INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_PIPE.PACK_MESSAGE(v_number);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_PIPE.PACK_MESSAGE(v_varchar);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_PIPE.PACK_MESSAGE(v_date);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_PIPE.PACK_MESSAGE(v_raw);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_status := DBMS_PIPE.SEND_MESSAGE('datatypes');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('SEND_MESSAGE status: ' || v_status);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXCEPTION</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    WHEN OTHERS THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('SQLERRM: ' || SQLERRM);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('SQLCODE: ' || SQLCODE);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SEND_MESSAGE status: 0</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_number        NUMBER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_varchar       VARCHAR2(20);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_date          DATE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_timestamp     TIMESTAMP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_raw           RAW(4);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_status        INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_status := DBMS_PIPE.RECEIVE_MESSAGE('datatypes');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('RECEIVE_MESSAGE status: ' || v_status);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('----------------------------------');</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_status := DBMS_PIPE.NEXT_ITEM_TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('NEXT_ITEM_TYPE: ' || v_status);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_PIPE.UNPACK_MESSAGE(v_number);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('NUMBER Item   : ' || v_number);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('----------------------------------');</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_status := DBMS_PIPE.NEXT_ITEM_TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('NEXT_ITEM_TYPE: ' || v_status);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_PIPE.UNPACK_MESSAGE(v_varchar);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('VARCHAR2 Item : ' || v_varchar);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('----------------------------------');</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_status := DBMS_PIPE.NEXT_ITEM_TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('NEXT_ITEM_TYPE: ' || v_status);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_PIPE.UNPACK_MESSAGE(v_date);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('DATE Item     : ' || v_date);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('----------------------------------');</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_status := DBMS_PIPE.NEXT_ITEM_TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('NEXT_ITEM_TYPE: ' || v_status);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_PIPE.UNPACK_MESSAGE(v_raw);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('RAW Item      : ' || v_raw);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('----------------------------------');</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_status := DBMS_PIPE.NEXT_ITEM_TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('NEXT_ITEM_TYPE: ' || v_status);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('---------------------------------');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXCEPTION</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    WHEN OTHERS THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('SQLERRM: ' || SQLERRM);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('SQLCODE: ' || SQLCODE);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">RECEIVE_MESSAGE status: 0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">NEXT_ITEM_TYPE: 9</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">NUMBER Item   : 123</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">NEXT_ITEM_TYPE: 11</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">VARCHAR2 Item : Character data</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">NEXT_ITEM_TYPE: 13</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DATE Item     : 02-OCT-07 11:11:43</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">NEXT_ITEM_TYPE: 23</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">RAW Item      : 21222324</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">NEXT_ITEM_TYPE: 0</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-211.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-212_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-212_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-213.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-212_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-212_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-212_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

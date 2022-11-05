@@ -1,0 +1,18 @@
+Uma view é uma consulta armazenada ou uma tabela lógica. A view não armazena
+registros, apenas tem as consultas armazenadas. Os registros permanecem nas
+tabelas de origem.
+
+Sintaxe
+create [or replace] view nomeview as subconsulta;
+
+Exemplo:
+create view v_alunas
+	as select nome from alunos
+	where sexo = 'F';
+	
+Usando
+select * from v_alunas;
+
+Uma boa prática é preceder o nome das views com v_ para evitar confusão.
+
+

@@ -1,0 +1,23 @@
+Tipos Geométricos:
+
+CREATE TABLE geometricos(ponto POINT, segmento LSEG, retangulo BOX, poligono POLYGON, circulo CIRCLE);
+
+ponto (0,0), 
+
+segmento de (0,0) até (0,1), 
+
+retângulo (base inferior (0,0) até (1,0) e base superior (0,1) até (1,1)) e círculo com centro em (1,1) e raio 1.
+
+INSERT INTO geometricos VALUES ('(0,0)','((0,0),(0,1))', '((0,0),(0,1))', '((0,0),(0,1),(1,1),(1,0))','((1,1),1)');
+
+
+
+Funções Geométricos
+
+area(objeto) - - area(box '((0,0), (1,1))');
+center(objeto) - - center(box '((0,0), (1,2))');
+diameter(circulo double) - - diameter(circle '((0,0), 2.0)');
+height(box) - - height(box '((0,0), (1,1))');
+length(objeto) - - length(path '((-1,0), (1,0))');
+radius(circle) - - radius(circle '((0,0), 2.0)');
+width(box) - - width(box '((0,0), (1,1))');

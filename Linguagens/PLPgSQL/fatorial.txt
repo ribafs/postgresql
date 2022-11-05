@@ -1,0 +1,16 @@
+create or replace function fatorial(int) returns int as '
+declare
+        a int;
+        ret int;
+begin
+        a := $1 - 1;
+
+        if a = 0 then
+                ret := $1;
+        else
+                ret := $1 * fatorial(a);
+        end if;
+
+        return ret;
+end;
+' language 'plpgsql';

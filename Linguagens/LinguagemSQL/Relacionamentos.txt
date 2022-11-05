@@ -1,0 +1,119 @@
+Relacionamentos entre tabelas
+
+1 - 1
+1 - N (vários)
+N (vários) - N (vários)
+
+O último (N para N) precisa ser dividido em dois, assim:
+
+N -> 1 e 1 <- N
+
+Precisa nascer uma terceira tabela.
+
+
+Integridade Referencial
+
+- Não permitir que registros sejam inseridos na tabela referenciada sem estar na
+tabela atual
+- Não permitir a exclusão de registros da tabela referenciada que estejam na
+tabela atual.
+
+
+Ao adicionar ON DELETE CASCADE no relacionamento estamos dizendo ao SGBD que ao excluir um pedido também exclua todos os seus itens.
+Ao adicionar ON UPDATE CASCADE, estamos dizendo que ao atualizar um pedido que o SGBD atualize seus itens.
+
+Os relacionamentos podem também ser opcionais ou obrigatórios.
+
+ALTER TABLE `tb_product` ADD FOREIGN KEY(`id_category`)
+REFERENCES `tb_category`(`id_category`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+create table nome(
+
+
+...
+CONSTRAINT `customer_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+Vejamos como as instruções se comportam.
+
+RESTRICT: vai restringir a algum conjunto de valores predeterminados.
+
+NO ACTION: caso a condição seja satisfeita, nenhuma ação será executada.
+
+CASCADE: caso uma operação afeta alguma linha, será verificado se essa operação desencadeou uma espécie de 'efeito dominó', ou seja, um efeito cascata: o que alterei em cima, vai alterar em baixo e assim por diante.
+
+SET NULL: torna aquela instância para valores NULL.
+
+SET DEFAULT: vai 'setar' os valores para o valor padrão correspondente. Ex.: valor númerico, o default seria 0; já para um campo do tipo caractere, o valor padrão seria o caractere vazio '' ou string vazia "".
+
+Usando restrições de integridade referencial em cascata é possível definir as ações que o SQL Server toma quando o usuário tenta excluir ou atualizar uma chave para a qual apontam as chaves estrangeiras existentes.
+
+As cláusulas REFERENCES das instruções CREATE TABLE e ALTER TABLE oferecem suporte às cláusulas ON DELETE e ON UPDATE. Ações em cascata também podem ser definidas usando-se a caixa de diálogo Relações de Chave Estrangeira:
+
+    [ ON DELETE { NO ACTION | CASCADE | SET NULL | SET DEFAULT } ]
+
+    [ ON UPDATE { NO ACTION | CASCADE | SET NULL | SET DEFAULT } ]
+
+NO ACTION é o padrão quando ON DELETE ou ON UPDATE não estão especificadas.
+
+ON DELETE NO ACTION
+
+    Especifica que se uma tentativa for feita para exclusão de uma linha com uma chave referenciada por chaves estrangeiras em linhas existentes de outras tabelas, um erro é ativado e a instrução DELETE é revertida.
+ON UPDATE NO ACTION
+
+    Especifica que se uma tentativa for feita para atualização de uma chave referenciada em uma linha cujas chaves sejam referenciadas por chaves estrangeiras em linhas existentes de outras tabelas, um erro é ativado e a instrução UPDATE é revertida.
+
+CASCADE, SET NULL e SET DEFAULT permitem exclusões ou atualizações dos valores de chave que afetam as tabelas definidas para ter relações com as chaves estrangeiras e possam ser rastreadas até a tabela na qual a modificação foi feita. Se as ações referenciais em cascata também tiverem sido definidas em tabelas de destino, as ações em cascata especificadas também se aplicam àquelas linhas excluídas ou atualizadas. CASCADE não pode ser especificada para todas as chaves estrangeiras ou chaves primárias com a coluna timestamp.
+
+ON DELETE CASCADE
+
+    Especifica que se uma tentativa for feita para exclusão de uma linha com uma chave referenciada por chaves estrangeiras em linhas existentes de outras tabelas, todas as linhas que contenham essas chaves estrangeiras serão igualmente excluídas. 
+ON UPDATE CASCADE
+
+    Especifica que se uma tentativa for feita para atualização de um valor de chave em uma linha, onde o valor de chave é referenciado pelas chaves estrangeiras em linhas existentes em outras tabelas, todos os valores que constituem a chave estrangeira serão igualmente atualizados no novo valor especificado para a chave.
+    ObservaçãoObservação
+
+    CASCADE não poderá ser especificada se uma coluna timestamp integrar a chave estrangeira ou a chave referenciada.
+ON DELETE SET NULL
+
+    Especifica que se uma tentativa for feita para exclusão de uma linha com uma chave referenciada por chaves estrangeiras em linhas existentes de outras tabelas, todos os valores que constituem a chave estrangeira nas linhas que são referenciadas serão definidos como NULL. Todas as colunas de chave estrangeira da tabela de destino devem ser anuláveis para que essa restrição seja executada.
+ON UPDATE SET NULL
+
+    Especifica que se uma tentativa for feita para atualização de uma linha com uma chave referenciada por chaves estrangeiras em linhas existentes de outras tabelas, todos os valores que constituem a chave estrangeira nas linhas referenciadas serão definidos como NULL. Todas as colunas de chave estrangeira da tabela de destino devem ser anuláveis para que essa restrição seja executada.
+ON DELETE SET DEFAULT
+
+    Especifica que se uma tentativa for feita para exclusão de uma linha com uma chave referenciada por chaves estrangeiras em linhas existentes de outras tabelas, todos os valores que constituem a chave estrangeira nas linhas referenciadas serão definidos como seus valores padrão. Todas as colunas de chave estrangeira da tabela de destino precisam ter uma definição padrão para que essa restrição seja executada. Se a coluna for anulável e não houver nenhum valor padrão explícito definido, NULL se tornará o valor padrão implícito para a coluna. Todos os valores não nulos definidos porque ON DELETE SET DEFAULT precisa conter valores correspondentes na tabela primária para poder manter a validade da chave estrangeira.
+ON UPDATE SET DEFAULT
+
+    Especifica que se uma tentativa for feita para atualização de uma linha com uma chave referenciada por chaves estrangeiras em linhas existentes de outras tabelas, todos os valores que constituem a chave estrangeira nas linhas referenciadas serão definidos como seus valores padrão. Todas as colunas de chave estrangeira da tabela de destino precisam ter uma definição padrão para que essa restrição seja executada. Se a coluna for anulável e não houver nenhum valor padrão explícito definido, NULL se tornará o valor padrão implícito para a coluna. Todos os valores não nulos definidos porque ON UPDATE SET DEFAULT precisa ter valores correspondentes na tabela primária para poder manter a validade da chave estrangeira.
+
+Considere a restrição FK_ProductVendor_Vendor_VendorID na tabela Purchasing.ProductVendor em AdventureWorks2008R2. Essa restrição estabelece uma relação de chave estrangeira da coluna VendorID na tabela ProductVendor para a coluna de chave primária VendorID da tabela Purchasing.Vendor. Se ON DELETE CASCADE for especificada para a restrição, excluir a linha em Vendor, onde VendorID equivale a 100 também exclui as três linhas de ProductVendor onde VendorID equivale a 100. Se ON UPDATE CASCADE for especificada para a restrição, atualizar o valor VendorID da tabela Vendor de 100 para 155 também atualizada os valores VendorID nas três linhas de ProductVendor cujos valores VendorID equivalem atualmente a 100.
+
+ON DELETE CASCADE não pode ser especificada para a tabela que tenha um gatilho INSTEAD OF DELETE. Para tabelas que tenham gatilhos INSTEAD OF UPDATE, não é possível especificar o seguinte: ON DELETE SET NULL, ON DELETE SET DEFAULT, ON UPDATE CASCADE, ON UPDATE SET NULL e ON UDATE SET DEFAULT.
+Várias ações em cascata
+
+As instruções individuais DELETE ou UPDATE podem iniciar uma série de ações referenciais em cascata. Por exemplo, um banco de dados contém três tabelas: TableA, TableB e TableC. Uma chave estrangeira em TableB é definida com ON DELETE CASCADE de acordo com a chave primária em TableA. Uma chave estrangeira em TableC é definida com ON DELETE CASCADE contra a chave primária em TableB. Se uma instrução DELETE excluir linhas na TableA, a operação excluirá igualmente todas as linhas na TableB que tiverem chaves estrangeiras correspondentes a chaves primárias excluídas na TableA e, depois, excluirá todas as linhas na TableC que tenham chaves estrangeiras que correspondam a chaves primárias excluídas na TableB.
+
+As séries de ações referenciais em cascata disparadas por uma única DELETE ou UPDATE devem formar uma árvore que não contenha referências circulares. Nenhuma tabela pode aparecer mais de uma vez na lista com todas as ações referenciais em cascata que resultem de DELETE ou UPDATE. Da mesma forma, a árvore de ações referenciais em cascata não precisa ter mais que um caminho para nenhuma tabela especificada. Toda ramificação da árvore termina quando encontra a tabela para a qual NO ACTION foi especificada ou é padrão.
+Gatilhos e ações referenciais em cascata
+
+As ações referenciais em cascata acionam os gatilhos de AFTER UPDATE ou AFTER DELETE da seguinte maneira:
+
+Todas as ações referenciais em cascata causadas diretamente por DELETE ou UPDATE originais são executadas em primeiro lugar.
+
+Se houver gatilhos AFTER definidos nas tabelas afetadas, esses gatilhos serão acionados depois que todas as ações referenciais em cascata forem executadas. Os gatilhos são acionados em ordem oposta à ordem da ação em cascata. Se houver vários gatilhos em uma única tabela, eles serão acionados em ordem aleatória, a menos que haja um gatilho dedicado final ou inicial para a tabela. Essa ordem é especificada usando-se sp_settriggerorder.
+
+Se várias cadeias em cascata se originarem da tabela que era o destino direto de uma ação UPDATE ou DELETE, a ordem em que essas cadeias acionam seus respectivos gatilhos não é especificada. Porém, uma cadeia sempre aciona todos os seus gatilhos antes que outra cadeia inicie o acionamento.
+
+Um gatilho AFTER em uma tabela que seja o destino direto de ações UPDATE ou DELETE é acionado independentemente de alguma linha ter sido ou não afetada. Não há nenhuma outra tabela afetada em cascata nesse caso.
+
+Se algum dos gatilhos anteriores executar operações UPDATE ou DELETE em outras tabelas, essas ações poderão dar início a cadeias secundárias em cascata. Essas cadeias secundárias são processadas para todas as operações UPDATE ou DELETE em dado momento após o acionamento de todos os gatilhos em todas as cadeias primárias. Esse processo pode ser repetido recursivamente para operações UPDATE ou DELETE subseqüentes.
+
+Executar CREATE, ALTER, DELETE ou outras operações DDL (Data Definition Language) nos gatilhos pode fazer com que os disparadores DDL sejam acionados. Isso pode, subseqüentemente, executar operações DELETE ou UPDATE que iniciam cadeias e gatilhos adicionais em cascata.
+
+Se um erro for gerado em qualquer cadeia de ação referencial em cascata, um erro é ativado, nenhum gatilho AFTER é acionado naquela cadeia e a operação DELETE ou UPDATE que criou a cadeia é revertida.
+
+Uma tabela com um gatilho INSTEAD OF não pode ter igualmente uma cláusula REFERENCES especificando uma ação em cascata. No entanto, um gatilho AFTER em uma tabela direcionada por uma ação em cascata poderá executar instruções INSERT, UPDATE ou DELETE em outra tabela ou exibição que acionem um gatilho INSTEAD OF definido naquele objeto.
+Informações de catálogo de restrições referenciais em cascata
+
+

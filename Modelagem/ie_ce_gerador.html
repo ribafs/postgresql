@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1"?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Gerador de Inscrições Estaduais (Ceará) v&aacute;lidas </title>
+  <meta name="resource-type" content="document">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta name="revisit-after" content="1">
+  <meta name="classification" content="Internet">
+  <meta name="description" content="Gerador de CPF e CNPJ V&aacute;lidos">
+  <meta name="keywords" content="gerador, CPF, CNPJ, v&aacute;lidos, gerar">
+  <meta name="robots" content="ALL">
+  <meta name="distribution" content="Global">
+  <meta name="rating" content="General">
+  <meta name="author" content="nninno">
+  <meta name="language" content="pt-br">
+  <meta name="doc-class" content="Completed">
+  <meta name="doc-rights" content="Public">
+  <style type="text/css">
+<!--
+body { background: #404040; margin: 30px; padding: 0; border: 0; text-align: center; }
+#geral { color: #ffffff; margin: auto; width: 320px; text-align: left; }
+#cabecalho h1 { color: #f1f1f1; font: 140% trebuchet ms, sans-serif; text-align: center; }
+#resultado { text-align: center; }
+#resultado input { color: #000000; font: 110% trebuchet ms; text-align: center; margin: 10px; border: 3px #c0c0c0 solid; width: 200px; }
+#pontuacao { font: 80% trebuchet ms; margin-bottom: 10px; }
+#ie { font: 80% trebuchet ms; margin-bottom: 10px; }
+#botao { text-align: center; }
+#botao input { font: 80% trebuchet ms; margin-bottom: 10px; width: 200px; }
+#rodape { background: #505050; font: 60% helvetica, verdana, sans-serif; text-align: center; padding: 10px; }
+#rodape a { color: #cccccc; }
+#rodape p { color: #cccccc; margin: 0; }
+-->
+  </style>
+  <script type="text/javascript">
+	var comPontos;
+	function randomiza(n) {
+		var ranNum = Math.round(Math.random()*n);
+		return ranNum;
+	}
+
+	function mod(dividendo,divisor) {
+		return Math.round(dividendo - (Math.floor(dividendo/divisor)*divisor));
+	}
+
+	//function cpf() {
+	function ie_ce() {
+		var n = 8;
+		var n1 = randomiza(n);
+		var n2 = randomiza(n);
+		var n3 = randomiza(n);
+		var n4 = randomiza(n);
+		var n5 = randomiza(n);
+		var n6 = randomiza(n);
+		var n7 = randomiza(n);
+		var n8 = randomiza(n);
+
+		var d1 = 9*n1 + 8*n2 + 7*n3 + 6*n4 + 5*n5 + 4*n6 + 3*n7 + 2*n8;
+
+		d1 = 11 - ( mod(d1,11) );
+		if (d1>=10) d1 = 0;
+			retorno = '';
+		if (comPontos) retorno = n1+'.'+n2+n3+n4+n5+n6+n7+n8+'-'+d1;
+		else retorno = ''+n1+n2+n3+n4+n5+n6+n7+n8+d1; /* as aspas iniciais levam a um resultado texto */
+
+	return retorno;
+	}
+
+	function faz() {
+		document.form1.numero.value = ie_ce();
+	}
+
+	function pontuacao() {
+		if (document.form1.cbPontos.checked)
+			comPontos = true;
+		else
+			comPontos = false;
+	}
+
+  </script>
+</head>
+
+
+<body style="background-color: rgb(0, 0, 0);" onload="pontuacao()">
+<h1 style="color: rgb(255, 0, 0);"><small>Gerador de Inscrições Estaduais (Ceará) Válidas</small></h1>
+
+<br>
+<br>
+</span>
+<div id="conteudo">
+<form name="form1" method="post" action="">
+  <div id="resultado"><input name="numero" id="numero" size="20" readonly="readonly" type="text"></div>
+
+  <div id="pontuacao">
+  <input id="cbPontos" name="cbPontos" value="1" checked="checked" onclick="pontuacao()" type="checkbox"><span style="color: rgb(255, 255, 255);">Máscara</span>
+  </div>
+
+  <div id="botao">
+  <input name="Button" value="Gerar" onclick="faz()" type="button"></div>
+</form>
+</div>
+<pre>
+
+
+
+
+</pre>
+<span style="color: rgb(192, 192, 192);">
+Adaptado por Ribamar FS 
+<br>Do gerador de CPF e CNPJ encontrado em:<br>
+<a href=http://highportal.no.sapo.pt/geradorcpf.html>http://highportal.no.sapo.pt/geradorcpf.html</>.
+</spam>
+</body></html>

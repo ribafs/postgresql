@@ -1,0 +1,77 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>DBA_ROLE_PRIVS</title>
+
+<meta name="keywords" content="dba_role_privs, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2183"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-246_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-245.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-246_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-246_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-247.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-246_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 28pt;"><p><a name="P12145_611483"></a><span style="font-family: 'Arial'; font-size: 14pt;"><i>9.9 DBA_ROLE_PRIVS</i></span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DBA_ROLE_PRIVS</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+view provides information on all roles that have been granted to users.
+A row is created for each role to which a user has been granted.</span></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="133"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name</span></p>
+</td>
+<td valign="top" width="108"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Type</span></p>
+</td>
+<td valign="top" width="335"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">grantee</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">User name to whom the role was granted.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">granted_role</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name of the role granted to the grantee.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">admin_option</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">YES</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> if the role was granted with the admin option, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NO</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> otherwise.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">de</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">fault_role</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">YES</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> if the role is automatically enabled when the grantee creates a session, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NO</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> otherwise. Currently, always set to </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">YES</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+<p><a name="P12163_612013"></a></p></td></tr></tbody></table>
+
+</p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-245.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-246_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-246_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-247.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-246_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-246_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-246_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

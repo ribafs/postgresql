@@ -1,0 +1,167 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>EnterpriseDB Oracle Compatibility Developer's Guide: Numeric Types</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1970"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-33_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-32.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-33_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-33_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-34.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-33_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P1781_93675"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.2.1 Numeric Types</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Numeric
+types consist of four-byte integers, four-byte and eight-byte
+floating-point numbers, and fixed-precision decimals. The following
+table lists the available types.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-2 Numeric Types</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="156"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name</span></p>
+</td>
+<td valign="top" width="58"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Storage Size</span></p>
+</td>
+<td valign="top" width="226"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td>
+<td valign="top" width="132"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Range</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span></p>
+</td>
+<td valign="top" width="58"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">4 bytes</span></p>
+</td>
+<td valign="top" width="226"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Usual choice for integer</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">-2,147,483,648 to +2,147,483,647</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td>
+<td valign="top" width="58"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Variable</span></p>
+</td>
+<td valign="top" width="226"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">User-specified precision, exact</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Up to 1000 digits of precision</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">N</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">UMBER</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>p</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>s</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ] </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="58"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Variable</span></p>
+</td>
+<td valign="top" width="226"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Exact numeric of maximum precision, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>p</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, and optional scale, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>s</i></span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Up to 1000 digits of precision</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REAL</span></p>
+</td>
+<td valign="top" width="58"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">4 bytes</span></p>
+</td>
+<td valign="top" width="226"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Variable-precision, inexact</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">6 decimal digits precision</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="58"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">8 bytes</span></p>
+</td>
+<td valign="top" width="226"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Variable-precision, inexact</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">15 decimal digi</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ts precision</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following section<a name="P1810_94341"></a>s describe the types in detail.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">3.2.1.1 Integer Type</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The type, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INTEGER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,
+stores whole numbers, that is, numbers without fractional components,
+of various ranges. Attempts to store values outside of the allowed
+range will result in an error.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;"><a name="P1813_94578"></a>3.2.1.2 Arbitrary Precision Numbers</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P1814_94613"></a>The type</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUM</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BE</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">R</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> can store </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">practically </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">an unlimited number of digits of precision and perform calculations exactly.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">It is especially recommended for storing monetary amounts and other quantities where exactness is re</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">quired.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">However, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUM</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> type is very slow compared to the floating-point types described in the next section.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In what follows we use these terms: The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>scale</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> of a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NU</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">MBER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the count of decimal digits in the fractional part, to the right of the decimal point. The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>precision</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> of a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+is the total count of significant digits in the whole number, that is,
+the number of digits to both sides of the decimal point. So the number
+23.5141 has a precision of 6 and a scale of 4. Integers can be
+considered to have a scale of zero.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Both the precision and the scale of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUM</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> type can be configured. To declare a column of type </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUM</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> use the syntax</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUMBER</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>precision</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>scale</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The precision must be positive, the scale zero or positive. Alternatively,</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUMBER</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>precision</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">selects a scale of 0. Specifying</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUMBER</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">without
+any precision or scale creates a column in which numeric values of any
+precision and scale can be stored, up to the implementation limit on
+precision.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A column of this kind will not coerce input values to any</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> particular scale, whereas </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> columns with a declared scale will coerce input values to that scale.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">(The </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+standard requires a default scale of 0, i.e., coercion to integer
+precision. For maximum portability, it is best to specify the precision
+and scale explicitly.)</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If
+the precision or scale of a value is greater than the declared
+precision or scale of a column, the system will attempt to round the
+value. If the value cannot be rounded so as to satisfy the declared
+limits, an error is raised.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;"><a name="P1824_96349"></a>3.2.1.3 Floating-Point Types</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The data types </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are inexact, variable-precision numeric types. In practice, these types are usually implementations of </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">IEEE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> Standard 754 for Binary Floating-Point Arithmetic (single and double precision, respectively)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, to the extent that the underlying processor, operating system, and compiler support it.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Inexact
+means that some values cannot be converted exactly to the internal
+format and are stored as approximations, so that storing and printing
+back out a value may show slight discrepancies. Managing these errors
+and how they propagate through calculations is the subject of an entire
+branch of mathematics and computer science and will not be discussed
+further here, except for the following points:</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If you require exact storage and calculations (such as for monetary amounts), use the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUM</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">B</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> type instead.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If
+you want to do complicated calculations with these types for anything
+important, especially if you rely on certain behavior in boundary cases
+(infinity, underflow), you should evaluate the implementation carefully.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Comparing two floating-point values for equality may or may not work as expected.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">On most platforms, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> type has a range of at least 1E-37 to 1E+37 with a precision of at least 6 decimal digits. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">D</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+type typically has a range of around 1E-307 to 1E+308 with a precision
+of at least 15 digits. Values that are too large or too small will
+cause an error. Rounding may take place if the precision of an input
+number is too high. Numbers too close to zero that are not
+representable as distinct from zero will cause an underflow error.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> also supports the </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> standard notations </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FLOAT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FLOAT(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>p</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> for specifying inexact numeric types.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Here, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>p</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> specifies the minimum acceptable precision in binary digits.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> accepts </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FLOAT(1)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FLOAT(24)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> as selecting the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> type, while </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FLOAT(25)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FLOAT(53)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> as selecting </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Values of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>p</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> outside the allowed range draw an error.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FLOAT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> with no precision specified is taken to mean </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-32.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-33_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-33_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-34.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-33_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-33_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-33_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

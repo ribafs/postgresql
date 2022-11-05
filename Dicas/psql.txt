@@ -1,0 +1,5 @@
+
+Consulta no prompt do SO:
+
+psql -U postgres -d banco -c "SELECT * FROM clientes" -o "c:\arquivodesaida.txt"
+

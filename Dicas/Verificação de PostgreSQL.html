@@ -1,0 +1,84 @@
+<html><head><!-- 
+Programador por: Fábio Berbert de Paula
+E-mail: fabio@vivaolinux.com.br
+Web Site: www.vivaolinux.com.br
+
+Tema: Harmonia Celeste
+-->
+<title>Linux: Código-fonte do script - Verificação de PostgreSQL</title>
+  <Link Rel="Add Icon" Href="/favicon.ico">
+  <Link Rel="Shortcut Icon" Href="/favicon.ico">
+  <link rel="Icon" href="/favicon.ico" type="image/ico">
+<link rel="stylesheet" href="/linux003.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff" marginwidth="0" marginheight="0" leftmargin='0' topmargin='0'>
+
+<table border=0 cellpadding=3 cellspacing=3 width="100%">
+<tr><td>
+<h2>Verificação de PostgreSQL</h2>
+Autor: Wagner &lt;wagnao@gmail.com&gt;<br>
+Data: 03/03/2009
+<br><br>
+</td></tr>
+
+<tr><td>
+<b>Verificação de PostgreSQL - código-fonte</b>
+</td></tr>
+
+<tr><td class="codigo">
+#!/bin/bash<br>
+#&nbsp;Autor:&nbsp;Wagner&nbsp;Cipriano&nbsp;-&nbsp;Gnão&nbsp;&lt;wagner@intip.com.br&gt;&nbsp;#<br>
+#&nbsp;*&nbsp;DataBases&nbsp;PostgreSql&nbsp;#<br>
+#&nbsp;Verifica&nbsp;se&nbsp;o&nbsp;banco&nbsp;esta&nbsp;rodando&nbsp;e&nbsp;se&nbsp;nao&nbsp;tiver&nbsp;starta&nbsp;o&nbsp;processo&nbsp;#<br>
+#&nbsp;<br>
+#&nbsp;Copie&nbsp;a&nbsp;vontade,&nbsp;mantenha&nbsp;o&nbsp;autoria&nbsp;original&nbsp;#<br>
+##################################################<br>
+<br>
+PATH=/usr/sbin:/usr/local/bin:/usr/bin:/bin<br>
+export&nbsp;PATH<br>
+inicio=&quot;`date&nbsp;+%Y-%m-%d_%H:%M:%S`&quot;<br>
+<br>
+PGUser=&quot;postgres&quot;<br>
+PGPort=&quot;5413&quot;<br>
+PGLocation=&quot;/var/lib/pgsql/data_restore/&quot;<br>
+<br>
+ERRORLOG=&quot;$DIR/restore-error.log&quot;<br>
+ERROR=0;<br>
+<br>
+<br>
+#Verifica&nbsp;se&nbsp;a&nbsp;instancia&nbsp;do&nbsp;BD&nbsp;esta&nbsp;rodando<br>
+PgSqlUp()&nbsp;{<br>
+strRet=&quot;`ps&nbsp;ax&nbsp;|&nbsp;grep&nbsp;/var/lib/pgsql/data_restore`&quot;<br>
+searchStr=&quot;postmaster&quot;<br>
+if&nbsp;`echo&nbsp;${strRet}&nbsp;|&nbsp;grep&nbsp;&quot;${searchStr}&quot;&nbsp;1&gt;/dev/null&nbsp;2&gt;&amp;1`<br>
+then<br>
+echo&nbsp;&quot;Postgres&nbsp;rodando&nbsp;ok,&nbsp;porta&nbsp;'$PGPort'&quot;<br>
+else<br>
+echo&nbsp;&quot;Postgres&nbsp;NAO&nbsp;esta&nbsp;rodando.&nbsp;porta&nbsp;'$PGPort'&quot;<br>
+echo&nbsp;&quot;&gt;&gt;&gt;&nbsp;Inicia&nbsp;processo&nbsp;postmaster&nbsp;na&nbsp;porta&nbsp;'$PGPort'&quot;<br>
+su&nbsp;-m&nbsp;-c&nbsp;&quot;postmaster&nbsp;-i&nbsp;-D&nbsp;$PGLocation&nbsp;&amp;&quot;&nbsp;-&nbsp;$PGUser&nbsp;2&gt;&nbsp;$ERRORLOG<br>
+if&nbsp;[&nbsp;&quot;$?&quot;&nbsp;-ne&nbsp;0&nbsp;];&nbsp;then<br>
+echo&nbsp;&quot;ERRO:&nbsp;ao&nbsp;iniciar&nbsp;postmaster&nbsp;na&nbsp;porta&nbsp;'$PGPort'&quot;<br>
+ERROR=1;<br>
+fi<br>
+sleep&nbsp;3<br>
+fi<br>
+}<br>
+<br>
+PgSqlUp<br>
+#Fim<br>
+
+</td></tr>
+
+<tr><td>
+<br>
+<u>http://www.vivaolinux.com.br/scripts/verFonte.php?codigo=3870</u>
+<br><br>
+<a href="verFonte.php?codigo=3870">Voltar para o site</a>
+<br><br>
+</td></tr>
+</table>
+
+</body>
+</html>

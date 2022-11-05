@@ -1,0 +1,37 @@
+						INSERT – Inserir registros em tabelas.
+
+banco=# \h insert
+
+Comando: INSERT
+Descrição: insere novos registros em uma tabela
+
+Sintaxe:
+INSERT INTO tabela [ ( lista_de_campos ) ]
+{ DEFAULT VALUES | VALUES ( { expressão | DEFAULT } [, ...] ) | consulta }
+
+DEFAULT - Se ao criar a tabela definirmos campos com valor default, ao inserir registros e omitir o 
+valor para estes campos, o servidor os cadastrará com o valor default.
+
+Exemplo (forma completa):
+
+Na tabela o campo idade tem valor default 18.
+
+Forma Completa:
+
+INSERT INTO clientes (codigo, nome, idade) VALUES (1, "Ribamar FS");
+
+Neste exemplo será cadastrado para a idade o valor 18.
+
+Forma Abreviada:
+
+INSERT INTO clientes VALUES (1, "Ribamar FS");
+
+Alerta: Portanto devemos ficar atentos com valores default, especialmente não devemos ter 
+valores default para campos obrigatórios, pois o usuário poderá inserir o registro sem precisar inserir nada nesse campo.
+
+Inserindo com SubConsulta:
+
+INSERT INTO clientes (codigo, nome, idade) VALUES
+(SELECT fnome, fidade FROM funcionarios WHERE cli = 'S');
+SELECT firstname, lastname, city, state INTO newfriend FROM friend;
+

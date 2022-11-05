@@ -1,0 +1,112 @@
+-- Locadora de Vídeos
+-- banco: locadora
+
+empresa
+razao_social
+cep -- rel
+cnpj
+site
+
+telefones -- fixos ou celulares
+telefone
+pessoa -- cliente, funcionário ou representante
+prefixo
+numero
+
+clientes
+cliente
+nome
+cpf
+rg
+foto -- para carteirinha
+data_cadastro
+taxa_inscricao
+cep -- rel
+telefone
+liberado -- boolean -liberado para alugar ou não (bloqueado)
+aprovado_por	-- funcionário que aprovou -- rel
+
+referencias
+referencia
+cliente		-- pode repetir
+ref_cliente
+telefone
+observacao
+
+funcionarios
+funcionario
+nome
+cpf
+rg
+data_admissao
+cpf -- rel
+telefone
+
+fornecedores
+fornecedor
+razao_social
+cpf
+cnpj
+inscricao_estadual
+endereco
+site
+contato
+contato_fone
+fax
+observacao
+
+cheques
+numero
+cliente
+banco
+agencia
+data
+valor
+emitente
+avista	-- boolean
+
+formas_pagamento
+forma
+descricao	-- a vista, cheque a vista, cheque predatado, cartão a vista, cartão prazo
+
+locacoes
+locacao
+fita-- rel
+cliente --rel
+data_locacao
+data_devolucao
+forma_pagamento -- rel
+cheque  --numero
+multa_atrazo
+valor
+
+fitas -- fitas, cds ou dvds
+fita
+fornecedor
+filme
+cotacao
+custo_aquisicao
+data_aquisicao
+quantidade_copias  -- somar quando receber e subtrair quando alugar
+dub_leg -- dublado ou legendado
+observacao
+
+generos
+genero
+descricao - romântico, épico, ação, artes marciais, educativos, infantil, ficção científica, documentário, ...
+
+filmes
+filme
+diretor
+duracao
+sinopse
+ano
+ator_principal
+ator_coadjuvante
+genero -- rel
+titulo
+
+/*
+Principal fonte: http://bechelli.org/files/access/videolocadora_2005.pdf
+Dos professores Carlos, Vivian e Rodrigo
+*/

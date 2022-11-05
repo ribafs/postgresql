@@ -1,0 +1,85 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>CREATE TABLE AS</title>
+
+
+<meta name="keywords" content="create table as, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1998"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-61_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-60.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-61_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-61_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-62.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-61_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P3115_174159"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.23 CREATE TABLE AS</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3116_174181"></a>Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE TABL</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">E AS</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;define a new table from the results of a query</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3118_174252"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE [ GLOBAL TEMPORARY ] TABLE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table_name</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ (</span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">column_name</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...] ) ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ ON COMMIT { PRESERVE ROWS | DELETE ROWS } ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ TABLESPACE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>tablespace</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  AS </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>query</i></span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3124_174416"></a>Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE TABLE AS</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> creates a table and fills it with data computed by a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command. The table columns have the names and data types associated with the output columns of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> (except that you can override the column names by giving an explicit list of new column names).</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE TABLE AS</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+bears some resemblance to creating a view, but it is really quite
+different: it creates a new table and evaluates the query just once to
+fill the new table initially. The new table will not track subsequent
+changes to the source tables of the query. In contrast, a view
+re-evaluates its defining </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement whenever it is queried.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3127_175056"></a>Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GLOBAL TEMPORARY</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If specified, the table is created as a temporary table. Refer to <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-60.htm#P2939_161008"><u>CREATE TABLE</u></a> for details.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table_name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name (optionally schema-qualified) of the table to be created.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column_name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The
+name of a column in the new table. If column names are not provided,
+they are taken from the output column names of the query.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>query</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">A query statement (that is, a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> command). Refer to <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-86.htm#P3860_222577">SELECT</a></u> for a description of the allowed syntax.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3136_175498"></a>See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-60.htm#P2939_161008"><u>CREATE TABLE</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-86.htm#P3860_222577"><u>SELECT</u></a></span></p>
+
+<p><a name="P3138_175526"></a></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-60.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-61_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-61_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-62.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-61_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-61_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-61_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

@@ -1,0 +1,12 @@
+
+LIMIT - Retorna somente uma quantidade especificada de registros em uma consulta
+O order by complementa.
+
+LIMIT com OFFSET - pular certa quantidade (OFFSET) antes de mostrar uma quantidade
+(limit).
+
+select nome from servidores order by nome limit 15 offset 6;
+
+Pula os 6 primeiros e traz os próximos 15.
+
+

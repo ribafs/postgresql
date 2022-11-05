@@ -1,0 +1,18 @@
+
+
+== Verificar Serviços em Execução
+
+netstat -tap | grep serviço
+netstat -tap | grep apache2
+
+
+== Ver serviços rodando
+
+netstat -nltp
+
+
+== Monitorar logs
+
+tail -fn 50 /var/log/apache2/error.log
+
+

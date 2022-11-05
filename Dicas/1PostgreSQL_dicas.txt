@@ -1,0 +1,157 @@
+Dicas sobre o SGBD livre PostgreSQL
+
+CREATE DATABASE nomebanco;
+
+CREATE TABLE
+
+CREATE TABLE produtos(
+	id SERIAL NOT NULL,
+	descricao VARCHAR(40) default '' NOT NULL,
+	fornecedor_id INTEGER,
+	categoria_id INTEGER,
+	quantidade INTEGER,
+	preco DECIMAL(12,2),
+	estoque INTEGER,
+	unidades_pedido INTEGER,
+	nivel_pedido INTEGER,
+	descontinuado INTEGER default 'f' NOT NULL,
+	observacao TEXT,
+	data DATE,
+	PRIMARY KEY (id)
+);
+
+INSERT INTO produtos (id,descricao,fornecedor_id,categoria_id,quantidade,preco,estoque,unidades_pedido,nivel_pedido,descontinuado,observacao,data) VALUES (1,'Chai Tea',1,1,'10 boxes x 20 bags',18,39,-7,10,' ','2001-12-01');
+
+
+Scrips
+
+MySQL ou PostgreSQL (este script funciona nos dois)
+
+create table clientes
+(
+	cliente int primary key,
+	cpf char(11),
+	nome char(45) not null,
+	credito_liberado char(1) not null,
+	data_nasc date,
+	email varchar(50)
+);
+
+create table funcionarios
+(
+	funcionario int primary key,
+	cpf char(11),
+	nome char(45) not null,
+	senha char(32) not null,
+	email varchar(50),
+	data_nasc date not null
+);
+
+create table pedidos
+(
+	pedido int primary key,
+	cliente_id int not null,
+	funcionario_id int not null,
+	data_pedido date not null,
+	data_confirmacao date not null,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(cliente) ON DELETE RESTRICT,
+    FOREIGN KEY (funcionario_id) REFERENCES funcionarios(funcionario) ON DELETE RESTRICT
+);
+
+Outra forma: constraint pedidos_cli_fk foreign key(cliente_id) REFERENCES clientes (cliente)
+
+ALTER DATABASE 
+
+ALTER TABLE pedidos ADD CONSTRAINT pedidos_cli_fk FOREIGN KEY (cliente_id) REFERENCES clientes (cliente);
+
+ALTER TABLE clientes ADD CHECK (length(cpf)=11);
+
+ALTER TABLE estoque ALTER COLUMN data SET DEFAULT CURRENT_DATE;
+
+Exemplo rico em recursos: Devel/SGBD/PostgreSQL/Exercicios/Modulo4Projetos/pessoa.sql
+
+
+Dicas Avançadas:
+
+SELECT CASE WHEN 10*2=30 THEN '30 incorrect'
+   WHEN 10*2=40 THEN '40 incorrect'
+   ELSE 'Deve ser 10*2=20'
+END;
+
+SELECT CASE 10*2
+   WHEN 20 THEN '20 correct'
+   WHEN 30 THEN '30 incorrect'
+   WHEN 40 THEN '40 incorrect'
+END;
+
+SELECT CASE WHEN 9>7 
+                 THEN "TRUE" 
+                 ELSE 
+                 "FALSE" 
+                 END 
+  AS "Resultado";
+
+Trazer somente 1 registro posterior ao valor fornecido
+SELECT id, title FROM topics WHERE id > $currentTopicId ORDER BY id ASC LIMIT 1
+
+SELECT cliente, nome FROM clientes WHERE cliente > 1 ORDER BY cliente ASC LIMIT 1
+
+Trazer somente 1 registro anterior ao valor fornecido
+SELECT id FROM entrada_dados WHERE id < 10 ORDER BY id DESC LIMIT 1
+SELECT data,total FROM entrada_dados WHERE data < '2009-07-01' ORDER BY total DESC LIMIT 1
+
+Com outros parâmetros no WHERE
+SELECT id, title FROM topics WHERE id > $currentTopicId and visible=1 ORDER BY id ASC LIMIT 1
+
+Último registro
+SELECT id FROM tab_pecas WHERE id = (SELECT MAX id from tab_pecas)
+
+SELECT nm_dept FROM departamento ORDER BY codigo DESC LIMIT 1
+
+SELECT entidades FROM entrada_dados ORDER BY id DESC LIMIT 1
+
+select * from employee1 order by empid,name,dob  asc limit 1;
+
+SELECT LAST_INSERT_ID()
+
+
+Datas
+
+SELECT CURRENT_DATE();
+
+
+TRANSAÇÕES
+
+
+Exportando:
+
+
+Importando:
+
+
+TRIGGER
+
+sudo su
+su - postgres
+createdb joomlapg
+createuser joomlapg
+psql joomlapg
+ALTER DATABASE joomlapg OWNER TO joomlapg;
+
+alter role joomlapg password 'joomlapg';
+
+REVOKE CONNECT ON DATABASE joomlapg FROM PUBLIC;
+GRANT CONNECT ON DATABASE joomlapg TO joomlapg;
+
+---
+REVOKE ALL ON ALL TABLES IN SCHEMA public FROM PUBLIC;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO joomlapg;
+
+---
+ALTER DEFAULT PRIVILEGES 
+    FOR ROLE some_role   -- Alternatively "FOR USER"
+    IN SCHEMA public
+    GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO user_name;
+
+
+

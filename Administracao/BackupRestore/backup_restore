@@ -1,0 +1,20 @@
+Backup e Restore
+
+Exportar sobrescrevendo latin1
+pg_dump -U usuario -d banco | sed 's/LATIN1/UTF8/g' > banco.sql
+
+Exportar o servidor de teste via ssh
+pg_dump -U usuariolocal -d bancolocal -n nome_esquema | psql -h IPRemoto -U usuario -d bancoremoto
+
+
+Exportar remotamente
+pg_dump -C -Fp -h localhost -U postgres bancolocal  | psql -h hostremoto -U userremoto bancoremoto
+
+Ou
+pg_dump -C -Fp -f funcional.sql -H -U postgres banco
+
+Importar
+psql -U postgres -f dump.sql
+
+
+

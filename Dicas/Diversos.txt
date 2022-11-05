@@ -1,0 +1,18 @@
+/*
+Uso do iconv - Convertendo Codificações
+
+Caso queira converter entre vários tipos de codificação, o iconv é uma boa saída.
+O Linux já vem com ele.
+O Windows também conta com uma versão, aqui - http://gnuwin32.sourceforge.net/packages/libiconv.htm
+Baixar os binários - http://gnuwin32.sourceforge.net/downlinks/libiconv-bin-zip.php.
+Documentação - http://gnuwin32.sourceforge.net/downlinks/libiconv-doc-zip.php
+
+Exemplo para Linux
+iconv -f iso-8859-1 cep_brasil_unique.csv -t cp1252 -s -o cep_brasil_unique_1252.csv
+
+Exemplo para Windows ou Linux
+iconv -c -s -f iso-8859-1 -t cp1252 cep_brasil_unique.csv > cep_brasil_unique_1252.csv
+iconv -c -s -f iso-8859-1 -t utf-8 cep_brasil_unique.csv > cep_brasil_unique_utf8.csv
+
+*/
+

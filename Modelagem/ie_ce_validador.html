@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Validação de Inscrições Estaduais (Ceará)</title>
+  <meta name="description" content="Validação de Inscrição Estadual">
+  <style type="text/css">
+<!--
+body { background: #404040; margin: 30px; padding: 0; border: 0; text-align: center; }
+#geral { color: #ffffff; margin: auto; width: 320px; text-align: left; }
+#cabecalho h1 { color: #f1f1f1; font: 140% trebuchet ms, sans-serif; text-align: center; }
+#resultado { text-align: center; }
+#resultado input { color: #000000; font: 110% trebuchet ms; text-align: center; margin: 10px; border: 3px #c0c0c0 solid; width: 200px; }
+#pontuacao { font: 80% trebuchet ms; margin-bottom: 10px; }
+#ie { font: 80% trebuchet ms; margin-bottom: 10px; }
+#botao { text-align: center; }
+#botao input { font: 80% trebuchet ms; margin-bottom: 10px; width: 200px; }
+#rodape { background: #505050; font: 60% helvetica, verdana, sans-serif; text-align: center; padding: 10px; }
+#rodape a { color: #cccccc; }
+#rodape p { color: #cccccc; margin: 0; }
+-->
+  </style>
+  <script type="text/javascript">
+
+	function mod(dividendo,divisor) {
+		return Math.round(dividendo - (Math.floor(dividendo/divisor)*divisor));
+	}
+
+	//function cpf() {
+	function ie_ce(numero) {
+
+		n1 = parseInt(numero.substring(0,1));
+		n2 = parseInt(numero.substring(1,2));
+		n3 = parseInt(numero.substring(2,3));
+		n4 = parseInt(numero.substring(3,4));
+		n5 = parseInt(numero.substring(4,5));
+		n6 = parseInt(numero.substring(5,6));
+		n7 = parseInt(numero.substring(6,7));
+		n8 = parseInt(numero.substring(7,8));
+		n9 = parseInt(numero.substring(8,9));
+
+		var d1 = 9*n1 + 8*n2 + 7*n3 + 6*n4 + 5*n5 + 4*n6 + 3*n7 + 2*n8;
+
+
+		d1 = 11 - ( mod(d1,11) );
+		if (d1>=10) d1 = 0;
+//alert(n1 + ' ' + n2 + ' ' + n3 + ' ' + n4 + ' ' + n5 + ' ' + n6 + ' ' + n7 + ' ' + n8 + ' ' + n9  + 'd1'+d1)	
+		var retorno = '';
+	
+		if (d1 == n9){	
+		 retorno='IE Válida!';
+		}else{
+		 retorno='IE Inválida!';
+		}
+
+		return alert(retorno);
+	}
+
+  </script>
+</head>
+
+
+<body style="background-color: rgb(0, 0, 0);">
+<h1 style="color: rgb(255, 0, 0);"><small>Validação de Inscrições Estaduais (Ceará)</small></h1>
+
+<br>
+<br>
+</span>
+<div id="conteudo">
+<form name="form1" method="post" action="">
+  <div id="resultado"><input name="numero" id="numero" size="20" type="text"></div>
+
+  <div id="botao">
+  <input name="Button" value="Validar" onclick="ie_ce(form1.numero.value)" type="button"></div>
+</form>
+</div>
+<pre>
+
+
+
+
+</pre>
+<span style="color: rgb(192, 192, 192);">
+Exemplo de IE válida: 060000015 <br><br>
+Adaptado por Ribamar FS 
+<br>Do gerador de CPF e CNPJ encontrado em:<br>
+<a href=http://highportal.no.sapo.pt/geradorcpf.html>http://highportal.no.sapo.pt/geradorcpf.html</>.
+</spam>
+</body></html>

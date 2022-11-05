@@ -1,0 +1,4 @@
+PostgreSQL Tuning: O elefante mais rápido que um leopardo
+https://pt.slideshare.net/adorepump/postgresql-tuning-o-elefante-mais-rpido-que-um-leopardo
+
+

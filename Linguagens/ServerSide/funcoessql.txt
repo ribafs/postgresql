@@ -1,0 +1,39 @@
+Funções em Linguagem SQL
+
+O PostgreSQL tem 4 tipos de funções:
+- Nativas
+- Linguagem SQL
+- Procedurais
+- Em C
+
+Sintaxe de funções SQL
+
+create function nome ([parametro1, parametro2, ...])
+returns retorno AS'
+	corpo da função
+' LANGUAGE SQL;
+
+Exemplo usando aspas simples:
+
+create function soma_um(integer)
+returns integer as'
+	select $1 + 1;
+'language sql;
+
+Usando
+
+select soma_um(5);
+
+Exemplo usando $$
+
+create function soma_valores(integer, integer)
+returns integer as $$
+	select $1 + $2;
+$$
+language sql;
+
+select soma_valores(3,8);
+
+Outros exemplos
+
+	

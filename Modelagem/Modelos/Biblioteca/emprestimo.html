@@ -1,0 +1,411 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+
+<title> Ciclo de Empréstimo (Projeto Biblioteca) - Sub-área Banco de Dados - IME / USP  </title>
+<meta name="Generator" content="EditPlus">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+</head><body>
+	<table width="95%" align="center">
+	  <tbody><tr>
+        <td bgcolor="#00557d">
+			<a name="emprestimo">
+			<font size="4" color="white"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ciclo Empréstimo<br><br></p></b></font>
+		</a></td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="4" color="#990000"><b><p><br>1. Introdução<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+        <td> 
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assim
+como o módulo de Aquisição, o módulo de Empréstimo é composto por um
+fluxo de processos representando o ciclo de empréstimo de item acervo
+dentro do sistema da biblioteca. Um processo é uma composição de ações
+atômicas. Ações podem acarretar mudanças de estado. O autômato da
+figura 1 ilustra as mudanças de estado possíveis para um exemplar de
+item de acervo controlado pelo módulo de empréstimo.</p>
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="emprestimo_arquivos/automato_exemplar.gif">
+		  <br><br>
+		  <b>Figura 1 &#8211; Possíveis mudanças de estado para um exemplar de item de acervo</b>
+        </td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="4" color="#990000"><b><p><br>2. Descrição do Fluxo<br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+			<br>
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O
+fluxo do empréstimo foi quebrado em um fluxo macro, composto de vários
+subprocessos, de maneira que a visualização do processo global de
+empréstimo possa ficar mais clara. <br><br>
+
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><u>Visão Macro</u></b> <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O processo de empréstimo se inicia
+quando algum usuário se apresenta à biblioteca com o intuito de pegar
+do acervo algum livro emprestado. O primeiro passo no fluxo deste
+processo é efetuar a validação dos dados cadastrais do usuário
+(P_USER). Se ele passar por esta validação, seu próximo passo será
+verificar a existência do livro desejado na biblioteca e também a
+disponibilidade de algum exemplar desta obra (P_DISP) na biblioteca.
+Surgem então três possibilidades. </p><ol>
+				<li>O livro não pertence ao acervo da biblioteca
+(FIM), e ele não sai do processo P_DISP (acaba antes da busca por
+exemplar dentro do processo citado). </li><li>O livro existe no acervo, mas o exemplar não está
+disponível. O usuário pode então desistir do empréstimo (FIM), ou
+poderá fazer a reserva do livro (P_RESERV). Neste último caso, se não
+ocorrerem problemas com validações, a reserva será efetuada e quando o
+exemplar for disponibilizado, o usuário poderá realizar seu empréstimo
+(P_EMPR). </li><li>O livro existe no acervo, e há um exemplar disponível
+para empréstimo. Nesse caso, o processo de empréstimo (P_EMPR) é
+executado, e se não houver nenhum problema de validação, o empréstimo é
+efetuado e finalizado. </li></ol>	
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O diagrama de fluxo abaixo mostra o processo macro descrito acima:
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="emprestimo_arquivos/emprestimo_macro.png">
+		  <br><br>
+		  <b>Figura 2 &#8211; Fluxo de Empréstimo (Visão Macro)</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Possíveis fins no fluxo do processo macro:
+			<ul>
+				<li>Fim1: Não há exemplar disponível e o usuário opta por não fazer reserva
+				</li><li>Fim2: A reserva do livro foi cancelada
+				</li><li>Fim3: O exemplar é extraviado
+				</li><li>Fim4: Existe reserva para este item, não pode ser reemprestado
+			</li></ul>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Observe também que uma reserva pode
+ser cancelada por tempo pela biblioteca (P_CANCEL), e que após um
+empréstimo, um item de acervo poderá passar pelo processo de devolução
+(P_DEVOL) ou de extravio (P_EXTRAV). Após passar pelo processo de
+devolução (P_DEVOL) o status do item será alterado para reservado, caso
+a fila não esteja vazia. Caso contrário, o item permanece disponível.
+Iremos assumir que esse processo deve ser realizado independente do
+usuário renovar o empréstimo do livro. A partir desse momento, o
+usuário pode optar em renovar o empréstimo, precisando apenas validar
+seus dados (P_USER) e retornamos ao processo de empréstimo (P_EMPR)
+descrito no item 3.4. Caso o livro esteja reservado para outro usuário,
+o processo de devolução pode terminar (Fim4) ou o usuário pode entrar
+na fila de reserva. Para isso, é feita a validação do usuário (P_USER)
+e retornamos ao processo de Reserva (P_RESERV) descrito no item 3.3
+desta página. </td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="4" color="#990000"><b><p><br>3. Detalhamento dos Processos<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quatro dos processos indicados na visão macro serão descritos em detalhes a seguir.<br><br>
+		</td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="3" color="#00557d"><b><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.1 Verificação de existência da obra e disponibilidade (P_DISP)<br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="emprestimo_arquivos/p_disp.png">
+		  <br><br>
+		  <b>Figura 3 &#8211; Processo de verificação de existência da obra e disponibilidade</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Na figura 3, temos que as ações correspondem à:<br>
+			<i>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a18: Existe Exemplar<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a21: Exemplar disponível<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fim5: A obra pesquisada não existe no acervo da biblioteca<br>
+			</i>
+			<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Este processo executa duas ações de verificação:
+			<ol>
+				<li>A primeira verifica a existência da obra no acervo
+				</li><li>A segunda, executada caso exista uma obra no acervo, verifica a disponibilidade de algum exemplar desta obra.
+			</li></ol>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Após a execução deste processo,
+haverá no processo macro a execução de um "exclusive choice" levando a
+dois casos: o primeiro, indicando que há um exemplar da obra pesquisada
+disponível para empréstimo, e o segundo caso, em que não há exemplar
+disponível no momento da consulta. Neste último caso, teremos a
+execução de um "Deferred Choice" onde o usuário deverá optar por
+desistir do empréstimo ou tentar reservar a obra.<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Especificação do processo P_DISP em álgebra de processos ACP: 
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="emprestimo_arquivos/pa_p_disp.png">
+		  <br><br>
+		  <b>Figura 4 &#8211; Expressão em Álgebra do Processos do P_DISP</b>
+        </td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="3" color="#00557d"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.2 Verificação do Usuário (P_USER)<br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="emprestimo_arquivos/p_user.png">
+		  <br><br>
+		  <b>Figura 5 &#8211; Processo de verificação do usuário</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Na figura 5, temos que as ações correspondem à:<br>
+			<i>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a15: usuário cadastrado<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a16: usuário ativo<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a06: Ver atraso empréstimo<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a19: Possui exemplar da obra<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fim6: O usuário não está cadastrado na biblioteca<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fim7: O cadastrado do usuário não está ativo na biblioteca<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fim8: O usuário tem alguma penalidade por atraso em vigência<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fim9: O usuário já tem  um exemplar da obra com ele<br>
+			</i>
+			<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Este é o processo de validação de
+um usuário, e é composto principalmente por quatro ações de
+verificação: <ol>
+				<li>Se o usuário tem cadastro
+				</li><li>Se o cadastro do usuário está ativo na biblioteca
+				</li><li>Se há alguma penalidade decorrente de atraso em vigência
+				</li><li>Se o usuário já não possui um exemplar da mesma obra
+			</li></ol>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Se todas as ações de verificação
+deste processo forem bem sucedidas, o usuário poderá dar continuidade
+ao processo de empréstimo ou de reserva do item de acervo. Caso
+contrário, não poderá dar continuidade, e cairá em algum dos erros
+descritos no diagrama acima.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note que as verificações 3 e 4
+deste processo seguem o padrão "Interlevead Parallel Routing" pois a
+sua ordem de execução é independente, e o processo continua desde que
+ambas sejam executadas.<br>
+
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Especificação do processo P_USER em álgebra de processos ACP:<br>
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="emprestimo_arquivos/pa_p_user.png">
+		  <br><br>
+		  <b>Figura 6 &#8211; Expressão em Álgebra do Processos do P_USER</b>
+        </td>
+	  </tr>
+      <tr>
+        <td>
+			<font size="3" color="#00557d"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.3 Verificação da Cota de Reserva do Usuário (P_RESERV)<br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="emprestimo_arquivos/p_reserv.png">
+		  <br><br>
+		  <b>Figura 7 &#8211; Processo de verificação de cota de reserva do usuário</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Na figura 7, temos que as ações correspondem à:<br>
+			<i>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a09: Ver cota reserva <br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a33: Efetua Reserva<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fim10: Caso em que o usuário ultrapassou sua cota de reserva<br>
+			</i>
+			<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O processo de reserva é mais
+simples. Trata-se apenas de uma verificação direta para validar se o
+usuário está dentro de sua cota de reservas ou não. Se ele estiver
+dentro de sua cota, ele pode dar prosseguimento e efetuar a reserva do
+livro, caso contrário, a execução do processo é interrompida.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;É importante lembrar que o usuário
+que tiver sua reserva efetuada se manterá neste estado até que um item
+de acervo referente ao livro que ele reservou seja disponibilizado
+novamente na biblioteca. Neste caso, o usuário poderá ir para o
+processo de empréstimo, descrito no fluxo macro e detalhado no item
+abaixo.<br>
+
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Especificação do processo P_RESERV em álgebra de processos ACP:<br>
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="emprestimo_arquivos/pa_p_reserv.png">
+		  <br><br>
+		  <b>Figura 8 &#8211; Expressão em Álgebra do Processos do P_RESERV</b>
+        </td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="3" color="#00557d"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.4 Processo de Empréstimo (P_EMPR)<br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="emprestimo_arquivos/p_empr.png">
+		  <br><br>
+		  <b>Figura 9 &#8211; Processo de empréstimo</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Na figura 9, temos que as ações correspondem à:<br>
+			<i>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a01: Ver cota empréstimo<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a27: Efetua empréstimo<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a29: Finaliza Empréstimo<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fim11: Se o  usuário ultrapassou cota empréstimo<br>
+			</i>
+			<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O processo de empréstimo é também
+uma verificação direta para validar se o usuário está dentro de sua
+cota de empréstimo ou não. Se ele estiver dentro de sua cota, ele pode
+dar prosseguimento para efetuar e finalizar o empréstimo do livro, caso
+contrário, a execução do processo é interrompida.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ao finalizar um empréstimo, o
+usuário entrará em outro ciclo: o ciclo de devolução, que não está no
+escopo deste trabalho.<br>
+
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Especificação do processo P_EMPR em álgebra de processos ACP:<br>
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="emprestimo_arquivos/pa_p_empr.png">
+		  <br><br>
+		  <b>Figura 10 &#8211; Expressão em Álgebra do Processos do P_EMPR</b>
+        </td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="3" color="#00557d"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.5 Processo de Cancelamento de Reserva(P_CANCEL)<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Este processo pode ocorrer a
+qualquer momento, quando o usuário desejar cancelar a reserva. Outra
+forma desse processo ser disparado é quando a reserva expira. </td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="3" color="#00557d"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.6 Processo de Devolução de um Item de Acervo (P_DEVOL)<br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="emprestimo_arquivos/p_devolv.png">
+		  <br><br>
+		  <b>Figura 11 &#8211; Processo de devolução de um item de acervo</b>
+        </td>
+	  </tr>
+	  <tr>
+		<td>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Na figura 11, temos que as ações correspondem à:<br>
+			<i>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a05: Ver se é exemplar emprestado	<br>	
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a26: Verifica se exemplar está atrasado<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a6: Verifica atraso algum empréstimo <br>		
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a32: Disponibiliza não periódico<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a12: Verifica Fila reserva	<br>		
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fim 12: Item não está emprestado<br>
+			</i>
+			<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O processo de devolução inicia com
+a verificação se item devolvido é o mesmo que foi emprestado (a05). Se
+não for não existe devolução a ser feita (Fim12). Em seguida,
+verificamos se o exemplar está atrasado (a26) e, em paralelo, se o
+usuário possui algum empréstimo atrasado. Caso o exemplar esteja
+atrasado, será aplicada uma penalidade (P_Penalid) que não será
+detalhada neste trabalho.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Com a devolução do exemplar, o item
+é disponibilizado (a32) e logo em seguida, é verificado se o item tem
+fila de reserva (a12). <br>
+
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Especificação do processo P_DEVOL em álgebra de processos ACP:<br>
+		</td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="emprestimo_arquivos/pa_p_devolv.png">
+		  <br><br>
+		  <b>Figura 12 &#8211; Expressão em Álgebra do Processos do P_EMPR</b>
+        </td>
+	  </tr>
+	   <tr>
+        <td>
+			<font size="3" color="#00557d"><b><p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.8 Processo de Penalidade  (P_PENALID)<br><br></p></b></font>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neste processo, caso seja
+verificado que ocorreu alguma infração na devolução, executa-se a
+penalidade ao usuário. </td>
+	  </tr>
+	  <tr>
+        <td>
+			<font size="4" color="#990000"><b><p><br>4. Processo Macro<br><br></p></b></font>
+		</td>
+	  </tr>
+      <tr>
+		<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finalmente, podemos especificar a
+álgebra de processos do processo macro, baseado na figura 2. </td>
+	  </tr>
+	  <tr>
+		<td align="center"> 
+		  <br>
+		  <img src="emprestimo_arquivos/pa_p_macro.png">
+		  <br><br>
+		  <b>Figura 14 &#8211; Expressão em Álgebra do Processos do Processo Macro de Empréstimo</b>
+        </td>
+	  </tr>
+	   <tr><td colspan="3"><br><br><hr width="100%" color="black"></td></tr>
+	  <tr>
+		<td>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Os dados desta página foram extraídos dos trabalhos dos alunos: 
+			<ul>
+				<li>Antonio
+Gonzales, Guilherme Tozo de Carvalho, Grace Anne Pontes Borges, Marcelo
+de Moura Amorim e Patrícia Trautenmüller,, da disciplina
+MAC439/MAC5762, no ano de 2005; </li><li>Andre Yoshiaki Kashiwabara, Carlos Augusto Leite e Keith Takizawa, da disciplina MAC439, no ano de 2003.
+			</li></ul>
+		</td>
+	  </tr>
+	</tbody></table>
+</body></html>

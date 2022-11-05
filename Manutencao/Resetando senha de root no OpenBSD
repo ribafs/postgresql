@@ -1,0 +1,33 @@
+Resetando senha de root no OpenBSD/PostgreSQL
+
+How to: OpenBSD reset root password
+
+by Vivek Gite · 1 comment
+
+If you forgot your root password, you can simply reset it. The general procedure for resetting password is as follows (if you are a Linux user, see how to reset Linux root password):
+
+a) At boot> prompt force openbsd to boot into a single user mode
+
+b) Next mount file system in read-write mode
+
+c) Run passwd command
+
+d) Sync file system
+
+e) Reboot and login normally.
+Procedure to reset root password
+
+At boot> prompt type boot -s to boot into single user mode:
+boot> boot -s
+Next you will see a message as follows:
+
+Enter pathname of shell or RETURN for sh:
+
+Just hit [Enter] key to load sh shell.
+Next mount / and /usr file system in read-write mode:
+# mount -uw /
+# mount /usr
+Finally set or change the password for root user, enter:
+# passwd
+Press CTRL+D to boot into multiuser mode or just reboot server:
+# reboot

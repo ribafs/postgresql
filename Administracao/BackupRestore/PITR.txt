@@ -1,0 +1,12 @@
+
+PITR - Point-in-time recovery.
+
+Quando você faz uma mudança num banco de dados do PostgreSQL, ele grava suas mudanças no shared-buffer pool, o write aehad log (WAL) e eventualmente no arquivo que você mudou. O WAL contém registros completos das mudanças que você fez. O mecanismo de PITR usa um histórico de modificações gravadas nos arquivos WAL.
+
+Imagine o PITR como um esquema de backup incremental. Você começa com um backup completo e depois arquiva as mudanças realizadas. Quando ocorrer um crash no seu server você restaura o backup completo e aplica as mudanças.
+
+Iremos criar uma nova base de dados
+Causar um crash nela
+Recuperar os dados usando o PITR
+
+

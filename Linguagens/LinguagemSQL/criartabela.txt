@@ -1,0 +1,26 @@
+CREATE TABLE
+
+CREATE TABLE playground (
+    equip_id serial PRIMARY KEY,
+    type varchar (50) NOT NULL,
+    color varchar (25) NOT NULL,
+    location varchar(25) check (location in ('north', 'south', 'west', 'east', 'northeast', 'southeast', 'southwest', 'northwest')),
+    install_date date
+);
+
+Ver relações: tabelas, sequências e donos
+
+\d
+
+Ver somente tabelas e donos
+
+\dt
+
+Valor default - evitar ao máximo, pois como não haverá crítica, o usuário pode
+deixar de digitar sempre o valor, ficando todos os registros com o valor default.
+
+Criar tabela através de consulta
+
+create table nome as select * from nome2;
+
+

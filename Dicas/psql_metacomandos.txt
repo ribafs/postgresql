@@ -1,0 +1,80 @@
+Metacomandos do psql
+
+Geral
+  \c[onnect] [NOMEBD|- USUÁRIO|- MÁQUINA|- PORTA|-]
+                 conecta a um outro banco de dados (atual "dba_projeto")
+  \cd [DIRETÓRIO] muda o diretório de trabalho atual
+  \copyright     mostra termos de uso e distribuição do PostgreSQL
+  \encoding [CODIFICAÇÃO]
+                 mostra ou define codificação do cliente
+  \h [NOME]      mostra sintaxe dos comandos SQL, * para todos os comandos
+  \q             sair do psql
+  \set [NOME [VALOR]]
+                 define variável interna ou lista todos caso não tenha parâmetros
+  \timing        alterna para duração da execução de comandos (atualmente desabilitado)
+  \unset NOME    apaga (exclui) variável interna
+  \prompt [TEXTO] NOME
+                 pergunta o usuário ao definir uma variável interna
+  \! [COMANDO]   executa comando na shell ou inicia shell iterativa
+
+Buffer de consulta
+  \e [ARQUIVO]   edita o buffer de consulta (ou arquivo) com um editor externo
+  \g [ARQUIVO]   envia o buffer de consulta para o servidor (e os resultados para arquivo ou |pipe)
+  \p             mostra o conteúdo do buffer de consulta
+  \r             reinicia (apaga) o buffer de consulta
+  \s [ARQUIVO]   mostra histórico ou grava-o em um arquivo
+  \w [ARQUIVO]   escreve o buffer de consulta para arquivo
+
+Entrada/Saída
+  \echo [STRING] escreve cadeia de caracteres na saída padrão
+  \i ARQUIVO     executa comandos de um arquivo
+  \o [ARQUIVO]   envia todos os resultados da consulta para arquivo ou |pipe
+  \qecho [STRING]
+                 escreve cadeia de caracteres para saída da consulta (veja \o)
+
+Informativo
+  \d [NOME]      descreve tabela, índice, sequência ou visão
+  \d{t|i|s|v|S} [MODELO] (adicione "+" para obter mais detalhe)
+                 lista tabelas/índices/sequências/visões/tabelas do sistema
+  \da [MODELO]   lista funções de agregação
+  \db [MODELO]   lista tablespaces (adicione "+" para obter mais detalhe)
+  \dc [MODELO]   lista conversões
+  \dC            lista conversões de tipos
+  \dd [MODELO]   mostra comentário do objeto
+  \dD [MODELO]   lista domínios
+  \df [MODELO]   lista funções (adicione "+" para obter mais detalhe)
+  \dF [MODELO]   lista configurações de busca textual (adicione "+" para obter mais detalhe)
+  \dFd [MODELO]   lista dicionários de busca textual (adicione "+" para obter mais detalhe)
+  \dFt [MODELO]   lista modelos de busca textual
+  \dFp [MODELO]   lista analisadores de busca textual (adicione "+" para obter mais detalhe)
+  \dg [MODELO]   lista grupos
+  \dn [MODELO]   lista esquemas (adicione "+" para obter mais detalhe)
+  \do [NOME]     lista operadores
+  \dl            lista objetos grandes, mesmo que \lo_list
+  \dp [MODELO]   lista privilégios de acesso de tabelas, visões e sequências
+  \dT [MODELO]   lista tipos de dado (adicione "+" para obter mais detalhe)
+  \du [MODELO]   lista usuários
+  \l             lista todos os bancos de dados (adicione "+" para obter mais detalhe)
+  \z [MODELO]    lista privilégios de acesso de tabelas, visões e sequências (mesmo que \dp)
+
+Formatação
+  \a             alterna entre modo de saída desalinhado e alinhado
+  \C [STRING]    define o título da tabela, ou apaga caso nada seja especificado
+  \f [STRING]    mostra ou define separador de campos para saída de consulta desalinhada
+  \H             alterna para modo de saída em HTML (atual desabilitado)
+  \pset NOME [VALOR]
+                 define opção de saída da tabela
+                 (NOME := {format|border|expanded|fieldsep|footer|null|
+                 numericlocale|recordsep|tuples_only|title|tableattr|pager})
+  \t             mostra somente registros (atual desabilitado)
+  \T [STRING]    define atributos do marcador HTML <table> ou apaga caso nada seja especificado
+  \x             alterna para saída expandida (atual desabilitado)
+
+Cópia, Objetos Grandes
+  \copy ...      realiza comando SQL COPY dos dados para máquina cliente
+  \lo_export OIDLOB ARQUIVO
+  \lo_import ARQUIVO [COMENTÁRIO]
+  \lo_list
+  \lo_unlink OIDLOB    operações com objetos grandes
+
+

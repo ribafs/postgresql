@@ -1,0 +1,62 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>EnterpriseDB Oracle Compatibility Developer's Guide: Lexical Structure</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1965"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-28_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-27.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-28_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-28_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-29.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-28_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P1681_85555"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.1.1 Lexical Structure</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> input consists of a sequence of commands. A </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>command</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is composed of a sequence of </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>tokens</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,
+terminated by a semicolon (;). The end of the input stream also
+terminates a command. Which tokens are valid depends on the syntax of
+the particular command.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A token can be a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>key word</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>identifier</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>quoted identifier</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>literal</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> (or </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>constant</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">), or a special character symbol. Tokens are normally separated by </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>whitespace</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+(space, tab, new line), but need not be if there is no ambiguity (which
+is generally only the case if a special character is adjacent to some
+other token type).</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Additionally, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>comments</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> can occur in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> input. They are not tokens - they are effectively equivalent to whitespace.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">For example, the following is (syntactically) valid </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> input:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT * FROM MY_TABLE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">UPDATE MY_TABLE SET A = 5;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">INSERT INTO MY_TABLE VALUES (3, 'hi there');</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This
+is a sequence of three commands, one per line (although this is not
+required; more than one command can be on a line, and commands can
+usually be split across lines).</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+syntax is not very consistent regarding what tokens identify commands
+and which are operands or parameters. The first few tokens are
+generally the command name, so in the above example we would usually
+speak of a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command. But for instance the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command always requires a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SET</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> token to appear in a certain position, and this particular variation of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> also requires a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">VALUES</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> token in order to be complete. The precise syntax rules for each command are described in Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-38.htm#P1965_106737">3.3</a></u>.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-27.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-28_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-28_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-29.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-28_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-28_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-28_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

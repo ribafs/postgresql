@@ -1,0 +1,21 @@
+-- Apagando os Grupos
+DROP GROUP adm;
+DROP GROUP dba;
+DROP GROUP mkt;
+-- Apagando usuarios
+DROP USER andre;
+DROP USER michela;
+DROP USER roger;
+DROP USER elisangela;
+DROP USER rodrigo;
+DROP USER melissa;
+DROP USER paulo;
+-- Apagando schemas
+DROP SCHEMA postgres;
+DROP SCHEMA andre;
+DROP SCHEMA michela;
+DROP SCHEMA roger;
+DROP SCHEMA elisangela;
+DROP SCHEMA rodrigo;
+DROP SCHEMA melissa;
+DROP SCHEMA paulo;

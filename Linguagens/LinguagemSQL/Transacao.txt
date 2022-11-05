@@ -1,0 +1,106 @@
+Transação
+=========
+
+	begin;
+		abre a transação
+
+	commit;
+		fecha a transação confirmando as alterações
+
+	rollback;
+		fecha a transação cancelando as alterações
+
+Niveis de isolamento da transacao
+=================================
+
+	set transaction isolation level read committed
+
+		Por default ao abrir uma transacao conseguimos visualizar 
+		o que eh feito fora da transacao.
+	
+		O que fazemos em uma transacao não é visível até 
+		dermos um commit;
+
+	set transaction isolation level serializable
+		
+		A transacao é totalmente isolada, o que for feito fora
+		da transacao não será visualizado na transacao que esta ocorrendo
+			
+
+	show transaction isolatio level		
+
+Comandos para serem utilizados em uma transação
+===============================================
+	
+Travamentos 
+	
+	lock table TABELA
+		trava a tabela de forma que nenhuma outra estacao
+		consiga: select, insert, update e delete.
+
+	lock table TABELA in row share mode;
+		Outros conseguem: select, update, insert e delete
+		Outros nao conseguem: alter table, drop table e vacuum.
+
+	lock table TABELA in row exclusive mode;
+		Outros nao conseguem: select, update, insert e delete
+		
+	lock table TABELA in access share mode;
+		Outros conseguem: select, update, insert e delete
+		Outros nao conseguem: alter table, drop table e vacuum.
+		
+	lock table TABELA in access exclusive mode;
+		Outros conseguem: nada
+		
+	select CAMPO from TABELA where CAMPO = X for update;
+		trava o registro de forma que ninguem consiga
+		atualizar ou apagar a linha
+	
+Cursores
+
+
+	declare NOME_CURSOR cursor for select .....
+		Criando o cursor NOME_CURSOR
+
+	close NOME_CURSOR
+		Fechando o cursor NOME_CURSOR
+
+	fetch NUMERO from NOME_CURSOR;
+		Soma NUMERO mais a posicao onde se encontra o ponteiro e avanca 
+		linha do resultado da soma. 
+		obs.: o numero poderá ser positivo ou negativo
+
+	fetch forward 2 from NOME_CURSOR;
+		Avanca 2 registros
+
+	fetch backward 5 from NOME_CURSOR;
+		Volta o cursor 5 registros 
+
+
+	move 1 from NOME_CURSOR;
+		Move o cursor para 1 linha a mais (podemos tbem usar numeros negativos);
+
+	fetch backward all from NOME_CURSOR;
+		Do registro onde se encontra o ponteiro posicionado para o final
+		lista todos os registros
+
+	fetch forward all from NOME_CURSOR;
+		Do registro onde se encontra o ponteiro posicionado para o inicio
+		lista todos os registros	
+		
+Evite os DEADLOCKS
+==================
+
+Testes no Banco de Dados pgteste
+
+	Transação 1 bloqueia tabela clientes;
+	
+	Transação 2 bloqueia tabela empresas;
+	
+	Transação 1 bloqueia tabela empresas (aqui ja segura o cursor pois transação 2 já travou tabela empresas );
+	
+	Transação 2 bloqueia clientes (aqui a transação 2 entre em deadlock);
+	
+	Transação 2 entra em deadlock porque nenhuma das duas sessões poderiam continuar. 
+	
+		No final Transação 2 continua funcionando em transação normal e transação 1 é abortado

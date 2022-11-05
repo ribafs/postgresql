@@ -1,0 +1,275 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2039"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-102_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-101.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-102_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-102_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-103.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-102_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P4869_282322"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.5.4 String Functions and Operators</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This section describes functions and operators for examining and manipulat</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ing string values.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Strings in this context include values of all the types </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CHAR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">VARCHAR2</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CLOB</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Unless
+otherwise noted, all of the functions listed below work on all of these
+types, but be wary of potential effects of the automatic padding when
+using </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CHAR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> type.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Generally,
+the functions described here also work on data of non-string types by
+converting that data to a string representation first.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;"><a name="P4871_282838"></a>Table 3-20 SQL String Functions and Operators</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="160"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="59"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Return Type</span></p>
+</td>
+<td valign="top" width="169"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td>
+<td valign="top" width="140"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Example</span></p>
+</td>
+<td valign="top" width="99"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Result</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> || </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span></p>
+</td>
+<td valign="top" width="59"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="169"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">String concatenation</span></p>
+</td>
+<td valign="top" width="140"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'Enterprise' || 'DB'</span></p>
+</td>
+<td valign="top" width="99"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">EnterpriseDB</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CONCAT(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="59"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="169"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">String concatenation</span></p>
+</td>
+<td valign="top" width="140"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'a' || 'b'</span></p>
+</td>
+<td valign="top" width="99"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ab</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INSTR(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>set</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, [ </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>start</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>occurrence</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ] ])</span></p>
+</td>
+<td valign="top" width="59"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span></p>
+</td>
+<td valign="top" width="169"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Finds the location of a</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> set of characters in a string, starting at position </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>start</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> in the string</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">,</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, and looking for the first, second, third and so on occurrences of the set.</span></p>
+</td>
+<td valign="top" width="140"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INSTR('PETER PIPER PICKED UP A PACK OF PICKED PEPPERS','PI',1,3)</span></p>
+</td>
+<td valign="top" width="99"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">33</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LOWER(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="59"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="169"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert </span><i><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">str</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ing</span></i><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to lower case</span></p>
+</td>
+<td valign="top" width="140"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LOWER</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">('TOM')</span></p>
+</td>
+<td valign="top" width="99"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">tom</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SUBSTR(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>start</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>count</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ])</span></p>
+</td>
+<td valign="top" width="59"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="169"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Extract substring starting from </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>start</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> and going for </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>count</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> characters. If </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>count</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> is not specified, the string is clipped from the start till the end.</span></p>
+</td>
+<td valign="top" width="140"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SUBSTR('This is a test',6,2)</span></p>
+</td>
+<td valign="top" width="99"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">is</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">T</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">RIM([ LEADING | TRAILING | BOTH ] [ </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>characters</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ] FROM </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="59"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="169"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Remove the longest string containing only</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the characters</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> (a space by default) from the start/end/both ends of the</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> string.</span></p>
+</td>
+<td valign="top" width="140"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TRIM(BOTH 'x' FROM 'xTomxx')</span></p>
+</td>
+<td valign="top" width="99"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Tom</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LTRIM(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>set</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">])</span></p>
+</td>
+<td valign="top" width="59"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="169"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Remove</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">s all the characters specified in </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>set</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> from the left of a given </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">. If </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>set</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> is not specified, a blank space is used as default.</span></p>
+</td>
+<td valign="top" width="140"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LTRIM('abcdefghi', 'abc')</span></p>
+</td>
+<td valign="top" width="99"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">defghi</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">RTRIM(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>set</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">])</span></p>
+</td>
+<td valign="top" width="59"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="169"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Removes all the characters specified in </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>set</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> from the right of a g</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">iven </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">. If </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>set</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> is not specified, a blank space is used as default.</span></p>
+</td>
+<td valign="top" width="140"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">RTRIM('abcdefghi', 'ghi')</span></p>
+</td>
+<td valign="top" width="99"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">abcdef</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">UPPER(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="59"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="169"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to upper case</span></p>
+</td>
+<td valign="top" width="140"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">UPPER('tom')</span></p>
+</td>
+<td valign="top" width="99"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TOM</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Additional string manipulation functions are available and are listed in the followi</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ng table.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Some of them are used internally to implement the </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">-standard string functions listed in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><u><a href="#P4871_282838">Table 3-20</a></u></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-21 Other String Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="172"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="83"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Return Type</span></p>
+</td>
+<td valign="top" width="157"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td>
+<td valign="top" width="145"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Example</span></p>
+</td>
+<td valign="top" width="70"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Result</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="172"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ASCII(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="83"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span></p>
+</td>
+<td valign="top" width="157"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ASCII code of the first byte of the argument</span></p>
+</td>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ASCII('x')</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">120</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="172"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CHR(INTEGER)</span></p>
+</td>
+<td valign="top" width="83"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="157"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Character with the given ASCII code</span></p>
+</td>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CHR(65)</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">A</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="172"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DECODE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr1a</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr1b</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr2a</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr2b</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ]... [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>default</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ])</span></p>
+</td>
+<td valign="top" width="83"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as argumen</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">t types of </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr1b</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr2b</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">,..., </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>default</i></span></p>
+</td>
+<td valign="top" width="157"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Finds first match of </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> with </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr1a</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr2a</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, etc. When match found, returns corresponding parameter pair, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr1b</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr2b</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, etc. If no match found, returns </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>default</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">. If no match found and </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>default</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> not specified, returns</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> null.</span></p>
+</td>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DECODE(3, 1,'One', 2,'Two', 3,'Three', 'Not found')</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Three</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="172"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INITCAP(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="83"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="157"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Convert
+the first letter of each word to uppercase and the rest to lowercase.
+Words are sequences of alphanumeric characters separated by
+non-alphanumeric characters.</span></p>
+</td>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">IN</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ITCAP</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">('hi THOMAS')</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Hi Thomas</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="172"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LPAD(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>length</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> INTEGER [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>fill</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ])</span></p>
+</td>
+<td valign="top" width="83"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="157"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Fill up </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to size, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>length</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> by prepending the characters, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>fill</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> (a space by default). If </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> is already longer than </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>length</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> then it is truncated (on the right).</span></p>
+</td>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LPAD('hi', 5, 'xy</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">')</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">xyxhi</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="172"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NVL(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr1</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr2</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="83"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> argument types; both arguments</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">have</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the same data type</span></p>
+</td>
+<td valign="top" width="157"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">If </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr1</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> is not null, return </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr1</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, otherwise return </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expr2</i></span></p>
+</td>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NVL(null, 'abc')</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">abc</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="172"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REPLACE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>search_string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>replace_string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ]</span></p>
+</td>
+<td valign="top" width="83"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="157"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Replaces one value in a strin</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">g with another. If you do not specify a value for </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>replace_string</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, the </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>search_string</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> value when found, is removed.</span></p>
+</td>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REPLACE( 'GEORGE', 'GE', 'EG')</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">EGOREG</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="172"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">RPAD(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>length</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> INTEGER [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>fill</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ])</span></p>
+</td>
+<td valign="top" width="83"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="157"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Fill up </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to size, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>length</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> by appending the characters,</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>fill</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> (a space by default). If </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> is already longer than </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>length</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> then it is truncated.</span></p>
+</td>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">RPAD('hi', 5, 'xy')</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">hixyx</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="172"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TRANSLATE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>from</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>to</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="83"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="157"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Any character in </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>string</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> that matches a character in the </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>from</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> set is replaced by the corresponding characte</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">r in the </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>to</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> set.</span></p>
+</td>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TRANSLATE('12345', '14', 'ax')</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">a23x5</span></p>
+<p><a name="P4977_286323"></a></p></td></tr></tbody></table>
+
+</p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-101.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-102_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-102_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-103.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-102_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-102_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-102_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

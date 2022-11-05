@@ -1,0 +1,86 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>EnterpriseDB Oracle Compatibility Developer's Guide: edb_redwood_strings</title>
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1943"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style>
+</head>
+<body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="http://www.enterprisedb.com/images/logo.gif" border="0"></a><p style="text-align: center"><a href="EnterpriseDB_OraCompat_EN_8.3-05.htm#TopOfPage"><img src="inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="invetoc.gif" alt="Table Of Contents" border="0"></a><a href="EnterpriseDB_OraCompat_EN_8.3-07.htm#TopOfPage"><img src="invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt"><p><a name="P377_15405"></a><span style="font-family: 'Arial'; font-size: 13pt">1.3.2 edb_redwood_strings</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">In </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">, when a string is concatenated with a null variable or null column, the result is the original string; however, in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">PostgreSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> concatenation of a string with a null variable or null column gives a null result. If the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_redwood_strings</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> parameter is set to &#8220;true&#8221;, the aforementioned concatenation operation results in the original string as done by </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">. If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_redwood_s</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">trings</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> is set to &#8220;false&#8221;, the native </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">PostgreSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> behavior is maintained.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">The following example illustrates the difference.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">The sample application introduced in the next chapter contains a table of employees. This table has a column named </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">comm</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> that is null for most employees. The following query is run with </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_redwood_string</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> set to &#8220;false&#8221;. The concatenation of a null column with non-empty strings produces a final result of null, so only employees that have a commission appear in the query result. The output line for all other employees is null.</span></p><div style="margin-left: 12pt"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">SET edb_redwood_strings TO off;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">SELECT RPAD(ename,10) || ' ' || TO_CHAR(sal,'99,999.99') || ' ' || TO_CHAR(comm,'99,999.99') &quot;EMPLOYEE COMPENSATION&quot; FROM emp;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">      EMPLOYEE COMPENSATION</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">----------------------------------</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> ALLEN        1,600.00     300.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> WARD         1,250.00     500.00</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> MARTIN       1,250.00   1,400.00</span>
+
+
+
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> TURNER       1,500.00        .00</span>
+
+
+
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">(14 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">The following is the same query executed when </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_redwood_strings</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> is set to &#8220;true&#8221;. Here, the value of a null column is treated as an empty string. The concatenation of an empty string with a non-empty string produces the non-empty string. This result is consistent with the results produced by </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> for the same query.</span></p><div style="margin-left: 12pt"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">SET edb_redwood_strings TO on;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">SELECT RPAD(ename,10) || ' ' || TO_CHAR(sal,'99,999.99') || ' ' || TO_CHAR(comm,'99,999.99') &quot;EMPLOYEE COMPENSATION&quot; FROM emp;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">      EMPLOYEE COMPENSATION</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">----------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> SMITH          800.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> ALLEN        1,600.00     300.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> WARD         1,250.00     500.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> JONES        2,975.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> MARTIN       1,250.00   1,400.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> BLAKE        2,850.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> CLARK        2,450.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> SCOTT        3,000.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> KING         5,000.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> TURNER       1,500.00        .00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> ADAMS        1,100.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> JAMES          950.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> FORD         3,000.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192"> MILLER       1,300.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: #2e3192">(14 rows)</span></pre>
+
+<p style="text-align: center"><a href="EnterpriseDB_OraCompat_EN_8.3-05.htm#TopOfPage"><img src="inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="invetoc.gif" alt="Table Of Contents" border="0"></a><a href="EnterpriseDB_OraCompat_EN_8.3-07.htm#TopOfPage"><img src="invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com"><img src="transpwr.gif" alt="Powered by Transit"/></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body>
+</html>

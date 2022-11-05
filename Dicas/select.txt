@@ -1,0 +1,76 @@
+													Consultas usando SELECT
+
+CLÁUSULA WHERE - Filtra o retorno de consultas.
+
+Operadores aceitos:
+=, >, <, <>, !=, >=, <=
+
+SELECT nome FROM clientes WHERE email = 'ribafs@ribafs.net';
+SELECT nome FROM clientes WHERE idade > 18;
+SELECT nome FROM clientes WHERE idade < 21;
+SELECT nome FROM clientes WHERE idade >= 18;
+SELECT nome FROM clientes WHERE idade <= 21;
+SELECT nome FROM clientes WHERE UPPER(estado) != 'CE';
+SELECT nome FROM clientes WHERE email = 'ribafs@ribafs.net';
+
+BETWEEN, LIKE, OR, AND, NOT, EXISTS, IS NULL, IS NOT NULL, IN
+
+SELECT nome FROM clientes WHERE idade BETWEEN 18 and 45;
+SELECT nome FROM clientes WHERE email LIKE '%@gmail.com';
+SELECT nome FROM clientes WHERE idade >18 21 OR idade < 21; -- entre 18 e 21
+SELECT nome FROM clientes WHERE idade >= 18 AND UPPER(estado) = 'CE';
+SELECT nome FROM clientes WHERE idade NOT BETWEEN 18 AND 21;
+SELECT * FROM datas WHERE EXISTS(SELECT * FROM datas2 WHERE datas.data = datas2.data);
+SELECT nome FROM clientes WHERE estado IS NULL;
+SELECT nome FROM clientes WHERE estado IS NOT NULL;
+SELECT nome FROM clientes WHERE estado IN ('CE', 'RN');
+
+GROUP BY - Geralmente utilizada com funções de agrupamento (de agregação), como também com HAVING. 
+Agrupa o resultado dos dados por um ou mais campos de uma tabela. Utilizado para agrupar registros 
+(linhas) da tabela que compartilham os mesmos valores em todas as colunas (campos) da lista.
+
+Exemplos:
+
+SELECT SUM(horas) FROM empregados; -- Traz a soma das horas de todos os empregados
+
+SELECT empregado, SUM(horas) FROM empregados GROUP BY empregado; 
+-- Traz a soma das horas de cada empregado. Veja que "empregado" deve aparecer em GROUP BY, 
+já que os campos de retorno diferentes do usado na função de agrupamento devem vir no GROUP BY.
+
+Dica: Quando se utiliza uma função de agrupamento num campo da lista do SELECT, os demais campos da lista deverão ser agrupados. Exemplo:
+
+SELECT codigo, nome, count(valor) FROM vendas GROUP BY codigo, nome.
+
+Exemplo:
+
+SELECT c.nome, COUNT(p.quant) AS quantos
+FROM clientes c, pedidos p
+WHERE c.codigo = p.cod_cliente
+GROUP BY (p.cod_cliente);
+
+HAVING - Filtra o retorno de GROUP BY. Não altera o resultado,apenas filtra.
+
+Exemplo:
+
+SELECT cliente, SUM(quant) AS total
+FROM pedidos GROUP BY cliente
+HAVING total > 50; -- ou HAVING SUM(quant) > 50;
+
+ORDER BY - Ordena o resultado da consulta por um ou mais campos em ordem ascendente (ASC, default) ou descendente (DESC).
+
+Exemplos:
+
+ORDER BY cliente; -- pelo cliente e ascendente
+ORDER BY cliente DESC; -- descendente
+ORDER BY cliente, quantidade; -- pelo cliente e sub ordenado pela quantidade
+ORDER BY cliente DESC, quant ASC;
+
+No exemplo ordenando por dois campos:
+
+SELECT * FROM pedidos ORDER BY cliente, quantidade; A saída ficaria algo como:
+Antônio – 1
+Antônio – 2
+João - 1
+Pedro - 1
+Pedro - 2
+

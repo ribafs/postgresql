@@ -1,0 +1,32 @@
+mkdir /home/ribafs/data_latin1
+su – postgres
+export LANG=pt_BR.ISO-8859-1
+
+/usr/lib/postgresql/8.3/bin/initdb –encoding latin1 -D /home/ribafs/data_latin1/
+Editar o script data_latin1/postgresql.conf e alterar a porta para 5433
+
+Conectando no cluster em latin1
+
+bin/pg_ctl -D data_latin1 start
+bin/psql -U postgres postgres -p 5433
+\l — Veja que a codificação de todos os bancos é a latin1.
+
+create database testeutf8 with encoding ‘utf8′;
+
+Obs.: Cluster em latin1 com suporte a UTF-8.
+
+cluster em utf-8
+
+su – postgres
+bin/initdb -D data_utf8
+
+Como utf8 o default no Ubuntu, não preciso passar parãmetro.
+Editar o script data_utf8/postgresql.conf e alterar a porta para 5434
+
+Conectando no cluster utf-8
+
+bin/pg_ctl -D data_utf8 start
+bin/psql -U postgres postgres -p 5434
+
+Bem, a saída para quem quer usar o 8.3.x e precisa de latin, no Linux, é esta (dica que recebi na lista de PostgreSQL pgbr-geral, do Euler).
+

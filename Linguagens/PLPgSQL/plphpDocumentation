@@ -1,0 +1,634 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><title>Documentation - PLphp - Trac</title>
+
+
+ <link rel="start" href="http://projects.commandprompt.com/public/plphp/wiki"><link rel="search" href="http://projects.commandprompt.com/public/plphp/search"><link rel="help" href="http://projects.commandprompt.com/public/plphp/wiki/TracGuide"><link rel="stylesheet" href="plphpDocumentation_arquivos/trac.css" type="text/css"><link rel="stylesheet" href="plphpDocumentation_arquivos/wiki.css" type="text/css"><link rel="icon" href="http://projects.commandprompt.com/public/plphp/chrome/common/trac.ico" type="image/x-icon"><link rel="shortcut icon" href="http://projects.commandprompt.com/public/plphp/chrome/common/trac.ico" type="image/x-icon"><link rel="alternate" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation?format=txt" title="Plain Text" type="text/plain"><style type="text/css">
+</style>
+ <script type="text/javascript" src="plphpDocumentation_arquivos/trac.js"></script></head><body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="http://projects.commandprompt.com/projects/public/plphp"><img src="plphpDocumentation_arquivos/trac_banner.png" alt="Trac" height="73" width="236"></a><hr></div>
+
+<form id="search" action="/public/plphp/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input id="proj-search" name="q" size="10" accesskey="f" value="" type="text">
+  <input value="Search" type="submit">
+  <input name="wiki" value="on" type="hidden">
+  <input name="changeset" value="on" type="hidden">
+  <input name="ticket" value="on" type="hidden">
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="http://projects.commandprompt.com/public/plphp/login">Login</a></li><li><a href="http://projects.commandprompt.com/public/plphp/settings">Settings</a></li><li><a href="http://projects.commandprompt.com/public/plphp/wiki/TracGuide" accesskey="6">Help/Guide</a></li><li class="last"><a href="http://projects.commandprompt.com/public/plphp/about">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="http://projects.commandprompt.com/public/plphp/wiki" accesskey="1">Wiki</a></li><li><a href="http://projects.commandprompt.com/public/plphp/timeline" accesskey="2">Timeline</a></li><li><a href="http://projects.commandprompt.com/public/plphp/roadmap" accesskey="3">Roadmap</a></li><li><a href="http://projects.commandprompt.com/public/plphp/browser">Browse Source</a></li><li><a href="http://projects.commandprompt.com/public/plphp/report">View Tickets</a></li><li class="last"><a href="http://projects.commandprompt.com/public/plphp/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="http://projects.commandprompt.com/public/plphp/wiki">Start Page</a></li>
+  <li><a href="http://projects.commandprompt.com/public/plphp/wiki/TitleIndex">Title Index</a></li>
+  <li><a href="http://projects.commandprompt.com/public/plphp/wiki/RecentChanges">Recent Changes</a></li>
+  
+   <li class="last"><a href="http://projects.commandprompt.com/public/plphp/wiki/Documentation?action=history">Page History</a></li>
+  
+ </ul>
+ <hr>
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><h1 id="PL/phpPHPProceduralLanguageforPostgreSQL">PL/php - PHP Procedural Language for PostgreSQL<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#PL/phpPHPProceduralLanguageforPostgreSQL"> ¶</a></h1>
+<p>
+</p><h4>Contents</h4><ol><li><a href="#WhatisPL/php">What is PL/php?</a></li><li>
+<a href="#DownloadandInstallation">Download and Installation</a></li><li>
+<a href="#CreatingthePL/phplanguage">Creating the PL/php language</a></li><li>
+<a href="#FunctionsandArguments">Functions and Arguments</a></li><li>
+<a href="#DataTypesandReturns">Data Types and Returns</a></li><li>
+<a href="#GlobalSharedVariable">Global Shared Variable</a></li><li>
+<a href="#PostgreSQLArraySupport">PostgreSQL Array Support</a></li><li>
+<a href="#PolymorphicArgumentsandReturnTypes">Polymorphic Arguments and Return Types</a></li><li>
+<a href="#DatabaseAccessSPI">Database Access (SPI)</a></li><li>
+<a href="#Triggers">Triggers</a><ol><li><a href="#ExampleofanAFTERINSERTtrigger">Example of an AFTER INSERT trigger</a></li><li>
+<a href="#ExampleofaBEFOREINSERTORUPDATEtrigger">Example of a BEFORE INSERT OR UPDATE trigger</a></li></ol></li><li><a href="#Trustedvs.Untrusted">Trusted vs. Untrusted</a></li><li>
+<a href="#CompositeTypeArguments">Composite Type Arguments</a></li><li>
+<a href="#ReturningARowcompositetype">Returning A Row (composite type)</a></li><li>
+<a href="#ReturningmultiplerowsSRFfunctions">Returning multiple rows (SRF functions)</a></li><li>
+<a href="#Limitations">Limitations</a></li></ol>
+
+<h2 id="WhatisPL/php">What is PL/php?<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#WhatisPL/php"> ¶</a></h2>
+<p>
+PL/php is a procedural language with hooks into the PostgreSQL
+database sytem, intended to allow writing of PHP functions for
+use as functions inside the PostgreSQL database.
+It was written by Command Prompt, Inc. and has since
+been open sourced and licensed under the PHP and PostgreSQL (BSD)
+licenses.
+</p>
+<h2 id="DownloadandInstallation">Download and Installation<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#DownloadandInstallation"> ¶</a></h2>
+<p>
+Please see <a class="wiki" href="http://projects.commandprompt.com/public/plphp/wiki/InstallDocs10">the installation documentation</a> for instructions on
+how to install PL/php 1.0.  To install the new code, which only works with PostgreSQL
+8.0 and 8.1 and is currently in development, see <a class="wiki" href="http://projects.commandprompt.com/public/plphp/wiki/InstallDocs">this page instead</a>.
+</p>
+<h2 id="CreatingthePL/phplanguage">Creating the PL/php language<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#CreatingthePL/phplanguage"> ¶</a></h2>
+<p>
+Please see the documentation on <a class="wiki" href="http://projects.commandprompt.com/public/plphp/wiki/CreateLang80">how to create the language in a database</a>
+once the library is installed.  If you are using PostgreSQL 8.1 you must follow
+<a class="wiki" href="http://projects.commandprompt.com/public/plphp/wiki/CreateLang">these other instructions</a> instead.
+</p>
+<h2 id="FunctionsandArguments">Functions and Arguments<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#FunctionsandArguments"> ¶</a></h2>
+<p>
+To create a function, use the standard syntax:
+</p>
+<pre class="wiki">CREATE FUNCTION funcname (argument-types) RETURNS return-type AS $$
+   # plphp function body here
+$$ LANGUAGE 'plphp';
+</pre>
+<p>
+Arguments are passed in the $args array and the result value is returned
+with the 'return' statement.
+</p>
+<pre class="wiki">CREATE FUNCTION plphp_max(integer, integer) RETURNS integer AS $$
+   if ($args[0] &gt; $args[1]) {
+      return $args[0];
+   } else {
+      return $args[1];
+   }     
+$$ STRICT LANGUAGE 'plphp'
+</pre>
+<p>
+NOTE: The use of the STRICT clause saves us from having to
+think about NULL input values to our function.  If a NULL value is
+passed, the function will not be run at all, but will rather just
+return a NULL result automatically.
+</p>
+<p>
+In a non-strict function, if the actual value of an argument is NULL,
+the corresponding $args[n-1] variable will be set to an empty string
+(unset).
+</p>
+<h2 id="DataTypesandReturns">Data Types and Returns<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#DataTypesandReturns"> ¶</a></h2>
+<p>
+The arguments passed into your PL/php function are converted to text
+so you can manipulate them with the loose typing enjoyed in typical
+PHP scripts.  Conversely, the return command will accept any string
+that is acceptable input format for the function's declared return
+type.
+</p>
+<h2 id="GlobalSharedVariable">Global Shared Variable<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#GlobalSharedVariable"> ¶</a></h2>
+<p>
+There is a global variable that can be used to store data between
+function calls, called $_SHARED.
+</p>
+<pre class="wiki">CREATE FUNCTION set_var(text) RETURNS text AS $$
+   global $_SHARED;
+   $_SHARED['first']=$args[0];
+   return 'ok';
+$$ LANGUAGE 'plphp';
+
+CREATE FUNCTION get_var() RETURNS text AS $$
+   global $_SHARED;
+   return $_SHARED['first'];
+$$ LANGUAGE 'plphp';
+
+SELECT set_var('hello plphp');
+SELECT get_var(); -- will return 'hello plphp'
+</pre>
+<p>
+NOTE: The shared global variable is connection-specific.  This is
+useful for passing information around a single script execution,
+but it is wiped when the connection is closed.
+</p>
+<h2 id="PostgreSQLArraySupport">PostgreSQL Array Support<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#PostgreSQLArraySupport"> ¶</a></h2>
+<p>
+There is support for multi-dimensional arrays.
+</p>
+<p>
+For example:
+</p>
+<pre class="wiki">CREATE FUNCTION php_array() RETURNS text[][] AS $$
+   $return = array(array("Steven", "Klassen"),
+                   array("Jonathan", "Daugherty"));
+
+   return $return;
+$$ LANGUAGE 'plphp';
+</pre>
+<pre class="wiki">sklassen=# select php_array();
+                php_array                
+-----------------------------------------
+ {{Steven,Klassen},{Jonathan,Daugherty}}
+(1 row)
+</pre>
+<h2 id="PolymorphicArgumentsandReturnTypes">Polymorphic Arguments and Return Types<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#PolymorphicArgumentsandReturnTypes"> ¶</a></h2>
+<p>
+Functions may be declared to accept and return the polymorphic types
+'anyelement', 'anyarray', and 'anyrecord'.  See the PostgreSQL
+documentation section 33.2.5 for a more detailed explanation of
+polymorphic functions.
+</p>
+<p>
+For example,
+</p>
+<pre class="wiki">CREATE FUNCTION array_three_values(anyelement, anyelement, anyelement) RETURNS anyarray AS '
+   $ret[0] = $args[0];
+   $ret[1] = $args[1];
+   $ret[2] = $args[2];
+   return $ret;
+' LANGUAGE 'plphp';
+
+SELECT array_three_values(3,2,1);
+ array_three_values
+--------------------
+ {3,2,1}
+(1 row)
+
+CREATE OR REPLACE FUNCTION php_row(integer) RETURNS record AS '
+   $ret[f1]=$args[0];
+   $ret[f2]="hello";
+   $ret[f3]="world";
+   return $ret;
+' LANGUAGE 'plphp';
+
+select * FROM php_row(1) AS (f1 integer, f2 text, f3 text);
+</pre>
+<h2 id="DatabaseAccessSPI">Database Access (SPI)<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#DatabaseAccessSPI"> ¶</a></h2>
+<p>
+Some functions are provided for database access.
+</p>
+<ol><li>spi_exec - Execute a query with optional limit.
+<pre class="wiki">resource spi_exec(string query[, int limit])
+</pre>
+</li><li>spi_fetch_row - Return an associative array of the row's results.
+<pre class="wiki">array spi_fetch_row(resource result)
+</pre>
+</li><li>spi_status - Return the status of a previous query. If this is
+SPI_OK_SELECT you can obtain tuples from the result using
+spi_fetch_row.
+<pre class="wiki">string spi_status(resource result)
+</pre>
+</li><li>spi_processed - Return the number of tuples in a result.
+<pre class="wiki">int spi_processed(resource result)
+</pre>
+</li><li>spi_rewind - Put the row cursor at the beginning of the
+result, so spi_fetch_row will continue fetching tuples from the
+beginning of the result.
+<pre class="wiki">void spi_rewind(resource result)
+</pre>
+</li></ol><p>
+For example:
+</p>
+<p>
+This isn't a particularly useful function, but it will illustrate the
+above-described access functions.  You provide an integer id and it
+returns the username text field.
+</p>
+<pre class="wiki">CREATE FUNCTION get_username(integer) RETURNS text AS $$
+   # Assign the query to a variable.
+   $query = "SELECT username FROM users WHERE id = " .$args[0];
+
+   # Run the query and get the $result object.
+   $result = spi_exec_query($query);
+
+   # Fetch the row from the $result.
+   $row = spi_fetch_row($result);
+
+   return $row['username'];
+$$ LANGUAGE 'plphp';
+
+sklassen=# select get_username(1);
+ get_username 
+--------------
+ sklassen
+(1 row)
+</pre>
+<p>Note that results from spi_exec_query are allocated in RAM as a
+whole, so if you need to process huge result sets, you need to use a
+cursor. This is not possible with the current interface however, so if
+you need to do this, bug the developers.
+</p>
+<h2 id="Triggers">Triggers<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#Triggers"> ¶</a></h2>
+<p>
+When a function is being used to return a trigger, the associative
+array $_TD contains trigger-related values.
+</p>
+<dl><dt>$_TD["new"]</dt><dd>
+An associative array containing the values of the new table row for
+INSERT/UPDATE actions, or empty for DELETE.  The array is indexed
+by field name.  Important note: Fields that are NULL will not
+appear in the array!
+</dd><dt>$_TD["old"]</dt><dd>
+An associative array containing the values of the old table row for
+UPDATE/DELETE actions, or empty for INSERT.  The array is indexed
+by field name.  Important note: Fields that are NULL will not
+appear in the array!
+</dd><dt>$_TD["name"]</dt><dd>
+Contains the trigger name itself.
+</dd><dt>$_TD["event"]</dt><dd>
+Contains one of the values: "INSERT", "UPDATE", "DELETE".
+</dd><dt>$_TD["when"]</dt><dd>
+Contains one of the values: "BEFORE", "AFTER".
+</dd><dt>$_TD["level"]</dt><dd>
+Contains one of the values: "ROW", "STATEMENT".
+</dd><dt>$_TD["relid"]</dt><dd>
+Contains the relation ID of the table on which the trigger occured.
+</dd><dt>$_TD["relname"]</dt><dd>
+Contains the relation name.
+</dd></dl>
+<dl><dt>$_TD["args"]</dt><dd>
+An array of arguments passed to the trigger, if any.  They can be
+accessed as $_TD["args"][idx].  For example, $_TD["args"][0].
+</dd><dt>$_TD["argc"]</dt><dd>
+The number of arguments passed to the trigger, 0 if none.
+</dd></dl>
+<h3 id="ExampleofanAFTERINSERTtrigger">Example of an AFTER INSERT trigger<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#ExampleofanAFTERINSERTtrigger"> ¶</a></h3>
+<p>
+Suppose you have a users table with the typical columns and an
+activity table that you're using to track page accesses.  On row
+</p>
+<p>
+INSERT to the activity table, you want to update the last_seen field
+of the appropriate user's record.
+</p>
+<p>
+Consider the following table definitions:
+</p>
+<pre class="wiki">CREATE TABLE users (
+    id serial PRIMARY KEY NOT NULL,
+    username text NOT NULL,
+    email text,
+    last_seen timestamp without time zone,
+    active boolean DEFAULT true NOT NULL
+);
+
+CREATE TABLE activity (
+    id serial PRIMARY KEY NOT NULL,
+    users_id integer NOT NULL,
+    file_accessed text NOT NULL,
+    stamp timestamp without time zone DEFAULT now() NOT NULL,
+    CONSTRAINT users_id_exists FOREIGN KEY (users_id) REFERENCES users(id)
+);
+
+CREATE FUNCTION update_lastseen() RETURNS trigger AS $$
+    $new =&amp; $_TD['new'];
+
+    if (isset($new['users_id']) &amp;&amp; isset($new['stamp'])) {
+        $query = "UPDATE users SET last_seen = '" .$new['stamp'].
+                 "' WHERE id = " .$new['users_id'];
+
+        $rv = spi_exec($query);
+    }
+
+    return;
+$$ LANGUAGE 'plphp';
+
+CREATE TRIGGER after_update_lastseen_trigger
+    AFTER INSERT ON activity FOR EACH ROW EXECUTE PROCEDURE update_lastseen();
+
+</pre>
+<p>
+<strong>1. We'll insert a new user row.</strong>
+</p>
+<pre class="wiki">sklassen=# insert into users (username, email) values ('sklassen','sklassen@commandprompt.com');
+INSERT 1
+
+sklassen=# select * from users where username = 'sklassen';
+
+ id | username |           email            | last_seen | active 
+----+----------+----------------------------+-----------+--------
+  1 | sklassen | sklassen@commandprompt.com |           | t
+(1 row)
+</pre>
+<p>
+<strong>2. Insert a new row into the activity table.</strong>
+</p>
+<pre class="wiki">sklassen=# insert into activity (users_id, file_accessed) values (1,'index.html');
+INSERT 1
+</pre>
+<p>
+<strong>3. Check and make sure our trigger fired as expected.</strong>
+</p>
+<pre class="wiki">sklassen=# select * from users where username = 'sklassen';
+ id | username |           email            |         last_seen          | active 
+----+----------+----------------------------+----------------------------+--------
+  1 | sklassen | sklassen@commandprompt.com | 2005-01-10 09:48:57.191595 | t
+(1 row)
+</pre>
+<h3 id="ExampleofaBEFOREINSERTORUPDATEtrigger">Example of a BEFORE INSERT OR UPDATE trigger<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#ExampleofaBEFOREINSERTORUPDATEtrigger"> ¶</a></h3>
+<p>
+Let's say we have a user named admin that we want to prevent the
+application from modifying.  We'll create a BEFORE DELETE trigger that
+prevents them from deleting the row and a BEFORE UPDATE trigger that
+prevents them modifying the username on which the previous trigger
+depends.
+</p>
+<pre class="wiki">CREATE TABLE users (username text, email text);
+INSERT INTO users VALUES ('admin', 'admin@commandprompt.com');
+INSERT INTO users VALUES ('darcy', 'darcy@example.com');
+
+CREATE OR REPLACE FUNCTION immortal() RETURNS trigger AS $$
+   # The record may not be deleted if the username is "admin".
+   if ($_TD['old']['username'] == 'admin') {
+      pg_raise('notice', "You cannot delete the admin user");
+      return 'SKIP';
+   }
+   return;
+$$ LANGUAGE 'plphp';
+
+CREATE TRIGGER before_delete_immortal_trigger BEFORE DELETE ON users
+FOR EACH ROW EXECUTE PROCEDURE immortal();
+
+CREATE OR REPLACE FUNCTION protect_admin() RETURNS trigger AS $$
+   # Do not let them modify the username of the admin account.
+   $oldUsername = $_TD['old']['username'];
+   $newUsername = $_TD['new']['username'];
+
+   if ($oldUsername == 'admin' &amp;&amp; ($oldUsername != $newUsername)) {
+      pg_raise('notice', "You cannot change the admin username.");
+      return 'SKIP';
+   } else {
+      return;
+   }
+$$ LANGUAGE 'plphp';
+
+CREATE TRIGGER before_update_protect_admin_trigger BEFORE UPDATE ON
+users FOR EACH ROW EXECUTE PROCEDURE protect_admin();
+</pre>
+<p>
+Now the user admin cannot be deleted, nor its username can be changed:
+</p>
+<pre class="wiki">pl_regression=# select * from users;
+ username |          email          
+----------+-------------------------
+ admin    | admin@commandprompt.com
+ darcy    | darcy@example.com
+(2 rows)
+
+pl_regression=# update users set username = 'foobar';
+NOTICE:  plphp: You cannot change the admin username.
+UPDATE 1
+
+pl_regression=# select * from users;
+ username |          email          
+----------+-------------------------
+ admin    | admin@commandprompt.com
+ foobar   | darcy@example.com
+(2 rows)
+
+pl_regression=# delete from users;
+NOTICE:  plphp: You cannot delete the admin user
+DELETE 1
+
+pl_regression=# select * from users;
+ username |          email          
+----------+-------------------------
+ admin    | admin@commandprompt.com
+(1 row)
+</pre>
+<h2 id="Trustedvs.Untrusted">Trusted vs. Untrusted<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#Trustedvs.Untrusted"> ¶</a></h2>
+<p>
+Normally, PL/php is installed as a "trusted" procedural language named
+'plphp'.  In this configuration, PHP will run in "safe mode".  Read
+more about the restrictions here:
+</p>
+<p>
+<a class="ext-link" href="http://www.php.net/manual/en/features.safe-mode.functions.php"><span class="icon"></span>http://www.php.net/manual/en/features.safe-mode.functions.php</a>
+</p>
+<p>
+In general, the operations that are restricted are those that interact
+with the environment.  This includes file operations, require, and use
+(for external modules).
+</p>
+<p>
+Since there is no way to gain access to the internals of the database
+backend process or the operating system itself, any unprivileged
+database user may use functions written in this language.
+</p>
+<p>
+An example of a NON-working function due to security constraints:
+</p>
+<pre class="wiki">CREATE FUNCTION read_passwd_file() RETURNS text AS '
+   readfile("/etc/passwd");
+   return 0;
+' LANGUAGE 'plphp';
+</pre>
+<p>
+It will appear to execute, but depending on your log level, you'll may
+see something like the following:
+</p>
+<pre class="wiki">Warning: readfile(): SAFE MODE Restriction in effect. The script
+whose uid is 500 is not allowed to access /etc/passwd owned by uid 0
+in Command line code on line 3
+
+Warning: readfile(/etc/passwd): failed to open stream: Success in
+plphp function source on line 3
+</pre>
+<p>
+Sometimes it is desirable to write PHP functions that are not
+restricted.  In this case, you can create the language as 'plphpu' to
+enable the previously unavailable functions.
+  
+</p>
+<pre class="wiki"> CREATE LANGUAGE plphpu;
+</pre>
+<h2 id="CompositeTypeArguments">Composite Type Arguments<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#CompositeTypeArguments"> ¶</a></h2>
+<p>
+Composite-type arguments are passed to the function as associative
+array. The keys of the array are the attribute names of
+the composite type. Here is an example:
+</p>
+<pre class="wiki">CREATE TABLE employee (
+   name text,
+   basesalary integer,
+   bonus integer
+);
+
+CREATE FUNCTION empcomp(employee) RETURNS integer AS '
+   return $args[0][''basesalary''] + $args[0][''bonus''];
+' LANGUAGE 'plphp';
+
+INSERT INTO employee values ('Josh', 1000, 10);
+INSERT INTO employee values ('Darcy', 500, 20);
+
+SELECT name, empcomp(employee) FROM employee;
+</pre>
+<p>
+This example results in the following output:
+</p>
+<pre class="wiki"> name  | empcomp 
+-------+---------
+ Josh  |    1010
+ Darcy |     520
+(2 rows)
+</pre>
+<h2 id="ReturningARowcompositetype">Returning A Row (composite type)<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#ReturningARowcompositetype"> ¶</a></h2>
+<p>
+To return a row or composite-type value from a PL/php-language
+function, you can use an indexed array:
+</p>
+<pre class="wiki">CREATE TYPE php_row AS (f1 integer, f2 text, f3 text);
+
+CREATE OR REPLACE FUNCTION php_row(integer) RETURNS php_row AS $$
+   $ret['f1'] = $args[0];
+   $ret['f3'] = "world";
+   $ret['f2'] = "hello";
+   return $ret;
+$$ LANGUAGE 'plphp';
+
+SELECT * FROM php_row(1);
+</pre>
+<p>
+Will return:
+</p>
+<pre class="wiki"> f1 |  f2   |  f3
+----+-------+-------
+  1 | hello | world
+</pre>
+<h2 id="ReturningmultiplerowsSRFfunctions">Returning multiple rows (SRF functions)<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#ReturningmultiplerowsSRFfunctions"> ¶</a></h2>
+<p>
+SRF stands for "set-returning functions".  This means you can return
+multiple rows, like in the following example:
+</p>
+<pre class="wiki">CREATE TYPE php_row AS (f1 integer, f2 text, f3 text);
+
+CREATE OR REPLACE FUNCTION php_set(integer) RETURNS SETOF php_row AS $$
+   $ret['f1'] = $args[0];
+   $ret['f2'] = "hello";
+   $ret['f3'] = "world";
+   return_next($ret);
+
+   $ret['f1'] = 2 * $args[0];
+   $ret['f2'] = "hello";
+   $ret['f3'] = "postgres";
+   return_next($ret);
+
+   $ret['f1'] = 3 * $args[0];
+   $ret['f2'] = "hello";
+   $ret['f3'] = "plphp";
+   return_next($ret);
+$$ LANGUAGE 'plphp';
+</pre>
+<p>
+This will result in:
+</p>
+<pre class="wiki">pl_regression=# SELECT * FROM php_set(1);
+ f1 |  f2   |    f3
+----+-------+----------
+  1 | hello | world
+  2 | hello | postgres
+  3 | hello | plphp
+(3 rows)
+</pre>
+<p>
+The important thing to notice here is the <tt>return_next()</tt>
+function. This function must be called with a single parameter, which
+must be an array with one element per attribute of the return type.
+Note that currently the names of the array elements are ignored; the
+elements are assigned to attributes in order. If you must return a null
+value, asign a null value to an array element. This may be fixed in a
+future release.
+</p>
+<p>
+Finishing a SRF is done by either calling <tt>return</tt> or by
+falling off the end of the function. At that point the entire results
+are delivered back to the outer query, be it directly to the user or to
+be joined to other tables/SRFs/etc.
+</p>
+<p>
+The return tuples are written to a Postgres "tuplestore", which is disk-backed, and thus do not need to fit entirely in RAM.
+</p>
+<h2 id="Limitations">Limitations<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/Documentation#Limitations"> ¶</a></h2>
+<p>
+PL/php functions cannot call each other directly because their names
+are mangled.
+</p>
+<p>SPI calls have the whole results allocated in memory, so processing
+huge results may be problematic. Also it's not possible to use cursors
+with SPI.
+</p>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="http://projects.commandprompt.com/public/plphp/wiki/Documentation?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr>
+ <a id="tracpowered" href="http://trac.edgewall.com/"><img src="plphpDocumentation_arquivos/trac_logo_mini.png" alt="Trac Powered" height="30" width="107"></a>
+ <p class="left">
+  Powered by <a href="http://projects.commandprompt.com/public/plphp/about"><strong>Trac 0.9.3</strong></a><br>
+  By <a href="http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  
+ </p>
+</div>
+
+
+
+ 
+</body></html>

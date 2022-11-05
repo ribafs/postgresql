@@ -1,0 +1,127 @@
+Encontrar registros duplicados
+
+Quando a chave é o emp_cnpj
+
+SELECT
+    emp_cnpj,
+    count(*)
+FROM empresa
+WHERE
+   emp_cnpj <> ''
+GROUP BY emp_cnpj
+HAVING COUNT(*) > 1
+
+
+Se não importar qual das duplicatas irá permanecer você pode usar:
+
+CREATE TABLE tab_temp AS SELECT DISTINCT * FROM sua_tabela;
+DROP sua_tabela;
+ALTER TABLE TAB_TEMP RENAME TO SUA_TABELA;
+
+
+Se não for qualquer linha duplicata que possa ser excluida verifique se
+as cláusulas ORDER BY, GROUP BY e DISTINCT ON podem ajudar a especificar
+qual das duplicatas deverá permanecer. 
+
+
+SELECT DISTINCT cep FROM cep_tabela
+
+WHERE cep IN (SELECT cep FROM cep_tabela AS Tmp GROUP BY cep,tipo,logradouro, bairro, municipio,uf HAVING Count(*) >1 ) ORDER BY cep;
+
+(Adaptação de consulta gerada pelo assistente Encontrar duplicadas do Access).
+
+
+Ou:
+
+select count(*) as quantos, cep from cep_tabela group by cep having count(*) > 1;
+
+
+REMOVER DUPLICADOS
+
+Para tabelas criadas WITH OIDS:
+
+DELETE FROM cep_tabela2 WHERE oid NOT IN
+
+(SELECT min(oid) FROM cep_tabela2 GROUP BY cep, tipo, logradouro, bairro, municipio, uf);
+
+
+Do exemplo 8.10 do manual em português do Brasil.
+
+Ou:
+
+
+Criando uma segunda tabela que conterá somente os registros exclusivos e ainda guarda uma cópia da tabela original:
+
+
+CREATE TABLE cep_tabela2 AS SELECT cep, tipo, logradouro, bairro, municipio, uf FROM cep_tabela GROUP BY cep, tipo, logradouro, bairro, municipio, uf ORDER BY cep;
+
+
+Caso não importe qual das duplicatas irá permanecer:
+
+CREATE TABLE tab_temp AS SELECT DISTINCT * FROM tabela;
+
+DROP tabela;
+
+ALTER TABLE tab_temp RENAME TO tabela;
+
+(Dica de Osvaldo Rosario Kussama na lista de PostgreSQL Brasil)
+
+
+Registros duplicados (distinct)
+	
+
+Con la cláusula "distinct" se especifica que los registros con ciertos datos duplicados sean obviadas en el resultado. Por ejemplo, queremos conocer todos los autores de los cuales tenemos libros, si utilizamos esta sentencia:
+
+ select autor from libros;
+
+Aparecen repetidos. Para obtener la lista de autores sin repetición usamos:
+
+ select distinct autor from libros;
+
+También podemos tipear:
+
+ select autor from libros
+  group by autor;
+
+Note que en los tres casos anteriores aparece "null" como un valor para "autor"· Si sólo queremos la lista de autores conocidos, es decir, no queremos incluir "null" en la lista, podemos utilizar la sentencia siguiente:
+
+ select distinct autor from libros
+  where autor is not null;
+
+Para contar los distintos autores, sin considerar el valor "null" usamos:
+
+ select count(distinct autor)
+  from libros;
+
+Note que si contamos los autores sin "distinct", no incluirá los valores "null" pero si los repetidos:
+
+ select count(autor)
+  from libros;
+
+Esta sentencia cuenta los registros que tienen autor.
+
+Podemos combinarla con "where". Por ejemplo, queremos conocer los distintos autores de la editorial "Planeta":
+
+ select distinct autor from libros
+  where editorial='Planeta';
+
+También puede utilizarse con "group by" para contar los diferentes autores por editorial:
+
+ select editorial, count(distinct autor)
+  from libros
+  group by editorial;
+
+La cláusula "distinct" afecta a todos los campos presentados. Para mostrar los títulos y editoriales de los libros sin repetir títulos ni editoriales, usamos:
+
+ select distinct titulo,editorial
+  from libros
+  order by titulo;
+
+Note que los registros no están duplicados, aparecen títulos iguales pero con editorial diferente, cada registro es diferente.
+
+Entonces, "distinct" elimina registros duplicados.
+
+---
+SELECT pp, COUNT (pp) FROM table GROUP BY pp ORDER BY COUNT DESC;
+
+

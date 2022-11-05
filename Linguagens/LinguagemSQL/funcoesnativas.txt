@@ -1,0 +1,155 @@
+Funções Nativas
+
+Funções Matemáticas
+
+abs
+cbrt
+ceil
+ceiling
+degree
+div
+exp
+floor
+ln
+log
+mod
+pi
+power
+radians
+random
+round
+setseed
+sign
+sqrt
+trunc
+width_bucket
+numeric
+
+Arredondamento
+
+select round (4,3);
+
+round
+-----
+4.000
+
+
+Funções Trigonométricas
+
+acos
+asin
+atan
+atan2
+cos
+cot
+sin
+tan
+
+Funções para Strings
+
+Manipulação de strings, que são char, varchar, text e bit string
+
+bit_length
+lower
+octet_length
+overlay
+position
+substring
+trim
+upper
+
+ascii
+btrim
+chr
+concat
+concat_ws
+convert
+convert_from
+decode
+encode
+format
+initcap
+left
+length
+lpdd
+ltrim
+md5
+pg_client_encoding
+quote_ident
+quote_literal
+quote_nullable
+regexp_matches
+regexp_replace
+regexp_split_to_array
+regexp_split_to_table
+repeat
+replace
+reverse
+right
+rpad
+rtrim
+split_part
+strpos
+substr
+to_ascii
+to_hex
+translate
+
+Exemplo de substring
+
+select substr('12345',3);
+
+substr
+------
+ 345
+
+Funções String Binários
+
+Para o tipo bytea
+
+
+Funções para Bit Strings
+
+
+Patern Matching
+
+like
+similarto
+posix-stile
+
+LIKE
+
+'abc' like 'abc' - true
+'abc' like 'a%' - true
+'abc' like '_b_' - true
+'abc' like 'c' - false
+
+ILIKE - case sensitive
+
+SIMILAR TO - parece com like mas interpreta o resultado de acordo com SQL.
+
+SIMILAR TO aceita:
+
+| - alternativa entre dois valores
+* - repetição de item anterior zero ou mais vezes
++ - repetição de item anterior uma ou mais vezes
+? - repetição de item anterior zero ou uma vez
+{m} - repetição de item anterior extamente m vezes
+{m,} - repetição de item anterior m ou mais vezes
+{m,n} - repetição de item anterior pelo menos m e não mais que n vezes
+() - podem ser usados para agrupar itens
+[...] - especifica uma clase de caracteres
+
+
+POSIX Regular Expressões
+
+Tabela de operadores
+
+
+Funções para Formatação de Datas
+
+A configuração do estilo de datas pode ser feita pelo postgresql.conf para
+todos os bancos de dados ou pelo comando set no banco atual.
+
+
+

@@ -1,0 +1,16 @@
+Valores Boleanos em Consultas
+Exemplo de consulta com boolean:
+
+CREATE TABLE teste1 (a boolean, b text);
+INSERT INTO teste1 VALUES (TRUE, 'sic est');
+INSERT INTO teste1 VALUES (FALSE, 'non est');
+SELECT * FROM teste1;
+Retorno:
+a | b
+---+---------
+t | sic est
+f | non est
+Alerta: a entrada pode ser: 1/0, t/f, true/false, TRUE/FALSE, 
+mas o retorno será sempre t ou f.
+
+Obs.: Para campos tipo data que permitam NULL, devemos prever isso na consulta SQL e passar NULL sem delimitadores e valores não NULL com delimitadores.

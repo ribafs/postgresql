@@ -1,0 +1,24 @@
+euler@harman:~$ time for i in `seq 1 1000`; do psql -c "select 1"
+1>/dev/null 2>&1; done
+
+real    1m20.261s
+user    0m7.712s
+sys     0m3.252s
+
+=================
+> percebi que as tabelas "pga_tmp_zombies" estao com
+> relfrozenxid altos eles nao abaixaram essa tabelas estao nos eschemas
+> "pg_temp_*" com posso resolver esse problema ?
+>
+o (auto)VACUUM não consegue ser executado em tabelas temporárias de
+outras sessões. Se está preocupado com o reinício do log de transação,
+execute o vacuum na sessão que criou a(s) tabela(s) temporária(s)  ou
+feche a sessão que criou a(s) tabela(s) temporária(s).
+
+
+--
+  Euler Taveira de Oliveira
+  
+  
+psql -h localhost -p 5433 -U postgres -c "CREATE DATABASE pagila ENCODING 'UTF8'"
+psql -h localhost -p 5433 -U postgres -c "CREATE ROLE pagila_app LOGIN PASSWORD 'pg@123'"  

@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+
+
+
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <meta http-equiv="Refresh" content="300">
+  <style><!--
+    a {color:#0066FF;}
+    body{color:#000066; font-family:Tahoma, Verdana, Arial, sans-serif;font-size:10px;}
+	a:hover{color:#000066; text-decoration:none;}
+  --></style>
+  <script language="JavaScript" src="noticias_data/ideia.htm" type="text/javascript"></script>
+  <title>Novidades</title>
+  <!-- base -->
+<script language="JavaScript" type="text/javascript"><!--
+var news = new Array(
+'Folha de Pagamento: Processamento de pagamento indevido ou desconto de meses anteriores do Imposto de Renda'
+, '1º de julho de 2008, 21 anos de Idéia Informática !!! Obrigado por sua parceria, sem você não chegaríamos a este ponto !!! Mas queremos melhorar ainda mais, sabemos que o seu sucesso é o nosso sucesso, por isto desenvolvemos SOLUÇÕES EM FORMA DE SOFTWARE. Quitando o seu pedido até o dia 21 de julho você ganha um software de Contas a Pagar e a Receber gratuitamente, junto com o(s) software(s) que adquirir.'
+, '<font color=red><b>Lançamos o nosso <a href=produtos.asp?p1=idepacon>Pacote Contábil</a>, que é composto pela <a href=produtos.asp?p1=idepag>Folha de Pagamento</a>, <a href=produtos.asp?p1=idecont>Contabilidade Geral</a> e <a href=produtos.asp?p1=idelivr>Emissão de Livros Fiscais</a>, a um custo mais acessível, pois um destes dois últimos fica quase de graça.'
+, 'Folha de Pagamento: Relação de Contratos Temporários Vencidos ou a Vencer no próximos 60 dias'
+, 'Folha de Pagamento: Relação de Admitidos e Demitidos no mês'
+, 'Avaliamos a base de dados do seu sistema atual e a possibilidade de migrá-la para os nossos sistemas.'
+, 'Adquirindo a cessão de direitos de uso de mais de um software em nosso <a href="rapida.asp">formulário de compra</a> você tem descontos progressivos até 20% com diversas formas de pagamento:<ol type="a"><li>boleto bancário,</li><li>débito em conta (Bradesco, Brasil, Itaú ou Unibanco),</li><li>cartões Visa, Mastercard, Diners, American Express, Hipercard e Aura com parcelamento direto com a administradora em até 10 parcelas, com taxa mensal de juros de 1,99%.</li></ol>NÃO EFETUE NENHUM PAGAMENTO SEM QUE SEJA ATRAVÉS DO SITE.<br>SE PREFERIR, LIGUE PARA NÓS PARA CONFIRMAR QUALQUER AQUISIÇÃO.</font>'
+, 'Agora você leva seus negócios para onde precisar: pode adquirir quase todos os nossos sistemas instalados em Pen Drive e utilizá-los onde estiver, em qualquer equipamento, sem necessidade de instalação !!! Disponível para quase todos os softwares, consulte-nos.'
+, 'Folha de Pagamento: Lançamentos por Função, CBO, Sindicato, Órgão/Setor, Tomador de Serviço, por categoria ou para todos os funcionários.'
+, 'Adm. Condomínios: Controle de visitantes nos condomínios, com a opção de tirar fotos via Webcam.'
+, 'Folha de Pagamento: Nova rotina de RAIS, visando a geração de dados de 2009, mas ainda com layout de 2008, sujeito a alteração quando forem informadas as alterações de 2009; pode ser usada para quem for gerar a de 2008 com atraso.'
+, 'Folha de Pagamento: Atualização das tabelas de INSS e Salário Família de 01/03/2008'
+, 'Folha de Pagamento: Ajuste no rendimento do mês da rescisão na geração do arquivo para validação na GRRF'
+, 'Cadastramos <a href="revenda.asp">representantes</a> em todas as regiões do país'
+, 'Folha de Pagamento: O sistema já está adaptado para a DIRF relativa ao ano-base 2007, a ser declarada em 2008.'
+
+) ;
+
+var ticker_layer = false ;
+var step_time = 25 ;
+var freeze_time = 2000 ;
+var news_index = 0 ;
+var title_index = 0 ;
+var end_title = "|" ;
+var title_max_size = 65 ;
+var inside_tag = false ;
+
+/*for ( var i = 0 ; i < news.length - 1 ; i++ ){
+	title = news[ i ];
+	diff = 0 ;
+	tmp_title = title ;
+	tmp_title = tmp_title.replace( '&quot;' , '1' ) ;
+	diff = title.length - tmp_title.length ;
+
+	if ( tmp_title.length > title_max_size ){
+		title = title.substring(0,title_max_size+diff) ;
+		title = title.substring(0,title.lastIndexOf(' ')) ;
+		title += '...' ;
+	}
+	news[ i ] = title ;
+}*/
+
+function begin_roll_ticker(){
+	window.setTimeout("roll_ticker()", step_time);
+}
+function roll_ticker(){
+	var title ;
+	if (news.length > news_index + 1 && news[news_index].length >= title_index)
+	{
+		title = news[news_index];
+		document.getElementById('ticker').innerHTML = title.substring(0, title_index);
+		if (title.length > title_index)
+		{
+		  document.getElementById('ticker').innerHTML += end_title;
+		}
+		title_index++;
+		if (title.substring(title_index - 1, title_index) == "<")
+		{
+		  inside_tag = true;
+		}
+		else
+		{
+		  if (title.substring(title_index - 1, title_index) == ">")
+		  {
+		    inside_tag = false;
+		  }
+		}
+		if (inside_tag == true)
+		{
+		  roll_ticker();
+		}
+		else
+		{
+		  window.setTimeout( "roll_ticker()" , step_time );
+		}
+	}
+	else{
+		news.length == news_index + 2 ? news_index = 0 : news_index++;
+		title_index = 0;
+		window.setTimeout("roll_ticker()", freeze_time );
+	}
+}
+//--></script>
+</head><body class="noticias" topmargin="0" leftmargin="3" onload="begin_roll_ticker()" bgcolor="#ffffff" marginheight="0" marginwidth="3">
+<div id="ticker" style="text-align: left;" align="left">1º de julho de
+2008, 21 anos de Idéia Informática !!! Obrigado por sua parceria, sem
+você não chegaríamos a este ponto !!! Mas queremos melhorar ainda mais,
+sabemos que o seu sucesso é o nosso sucesso, por isto desenvolvemos
+SOLUÇÕES EM FORMA DE SOFTWARE. Quitando o seu pedido até o dia 21 de
+julho você ganha um software de Contas a Pagar e a Receber
+gratuitamente, junto com o(s) software(s) que adqu|</div>
+</body></html>

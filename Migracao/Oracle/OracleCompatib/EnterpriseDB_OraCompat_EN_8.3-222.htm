@@ -1,0 +1,155 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>UTL_FILE</title>
+
+<meta name="keywords" content="utl_file, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2159"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-222_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-221.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-222_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-222_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-223.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-222_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 28pt;"><p><a name="P10965_575332"></a><span style="font-family: 'Arial'; font-size: 14pt;"><i>7.4 UTL_FILE</i></span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UTL_FILE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+package provides the capability to read from, and write to files on the
+operating system&#8217;s file system. Non-superusers must be granted </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXECUTE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UTL_FILE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+package by a superuser before using any of the functions or procedures
+in the package. For example the following command grants the privilege
+to user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">mary</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">GRANT EXECUTE ON PACKAGE SYS.UTL_FILE TO mary;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Also, the operating system username, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enterprisedb</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, must have the appropriate read and/or write permissions on the directories and files to be accessed using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UTL_FILE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> functions and procedures. If the required file permissions are not in place, an exception is thrown in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UTL_FILE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function or procedure.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A handle to the file to be written to, or read from is used to reference the file. The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>file handle</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is defined by a public variable in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UTL_FILE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UTL_FILE.FILE_TYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. A variable of type </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FILE_TYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> must be declared to receive the file handle returned by calling the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FOPEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function. The file handle is then used for all subsequent operations on the file.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">References
+to directories on the file system are done using the directory name or
+alias that is assigned to the directory using the <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-50.htm#P2339_127983"><u>CREATE DIRECTORY</u></a> command.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The procedures and functions available in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UTL_FILE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package are listed in the following table.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 7-8 UTL_FILE Functions/Procedures</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="241"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function/Procedure</span></p>
+</td>
+<td valign="top" width="72"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Return Type</span></p>
+</td>
+<td valign="top" width="264"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FCLOSE</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>file</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> IN OUT)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Closes the specified file identified by </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>file</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FCLOSE_ALL</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Closes all open files.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FCOPY(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>location</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>filename</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>dest_dir</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>dest_file</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>start_line</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>end_line</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ]</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ]</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Copies </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>filename</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> i</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n the directory identified by </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>location</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to file, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>dest_file</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, in directory, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>dest_dir</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, starting from line, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>start_line</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, to line, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>end_line</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FFLUSH(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>file</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Forces data in the buffer to be written to disk in the file identified by </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>file</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FOPEN(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>location</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><i><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">filenam</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">e</span></i><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>open_mode</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>max_linesize</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ])</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FILE_TYPE</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Opens file, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>filename</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, in the directory identified by </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>location</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FREMOVE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>location</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>filename</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Removes the specified file from the file system.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FRENAME(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>location</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>filename</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>dest_dir</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>dest_file</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [,</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>overwrite</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ])</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Renames the specified file.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">GET_LINE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>file</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>buffer</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> OUT)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Reads a line of text into variable, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>buffer</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, from the file identified by </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>file</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">IS_OPEN(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>file</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">BOOLEAN</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Determines whether or not the given file is open.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NEW_LINE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>file</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>lines</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ])</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Writes an end-</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">of-line character </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">sequence </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">into the file.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">PUT(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>file</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>buffer</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Writes </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>buffer</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to the given file. </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">PUT</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> does not write an end-of-line character</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> sequence</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">PUT_LINE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>file</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>buffer</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Writes </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>buffer</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to the given file. An end-of-line character sequence is added </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">by the </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">PUT_LINE</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> procedure.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">PUTF(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>file</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>arg1</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ] [, ...])</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Writes a formatted string to the given file. Up to five substitution parameters, </span><i><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">arg</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">1</span></i><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">,...</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>arg5</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> may be specified for replacement in </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+<p><a name="P11016_578124"></a></p></td></tr></tbody></table>
+
+</p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-221.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-222_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-222_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-223.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-222_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-222_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-222_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

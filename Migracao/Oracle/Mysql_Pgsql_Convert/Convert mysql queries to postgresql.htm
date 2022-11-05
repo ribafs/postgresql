@@ -1,0 +1,168 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<html>
+	<head>
+	 <title>Convert mysql queries to postgresql</title>
+	
+	 <script type="text/javascript" src="/wiki/stylesheets/wikibits.js"></script>
+	 <style type='text/css'>
+  	  /*/*/ /*<![CDATA[*/
+	  @import "/inc/default.css";
+	  #quickbar { position: absolute; left: 0px; }
+	  #article { margin-left: 141px; margin-right: 12px; }
+	  a.new, #quickbar a.new { color: #CC2200; }
+	  /*]]>*/ /* */
+	 </style>
+
+	</head>
+	<body>
+	
+	
+	
+<div id='content'>
+
+  	<div id='quickbar'>
+				<p>
+				<A href="/"><img src="/images/lamp.jpg"  border="0" alt="A LAMP Portal"></A></p>
+				<br>
+				<p>
+				<a href="/linux/">Linux</a><br/>
+				<a href="/java/">Java</a><br/>
+				<a href="/php/">PHP</a><br/>
+				<p>
+				<hr width="50%">
+				<p>
+				<a href="/jabber/">Jabber</a><br/>
+				<a href="/etc/">etc</a><br/>
+				</p>
+				<p>
+				<A href="http://www.radinks.com"><IMG src="/images/drop-logo100.jpg" 
+					width=100 height=100 border=0 style="margin-bottom: 30px; margin-top: 60px"
+					 alt="The totally Rad Software Company - Sponsor"></A>
+				</p>
+
+	</div>
+<div id='topbar'><table width='100%' border='0' cellspacing='0' cellpadding='8'><tr><td class='top' align='left' valign='middle' nowrap='nowrap'><a href='/'><span id='sitetitle'>Site With The Lamp</span></a></td></tr></table>
+</div>
+<div id='article'>
+<h1 align='center'>Querying the Database</h1><table class="newboxTable" align="right" clear="left">
+ <tr><td class="newboxTitle"  align="center">New Articles</td></tr>
+ <tr><td class="newboxText">
+ 	<p><a href="/megaupload/upload.php">Sneak Past the PHP Upload Limits</a></p>
+	<p><a href="/wiki/Case_against_templates">The Case Against PHP templates.</a></p>
+	<p><a href="/wiki/SQL_character_types">Strange Characters and Blobs.</a></p>
+ </td></tr>
+</table>
+
+<p>We have already looked at how we can convert our database schema from mysql to postgres using our online converter. We have also taken a look at how we can import the schema into postgres system and how we can connect to it using PHP. Now let's look at how we can actually perform queries against these tables.
+</p>
+
+<p>Since the existing version of the rad user manager is compatible only with mySql, where ever database needs to be queried it calls the mysql_query() function of PHP. Obviously we need to change that if we are to make the software compatible with postgresql. So we create a new function.
+
+</p>
+
+<pre>
+function db_query($query)
+{
+	global $db_type;
+	error_log("\n\n $query");
+	
+	if($db_type == 'mysql')
+	{
+		$res = mysql_query($query);
+	}	
+	else
+	{
+	
+		$res = pg_query($query);
+		error_log(pg_last_error());
+	}
+	return $res;
+}
+</pre>
+
+<p>Where ever mysql_query() had been used we will now start using this newly created db_query function. As you can see, it checks the $db_type variable to determine whether the query should be executed against a postgresql system or a mysql database. The variable itself has to be defined the inc/config.php file (which you will find in the download). 
+</p>
+
+<pre>
+	$db_type = "pgsql";
+</pre>
+
+<p>If you are SED or regular expression addict you can now replace all occurrences of mysql_query with db_query many others will be more comfortable using the 'find in files' feature available in modern text editors. Once you have done that let's load up the usermanager in our browser just to see how it looks like since we made the changes. Don't expect things to go smoothly just yet, we have some distance to travel before we are done.</p>
+ 
+<p>While we are still on the subject of executing queries, lets observe that both systems support the <em>LIMIT</em> clause for <em>SELECTS</em> however there is a slight difference in syntax. While mysql expects it to be in the format <em>LIMIT {number }[,offset]</em>, in postgresql there is separate keyword named offset. So in the latter the expected format is <em>LIMIT { number | ALL } [OFFSET number]</em>. That's one more thing you should watch out for when you are searching and replacing. Now let's go on to the <a href="password.php">next step</a>.
+</p>
+
+
+<p>&nbsp;</p>
+<div align="center" style="margin-left:-120px">
+<table border=0 cellpadding=5>
+ <tr><td bgcolor="#e0e0ff"> &nbsp; Part 1: &nbsp; </td>
+     <td><a href="/postgres/">Getting Started</a> &nbsp; , &nbsp;
+	<a href="/postgres/convert.php">The Schema</a> &nbsp; , &nbsp;
+	<a href="/postgres/query.php">Queries</a>
+    </td>
+ </tr>
+ <tr><td bgcolor="#e0e0ff"> &nbsp; Part 2: &nbsp; </td>
+     <td><a href="/postgres/password.php">Passwords</a> &nbsp; , &nbsp;
+	 <a href="/postgres/timestamp.php">Times Up</a> &nbsp; , &nbsp;
+	 <a href="/postgres/error.php">Errors</a> &nbsp; , &nbsp;
+	 <a href="/postgres/download.php">Download</a>
+     </td>
+ </tr>
+</table>
+</div>
+
+	  </div>
+	</div>
+	<br clear='all' />
+	<div id='footer'>
+		<p style="margin-top:30px">&nbsp;</p>		
+	    <hr width="45%" align="center">
+		<p align="center">		
+			<a href="/jabber/">Jabber</a> &nbsp;|&nbsp;
+			<a href="/linux/">Linux</a> &nbsp;|&nbsp;
+			<a href="/mysql/">mySQL</a> &nbsp;|&nbsp;
+			<a href="/php/">PHP</a> &nbsp;|&nbsp;				
+			<a href="/java/">Java</a>  &nbsp;|&nbsp;
+			<a href="/sitemap.php">Site Map</a> &nbsp;|&nbsp;
+			<a href="/wiki/">Wiki</a>
+			
+		</p>
+		<p align="center">					
+			<a href="/downloads/">Downloads</a> &nbsp;|&nbsp;
+			<a href="/about.php">About</a> &nbsp;|&nbsp;
+			<a href="/mysql/links.php">Links</a> &nbsp;|&nbsp;
+			<a href="/contact.php">Contact</a> &nbsp;|&nbsp;
+			<a href="/">Home</a>
+		</p>
+		<p>&nbsp;</p>
+	   
+<script type="text/javascript"><!--
+google_ad_client = "pub-6509966129456920";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text_image";
+//--></script>
+	
+	<p align="center">
+		<script type="text/javascript"
+		src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+		</script>  
+	</p>
+		<p>&nbsp;</p>
+		<p align=center>Copyright &copy; Raditha Dissanayake 2005</p>
+
+		<p align=center  style="font-size:90%" >
+		<a href="/terms.php">Terms of Use</a>  &nbsp;|&nbsp;
+		<a href="/privacy.php">Privacy</a>
+		</p>
+	
+  </div>
+  
+ </body>
+</html>

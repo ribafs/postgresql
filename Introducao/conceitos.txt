@@ -1,0 +1,55 @@
+Conceitos Importantes no PostgreSQL
+
+SGBD - Sistema Gerenciador de Bancos de Dados. São sistemas especializados no
+trabalho com bancos de dados, com muitos recursos para isso.
+
+Cluster - coleção de bancos de dados. Todos os bancos de dados de uma instalação do servidor.
+
+Banco - coleção de tabelas, usuários, tipos de dados, funções, índices, sequências e outros objetos.
+
+Tabela - coleção de registros ou linhas
+
+Registro - coleção de campos ou colunas
+
+Campo - perção da tabela que armazena informações somente de um tipo
+
+Ordem - os registros são guardados na ordem em que são armazenados, mas o SQL não garante a ordem na recuperação. Precisa ser especificada explicitamente.
+
+Relação - Termo matemático para tabela.
+Existem outras formas de organizar dados diferentes de tabelas.
+Arquivos e diretórios é uma delas e orientação a objetos outra.
+
+Uma tabela num banco de dados relacional parece com uma tabela no papel ou com uma planilha.
+
+Existem SGBDs modernos orientados a objetos.
+
+Conexão - cada usuário conecta somente a um único banco de dados por vez.
+
+
+Convenções
+
+Nomes de bancos de dados, de tabelas e de campos devem ser escritos em minúsculas e palavras compostas com sublinhado as separando. Isto porque o PostgeSQL é case sensitivo.
+
+O SQL não é sensível ao caso, a não ser que os identificadores estejam escritos entre aspas duplas.
+
+MÁXIMO DE CAMPOS DE UMA TABELA
+Uma tabela pode conter no máximo de 250 a 1600 campos, dependendo do tipo de dados. Claro que jamais devemos usar uma tabela tão grande.
+
+Cada tabela deve conter informações somente sobre um único assunto.
+
+Ao tentar apagar uma tabela que não existe um erro é disparado. Para evitar isso:
+
+drop table if exists nometabela;
+
+
+Palavras Reservadas:
+
+oid
+tableoid
+xmin
+xmax
+cmin
+cmax
+ctid
+
+

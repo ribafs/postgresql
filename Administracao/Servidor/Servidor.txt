@@ -1,0 +1,25 @@
+Quando escolhemos uma máquina para ser o servidor do PostgreSQL devemos atentar para alguns detalhes:
+
+- Escolher o sistema operacional de acordo com a segurança desejada, com a experiência dos administradores, com características desejadas (tablespace requer link simbólico) (ou treinar administradores para o SO escolhido, ou ainda contratar administradores com experiência);
+- Escolher o hardware adequado para ser o servidor;
+- É importante que o servidor tenha o melhor desempenho possível, portando devemos optar:
+	- pela ausência de ambiente gráfico (se presente, que seja um magro)
+	- uso de kernel otimizado para o PostgreSQL
+	- Instalar somente os serviços essenciais
+	- otimizar as configurações do PostgreSQL
+	- otimizar o hardware
+- Devemos fazer uma boa inspeção em tudo que se relaciona à segurança: 
+	- senhas e privilégios de usuários
+	- acesso físico dos administradores
+	- backups regulares 
+	- mídias de boa qualidade
+	- local adequado para armazenamento da mídia
+	- sanidade do servidor (proteção antes de chegar ao mesmo, através de firewall, anti-virus, etc)
+	- etc.	
+- O Ubuntu e outras distribuições contam com uma versão de suas distribuições específica para servidores
+- O Windows 2008 server agora vem com a opção de se instalar apenas o core.
+
+
+Bom tutorial de instalação do Ubuntu-server:
+"Instalar un servidor con ubuntu-server"
+

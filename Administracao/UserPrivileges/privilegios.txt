@@ -1,0 +1,95 @@
+Privilégios de Usuários e Grupos/Roles
+
+Quando um objeto é criado a ele é atribuído um dono. Por padrão o dono é quem 
+executou o create.... O estado inicial é que somente o dono ou o super usuário
+pode fazer alguma coisa com o objeto. Para permitir que outro usuário use, 
+precisamos conceder o devido privilégio.
+
+Para cada aplicativo, banco criado crie também um usuário com o mesmo nome do banco.
+Para apenas uma das tabelas do banco faça com que o usuário tenha somente os privilégios:
+Insert, Select e Update. Com isto o usuário não poderá excluir registros nesta tabela e
+não terá acesso a nenhuma das demais tabelas do banco nem de outros bancos, muito menos
+alterar a estrutura de qualquer um dos objetos do banco: tabelas, sequences, bancos, etc.
+
+GRANT privilégios
+  ON objetos
+  TO role;
+
+Privilégios:
+usage
+select
+update
+delete
+create
+truncate
+references
+trigger
+alter
+connect
+login
+temporary
+execute
+usage
+all - garante todos os privilégios sob um objeto
+
+Mostrar informações sobre os privilégios
+\z
+
+O direito de modificar ou de destruir é sempre do dono.
+
+Um objeto pode mudar de dono usando o comando 
+ALTER
+
+Para fazer isso precisamos ser o dono ou pertencer ao grupo do mesmo ou ser
+super usuário.
+
+Criação do Usuário:
+
+- Abrir o phppgadmin e se logar como super usuário
+- Clique na Aba Usuários - Criar Usuário
+- Em nome de usuário dê o mesmo nome do banco
+- Em Senha e confirmar entre também com o nome do banco e repita
+- Não custa lembrar que na prática de trabalho devemos utilizar senhas fortes
+- Em Superusuário? deixe desmarcada
+- Em Criar DB? também desmarcada
+- Em expira deixe em branco (aqui pode entrar com uma data para que o usuário expire)
+- Clique em Criar
+
+Concedendo e Removendo Privilégios para uma Tabela:
+
+- Ainda como super usuário clique na aba Banco de Dados
+- Selecione o banco
+- Clique no link SQL e digite as três linhas abaixo:
+
+REVOKE ALL ON nometabela FROM nomeusuario;  -- antes de tudo remove todos os privilégios para a tabela
+GRANT SELECT,UPDATE,INSERT ON nometabela TO nomeusuario;
+GRANT SELECT,UPDATE,INSERT ON cliente_codigo_seq TO apagar;
+
+-- Caso não tenha uma tabela com campo tipo sequence com nome cliente_codigo_seq, 
+-- remova a última linha acima
+
+-- Para que nenhum usuário tenha acesso à tabela use:
+-- REVOKE ALL ON nometabela FROM PUBLIC;
+
+Exemplos:
+REVOKE ALL ON cliente FROM cliente;
+GRANT SELECT,UPDATE,INSERT ON cliente TO cliente;
+GRANT SELECT,UPDATE,INSERT ON cliente_codigo_seq TO cliente;
+
+REVOKE ALL ON usuario FROM cliente;
+GRANT SELECT,UPDATE,INSERT ON usuario TO cliente;
+
+REVOKE - remove um privilégio. Somente o dono ou o super usuário podem usar o revoke
+revoke all on contas from public;
+
+Ao final clique no botão Rodar.
+Após isso faça alguns testes tentando, por exemplo, remover algum registro da tabela se logando como o usuário acima.
+
+Inserir Registros de Teste
+
+Após a criação dos bancos, tabelas e usuários com os devidos privilégios adicione alguns registros a cada uma das tabelas para testar o aplicativo.
+
+Para conceder privilegio de update ao joe na tabela contas:
+grant update on contas to joe;
+
+

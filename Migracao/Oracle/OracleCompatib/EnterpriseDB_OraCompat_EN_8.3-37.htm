@@ -1,0 +1,59 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>EnterpriseDB Oracle Compatibility Developer's Guide: Boolean Type</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1974"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-37_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-36.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-37_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-37_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-38.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-37_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P1952_106137"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.2.5 Boolean Type</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> provides the standard </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> type </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BOOLEAN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BOOLEAN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> can have one of only two states:</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> &#8220;true&#8221; or &#8220;false&#8221;</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A third state,</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> &#8220;unknown&#8221;</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, is represented by the </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> null value.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-9 Boolean Type</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="85"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name</span></p>
+</td>
+<td valign="top" width="106"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Storage Size</span></p>
+</td>
+<td valign="top" width="237"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="85"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">BOOLEAN</span></p>
+</td>
+<td valign="top" width="106"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">1 byte</span></p>
+</td>
+<td valign="top" width="237"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Logical </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Boolean</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> (true/false)</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The valid literal value</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">for representing </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">the &#8220;true&#8221; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">state is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TRUE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The valid literal for representing </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">the &#8220;false&#8221; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">state is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FALSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><b>Note</b></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BOOLEAN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> data type can only be used for a variable declaration in an </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">program -</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> it cannot be used to define a colu</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">mn data type in a table.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-36.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-37_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-37_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-38.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-37_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-37_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-37_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

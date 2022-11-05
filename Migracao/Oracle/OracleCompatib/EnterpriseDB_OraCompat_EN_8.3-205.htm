@@ -1,0 +1,105 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>DBMS_OUTPUT.GET_LINES</title>
+
+<meta name="keywords" content="dbms_output.get_lines, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2142"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-205_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-204.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-205_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-205_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-206.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-205_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P10262_548158"></a><span style="font-family: 'Arial'; font-size: 13pt;">7.2.5 GET_LINES</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GET_LIN</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ES</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+procedure provides the capability to retrieve one or more lines of text
+from the message buffer into a collection. Only text that has been
+terminated by an end-of-line character sequence is retrieved &#8211; that is
+complete lines generated using </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">P</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UT_LINE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, or by a series of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> calls followed by a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEW_LINE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> call.</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GET_LINES(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>lines</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> OUT CHARARR, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>numlines</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> IN OUT INTEGER)</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>lines</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Table receiving the lines of text from the message buffer. See <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-200.htm#P10157_543453"><u>CHARARR</u></a> for a description of </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">lines</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>numlines</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> IN</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Number of lines to be retrieved from the message buffer.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>numlines</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> OUT</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Actual number of lines retrieved from the message buffer. If the output value of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>numlines</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is less than the input value, then there are no more lines left in the message buffer.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following examples uses the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GET_LINES</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure to store all rows from the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table that were placed on the message buffer, into an array.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXEC DBMS_OUTPUT.SERVEROUTPUT(FALSE);</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_emprec        VARCHAR2(120);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CURSOR emp_cur IS SELECT * FROM emp ORDER BY empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.ENABLE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR i IN emp_cur LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_emprec := i.empno || ',' || i.ename || ',' || i.job || ',' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            NVL(LTRIM(TO_CHAR(i.mgr,'9999')),'') || ',' || i.hiredate ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            ',' || i.sal || ',' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            NVL(LTRIM(TO_CHAR(i.comm,'9990.99')),'') || ',' || i.deptno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(v_emprec);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_lines         DBMS_OUTPUT.CHARARR;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_numlines      INTEGER := 14;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_status        INTEGER := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.GET_LINES(v_lines,v_numlines);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR i IN 1..v_numlines LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        INSERT INTO messages VALUES(v_numlines, v_lines(i));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT msg FROM messages;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                               msg</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----------------------------------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7369,SMITH,CLERK,7902,17-DEC-80 00:00:00,800.00,,20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7499,ALLEN,SALESMAN,7698,20-FEB-81 00:00:00,1600.00,300.00,30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7521,WARD,SALESMAN,7698,22-FEB-81 00:00:00,1250.00,500.00,30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7566,JONES,MANAGER,7839,02-APR-81 00:00:00,2975.00,,20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7654,MARTIN,SALESMAN,7698,28-SEP-81 00:00:00,1250.00,1400.00,30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7698,BLAKE,MANAGER,7839,01-MAY-81 00:00:00,2850.00,,30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7782,CLARK,MANAGER,7839,09-JUN-81 00:00:00,2450.00,,10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7788,SCOTT,ANALYST,7566,19-APR-87 00:00:00,3000.00,,20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7839,KING,PRESIDENT,,17-NOV-81 00:00:00,5000.00,,10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7844,TURNER,SALESMAN,7698,08-SEP-81 00:00:00,1500.00,0.00,30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7876,ADAMS,CLERK,7788,23-MAY-87 00:00:00,1100.00,,20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7900,JAMES,CLERK,7698,03-DEC-81 00:00:00,950.00,,30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7902,FORD,ANALYST,7566,03-DEC-81 00:00:00,3000.00,,20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7934,MILLER,CLERK,7782,23-JAN-82 00:00:00,1300.00,,10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(14 rows)</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-204.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-205_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-205_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-206.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-205_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-205_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-205_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

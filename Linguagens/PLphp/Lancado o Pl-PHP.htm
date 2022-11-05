@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>iMasters - Por uma Internet mais criativa e din&acirc;mica</title>
+	<meta name="resource-types" content="document" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta name="revisit-after" content="1" />
+	<meta name="classification" content="Internet" />
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="Description" content="Comunidade de profissionais, estudantes e mestres em tecnlogias e ferramentas voltadas para o desenvolvimento web." />
+
+	<meta name="Keywords" content="programa&ccedil;&atilde;o, microsoft, asp, php, internet, linux, curso online, webmaster, java, flash, delphi, sql, oracle, cursos online, javascript, css, XHTML, HTML,  photoshop, semantica, web standards,  interbase, fireworks, dreamweaver, tableless, standards, browsers, compatibilidade, XML, usabilidade, acessibilidade, web, internet" />
+	<meta name="robots" content="ALL" />
+	<meta name="distribution" content="Global" />
+	<meta name="rating" content="General" />
+	<meta name="author" content="WebStudio iMasters" />
+	<meta name="language" content="pt-br" />
+	<meta name="doc-class" content="Completed" />
+	<meta name="doc-rights" content="Public" />
+	<link rel="shortcut icon" href="http://www.imasters.com.br/favicon.ico" />
+
+	<base href="http://www.imasters.com.br/" />
+	<style type="text/css" media="screen">
+		
+		#imprimir { width:487px; }
+		body { font-family:Arial; font-size: 12px; }
+		span { float:left font-size:11px; padding:2px; }
+		h1 { font-size:16px; padding: 3px; }
+		h2 { font-size:14px; }
+		h3 { font-size:13px; }
+		h3 { font-size:12px; }
+		
+	</style>
+</head>
+<body>
+<div id="imprimir">
+	<img src="http://static.imasters.uol.com.br/img/conteudo/topo_imprimir.gif" />
+	<br />
+	<span>Daniel Oslei</span>
+	<span>Ter&ccedil;a-feira, 18 de maio de 2004</span>
+	<h1>Lan&ccedil;ado o Pl/PHP</h1>
+	<p class="texto">Foi lan&ccedil;ado o Pl/PHP, mais uma linguagem procedural para cria&ccedil;&atilde;o
+  de fun&ccedil;&otilde;es no PostgreSQL. Mais um exemplo do grande potencial que o PostgreSQL.
+  J&aacute; existe v&aacute;rias outras linguagens para a cria&ccedil;&atilde;o de fun&ccedil;&otilde;es, como o Pl/Java,
+  Pl/Python, Pl/PgSQL e Pl/Perl dentre v&aacute;rias outras. As fun&ccedil;&otilde;es s&atilde;o criadas
+  na qual os comandos seguem a sintaxe do PHP. </p>
+<p class="texto">Suporta atualmente SPI (Server Programming Interface), tipos
+  compostos, fun&ccedil;&otilde;es que retornem SETOF, triggers, fun&ccedil;&otilde;es Trusted e Untrusted.	</p>
+<p class="texto">Abaixo h&aacute; exemplos da cria&ccedil;&atilde;o de fun&ccedil;&otilde;es em Pl/PHP extra&iacute;dos
+  do site www.postgresql.org:</p>
+<p class="codigo">CREATE OR REPLACE FUNCTION set_var(text) RETURNS text AS ' <br />
+  global $_SHARED; <br />
+  $_SHARED[''first'']=$args[0]; <br />
+  return ''ok''; <br />
+  ' LANGUAGE plphp <br />
+  <br />
+  CREATE OR REPLACE FUNCTION get_var() RETURNS text AS ' <br />
+  global $_SHARED; <br />
+  return $_SHARED[''first'']; <br />
+  ' LANGUAGE plphp; <br />
+  <br />
+  SELECT set_var('hello plphp'); <br />
+SELECT get_var(); //will return "hello plphp" in our example </p>
+<p class="texto">Abaixo h&aacute; um exemplo de uso de  Pl/PHP com fun&ccedil;&otilde;es que retornem
+  SETOF:</p>
+<p class="codigo">CREATE TYPE __testsetphp AS (f1 integer, f2 text, f3 text); <br />
+  <br />
+  CREATE OR REPLACE FUNCTION php_set(integer) RETURNS SETOF __testsetphp AS ' <br />
+  $ret[0][0]=$args[0]; <br />
+  $ret[0][1]="hello"; <br />
+  $ret[0][2]="world"; <br />
+  $ret[1][0]=2*$args[0]; <br />
+  $ret[1][1]="hello"; <br />
+  $ret[1][2]="postgres"; <br />
+  $ret[2][0]=3*$args[0]; <br />
+  $ret[2][1]="hello"; <br />
+  $ret[2][2]="plphp"; <br />
+  return $ret; <br />
+  ' LANGUAGE 'plphp'; <br />
+  <br />
+  SELECT * FROM php_set(1); <br />
+  <br />
+  Will return: <br />
+f1 | f2 | f3 <br />
+----+-------+---------- <br />
+1 | hello | world <br />
+2 | hello | postgres <br />
+3 | hello | plphp </p>
+<p class="texto">Neste &uacute;ltimo exemplo &eacute; mostrado que pode-se criar fun&ccedil;&otilde;es PHP
+  dentro da fun&ccedil;&atilde;o que ser&aacute; armazenado no banco:</p>
+<PRE class="codigo">CREATE OR REPLACE FUNCTION insertIntoArray() RETURNS varchar AS '
+
+function array_insert(&amp;$array, $value, $pos)
+
+{
+    if (!is_array($array))
+         return FALSE;
+    $last = array_splice($array, $pos);
+    array_push($array, $value);
+    $array = array_merge($array, $last);
+}
+
+function array_2string($array)
+{
+    $vals=array_values($array);
+    $keys=array_keys($array);
+    $x=0;
+    while($x&lt;count($keys)) {
+         if ($x!=0)
+            {
+                 $result.="|";
+            }
+           $result.=$keys[$x]."=".$vals[$x];
+           $x++;
+        }
+     return $result;
+}
+$a = array("zero", "one", "two", "three", "four", "five", "six", "seven", "eight");
+array_insert($a, "POOP", 4);
+return array_2string($a);
+' LANGUAGE 'plphp';</PRE>
+<p class="texto">O Pl/PHP pode ser encontrado no site da Command Prompt, Inc.,
+  para mais informa&ccedil;&otilde;es <a href="http://plphp.commandprompt.com" target="_blank">clique
+  aqui</a>. </p>
+</div>
+</body>
+</html>

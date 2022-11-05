@@ -1,0 +1,9 @@
+PostgreSQL - http://postgresql.org
+
+PGadmin - http://pgadmin.org
+sudo apt-get install pgadmin3
+
+adminer - http://adminer.org
+
+DbVisualizer - http://dbvis.com
+

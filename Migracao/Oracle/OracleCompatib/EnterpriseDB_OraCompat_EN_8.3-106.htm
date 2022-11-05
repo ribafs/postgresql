@@ -1,0 +1,56 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2043"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-106_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-105.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-106_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-106_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-107.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-106_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P5829_314996"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.5.8 Sequence Manipulation Functions</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This section describes </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">functions for operating on sequence objects.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Sequence objects (also called sequence generators or just sequences) are special single-row tables created</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> with</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> the</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE SEQUENCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A sequence object is usually used to generate unique identifiers for rows of a table.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The sequence functions</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, listed below, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">provide simple, multiuser-safe methods for obtaining successive sequence values from sequence obj</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ects.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>sequence</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.NEXTVAL</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>sequence</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.CURRVAL</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>sequence</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the identifier assigned to the sequence in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE SEQUENCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following describes the usage of these functions.</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Advance the sequence object to its next value and return that value. T</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">his is done atomically:</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">even if multiple sessions execute </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> concurrently, each will safely receive a distinct sequence value.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CURRVAL</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Return the value most recently obtained by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> for this sequence in the current session.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">(An error is reported i</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">f </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> has never been called for this sequence in this session.)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Notice
+that because this is returning a session-local value, it gives a
+predictable answer whether or not other sessions have executed </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> since the current session did.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If a sequence object has been created with default parameters, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> calls on it will return successive values beginning with 1. Other behaviors can be obtained by using special parameters in the <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-59.htm#P2881_155983">CREATE SEQUENCE</a></u> command.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Impor</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">tant</span></b><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">To avoid blocking of concurrent transactions that obtain numbers from the same sequence, a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+operation is never rolled back; that is, once a value has been fetched
+it is considered used, even if the transaction that did the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> later aborts</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This means that aborted transactions may leave unused </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">"holes"</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in the sequence of assigned values.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-105.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-106_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-106_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-107.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-106_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-106_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-106_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

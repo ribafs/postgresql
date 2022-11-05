@@ -1,0 +1,24 @@
+Mudando a Codificação de Caracteres do PostgreSQL para URF8
+
+Initiate Postgresql
+
+$ sudo service postgresql start
+
+$ sudo sudo -u postgres psql
+
+postgres=# CREATE USER username SUPERUSER PASSWORD 'password';
+
+postgres=# \q
+
+Update template1 postgresql for database.yml on cloud9:
+
+$ sudo sudo -u postgres psql
+postgres# UPDATE pg_database SET datistemplate = FALSE WHERE datname = 'template1';
+postgres# DROP DATABASE template1;
+postgres# CREATE DATABASE template1 WITH TEMPLATE = template0 ENCODING = 'UNICODE';
+postgres# UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template1';
+postgres# \c template1
+postgres# VACUUM FREEZE;
+postgres# \q
+
+https://github.com/Aerogami/guides/wiki/Cloud9-workspace-setup-with-Rails-and-Postgresql

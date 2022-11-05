@@ -1,0 +1,23 @@
+Sub Consultas
+
+Quando temos um select dentro de outro select para recuperar registros filtrados de
+outra consulta.
+
+Mostrar disciplinas que possuem o mesmo nr. de créditos de Álgebra:
+
+select disciplinas from disciplinas
+	where creditos = (select creditos
+	from disciplinas
+	where descricao = 'Álgebra');
+	
+Todas as expressões retornam true/false
+
+exists(subqry)	
+in(subqry)
+not(subqry)
+any(subqry)
+all(subqry)
+
+	
+Outros exemplos
+

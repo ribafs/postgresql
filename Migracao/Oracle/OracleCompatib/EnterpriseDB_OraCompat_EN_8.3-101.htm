@@ -1,0 +1,346 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2038"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-101_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-100.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-101_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-101_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-102.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-101_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P4729_279355"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.5.3 Mathematical Functions and Operators</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Mathematical operators are provided for many </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+types. For types without common mathematical conventions for all
+possible permutations (e.g., date/time types) the actual behavior is
+described in subsequent sections.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following table shows the available mathematical operators.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-17 Mathematical Operators</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="86"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Operator</span></p>
+</td>
+<td valign="top" width="303"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td>
+<td valign="top" width="95"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Example</span></p>
+</td>
+<td valign="top" width="94"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Result</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="86"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">+</span></p>
+</td>
+<td valign="top" width="303"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Addition</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">2 + 3</span></p>
+</td>
+<td valign="top" width="94"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">5</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="86"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">-</span></p>
+</td>
+<td valign="top" width="303"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Subtraction</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">2 &#8211; 3</span></p>
+</td>
+<td valign="top" width="94"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">-1</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="86"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">*</span></p>
+</td>
+<td valign="top" width="303"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Multiplication</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">2 * 3</span></p>
+</td>
+<td valign="top" width="94"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">6</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="86"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">/</span></p>
+</td>
+<td valign="top" width="303"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Division (integer division truncates results)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">4 / 2</span></p>
+</td>
+<td valign="top" width="94"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">2</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following table shows the available mathematical functions. Many </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">of
+these functions are provided in multiple forms with different argument
+types. Except where noted, any given form of a function returns the
+same data type as its argument. The functions working with </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> data are mostly implemented on top of </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">the host </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">system&#8217;s </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">C library; accuracy and behavior in boundary cases may therefore vary depending on the host system.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-18 Mathematical Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="160"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="95"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Return Type</span></p>
+</td>
+<td valign="top" width="120"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td>
+<td valign="top" width="132"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Example</span></p>
+</td>
+<td valign="top" width="119"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Result</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ABS(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">S</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ame as </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Absolute value</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ABS(-17.4)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">17.4</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CEIL(DOUBLE PRECISION or NUMBER</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as input</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Smallest integer not less than argument</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CEIL(-42.8)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">-</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">42</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">EXP(DOUBLE PRECISION or NUMBER)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as input</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Exponential</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">EXP(1.0)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">2.7182818284590452</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FLOOR(DOUBLE PRECISION o</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">r NUMBER)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as input</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Largest integer not greater than argument</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FLOOR(-42.8)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">43</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LN(DOUBLE PRECISION or NUMBER)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as input</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Natural logarithm</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LN(2.0)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">0.6931471805599453</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LOG(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>b</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> NUMBER, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> NUMBER)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Logarithm to base </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>b</i></span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LOG(2.0, 64.0)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">6.00000000000000</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">00</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MOD(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as argument types</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Remainder of </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>y</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">/</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MOD(9, 4)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">1</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NVL(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as argument types; where both arguments are of the same data type</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">If </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> is null, then NVL returns </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>y</i></span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NVL(9, 0)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">9</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">POWER(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>a</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> DOUBLE PRECISION, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>b</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> DOUBLE PRECISION)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>a</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> raised to the power of </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>b</i></span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">POWER(9.0, 3.0)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">729.0000000000000000</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">POWER(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>a</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> NUMBER, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>b</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> NUMBER)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>a</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> raised to the power of </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>b</i></span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">POWER(9.0, 3.0)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">729.0000000000000000</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ROUND(DOUBLE PRECISION or NUMBER)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as input</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Round to nearest integer</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ROUND(42.4)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">42</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ROU</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ND(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>v</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> NUMBER, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>s</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> INTEGER)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Round to </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>s</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> decimal places</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ROUND(42.4382, 2)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">42.44</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SIGN(DOUBLE PRECISION or NUMBER)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as input</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Sign of the argument (-1, 0, +1)</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SIGN(-8.4)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">-1</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQRT(DOUBLE PRECISION or NUMBER)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as input</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Square root</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SQRT(2.0)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">1.41421356</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">2373095</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TRUNC(DOUBLE PRECISION or NUMBER)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as input</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Truncate toward zero</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TRUNC(42.8)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">42</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TRUNC(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>v</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> NUMBER, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>s</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> INTEGER)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Truncate to s decimal places</span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TRUNC(42.4382, 2)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">42.43</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="160"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">WIDTH_BUCKET(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>op</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> NUMBER, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>b1</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> NUMBER, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>b2</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> NUMBER, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>count</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> INTEGER)</span></p>
+</td>
+<td valign="top" width="95"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span></p>
+</td>
+<td valign="top" width="120"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Retur</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n the bucket to which </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>op</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> would be assigned in an equidepth histogram with </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>count</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> buckets, in the range </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>b1</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>b2</i></span></p>
+</td>
+<td valign="top" width="132"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">WIDTH_BUCKET(5.35, 0.024, 10.06, 5)</span></p>
+</td>
+<td valign="top" width="119"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">3</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+following table shows the available trigonometric functions. All
+trigonometric functions take arguments and return values of </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">type </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-19 Trigonometric Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="123"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="168"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="123"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ACOS(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="168"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Inverse cosine</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="123"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ASIN(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="168"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Inverse sine</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="123"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ATAN(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="168"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Inverse tangent</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="123"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ATAN2(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="168"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Inverse tangent of </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">/</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>y</i></span></p>
+</td></tr>
+<tr>
+<td valign="top" width="123"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">COS(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="168"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Cosine</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="123"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SIN(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="168"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Sine</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="123"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TAN(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>x</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="168"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Tangent</span></p>
+<p><a name="P4868_282322"></a></p></td></tr></tbody></table>
+
+</p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-100.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-101_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-101_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-102.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-101_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-101_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-101_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

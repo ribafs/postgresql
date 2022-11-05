@@ -1,0 +1,9 @@
+create function GetAlunos() returns setof identificacao as 
+'select nome from identificacao;' 
+language 'sql';
+
+ou
+
+create function GetAlunos() returns setof identificacao as 
+$$ select nome from identificacao; $$ 
+language 'sql';

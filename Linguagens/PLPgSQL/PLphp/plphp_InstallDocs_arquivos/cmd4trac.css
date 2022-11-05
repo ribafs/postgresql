@@ -1,0 +1,97 @@
+body {
+  margin: 0px;
+  background: #ffffff;
+  color: #444444;
+}
+
+div#topcontainer {
+  width: 800px;
+  text-align: left;
+}
+
+div#widecontainer {
+  width: 100%;
+  text-align: left;
+}
+
+div#widetop {
+  height: 60px;
+  background-color: #286aaf;
+}
+div#widetopgrey {
+  height: 4px;
+  background-color: #acacac;
+}
+
+/* The Top Area */
+
+div#topleft {
+  float: left;
+  width: 400px;
+  text-align: left;
+}
+div#__topright {
+  float: right;
+  width: 400px;
+  text-align: right;
+}
+div#topright ul {
+  display: block;
+  padding: 0px;
+  margin-top: 12px;
+  margin-bottom: 0px;
+}
+div#topright ul li {
+  display: inline;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+/* TEST */
+
+
+/* TEST END */
+
+/* Utilities for block-level display tweaking */
+
+div.throwleft {
+  float: left;
+  padding: 1px;
+}
+
+div.throwright {
+  float: right;
+  padding: 1px;
+}
+
+.clearleftblock {
+  display: block;
+  clear: left;
+  line-height: 0px;
+}
+
+.clearrightblock {
+  display: block;
+  clear: right;
+  line-height: 0px;
+}
+
+td.deactivated {
+//  text-decoration: line-through;
+    color: red;
+}
+
+/* Book specific */
+
+H1 { color: #286aaf; }
+
+/* Blog-specific */
+div.draft
+{
+  background-color: #e0e0e0;
+  border: 1px solid #808080;
+  padding-left: 4px;
+}
+
+div.draft a { color: #282828; }

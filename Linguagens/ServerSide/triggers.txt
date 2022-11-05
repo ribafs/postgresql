@@ -1,0 +1,34 @@
+Trigger/Gatilho
+
+São procedimentos armazenados que são disparados por eventos do banco.
+
+A implementação de uma trigger pode ser em plpgsql.
+A função de uma trigger deve ter um retorno do tipo trigger.
+
+O PostgreSQL provém uma função nativa para triggers/gatilhos:
+
+suppress_redundant_update_trigger - esta função deve previnir qualquer atualiza-
+ção que não mude nada no registro ao contrário do comportamento normal que
+sempre executa atualização mesmo que não tenha alterações.
+
+Idealmente devemos evitar atualizações que não alterem dados.
+
+Exemplo de uso:
+
+create trigger z-min-update
+before update on tabela
+for each row execute procedure
+suppress_redundant_updates_trigger();
+
+
+Função de Eventos de Trigger
+
+O PostgreSQL tem uma função nativa de eventos de trigger, que é a:
+
+pg_event_trigger_dropped_objects
+
+Mostra uma lista de objetos excluídos.
+
+
+
+

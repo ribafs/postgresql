@@ -1,0 +1,160 @@
+Geração de Histórico Automático em Bancos de Dados PostgreSQL
+Por Mauro Henrique Costa Matos
+Abril de 2005
+
+Para ver a acentuação utilize codificação UTF-8.
+
+
+1 - Introdução
+2 - Histórico
+3 - Conteúdo dos Arquivos
+4 - Instalação
+5 - Uso
+6 - Considerações Finais
+
+
+1 - Introdução
+
+Esse texto destina-se a pessoas que desejam implantar mecanismos de geração de
+histórico das tabelas de um banco de dados PostgreSQL. Com objetivos de
+audita-las ou mesmo para simples recuperação de valores anteriores. É minha
+solução para criação de histórico no banco, com armazenamento em tabelas.
+
+
+2 - Histórico
+
+Versão:    1
+Data:      21/09/2002
+Descrição: Versão inicial, para uso particular.
+
+Versão:    2
+Data:      24/02/2004
+Descrição: Primeira liberação na lista postgresql-br;
+           Geração de histórico com uso de esquemas.
+
+Versão:    3
+Data:      05/10/2004
+Descrição: Primeira liberação de documentação;
+           Alteração na instrução para criação dos gatilhos na função
+           fun_criar_trigger;
+           Alterações para suportar que as infra-estruturas do histórico fiquem
+           armazenadas em esquemas diferentes da(s) tabela(s) auditada(s). 
+
+Versão:    4
+Data:      25/04/2005
+Descrição: Inclusão de numeração das mensagens nas rotinas;
+           Unificação dos scripts de criação de tabelas, vistas e função em um
+           arquivo, visando facilitar a criação da infra-estrutura necessária;
+           Modificações nas nomenclaturas das vistas, funções e dos gatilhos;
+           Inclusão de mais um parâmetro na função que cria os gatilhos e as
+           novas funções, para uma maior flexibilidade;
+           Alterações no conteúdo desse arquivo.
+
+
+3 - Conteúdo dos Arquivos
+
+plpgsql.sql        - "Script" que instala a linguagem PL/pgSQL (plpgsql) em
+                     seu banco de dados PostgreSQL.
+s01historico.sql   - "Script" que cria a infra-estrutura (tabelas, vistas,
+                     função) necessária para geração de histórico.
+historico_4.txt    - Esse arquivo.
+
+
+4 - Instalação
+
+Você deve entrar no programa "psql", o terminal interativo do PostgreSQL, como
+administrador ou proprietário do banco de dados que queira gerar histórico. Para
+isso, digite na linha de comando, como mostrado abaixo:
+$ psql [nome da base] -h [host] -U [usuário do banco]
+
+Para maiores informações digite:
+$ psql --help
+
+Após entrar no psql, utilize a opção "\i" para rodar os "scripts" listados no
+ítem anterior.
+
+[SuaBase]=# \i plpgsql.sql
+
+Em seguida, digite:
+
+[SuaBase]=# \i s01historico.sql
+
+Será criado um esquema chamado historico. Os usuários do banco devem ter
+direitos de acessos às visões e funções criadas, como também direito de inserir
+nas tabelas do esquema recém-criado. Eventualmente, usuários com autorização
+para recuperação de dados devem ter direito de consulta ("select").
+
+Se você estiver executando o script s01historico.sql pela primeira vez,
+aparecerá uma mensagem de erro informando que o esquema "historico" não existe,
+não se preocupe com ela, siga em frente.
+
+
+5 - Uso
+
+O histórico das tabelas é feito pela execução de gatilhos e função disparada
+pelo mesmo. Para cria-los, utilize a função f01criar_trigger esquema
+"historico". Como mostrado abaixo:
+
+Os comandos a seguir, são dados no psql.
+
+[SuaBase]=# SELECT
+[SuaBase]-# f01criar_trigger('base_de_dados','nome_da_tabela',
+[SuaBase]-# 'nome_do_gatilho', 'historico.nome_funcao_disparada');
+
+Se tudo ocorrer bem, será listada a função e a gatilho criados para gerar o
+histórico da tabela.
+
+
+A função historico.f01criar_trigger (text, text, text, text) recebe quatro
+parâmetro do tipo text, descrito a seguir:
+
+1 = Nome do esquema onde se localiza a tabela.
+2 = Nome da tabela que será gerado o histórico.
+3 = Nome do gatilho ou trigger que será criado.
+4 = nome da função que será chamada pelo gatilho (opcionalmente qualificado
+    pelo esquema).
+
+
+Ex.:
+[SuaBase]=# SELECT
+[SuaBase]-# f01criar_trigger('public','tab_x','trig_x',
+[SuaBase]-# 'public.fun_chamada_x');
+
+Se já existir um gatilho "trig_x" para a tabela "tab_x", então você deve
+primeiro remove-lo, juntamente com a função disparada por ele. Digite os
+comandos abaixo:
+
+[SuaBase]=# DROP TRIGGER trig_x ON tab_x;
+[SuaBase]=# DROP FUNCTION public.fun_chamada_x();
+
+
+6 - Considerações Finais
+
+Os scripts foram testados no Linux, Fedora Core 3 (2.6.11-1.14_FC3), e com
+PostgreSQL 8.0.1. Todavia devem funcionar em outros sistemas operacionais, visto
+que, o único pré-requisito é ter o SGDB PostgreSQL instalado.
+
+A data de atualização registrada na tabela t01historico_tabelas, e baseada no
+CURRENT_TIMESTAMP do banco, bem como a identificação do usuário (CURRENT_USER).
+
+É importante notar que após qualquer modificação, inclusão ou remoção de
+coluna, na estrutura de uma tabela auditada, ou no esquema das mesmas, a função
+'f01fun_criar_trigger' deve ser rodada novamente, para que seja construída uma
+função de geração de histórico adequado à nova estrutura da tabela. Remova o
+gatilho ("trigger") e a função, conforme mencionado acima.
+
+O conteúdo de imagens armazenadas em tabelas com campos do tipo oid / lo,
+identificador de objetos / objetos longos, não são armazenados nas tabelas do
+histórico, apenas o número do oid é armazenado. Lembre-se que os objetos longos
+são armazenados em uma talela especial do banco de dados, no esquema pg_catalog,
+denominada pg_largeobject.
+
+O administrador de banco de dados deve está atento a quantidade de registros
+presentes na tabela t01historico_tabelas, sua chave é baseada numa seqüência
+cíclica (s01chave_t01), seu valor será reiniciado após a chave atingir o valor
+máximo, por isso é necessário remover os registros mais antigos das tabelas
+t01historico_tabelas e t02historico_campos, quando a mesma estiver
+próxima a atingir ao seu limite, para que não ocorra erro.
+
+Quanto as críticas "construtivas" ou sugestões, poderão ser enviadas para mim
+pelo e-mail mauromatos@ig.com.br.

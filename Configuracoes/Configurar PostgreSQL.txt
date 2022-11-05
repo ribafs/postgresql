@@ -1,0 +1,19 @@
+
+Gerência dos Recursos do Core
+
+Uma instalação grande do PostgreSQL pode ter seus recursos exauridos rapidamente.
+
+Memória Compartilhada e Semáforo
+A memória compartilhada e os semáforos são referenciados coletivamente como "System V IPC".
+Quase todo sistema operacional moderno fornece estas funcionalidades, mas nem todos as têm ativas ou com tamanho suficiente por padrão.
+
+Limites de Recursos
+Os sistemas operacionais da família Unix obrigam respeitar vários tipos de limite de recursos que podem interferir com a operação do servidor PostgreSQL. São de particular importância os limites do número de processos por usuário, de número de arquivos abertos por processo, e a quantidade de memória disponível para cada processo. Cada um destes possui um limite "rígido" e um "flexível". O limite flexível é o que realmente conta, mas pode ser alterado pelo usuário até o limite rígido. O limite rígido somente pode ser alterado pelo usuário root.
+
+Sobre Alocação de Memória no Linux
+No Linux 2.4 e posteriores, o comportamento padrão de memória virtual não é o ótimo para o PostgreSQL. Devido à maneira como o núcleo implementa a sobre-alocação (overcommit) de memória, o núcleo pode fechar o servidor PostgreSQL (o processo postmaster), se a demanda por memória de um outro processo fizer com que o sistema fique sem memória virtual.
+No Linux 2.6 e posteriores, uma solução melhor é modificar o comportamento do núcleo para que não haja "sobre-alocação" de memória. Isto é feito selecionando o modo estrito de sobre-alocação através do comando sysctl:
+
+sysctl -w vm.overcommit_memory=2
+
+

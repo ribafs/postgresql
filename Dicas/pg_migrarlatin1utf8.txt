@@ -1,0 +1,23 @@
+PostgreSQL - migrando de LATIN1 para UTF-8
+
+Backup
+pg_dump -h localhost -U postgres -d apoena -Fp -v -f apoena.sql
+
+Conversão para UTF-8
+iconv -f iso-8859-1 -t utf-8 apoenal.sql > apoenau.sql
+
+
+Editar apoenau.sql e alterar a linha:
+
+SET client_encoding = 'LATIN1';
+
+De LATIN1 para UTF8
+
+
+Restauração
+Criar o novo banco
+
+createdb -h localhost -E UTF8 -U postgres apoena
+
+psql -h localhost -U postgres -d apoena < apoenau.sql
+

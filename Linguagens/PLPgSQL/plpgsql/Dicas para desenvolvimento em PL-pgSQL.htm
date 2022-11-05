@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Language" content="pt-br">
+<meta name="author" content="Traduzido por Halley Pacheco de Oliveira - Câmara Municipal do Rio de Janeiro">
+<meta name="keywords" content="postgresql manual documentação sql comandos tradução português brasil banco dados sgbd sgbdr sgbdor">
+<meta name="description" content="Tradução da Documentação do PostgreSQL 8.0.0 para o Português do Brasil">
+<title>Dicas para desenvolvimento em PL/pgSQL</title>
+<meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7">
+<link rev="MADE" href="mailto:pgsql-docs@postgresql.org">
+<link rel="HOME" title="Documentação do PostgreSQL 8.0.0" href="index.html">
+<link rel="UP" title="PL/pgSQL - Linguagem procedural SQL" href="plpgsql.html">
+<link rel="PREVIOUS" title="PL/pgSQL - Linguagem procedural SQL" href="plpgsql.html">
+<link rel="NEXT" title="Estrutura da linguagem PL/pgSQL" href="plpgsql-structure.html">
+<link rel="STYLESHEET" type="text/css" href="stylesheet.css">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="creation" content="2006-02-18T12:06:06">
+</head>
+<body class="SECT1">
+<div class="NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="5" align="center" valign="bottom">Documentação do PostgreSQL 8.0.0</th>
+</tr>
+
+<tr>
+<td width="10%" align="left" valign="top">
+<a href="plpgsql.html" accesskey="P">Anterior</a>
+</td>
+<td width="10%" align="left" valign="top">
+<a href="plpgsql.html">Início</a>
+</td>
+<td width="60%" align="center" valign="bottom">Capítulo 35. PL/pgSQL - Linguagem procedural SQL</td>
+<td width="10%" align="right" valign="top">
+<a href="plpgsql.html">Fim</a>
+</td>
+<td width="10%" align="right" valign="top">
+<a href="plpgsql-structure.html" accesskey="N">Próxima</a>
+</td>
+</tr>
+</table>
+
+<hr align="LEFT" width="100%">
+</div>
+
+<div class="SECT1">
+<h1 class="SECT1"><a name="PLPGSQL-DEVELOPMENT-TIPS">35.2. Dicas para desenvolvimento em PL/pgSQL</a></h1>
+
+<p>Uma boa maneira de desenvolver em <span class="APPLICATION">PL/pgSQL</span> é utilizar o editor de texto preferido para criar as funções e, em outra janela, utilizar o <span class="APPLICATION">psql</span> para carregar e testar as funções desenvolvidas. Se estiver sendo feito desta maneira, é uma boa idéia escrever a função utilizando <tt class="COMMAND">CREATE OR REPLACE FUNCTION</tt>. Fazendo assim, basta recarregar o arquivo para atualizar a definição da função. Por exemplo:</p>
+
+<pre class="PROGRAMLISTING">
+CREATE OR REPLACE FUNCTION funcao_teste(integer) RETURNS integer AS $$
+          ....
+$$ LANGUAGE plpgsql;
+</pre>
+
+<p></p>
+
+<p>Na linha de comando do <span class="APPLICATION">psql</span> a definição da função pode ser carregada ou recarregada utilizando</p>
+
+<pre class="PROGRAMLISTING">
+\i nome_do_arquivo.sql
+</pre>
+
+<p>e logo em seguida podem ser executados os comandos SQL que testam a função.</p>
+
+<p>Outra boa maneira de desenvolver em <span class="APPLICATION">PL/pgSQL</span>, é utilizar uma ferramenta de acesso ao banco de dados com interface gráfica que facilite o desenvolvimento em linguagem procedural. Um exemplo deste tipo de ferramenta é o <span class="APPLICATION">PgAccess</span>, mas existem outras. Estas ferramentas geralmente disponibilizam funcionalidades úteis como o escape de apóstrofos, e tornam mais fácil recriar e depurar funções.</p>
+
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-QUOTE-TIPS">35.2.1. Tratamento dos apóstrofos</a></h2>
+
+<p>O código da função <span class="APPLICATION">PL/pgSQL</span> é especificado no comando <tt class="COMMAND">CREATE FUNCTION</tt> como um literal cadeia de caracteres. Se o literal cadeia de caracteres for escrito da maneira usual, que é entre apóstrofos (<tt class="LITERAL">'</tt>), então os apóstrofos dentro do corpo da função devem ser duplicados; da mesma maneira, as contrabarras dentro do corpo da função (<tt class="LITERAL">\</tt>) devem ser duplicadas. Duplicar os apóstrofos é no mínimo entediante, e nos casos mais complicados pode tornar o código difícil de ser compreendido, porque pode-se chegar facilmente a uma situação onde são necessários seis ou mais apóstrofos adjacentes. Por isso, recomenda-se que o corpo da função seja escrito em um literal cadeia de caracteres delimitado por <span class="QUOTE">"cifrão"</span> (consulte a 
+<a href="sql-syntax.html#SQL-SYNTAX-DOLLAR-QUOTING">Seção 4.1.2.2</a>
+) em vez de delimitado por apóstrofos. Na abordagem delimitada por cifrão os apóstrofos nunca são duplicados e, em vez disso, toma-se o cuidado de escolher uma marca diferente para cada nível de aninhamento necessário. Por exemplo, o comando <tt class="COMMAND">CREATE FUNCTION</tt> pode ser escrito da seguinte maneira:</p>
+
+<pre class="PROGRAMLISTING">
+CREATE OR REPLACE FUNCTION funcao_teste(integer) RETURNS integer AS $PROC$
+          ....
+$PROC$ LANGUAGE plpgsql;
+</pre>
+
+<p>No corpo da função podem ser utilizados apóstrofos para delimitar cadeias de caracteres simples nos comandos <acronym class="ACRONYM">SQL</acronym>, e <tt class="LITERAL">$$</tt> para delimitar fragmentos de comandos <acronym class="ACRONYM">SQL</acronym> montados como cadeia de caracteres. Se for necessário delimitar um texto contendo <tt class="LITERAL">$$</tt>, deve ser utilizado <tt class="LITERAL">$Q$</tt>, e assim por diante.</p>
+
+<p>O quadro abaixo mostra o que deve ser feito para escrever o corpo da função entre apóstrofos (sem uso da delimitação por cifrão). Pode ser útil para tornar códigos anteriores à delimitação por cifrão mais fácil de serem compreendidos.</p>
+
+<div class="VARIABLELIST">
+<dl>
+<dt>1 apóstrofo</dt>
+
+<dd>
+para começar e terminar o corpo da função como, por exemplo:
+
+<pre class="PROGRAMLISTING">
+CREATE FUNCTION foo() RETURNS integer AS '
+          ....
+' LANGUAGE plpgsql;
+</pre>
+
+Em todas as ocorrências dentro do corpo da função os apóstrofos <span class="emphasis"><i class="EMPHASIS">devem</i></span> aparecer em pares.
+</dd>
+
+<dt>2 apóstrofos</dt>
+
+<dd>
+Para literais cadeia de caracteres dentro do corpo da função como, por exemplo:
+
+<pre class="PROGRAMLISTING">
+a_output := ''Blah'';
+SELECT * FROM users WHERE f_nome=''foobar'';
+</pre>
+
+Na abordagem delimitada por cifrão seria escrito apenas
+
+<pre class="PROGRAMLISTING">
+a_output := 'Blah';
+SELECT * FROM users WHERE f_nome='foobar';
+</pre>
+
+que é exatamente o código visto pelo analisador do <span class="APPLICATION">PL/pgSQL</span> nos dois casos.
+</dd>
+
+<dt>4 apóstrofos</dt>
+
+<dd>
+Quando é necessário colocar um apóstrofo em uma constante cadeia de caracteres dentro do corpo da função como, por exemplo:
+
+<pre class="PROGRAMLISTING">
+a_output := a_output || '' AND nome LIKE ''''foobar'''' AND xyz''
+</pre>
+
+O verdadeiro valor anexado a <tt class="LITERAL">a_output</tt> seria: <tt class="LITERAL">AND nome LIKE 'foobar' AND xyz</tt>.
+
+Na abordagem delimitada por cifrão seria escrito
+
+<pre class="PROGRAMLISTING">
+a_output := a_output || $$ AND nome LIKE 'foobar' AND xyz$$
+</pre>
+
+tendo-se o cuidado de que todos os delimitadores por cifrão envolvendo este comando não sejam apenas <tt class="LITERAL">$$</tt>.
+</dd>
+
+<dt>6 apóstrofos</dt>
+
+<dd>
+Quando o apóstrofo na cadeia de caracteres dentro do corpo da função está adjacente ao final da constante cadeia de caracteres como, por exemplo:
+
+<pre class="PROGRAMLISTING">
+a_output := a_output || '' AND nome LIKE ''''foobar''''''
+</pre>
+
+O valor anexado à <tt class="LITERAL">a_output</tt> seria: <tt class="LITERAL">AND nome LIKE 'foobar'</tt>.
+
+Na abordagem delimitada por cifrão se tornaria
+
+<pre class="PROGRAMLISTING">
+a_output := a_output || $$ AND nome LIKE 'foobar'$$
+</pre>
+
+
+</dd>
+
+<dt>10 apóstrofos</dt>
+
+<dd>
+Quando é necessário colocar dois apóstrofos em uma constante cadeia de caracteres (que necessita de 8 apóstrofos), e estes dois apóstrofos estão adjacentes ao final da constante cadeia de caracteres (mais 2 apóstrofos). Normalmente isto só é necessário quando são escritas funções que geram outras funções como no 
+<a href="plpgsql-porting.html#PLPGSQL-PORTING-EX2">Exemplo 35-8</a>
+. Por exemplo:
+
+<pre class="PROGRAMLISTING">
+a_output := a_output || '' if v_'' ||
+    referrer_keys.kind || '' like ''''''''''
+    || referrer_keys.key_string || ''''''''''
+    then return ''''''  || referrer_keys.referrer_type
+    || ''''''; end if;'';
+</pre>
+
+O valor de <tt class="LITERAL">a_output</tt> seria então:
+
+<pre class="PROGRAMLISTING">
+if v_... like ''...'' then return ''...''; end if;
+</pre>
+
+
+
+Na abordagem delimitada por cifrão se tornaria
+
+<pre class="PROGRAMLISTING">
+a_output := a_output || $$ if v_$$ || referrer_keys.kind || $$ like '$$
+    || referrer_keys.key_string || $$'
+    then return '$$  || referrer_keys.referrer_type
+    || $$'; end if;$$;
+</pre>
+
+onde se assume que só é necessário colocar um único apóstrofo em <tt class="LITERAL">a_output</tt>, porque este será delimitado novamente antes de ser utilizado.
+</dd>
+</dl>
+</div>
+
+<p>Uma outra abordagem é fazer o escape dos apóstrofos no corpo da função utilizando a contrabarra em vez de duplicá-los. Desta forma é escrito <tt class="LITERAL">\'\'</tt> no lugar de <tt class="LITERAL">''''</tt>. Alguns acham esta forma mais fácil, porém outros não concordam.</p>
+</div>
+</div>
+
+<div class="NAVFOOTER">
+<hr align="LEFT" width="100%">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="plpgsql.html" accesskey="P">Anterior</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Principal</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="plpgsql-structure.html" accesskey="N">Próxima</a>
+</td>
+</tr>
+
+<tr>
+<td width="33%" align="left" valign="top">PL/pgSQL - Linguagem procedural SQL</td>
+<td width="34%" align="center" valign="top">
+<a href="plpgsql.html" accesskey="U">Acima</a>
+</td>
+<td width="33%" align="right" valign="top">Estrutura da linguagem PL/pgSQL</td>
+</tr>
+</table>
+</div>
+<div align="left"><a href="http://sourceforge.net"><img src="http://sourceforge.net/sflogo.php?group_id=130426&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" style="margin-top:0.5em"/></a></div>
+</body>
+</html>
+

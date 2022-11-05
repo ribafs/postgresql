@@ -1,0 +1,58 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>EnterpriseDB Oracle Compatibility Developer's Guide: Introduction</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1938"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-01_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-01_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-01_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-02.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-01_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 21pt;"><h1 class="Heading1-1"><a name="P331_6824"></a><span style="font-family: 'Arial'; font-size: 24pt; color: Black;">1 Introduction</span></h1>
+<p style="text-align: left;"><img src="EnterpriseDB_OraCompat_EN_8.3-01_arquivos/inveseps.gif"></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This guide describes the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> compatibility features of </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Ora</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">cle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> compatibility means that an application runs in an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> environment as well as in a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> environment with minimal or no changes to the application code.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> contains a rich set of features that enables development of database applications for </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">PostgreSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. This guide focuses solely on the features that are compatible with </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. To learn about all of the features of </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, consult the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">documentation set.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Developing an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> compatible application in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> requires special attention to which features are used in the construction of the application. For example, developing an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> application means choosing:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> data types to define the application&#8217;s database tables</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statements that are compatible with </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> system and built-in functions for use in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statements and procedural logic</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Stored Procedure Language</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> (</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">) to create database server-side application logic for stored procedures, functions, triggers, and packages</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">System catalog views that are compatible with </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s Data Dictionary</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> provides these features.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In addition</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> for applications written using</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> the</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> Call Interface</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> (OCI), </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">EnterpriseDB</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">Open Client Library</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> (</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">OCL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">) provides interoperability wit</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">h these </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">applications.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The remainder of this guide explains each of these areas in more detail.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-01_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-01_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-02.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-01_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-01_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-01_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

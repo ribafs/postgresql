@@ -1,0 +1,49 @@
+Crie um banco chamado cep_brasil, com uma única tabela cep_tabela cuja estrutura
+deve ser:
+
+Observe que estamos criando a tabela sem chave primária.
+
+Descompacte o arquivo cep_brasil_unique.csv.zip
+Mude as permissões do arquivo cep_brasil_unique.csv para que o usuário postgres tenha permissão de acessá-lo.
+Use chmod ou chown.
+
+Importe o arquivo cep_brasil_unique.csv de dentro do psql, usando o copy:
+
+su - postgres
+psql -U postgres
+create database cep_brasil;
+\c cep_brasil
+create table cep_full (
+	cep char(8), 
+	tipo char(72), 
+	logradouro char(70),
+	bairro char(72),
+	municipio char(60), 
+	uf char(2)
+);
+
+\copy cep_full from /home/ribafs/cep_brasil_unique.csv
+
+No Windows
+
+\copy cep_full from e:/cep_brasil_unique.csv
+
+
+Então execute 
+
+\timing
+
+Faça uma consulta que retorne apenas o CEP da tua rua
+
+select logradouro,bairro,municipio from cep_full where cep = '60420440';
+
+Anote o tempo gasto (aqui - 6711,204ms, ou seja, 6,7s, máquina: Dual Core 2.2, 2GB RAM e Ubuntu 7.10)
+
+Agora adicione uma chave primária na tabela. 
+
+ALTER TABLE cep_full add constraint cep_pk primary key (cep);
+
+Então repita a mesma consulta anterior e veja a diferença de desempenho por conta do índice adicionado;
+
+Aqui 1.135ms.
+

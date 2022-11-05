@@ -1,0 +1,98 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2080"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-143_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-142.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-143_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-143_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-144.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-143_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P7788_428154"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.5.5 Exception Handling</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">By default, any error occurring in an </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program aborts execution of the program</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">You can trap errors and recover from them by using a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BEGIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> block with an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXCEPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> section</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The syntax is an extension of the normal syntax for a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BEGIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> bl</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ock:</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">[</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 11pt;">    </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>declarations</i></span><span style="font-family: 'Courier New'; font-size: 11pt;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  EXCEPTION</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> WHEN </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>condition</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [</span><span style="font-family: 'Courier New'; font-size: 11pt;"> OR </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>condition</i></span><span style="font-family: 'Courier New'; font-size: 11pt;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">]... THEN</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">      </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>handler_statements</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> WHEN </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">condition</span></i><span style="font-family: 'Courier New'; font-size: 11pt;"> [ OR </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">condition</span></i><span style="font-family: 'Courier New'; font-size: 11pt;"> ]... THEN</span>
+<span style="font-family: 'Courier New'; font-size: 11pt;">      </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>handler_statements</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]...</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If no error occurs, this form of bloc</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">k simply executes all the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and then control passes to the next statement after </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">END</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">But if an error occurs within the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, further processing of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is abandoned, and control passes to the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXCEPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> list</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The list is searched f</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">or the first </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>condition</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> matching the error that occurred</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If a match is found, the corresponding </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>handler_statements</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are executed, and then control passes to the next statement after </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">END</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If no match is found, the error propagates out as though the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXCEPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause were not there at all: the error can be caught by an enclosing block with </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXCEPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, or if there is none it aborts processing of the subprogram.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The special condition name </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OTHERS</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> matches every error type. Condition names are not case-sensitive.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If a new error occurs within the selected </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>handler_statements</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, it cannot be caught by this </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXCEPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause, but is propagated out. A surrounding </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXCEPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause could catch it.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following table lists the condition names that may be used.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 4-2 Exception Condition Names</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="145"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Condition Name</span></p>
+</td>
+<td valign="top" width="384"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CASE_NOT_FOUND</span></p>
+</td>
+<td valign="top" width="384"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">None of the cases in a </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CASE</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> statement evaluate</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">s</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to &#8220;true&#8221; and there is no </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ELSE</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> condition.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CURSOR_ALREADY_OPEN</span></p>
+</td>
+<td valign="top" width="384"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Attempt made to open a cursor that i</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">s already open.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INVALID_CURSOR</span></p>
+</td>
+<td valign="top" width="384"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Attempt made to access an unopened cursor.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NO_DATA_FOUND</span></p>
+</td>
+<td valign="top" width="384"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">No rows satisfied the selection criteria.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OTHERS</span></p>
+</td>
+<td valign="top" width="384"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Catches any exception that hasn&#8217;t been caught by a pror condition in the exception section.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TOO_MANY_ROWS</span></p>
+</td>
+<td valign="top" width="384"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">More than</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> one row satisfied the selection criteria where only one row is allowed to be returned.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ZERO_DIVIDE</span></p>
+</td>
+<td valign="top" width="384"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Division by zero was attempted.</span></p>
+<p><a name="P7822_430260"></a></p></td></tr></tbody></table>
+
+</p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-142.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-143_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-143_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-144.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-143_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-143_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-143_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

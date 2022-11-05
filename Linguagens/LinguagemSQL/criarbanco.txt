@@ -1,0 +1,11 @@
+
+
+createdb nome
+
+sudo -u postgres createdb nome
+
+Receber informações sobre a conexão atual
+
+\conninfo
+
+

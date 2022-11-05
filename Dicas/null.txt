@@ -1,0 +1,54 @@
+																		OPERADOR NULL
+
+Em SQL NULL é para valores inexistentes. Regra geral: NULL se propaga, o que
+significa que com quem NULL se combina o resultado será um NULL.
+NULL não zero, não é string vazia nem string de comprimento zero. 
+Um exemplo: num cadastro de alunos, para o aluno que ainda não se conhece a nota,
+não é correto usar zero para sua nota, mas sim NULL.
+Não se pode efetuar cálculos de expressões onde um dos elementos é NULL.
+
+COMPARANDO NULLs
+NOT NULL com NULL -- Unknown
+NULL com NULL -- Unknown
+
+CONVERSÃO DE/PARA NULL
+NULLIF() e COALESCE()
+
+NULLIF(valor1, valor2) 
+
+NULLIF – Retorna NULL se, e somente se, valor1 e valor2 forem iguais, caso contrário retorna  valor1.
+
+Algo como:
+if (valor1 == valor2){
+then NULL
+else valor1;
+
+Retorna valor1 somente quando valor1 == valor2.
+
+COALESCE – retorna o primeiro de seus argumentos que não for NULL. Só retorna NULL quando todos os seus argumentos forem NULL.
+
+Uso: mudar o valor padrão cujo valor seja NULL.
+
+create table nulos(nulo int, nulo2 int, nulo3 int);
+
+insert into nulos values (1,null,null);
+
+select coalesce(nulo, nulo2, nulo3) from nulos; - - Retorna 1, valor do campo nulo;
+
+select coalesce(nulo2, nulo3) from nulos; - - Retorna NULL, pois ambos são NULL.
+GREATEST - Retorna o maior valor de uma lista - SELECT GREATEST(1,4,6,8,2); - - 8
+
+LEAST - Retorna o menor valor de uma lista.
+
+Todos os valores da lista devem ser do mesmo tipo e nulos são ignorados.
+Obs.: Ambas as funções acima não pertencem ao SQL standard, mas são uma extensão do PostgreSQL.
+
+CONCATENANDO NULLs
+A regra é: NULL se propaga. Qualquer que concatene com NULL gerará NULL.
+
+STRING || NULL -- NULL
+
+Usos:
+- Como valor default para campos que futuramente receberão valor.
+- Valor default para campos que poderão ser sempre inexistentes.
+

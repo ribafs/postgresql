@@ -1,0 +1,33 @@
+Índices
+
+Os índices são uma forma de melhorar a performance do banco de dados. Permite
+ao servidor encontrar e receber específicos registros muito mais rapidamente
+que sem um índice. 
+
+Mas índices também aumentam a sobrecarga do sistema e devem ser usados com 
+cautela e critério.
+
+O ganho de performance ocorre quando:
+- Numa tabela com grande quantidade de registros (lembrar que nesta a criação 
+de índices demora)
+- Em consultas com a cláusula WHERE (o índice deve ficar no campo do where)
+
+Podem ser criados por um comando sql (create index...) ou automaticamente na
+criação de uma chave primária, ou ao adicionar uma constraint unique.
+
+O índice é um objeto criado separadamente da tabela.
+O índice é indicado para tabelas grandes e para consultas que possuem a cláusula
+where ou join. Os campos indicados para índice são os da cláusula where.
+
+Criação de Índice
+
+create index nome on tabela, campo;
+
+Rodar comando analyze regularmente para atualizar as estatísticas e permitir
+que o planejador de consultas trabalhe com mais eficiência.
+
+- Um índice definido em uma coluna que é parte de um join pode melhorar signifi-
+cativamente a velocidade das consultas com joins.
+- Índices que nunc são usados devem ser removidos, devido aos eu custo.
+
+

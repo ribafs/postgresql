@@ -1,0 +1,1211 @@
+<html>
+
+<!-- #BeginTemplate "!Articles.dwt" -->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-us">
+<link rel="shortcut icon" href="http://www.petri.co.il/favicon.ico">
+<!-- #BeginEditable "doctitle" -->
+<title>Disable User Account Control in Windows Vista</title>
+<!-- #EndEditable -->
+<!-- #BeginEditable "meta" -->
+<meta name="description" content="Petri.co.il by Daniel Petri is one of the most comprehensive IT related web sites. With hundreds of Windows 2000/XP/2003 and Exchange 2000/2003 related tips, tricks and how-to articles, Petrico.il has become one of the world's leading MCSE and IT related knowledge bases.  ">
+<meta name="keywords" content="MCSE, MCSA, MCP, MCT, MCSE world, Microsoft, tests, certification, Petri, free, Daniel, Daniel Petri, Petri, Israel, download, training, exams, online, Administrator, Certified, System, Engineer, Proffesional, NT, Windows, Networking, Essentials, 
+Enterprise, TCP/IP, Subnetting, Exchange, Win98, Win95, WinNT 4.0, Win2000, Windows 2000, W2K, XP, Exchange 2000, Exchange 2003, Windows Server 2003, Win2003, E2K, E2K3, W2K3, Articles, Tips"><!-- #EndEditable -->
+<link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/Petri" />
+<link rel="alternate" type="application/rdf+xml" title="RSS" href="http://feeds.feedburner.com/Petri" />
+<link rel="service.feed" type="application/atom+xml" title="Atom" href="http://feeds.feedburner.com/Petri" />
+
+
+<script type="text/javascript" language="JavaScript1.2" src="_pgtres/stm31.js"></script>
+
+</head>
+
+
+<body style="font-family: Verdana; font-size: 10pt" link="#996600" vlink="#999966">
+
+<!--webbot bot="Include" U-Include="!Top.htm" TAG="BODY" startspan -->
+<table border="0" style="border-collapse: collapse" width="1004" id="table1" cellspacing="1">
+	<tr>
+		<td width="300" height="74" style="border-style: none; border-width: medium">
+		<p dir="ltr">
+			<a href="http://www.petri.co.il/">
+			<img border="0" src="images/logo_new.jpg" width="151" height="74"></a><span dir="ltr"><a href="index.htm"></font></a></span></td>
+		<td height="74" style="border-style: none; border-width: medium">&nbsp;</td>
+		<td height="74" style="border-style: none; border-width: medium" align="right">
+		<p dir="ltr">
+<!--/* Max Media Manager Javascript Tag v0.3.31-alpha */-->
+
+<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://bluewhaleweb.com/max/www/delivery/ajs.php':'http://bluewhaleweb.com/max/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=14");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'></scr"+"ipt>");
+//]]>--></script><noscript><a href='http://bluewhaleweb.com/max/www/delivery/ck.php?n=a86b0fd0&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://bluewhaleweb.com/max/www/delivery/avw.php?zoneid=14&amp;n=a86b0fd0' border='0' alt='' /></a></noscript>
+
+
+
+</td>
+	</tr>
+</table>
+
+		
+<!-- Sothink Widgets Begin, Do not edit it -->
+		<script id="Sothink Widgets:_pgtres\37945.998587963_PageletServer.DynamicMenu.pgt" type="text/javascript" language="JavaScript1.2">
+<!--
+stm_bm(["menu1023859173",400,"","_pgtres/blank.gif",0,"","",0,0,100,100,50,1,0,0,""],this);
+stm_bp("p0",[0,4,0,0,0,3,8,0,100,"",-2,"",-2,10,2,3,"#7f7f7f","#feeecd","",3,1,1,"#999999"]);
+stm_ai("p0i0",[0," Home ","","",-1,-1,0,"index.htm","_self","","","","",0,20,0,"","",0,0,0,0,1,"#ffffff",1,"#ffcc00",0,"","",3,3,0,0,"#ffffff","#ffffff","#666699","#1e0e3d","9pt Arial","9pt Arial",0,0]);
+stm_ai("p0i1",[6,1,"#666699","",0,0,0]);
+stm_aix("p0i2","p0i0",[0," Knowledge Base  ","","",-1,-1,0,"kb.htm","_self","","","_pgtres/a.gif","_pgtres/a.gif",8,4]);
+stm_bp("p1",[1,4,-1,0,0,3,0,4,95,"progid:DXImageTransform.Microsoft.Fade(overlap=.5,enabled=0,Duration=0.43)",-2,"",-2,67,2,3,"#7f7f7f","#ffcc00","",3,0,0,"#000000"]);
+stm_aix("p1i0","p0i0",[0,"Active Directory","","",-1,-1,0,"ad.htm","_self","","","","",0,0,0,"","",0,0,0,0,1,"#c2c2cc",1,"#ff9900",0,"","",3,3,1,1,"#666699","#666699"]);
+stm_aix("p1i1","p1i0",[0,"Cisco and Routing","","",-1,-1,0,"cisco.htm"]);
+stm_aix("p1i2","p1i0",[0,"Disaster Recovery","","",-1,-1,0,"disaster_recovery.htm"]);
+stm_aix("p1i3","p1i0",[0,"Disk Management","","",-1,-1,0,"disk_management.htm"]);
+stm_aix("p1i4","p1i0",[0,"DNS","","",-1,-1,0,"dns.htm"]);
+stm_aix("p1i5","p1i0",[0,"Downloads","","",-1,-1,0,"downloads.htm"]);
+stm_aix("p1i6","p1i0",[0,"Exchange and Messaging  ","","",-1,-1,0,"exchange.htm"]);
+stm_aix("p1i7","p1i0",[0,"Installation and Deployment   ","","",-1,-1,0,"installation.htm"]);
+stm_aix("p1i8","p1i0",[0,"Networking","","",-1,-1,0,"networking.htm","_self","","","","",0,0,0,"","",0,0,0,0,1,"#c2c2cc",1,"#ffffff",1]);
+stm_aix("p1i9","p1i0",[0,"Security","","",-1,-1,0,"security.htm"]);
+stm_aix("p1i10","p1i0",[0,"Tools and Scripts","","",-1,-1,0,"tools.htm"]);
+stm_aix("p1i11","p1i0",[0,"Tweaking","","",-1,-1,0,"tweaking.htm"]);
+stm_aix("p1i12","p1i0",[0,"Virtualization","","",-1,-1,0,"virtualization.htm"]);
+stm_aix("p1i13","p1i0",[0,"Windows Vista","","",-1,-1,0,"vista_tips.htm"]);
+stm_aix("p1i14","p1i0",[0,"Patches and Service Packs","","",-1,-1,0,"patches_and_service_packs.htm"]);
+stm_aix("p1i15","p1i0",[0,"Updating and Management Tools","","",-1,-1,0,"updating_and_management_tools.htm"]);
+stm_aix("p1i16","p1i0",[0,"Links","","",-1,-1,0,"links.htm"]);
+stm_aix("p1i17","p1i0",[0,"Book Recommendations","","",-1,-1,0,"books.htm","_self","","","","",0,0,0,"_pgtres/b.gif","_pgtres/b.gif",4,8]);
+stm_bpx("p2","p1",[1,2,-1,0,0,3,0,0]);
+stm_aix("p2i0","p1i0",[0,"MCSA/MCSE on Windows 2000","","",-1,-1,0,"books_mcsa_mcse_on_windows_2000.htm"]);
+stm_aix("p2i1","p1i0",[0,"MCSA/MCSE on Windows 2003","","",-1,-1,0,"books_mcsa_mcse_on_windows_2003.htm"]);
+stm_aix("p2i2","p1i0",[0,"Exchange 2000/2003","","",-1,-1,0,"books_exchange_2000_2003.htm"]);
+stm_ep();
+stm_ep();
+stm_aix("p0i3","p0i1",[]);
+stm_aix("p0i4","p0i2",[0," Forums  ","","",-1,-1,0,"http://www.petri.co.il/forums/index.php","_blank"]);
+stm_bpx("p3","p2",[1,4]);
+stm_aix("p3i0","p1i0",[0,"Announcements","","",-1,-1,0,"http://www.petri.co.il/forums/forumdisplay.php?f=9"]);
+stm_aix("p3i1","p1i0",[0,"Operating Systems","","",-1,-1,0,"http://www.petri.co.il/forums/forumdisplay.php?f=3"]);
+stm_aix("p3i2","p1i0",[0,"Messaging Software","","",-1,-1,0,"http://www.petri.co.il/forums/forumdisplay.php?f=4"]);
+stm_aix("p3i3","p1i0",[0,"Networking","","",-1,-1,0,"http://www.petri.co.il/forums/forumdisplay.php?f=5"]);
+stm_aix("p3i4","p1i0",[0,"Virtualization ","","",-1,-1,0,"http://www.petri.co.il/forums/forumdisplay.php?f=41"]);
+stm_aix("p3i5","p1i0",[0,"Microsoft Office","","",-1,-1,0,"http://www.petri.co.il/forums/forumdisplay.php?f=34"]);
+stm_aix("p3i6","p1i0",[0,"Security","","",-1,-1,0,"http://www.petri.co.il/forums/forumdisplay.php?f=8"]);
+stm_aix("p3i7","p1i0",[0,"Certification","","",-1,-1,0,"http://www.petri.co.il/forums/forumdisplay.php?f=7"]);
+stm_aix("p3i8","p1i0",[0,"Suggestions and Feedback","","",-1,-1,0,"http://www.petri.co.il/forums/forumdisplay.php?f=6"]);
+stm_aix("p3i9","p1i0",[0,"Registeration for the Petri.co.il Forums   ","","",-1,-1,0,"http://www.petri.co.il/forums/register.php?","_self","","","","",0,0,0,"","",0,0,0,0,1,"#ff6666"]);
+stm_ep();
+stm_aix("p0i7","p0i1",[]);
+stm_aix("p0i8","p0i2",[0," Site Info  ","","",-1,-1,0,"site_info.htm"]);
+stm_bpx("p6","p3",[]);
+stm_aix("p6i0","p1i0",[0,"Site News","","",-1,-1,0,"site_news.htm"]);
+stm_aix("p6i1","p1i0",[0,"Site Profile","","",-1,-1,0,"profile.htm"]);
+stm_aix("p6i2","p1i0",[0,"Feedback and Suggestions  ","","",-1,-1,0,"feedback.htm"]);
+stm_aix("p6i3","p1i0",[0,"Daniel Petri - Profile","","",-1,-1,0,"daniel_profile.htm"]);
+stm_aix("p6i4","p1i0",[0,"Meet Adi Petri","","",-1,-1,0,"adi.htm"]);
+stm_aix("p6i5","p1i0",[0,"Meet Michal Petri","","",-1,-1,0,"michal.htm"]);
+stm_aix("p6i6","p1i0",[0,"Site Structure","","",-1,-1,0,"site_structure.htm"]);
+stm_aix("p6i7","p1i0",[0,"Contents","","",-1,-1,0,"contents.htm"]);
+stm_aix("p6i8","p1i0",[0,"Site Reviews","","",-1,-1,0,"site_reviews.htm"]);
+stm_aix("p6i9","p1i0",[0,"Link to Us","","",-1,-1,0,"link_to_us.htm"]);
+stm_aix("p6i10","p1i0",[0,"Sponsoring and Advertising   ","","",-1,-1,0,"sponsor_us.htm"]);
+stm_aix("p6i11","p1i0",[0,"Frequently Asked Questions   ","","",-1,-1,0,"faq.htm"]);
+stm_aix("p6i12","p1i0",[0,"Legal Disclaimer","","",-1,-1,0,"disclaimer.htm"]);
+stm_ep();
+stm_aix("p0i11","p0i1",[]);
+stm_aix("p0i12","p0i2",[0," &#1506;&#1489;&#1512;&#1497;&#1514;  ","","",-1,-1,0,"hebrew.htm"]);
+stm_bpx("p8","p3",[]);
+stm_aix("p8i0","p1i0",[0,"   &#1488;&#1493;&#1505;&#1507; &#1502;&#1488;&#1502;&#1512;&#1497;&#1501; &#1489;&#1506;&#1489;&#1512;&#1497;&#1514;","","",-1,-1,0,"kb_he.htm","_self","","","","",0,0,0,"","",0,0,0,2]);
+stm_aix("p8i1","p8i0",[0,"   &#1502;&#1513;&#1493;&#1489;","","",-1,-1,0,"feedback_he.htm"]);
+stm_aix("p8i2","p8i0",[0,"  &#1508;&#1512;&#1493;&#1508;&#1497;&#1500; &#1492;&#1488;&#1514;&#1512;","","",-1,-1,0,"profile_he.htm"]);
+stm_aix("p8i3","p8i0",[0,"  &#1491;&#1504;&#1497;&#1488;&#1500; &#1508;&#1496;&#1512;&#1497; - &#1508;&#1512;&#1493;&#1508;&#1497;&#1500;","","",-1,-1,0,"daniel_profile_he.htm"]);
+stm_ep();
+stm_ep();
+stm_em();
+//-->
+</script>
+
+<script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script> 
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-3414659-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+<!-- Sothink Widgets End, Do not edit it -->
+<!--webbot bot="Include" i-checksum="53996" endspan --><div align="left">
+
+	<table border="1" width="1000" dir="ltr" id="table3" cellspacing="0" cellpadding="0" bordercolorlight="#FF9900" bordercolordark="#FF9900" style="border-collapse: collapse" align="left">
+		<tr>
+			<td style="border-style: solid; border-width: 1px">
+			<div align="left">
+				<table border="0" width="1000" dir="ltr" id="table4" cellpadding="2" align="left" style="border-collapse: collapse">
+					<tr>
+						<td style="border-right-style: none; border-right-width: medium" bordercolor="#FF9900" bgcolor="#FFFFE8" align="left" valign="top" colspan="3" height="3">
+						<p align="center"><font size="1">&nbsp;</font></td>
+					</tr>
+					<tr>
+						<td style="border-right-style: none; border-right-width: medium" bordercolor="#FF9900" bgcolor="#FFFFE8" align="left" valign="top">
+						<!--webbot bot="Include" U-Include="menus/left_new.htm" TAG="BODY" startspan -->
+
+<div align="center">
+	<table border="0" bordercolor="#FF9900" dir="ltr" id="table1" style="border-collapse: collapse" cellpadding="0" bgcolor="#FFFFE8">
+		<tr>
+			<td width="5" height="35" bgcolor="#FEEECD" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="35" bgcolor="#FEEECD" align="left">
+			<b><font style="font-size: 7pt">Quick Links </font></b></td>
+			<td width="5" style="border-style:none; border-width:medium; " height="35" bgcolor="#FFFFFF" align="left">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" align="left" valign="top" style="border-style:none; border-width:medium; ">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " align="left" valign="top" nowrap>
+
+<span style="font-size: 7pt">
+
+	<font color="#FF0000"><b>: </b></font><a 
+	href="http://www.petri.co.il/kb.htm">		Knowledge Base
+		</a>
+		
+	<br>
+	
+	<font color="#FF0000"><b>: </b></font><a href="http://www.petri.co.il/ad.htm">Active Directory</a><br>
+<font color="#FF0000"><b>:</b></font> <a href="http://www.petri.co.il/cisco.htm">Cisco 
+and Routing</a><br>
+<font color="#FF0000"><b>:</b></font>
+<a href="http://www.petri.co.il/exchange.htm">Exchange Server</a><br>
+<font color="#FF0000"><b>:</b></font> 
+<a href="http://www.petri.co.il/virtualization.htm">
+Virtualization</a><br>
+		
+<font color="#FF0000"><b>:</b></font> <a href="http://www.petri.co.il/windows-server-2008.htm">Windows 
+Server 2008</a><br>
+		
+<font color="#FF0000"><b>:</b></font> <a href="http://www.petri.co.il/vista_tips.htm">Windows Vista</a><br>
+	
+	<font color="#FF0000"><b>: </b></font><a 
+	href="http://www.petri.co.il/site_news.htm">
+	What's New?
+		</a>
+		
+		
+	<br>
+	
+	<font color="#FF0000"><b>: </b></font><a 
+	href="http://www.petri.co.il/forums">
+	Forums
+		</a>
+		
+	<br>
+	
+	<font color="#FF0000"><b>: </b></font><a 
+	href="http://www.petri.co.il/forums/archive">
+	Forums Archive
+		</a>		
+		
+	<br>
+	
+	<font color="#FF0000"><b>: </b></font><a 
+	href="http://www.petri.co.il/sponsor_us.htm" rel="nofollow">
+	Sponsor us
+	    </a> <br>
+	    	<font color="#FF0000"><b>: </b></font><a 
+	href="http://www.petri.co.il/feedback.htm" rel="nofollow">
+	Feedback
+	    </a> <br>
+	    	<font color="#FF0000"><b>: </b></font><font face="Arial"><a 
+	href="http://www.petri.co.il/hebrew.htm" rel="nofollow">		&#1506;&#1489;&#1512;&#1497;&#1514;
+	    </a>
+		
+	</font>
+		
+	</span>
+	<p align="center"><a href="http://feeds.feedburner.com/Petri" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" alt="" style="vertical-align:middle;border:0"/></a>&nbsp;<a href="http://feeds.feedburner.com/Petri" rel="nofollow"><span style="font-size: 7pt">Subscribe 
+	To Our RSS</span></a></p>	
+			</td>
+			<td width="5" style="border-style:none; border-width:medium; " align="left" valign="top" bgcolor="#FFFFFF">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="35" bgcolor="#FEEECD" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="35" bgcolor="#FEEECD" align="left">
+			<span style="font-size: 7pt"><b>Petri Email Digest</b></span></td>
+			<td width="5" style="border-style:none; border-width:medium; " height="35" bgcolor="#FFFFFF" align="left">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" align="left" valign="top" style="border-style: none; border-width: medium">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " align="left" valign="top">
+
+<form method="post" action="http://oi.vresp.com?fid=43c3fedc2f" id="left_emailer0"><span style="font-size: 7pt">Our weekly emails will keep you up to date on our 
+latest news and articles straight to your inbox!<br>
+	<label style="color: #000000;">
+	<br>
+	<span style="font-size:7pt">Email Address:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label><input name="email_address0" size="21" style="margin-top: 5px; border: 1px solid #999; padding: 3px;"/>&nbsp;<input type="submit" value="Join Now" style="margin-top: 3px; padding: 3px; margin-bottom: 3px"/>
+<br>
+<a target="_blank" href="http://www.petri.co.il/privacy_policy.htm" rel="nofollow">Privacy Policy</a></span></form></td>
+			<td width="5" style="border-style:none; border-width:medium; " align="left" valign="top" bgcolor="#FFFFFF">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="35" bgcolor="#FEEECD" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="35" bgcolor="#FEEECD" align="left">
+			<font style="font-size: 7pt"><b>Most Popular Articles</b></font></td>
+			<td width="5" style="border-style:none; border-width:medium; " height="35" bgcolor="#FFFFFF" align="left">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" align="left" valign="top" style="border-style: none; border-width: medium">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " align="left" valign="top">
+
+<span style="font-size: 7pt">
+
+	<font color="#FF0000"><b>:</b></font><a 
+	href="http://www.petri.co.il/forgot_administrator_password.htm">
+		Forgot the Administrator's Password?
+		</a>
+		
+	<br>
+	
+	<font color="#FF0000"><b>:</b></font><a 
+	href="http://www.petri.co.il/customize_a_new_xp_installation.htm">
+		</a><a 
+	href="http://www.petri.co.il/how_to_write_iso_files_to_cd.htm">
+		How to Write ISO Files
+		</a>
+		
+	<br>
+	
+	<font color="#FF0000"><b>:</b></font><a 
+	href="http://www.petri.co.il/change_the_serial_in_windows_xp.htm">
+		How to
+		Change the Serial in Windows XP</a><br>
+<font color="#FF0000"><b>:</b></font><a 
+	href="http://www.petri.co.il/install_windows_xp_pro.htm">
+		Install Windows XP Pro
+	</a>
+	
+	<a 
+	href="http://www.petri.co.il/download_free_reskit_tools.htm">
+		&nbsp;</a><a 
+	href="http://www.petri.co.il/change_the_serial_in_windows_xp.htm">
+		</a>
+				
+	<br>
+<font color="#FF0000"><b>:</b><a href="http://www.petri.co.il/disable_uac_in_windows_vista.htm"> 
+Disable UAC in Windows Vista</a></font><br>
+	
+	<font color="#FF0000"><b>:</b></font><a 
+	href="http://www.petri.co.il/how_to_install_active_directory_on_windows_2003.htm">
+		How to Install Active Directory on Windows 2003
+	</a>
+		
+	<br>
+	
+	<font color="#FF0000"><b>:</b></font><a href="http://www.petri.co.il/install_windows_vista.htm"> 
+How to Install Windows Vista</a><br>
+<font color="#FF0000"><b>:</b></font><a href="http://www.petri.co.il/adsl_home_network_config.htm"> 
+Home Network Setup</a><br>
+<font color="#FF0000"><b>:</b></font><a href="http://www.petri.co.il/csc_setup_a_vlan_on_a_cisco_switch.htm"> 
+How to Setup a VLAN on a Cisco Switch </a>
+		
+
+	</span>
+		
+			<br>
+
+<span style="font-size: 7pt">
+
+<font color="#FF0000"><b>:</b></font><a href="http://www.petri.co.il/roboform-password-manager-form-filler.htm"> 
+Password Manager</a></span></td>
+			<td width="5" style="border-style:none; border-width:medium; " align="left" valign="top" bgcolor="#FFFFFF">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="10" align="right" style="border-style:none; border-width:medium; ">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="10" align="right">
+<span style="font-size: 7pt">Read More
+			</span><font face="Verdana" size="1">
+		
+				<a href="http://www.petri.co.il/top.htm">
+				<img height="9" src="http://www.petri.co.il/images/small_arrow.gif" width="9" border="0"></a></font></td>
+			<td width="5" style="border-style:none; border-width:medium; " height="10" align="right" bgcolor="#FFFFFF">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="35" bgcolor="#FEEECD" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="35" bgcolor="#FEEECD" align="left">
+			<span style="font-size: 7pt"><b>
+			<a target="_blank" href="http://www.trainsignal.com">
+			<font color="#000000">Computer Training</font></a></b></span></td>
+			<td width="5" style="border-style:none; border-width:medium; " height="35" bgcolor="#FFFFFF" align="left">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="60" align="right" style="border-style:none; border-width:medium; ">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="60" align="right">
+<p align="left"><font size="1">Top-Rated Windows, Exchange, Cisco CCNA &amp; 
+Virtualization Video 
+Training courses. Products feature Instructor-Led Videos &amp; Lab Books! </font></td>
+			<td width="5" style="border-style:none; border-width:medium; " height="60" align="right" bgcolor="#FFFFFF">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" align="left" valign="top" style="border-style:none; border-width:medium; ">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " align="left" valign="top">
+
+<span style="font-size: 7pt">
+
+	<font color="#FF0000"><b>: </b></font><a target="_blank" href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=73">Windows Vista Training</a><br>
+
+	<font color="#FF0000"><b>: </b></font><a target="_blank" href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=8">Learn DNS</a><font color="#FF0000"><b><br>
+: </b></font><a target="_blank" href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=3">Active Directory Training</a><br>
+
+	<font color="#FF0000"><b>: </b></font><a target="_blank" href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=68">Small Business Server 2003</a><br>
+	
+	<font color="#FF0000"><b>: </b></font><a target="_blank" href="http://www.trainsignal.com/index.asp?PageAction=Custom&ID=23">
+MCSE Training</a><br>
+	
+	<font color="#FF0000"><b>: </b></font><a target="_blank" href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=86">Exchange Server 2007 </a>
+		
+	<br>
+	
+	<font color="#FF0000"><b>: </b></font><a target="_blank" href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=35">Cisco CCNA
+		</a>
+		
+	<br>
+	
+	<b>
+	
+	<font color="#FF0000">: </font></b>
+<a target="_blank" href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=42">ISA Server 2004 Training</a><br>
+	
+	<font color="#FF0000"><b>: </b></font><a target="_blank" href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=36">CWNA 
+Wireless Training </a>
+	
+	<br>
+	
+	<font color="#FF0000"><b>: </b></font><a target="_blank" href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=109">Windows Home Server Videos</a>
+		
+	<br>
+	
+	<font color="#FF0000"><b>: </b></font><a target="_blank" href="http://www.trainsignal.com/index.asp?PageAction=Custom&ID=23">Windows Server Training</a></span><br>
+
+<span style="font-size: 7pt">
+
+	<font color="#FF0000"><b>: </b></font><a target="_blank" href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=58">Cisco CCNP Training</a></span><br>
+<span style="font-size: 7pt">
+
+	<font color="#FF0000"><b>: </b></font> <a target=_blank href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=81">VMware 
+Server Training</a></span><br>
+
+<span style="font-size: 7pt">
+
+	<font color="#FF0000"><b>: </b></font> <a href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=90" target=_blank>VMware ESX Server Training</a></span><br>
+<span style="font-size: 7pt">
+
+	<font color="#FF0000"><b>: </b></font> <a href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=76" target=_blank>A+ 
+Training</a></span><br>
+
+<span style="font-size: 7pt">
+
+	<font color="#FF0000"><b>: </b></font> <a href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=84" target=_blank>Sharepoint Server 2007</a></span><br>
+
+<span style="font-size: 7pt">
+
+	<font color="#FF0000"><b>: </b></font>
+<a target="_blank" href="http://www.trainsignal.com/index.asp?PageAction=VIEWPROD&ProdID=66">Comptia Network+ Training</a></span></td>
+			<td width="5" style="border-style:none; border-width:medium; " align="left" valign="top" bgcolor="#FFFFFF">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="10" align="right" style="border-style:none; border-width:medium; ">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="10" align="right">
+<span style="font-size: 7pt">Read More
+			<a target="_blank" href="http://www.trainsignal.com/index.asp?PageAction=Custom&ID=8"> 
+<img height="9" src="http://www.petri.co.il/images/small_arrow.gif" width="9" border="0"></a></span></td>
+			<td width="5" style="border-style:none; border-width:medium; " height="10" align="right" bgcolor="#FFFFFF">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="21" bgcolor="#FEEECD" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="21" bgcolor="#FEEECD" align="left">
+			<span style="font-size: 7pt"><b>Sponsored Ad</b></span></td>
+			<td width="5" style="border-style:none; border-width:medium; " height="21" bgcolor="#FFFFFF" align="left">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" align="left" valign="top" style="border-style:none; border-width:medium; ">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " align="center">
+<br>
+<!--/* Max Media Manager Javascript Tag v0.3.31-alpha */-->
+
+<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://bluewhaleweb.com/max/www/delivery/ajs.php':'http://bluewhaleweb.com/max/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=1&amp;target=_blank");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'></scr"+"ipt>");
+//]]>--></script><noscript><a href='http://bluewhaleweb.com/max/www/delivery/ck.php?n=a05ea528&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://bluewhaleweb.com/max/www/delivery/avw.php?zoneid=1&amp;n=a05ea528' border='0' alt='' /></a></noscript>
+<br>
+</td>
+			<td width="5" style="border-style:none; border-width:medium; " align="left" valign="top" bgcolor="#FFFFFF">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="35" bgcolor="#FEEECD" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="35" bgcolor="#FEEECD" align="left">
+			<font style="font-size: 7pt"><b>Microsoft MVP Program</b></font></td>
+			<td width="5" style="border-style:none; border-width:medium; " height="35" bgcolor="#FFFFFF" align="left">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" align="left" style="border-style:none; border-width:medium; " >&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " align="left"  valign="top">
+
+			<p align="center">
+			<a target="_blank" href="https://mvp.support.microsoft.com/mvpawardintro">
+			<img border="0" src="http://www.petri.co.il/images/mvpsmall.jpg" width="70" height="110" vspace="2"></a></p>
+<p align="center">
+				<font style="font-size: 7pt">Author is a 
+				<a target="_blank" href="https://mvp.support.microsoft.com/profile=cdd852db-860d-4b22-8f05-597abbdc02bc" rel="nofollow">Windows Server System - Exchange 
+				Server MVP</a></font></p>
+			</td>
+			<td width="5" style="border-style:none; border-width:medium; " align="left" bgcolor="#FFFFFF" >&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="22" align="right" style="border-style:none; border-width:medium; ">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="22" align="right">
+<span style="font-size: 7pt">Read More
+			</span><font face="Verdana" size="1"><a href="http://www.petri.co.il/profile.htm">
+				<img height="9" src="http://www.petri.co.il/images/small_arrow.gif" width="9" border="0"></a></font></td>
+			<td width="5" style="border-style:none; border-width:medium; " height="22" align="right" bgcolor="#FFFFFF">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="10" align="right" style="border-style:none; border-width:medium; " bgcolor="#FEEECD">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="10" align="left" bgcolor="#FEEECD">
+	<span style="font-size: 7pt"><b>Links</b></span></td>
+			<td width="5" style="border-style:none; border-width:medium; " height="10" align="right" bgcolor="#FFFFFF">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="10" align="right" style="border-style:none; border-width:medium; ">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="10" align="center">
+
+<span style="font-size: 7pt">
+
+<a target="_blank" href="http://www.trainsignaltraining.com/">Free IT Training</a><br />
+
+</span></td>
+			<td width="5" style="border-style:none; border-width:medium; " height="10" align="right" bgcolor="#FFFFFF">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="10" align="right" style="border-style:none; border-width:medium; " bgcolor="#FEEECD">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="10" align="right" bgcolor="#FEEECD">
+</td>
+			<td width="5" style="border-style:none; border-width:medium; " height="10" align="right" bgcolor="#FFFFFF">&nbsp;</td>
+		</tr>
+		</table>
+</div>
+
+<!--webbot bot="Include" i-checksum="14873" endspan --></td>
+						<td align="left" valign="top" style="border-style: solid; border-width: 1px" bordercolor="#FF9900">
+						<table border="0" width="100%" dir="ltr" id="table5">
+							<tr>
+								<td align="left" valign="top">
+								&nbsp;</td>
+								<td align="left" valign="top">
+								<p align="right"><font size="1">
+								By: <!-- #BeginEditable "credit" -->Daniel Petri<!-- #EndEditable --></font></td>
+							</tr>
+							<tr>
+								<td align="left" valign="top" colspan="2">
+								<!-- #BeginEditable "body" -->
+	<p dir="ltr"><font face="Verdana" size="5">How can I disable the User 
+	Account Control (UAC) feature on my Windows 
+	Vista computer?</font></p>
+								<p style="margin-right: 30">
+								<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>New Page 1</title>
+</head>
+
+<body>
+<div style=”display:block;float:left;padding: 5px 5px 5px 5px;”>
+<script src="http://digg.com/tools/diggthis.js" type="text/javascript"></script></div>
+</body>
+
+</html>
+<font size="2" face="Verdana">Windows Vista has the built-in ability 
+    							to automatically reduce the potential of 
+								security breeches in the system. It does that by 
+								automatically enabling a feature called User 
+								Account Control (or UAC for short). The UAC 
+								forces users that are part of the local 
+								administrators group to run like they were 
+								regular users with no administrative privileges. </font></p>
+								<!--webbot bot="Include" U-Include="incl/vista_inline.htm" TAG="BODY" startspan -->
+<!--/* Max Media Manager Javascript Tag v0.3.31-alpha */-->
+
+<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://bluewhaleweb.com/max/www/delivery/ajs.php':'http://bluewhaleweb.com/max/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=13&amp;target=_blank");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'></scr"+"ipt>");
+//]]>--></script><noscript><a href='http://bluewhaleweb.com/max/www/delivery/ck.php?n=a1a51ea7&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://bluewhaleweb.com/max/www/delivery/avw.php?zoneid=13&amp;n=a1a51ea7' border='0' alt='' /></a></noscript>
+
+<!--webbot bot="Include" i-checksum="45472" endspan --><p style="margin-right: 30">
+								<font size="2">Read more about UAC here:
+								<a href="what's_uac_in_windows_vista.htm">What's 
+								User Account Control in Windows Vista?</a></font></p>
+								<p style="margin-right: 30">
+								<font size="2">Although UAC clearly improves the 
+								security on Windows Vista, under some scenarios 
+								you might want to disable it, for example when 
+								giving demos in front of an audience (demos that 
+								are not security related, for example). Some 
+								home users might be tempted to disable UAC 
+								because of the additional mouse clicking it 
+								brings into their system, however I urge them 
+								not to immediately do so, and try to get used to 
+								it instead.</font></p>
+								<p style="margin-right: 30">
+								<font size="2">Anyway, if required, you can 
+								disable UAC by using one of the following 
+								methods: </font></p>
+								<h2>
+								<font face="Verdana" size="4">Method #1 - Using 
+								MSCONFIG</font></h2>
+								<ol>
+									<li>
+									<p style="margin-right: 30"><font size="2">
+									Launch MSCONFIG by from the Run menu.</font></p>
+									</li>
+									<li>
+									<p style="margin-right: 30"><font size="2">
+									Click on the Tools tab. Scroll down till you 
+									find &quot;Disable UAP&quot; (this should probably 
+									change to UAC in next Vista beta builds and 
+									in the RTM version). Click on that line.</font></p>
+									</li>
+								</ol>
+								<blockquote>
+									<p style="margin-right: 30">
+									<a href="images/disable_uac_1.gif">
+									<img border="2" src="images/disable_uac_1_small.gif" xthumbnail-orig-image="images/disable_uac_1.gif" width="100" height="65"></a></p>
+								</blockquote>
+								<ol start="3">
+									<li>
+									<p style="margin-right: 30"><font size="2">
+									Press the Launch button.</font></p></li>
+									<li>
+									<p style="margin-right: 30"><font size="2">A 
+									CMD window will open. When the command is 
+									done, you can close the window. </font></p>
+									</li>
+									<li>
+									<p style="margin-right: 30"><font size="2" face="Verdana">
+									Close MSCONFIG. You need to reboot the computer for changes to apply.</font></li>
+								</ol>
+								<p style="margin-right: 30"><font size="2">Note 
+								that you can re-enable UAC by selecting the 
+								&quot;Enable UAP&quot; line and then clicking on the 
+								Launch button.</font></p>
+								<h2>
+								<font face="Verdana" size="4">Method #2 - Using 
+								Regedit</font></h2>
+    <ol>
+      <li>
+    <p style="margin-right: 30"><font size="2" face="Verdana">Open Registry Editor. </font>
+      </li>
+      <li>
+    <p style="margin-right: 30"><font size="2" face="Verdana">In Registry Editor, navigate to 
+    the following registry key:</font></li>
+    </ol>
+    							<blockquote>
+									<p style="margin-right: 30">
+										<font face="Verdana">
+										<textarea rows="3" name="S4" cols="50">HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System</textarea></font></p>
+								</blockquote>
+    <ol start="3">
+      <li>
+    <p style="margin-right: 30"><font size="2">Locate</font><font size="2" face="Verdana"> the 
+	following value (DWORD):
+    </font></li>
+    </ol>
+    <blockquote>
+    <p style="margin-right: 30"><font size="2"><i>EnableLUA</i></font></p>
+	<p style="margin-right: 30"><font size="2">and give it a value of 0.</font></p>
+	<p style="margin-right: 30"><a href="images/disable_uac_2.gif">
+	<img border="2" src="images/disable_uac_2_small.gif" xthumbnail-orig-image="images/disable_uac_2.gif" width="100" height="65"></a></p>
+	<p style="margin-right: 30">
+	<font size="2"><b>Note:</b> As always, before making changes to your 
+	registry you should always make sure you have a valid backup. In cases where 
+	you're supposed to delete or modify keys or values from the registry it is 
+	possible to first export that key or value(s) to a .REG file before 
+	performing the changes.</font></blockquote>
+    <ol start="4">
+      <li>
+    <p style="margin-right: 30"><font size="2" face="Verdana">Close Registry 
+	Editor. You need to reboot the computer for changes to apply.</font></li>
+    </ol>
+    							<p style="margin-right: 30">
+								<font size="2">In order to re-enable UAC just 
+								change the above value to 1.</font></p>
+								<h2>
+								<font face="Verdana" size="4">Method #3 - Using 
+								Group Policy</font></h2>
+								<p style="margin-right: 30"><font size="2">This 
+								can be done via Local Group Policy or via Active 
+								Directory-based GPO, which is much more suited 
+								for large networks where one would like to 
+								disable UAC for many computers at once. </font>
+								</p>
+								<p style="margin-right: 30"><font size="2">If 
+								using Local Group Policy you'll need to open the 
+								Group Policy Editor (Start &gt; Run &gt; gpedit.msc) 
+								from your Vista computer. </font></p>
+								<p style="margin-right: 30"><font size="2">If 
+								using in AD-based GPO, open Group Policy 
+								Management Console (Start &gt; Run &gt; gpmc.msc) from 
+								a Vista computer that is a member of the domain. 
+								In the GPMC window, browse to the required GPO 
+								that is linked to the OU or domain where the 
+								Vista computers are located, then edit it.</font></p>
+								<p style="margin-right: 30"><font size="2">In 
+								the Group Policy Editor window, browse to 
+								Computer Configuration &gt; Windows Settings &gt; 
+								Security Settings &gt; Local Policies &gt; Security 
+								Options.</font></p>
+								<p style="margin-right: 30">
+								<a href="images/disable_uac_gpo_1.gif">
+								<font size="2">
+								<img border="2" src="images/disable_uac_gpo_1_small.gif" xthumbnail-orig-image="images/disable_uac_gpo_1.gif" width="100" height="71"></font></a></p>
+								<p style="margin-right: 30"><font size="2">In 
+								the right pane scroll to find the User Access 
+								Control policies (they're down at the bottom of 
+								the window). You need to configure the following 
+								policies:</font></p>
+								<p style="margin-right: 30">
+								<a href="images/disable_uac_gpo_2.gif">
+								<font size="2">
+								<img border="2" src="images/disable_uac_gpo_2_small.gif" xthumbnail-orig-image="images/disable_uac_gpo_2.gif" width="100" height="71"></font></a></p>
+								<p style="margin-right: 30"><font size="2">
+								You'll need to reboot your computers.</font></p>
+								<h2>
+								<font face="Verdana" size="4">Method #4 - Using 
+								Control Panel</font></h2>
+								<ol>
+									<li>
+									<p style="margin-right: 30"><font size="2">
+									Open Control Panel.</font></p></li>
+									<li>
+									<p style="margin-right: 30"><font size="2">
+									Under User Account and Family settings click 
+									on the &quot;Add or remove user account&quot;.</font></p>
+									</li>
+								</ol>
+								<blockquote>
+									<p style="margin-right: 30">
+									<a href="images/disable_uac_3.gif">
+									<font size="2">
+									<img border="2" src="images/disable_uac_3_small.gif" xthumbnail-orig-image="images/disable_uac_3.gif" width="100" height="57"></font></a></p>
+								</blockquote>
+								<ol start="3">
+									<li>
+									<p style="margin-right: 30"><font size="2">
+									Click on one of the user accounts, for 
+									example you can use the Guest account.</font></p>
+									</li>
+									<li>
+									<p style="margin-right: 30"><font size="2">
+									Under the user account click on the &quot;Go to 
+									the main User Account page&quot; link.</font></p>
+									</li>
+								</ol>
+								<blockquote>
+									<p style="margin-right: 30">
+									<a href="images/disable_uac_4.gif">
+									<font size="2">
+									<img border="2" src="images/disable_uac_4_small.gif" xthumbnail-orig-image="images/disable_uac_4.gif" width="100" height="63"></font></a></p>
+								</blockquote>
+								<ol start="5">
+									<li>
+									<p style="margin-right: 30"><font size="2">
+									Under &quot;Make changes to your user account&quot; 
+									click on the &quot;Change security settings&quot; 
+									link.</font></p></li>
+								</ol>
+								<blockquote>
+									<p style="margin-right: 30">
+									<a href="images/disable_uac_5.gif">
+									<font size="2">
+									<img border="2" src="images/disable_uac_5_small.gif" xthumbnail-orig-image="images/disable_uac_5.gif" width="100" height="65"></font></a></p>
+								</blockquote>
+								<ol start="6">
+									<li>
+									<p style="margin-right: 30"><font size="2">
+									In the &quot;Turn on User Account Control (UAC) 
+									to make your computer more secure&quot; click to 
+									unselect the &quot;Use User Account Control (UAC) 
+									to help protect your computer&quot;. Click on the 
+									Ok button.</font></p></li>
+								</ol>
+								<blockquote>
+									<p style="margin-right: 30">
+									<a href="images/disable_uac_6.gif">
+									<font size="2">
+									<img border="2" src="images/disable_uac_6_small.gif" xthumbnail-orig-image="images/disable_uac_6.gif" width="100" height="71"></font></a></p>
+								</blockquote>
+								<ol start="7">
+									<li>
+									<p style="margin-right: 30"><font size="2">
+									You will be prompted to reboot your 
+									computer. Do so when ready.</font></p></li>
+								</ol>
+								<blockquote>
+									<p style="margin-right: 30">
+									<a href="images/disable_uac_7.gif">
+									<font size="2">
+									<img border="2" src="images/disable_uac_7_small.gif" xthumbnail-orig-image="images/disable_uac_7.gif" width="100" height="71"></font></a></p>
+								</blockquote>
+    							<p style="margin-right: 30">
+								<font size="2">In order to re-enable UAC just 
+								select the above checkbox and reboot.</font></p>
+
+								<h2>
+      <font face="Verdana" size="4">Related articles</font></h2>
+								<p style="margin-right: 30">
+      <font size="2">You may also want to read:</font></p>
+								<ul>
+									<li>
+									<font size="2">
+									<a href="error_installing_applications_on_vista.htm">
+									Error Installing Applications in Windows 
+									Vista</a></font></li>
+									<li>
+									<a href="add_desktop_icons_in_windows_vista.htm">
+									<font size="2">Add Desktop Icons in Windows 
+									Vista</font></a></li>
+									<li>
+									<a href="add_ie_icon_to_the_desktop_in_vista.htm">
+									<font size="2">Add Internet Explorer Icon to 
+									the Desktop in Vista</font></a></li>
+									<li>
+									<a href="configure_multiple_local_gpo_in_windows_vista.htm">
+									<font size="2">Configure Multiple Local GPOs 
+									in Windows Vista</font></a></li>
+									<li>
+									<a href="disable_local_gpo_in_windows_vista.htm">
+									<font size="2">Disable Local GPOs in Windows 
+									Vista</font></a></li>
+									<li>
+									<a href="disable_uac_in_windows_vista.htm">
+									<font size="2">Disable User Account Control 
+									in Windows Vista</font></a></li>
+									<li>
+									<a href="disable_windows_mail_splash_screen_in_windows_vista.htm">
+									<font size="2">Disable Windows Mail splash 
+									screen in Windows Vista</font></a></li>
+									<li>
+									<a href="hide_security_center_icon_in_windows_vista.htm">
+									<font size="2">Hide the Security Center Icon 
+									in Windows Vista</font></a></li>
+									<li>
+									<a href="install_hebrew_on_windows_vista.htm">
+									<font size="2">Install Hebrew on Windows 
+									Vista</font></a></li>
+									<li>
+									<a href="install_windows_vista.htm">
+									<font size="2">Install Windows Vista</font></a></li>
+									<li>
+									<a href="install_windows_vista_without_supplying_the_product_key.htm">
+									<font size="2">Install Windows Vista Without 
+									Supplying the Product Key</font></a></li>
+									<li>
+									<a href="keyboard_shortcuts_in_vista.htm">
+									<font size="2">Keyboard Shortcuts in Windows 
+									Vista</font></a></li>
+									<li>
+									<a href="open_cmd_during_vista_installation.htm">
+									<font size="2">Open a CMD Window During the 
+									Vista Installation</font></a></li>
+									<li>
+									<a href="quickly_add_quick_launch_icons_in_windows_vista.htm">
+									<font size="2">Quickly Add Quick Launch 
+									Icons in Windows Vista</font></a></li>
+									<li>
+									<a href="quickly_copy_file_and%20folder_path_in_windows_vista.htm">
+									<font size="2">Quickly Copy File and Folder 
+									Path in Windows Vista</font></a></li>
+									<li>
+									<a href="quickly_open_cmd_with_elevated_credentials_in_windows_vista.htm">
+									<font size="2">Quickly Open a Command Prompt 
+									with Elevated Credentials in Windows Vista</font></a></li>
+									<li>
+									<a href="quickly_open_command_prompt_here_in_windows_vista.htm">
+									<font size="2">Quickly Open Command Prompt 
+									Here in Windows Vista</font></a></li>
+									<li>
+									<a href="understanding_multiple_local_gpo_in_windows_vista.htm">
+									<font size="2">Understanding Multiple Local 
+									GPOs in Windows Vista</font></a></li>
+									<li>
+									<a href="what's_uac_in_windows_vista.htm">
+									<font size="2">What's User Account Control 
+									in Windows Vista?</font></a></li>
+								</ul>
+
+    							<!-- #EndEditable --></td>
+							</tr>
+							<tr>
+							<td align="left" valign="top" colspan="2"><font size="2">&nbsp;</font><table border="0" width="100%">
+									<tr>
+										<td align="center">
+										<!--webbot bot="Include" U-Include="incl/signup.htm" TAG="BODY" startspan -->
+<font size="2">
+<h3><span style="font-weight: 400; vertical-align: middle">Get All Our Articles 
+Directly</span></h3>
+<p>
+<a href="http://feeds.feedburner.com/Petri" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" alt="" style="vertical-align:middle;border:0"/></a>&nbsp;<a href="http://feeds.feedburner.com/Petri">Subscribe 
+	To Our General RSS Feed</a></p>
+<b>OR</b><br>
+<form method="post" action="http://oi.vresp.com?fid=43c3fedc2f" >
+  <div style="font-family: verdana; font-size: 11px; width: 400px; padding: 10px; border: 1px solid #000000; background: #FFFFFF;"> <strong><span style="color: #333333;">Sign Up For the Petri IT Knowledgebase Weekly Digest!</span></strong> <br>
+    <label style="color: #333333;">Email Address:</label>    <span style="color: #f00">* </span>
+    <br/>
+    <input name="email_address" size="35" style="margin-top: 5px; margin-bottom: 5px; border: 1px solid #999; padding: 3px;"/>
+    <br/>
+    <input type="submit" value="Sign Up Now!" style="margin-top: 5px; border: 1px solid #999; padding: 3px;"/><br/>
+  </div>
+</form>
+</font>
+<!--webbot bot="Include" i-checksum="47252" endspan --><br>
+										<!--/* Max Media Manager Javascript Tag v0.3.31-alpha */-->
+
+<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://bluewhaleweb.com/max/www/delivery/ajs.php':'http://bluewhaleweb.com/max/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=20");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'></scr"+"ipt>");
+//]]>--></script><noscript><a href='http://bluewhaleweb.com/max/www/delivery/ck.php?n=a2ce8d89&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://bluewhaleweb.com/max/www/delivery/avw.php?zoneid=20&amp;n=a2ce8d89' border='0' alt='' /></a></noscript>
+
+ </td>
+									</tr>
+								</table>
+								<p>
+								<font face="Verdana" size="2">
+								<a href="#top">
+				<img border="0" src="images/arrow_up.gif" width="7" height="7"></a> 
+				up</font></p>
+								<p>
+								<font size="2">
+								<a href="javascript:history.go(-1)">
+								<img border="0" src="images/back.gif" width="5" height="7"></a> 
+								back
+								
+								</font></p>
+								<p><font size="2">&nbsp;</font></td>
+							</tr>
+						</table>
+						</td>
+						<td bordercolor="#FF9900" style="border-left-style: none; border-left-width: medium" bgcolor="#FFFFE8" align="left" valign="top">
+						<table border="0" width="100%" dir="ltr" id="table7">
+							<tr>
+								<td bordercolor="#FF9900" style="border-bottom-style: solid; border-bottom-width: 1px">
+				<font face="Verdana" size="1">Page updated:
+				</font>
+				<font color="#CC0033">
+				<!-- #BeginEditable "date" -->
+				<font face="Verdana" size="1">
+				<!--webbot bot="TimeStamp" s-type="EDITED" s-format="%d-%m-%Y" startspan -->11-01-2008<!--webbot bot="TimeStamp" i-checksum="12439" endspan --></font><!-- #EndEditable --></font></td>
+							</tr>
+							</table>
+						<!--webbot bot="Include" U-Include="menus/right_new.htm" TAG="BODY" startspan -->
+
+<div align="center">
+	<table border="0" bordercolor="#FF9900" dir="ltr" id="table1" style="border-collapse: collapse" cellpadding="0" bgcolor="#FFFFE8">
+		<tr>
+			<td width="5" align="left" valign="top" style="border-style:none; border-width:medium; " bgcolor="#FFFFFF"></td>
+			<td width="165" align="left" valign="top" style="border-style:none; border-width:medium; " colspan="2">
+			<font size="1">
+
+</font>
+<!-- SiteSearch Google -->
+<form method="get" action="http://www.petri.co.il/g_search.htm" target="_top">
+<table border="0" bgcolor="#FFFFE8" width="168">
+<tr>
+<td nowrap="nowrap" bgcolor="#FFFFE8">
+<input type="hidden" name="domains" value="www.petri.co.il"></input>
+&nbsp;<input type="text" name="q" size="20" maxlength="255" value="" id="sbi"></input>
+</td></tr>
+<tr>
+
+<td nowrap="nowrap" bgcolor="#FFFFE8">
+<table>
+<tr>
+<td >
+<input type="radio" name="sitesearch" value="web" id="ss0"></input>
+<label for="ss0" title="Search the Web"><font size="-2" color="#000000">Web</font></label></td>
+<td>
+<input type="radio" name="sitesearch" value="www.petri.co.il" id="ss1" checked></input>
+<label for="ss1" title="Search www.petri.co.il"><font size="-2" color="#000000">Petri.co.il</font></label></td>
+</tr>
+</table>
+&nbsp;<input type="submit" name="sa" value="Google Search" id="sbb"></input>
+<input type="hidden" name="client" value="pub-5120588263574562"></input>
+<input type="hidden" name="forid" value="1"></input>
+<input type="hidden" name="ie" value="ISO-8859-1"></input>
+<input type="hidden" name="oe" value="ISO-8859-1"></input>
+<input type="hidden" name="safe" value="active"></input>
+<input type="hidden" name="flav" value="0000"></input>
+<input type="hidden" name="sig" value="aNnUtBcVpeWwLnAy"></input>
+<input type="hidden" name="cof" value="GALT:#008000;GL:1;DIV:#FFFFE8;VLC:008000;AH:center;BGC:FFFFE8;LBGC:336699;ALC:0000FF;LC:0000FF;T:000000;GFNT:008000;GIMP:008000;FORID:11"></input>
+<input type="hidden" name="hl" value="en"></input>
+</td></tr></table>
+</form>
+<!-- SiteSearch Google --><font size="1">
+</font></td>
+			<td width="5" style="border-style:none; border-width:medium; " align="left" valign="top" bgcolor="#FFFFE8">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="25" bgcolor="#FFFFFF" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="5" height="25" bgcolor="#FEEECD" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="25" bgcolor="#FEEECD" align="left">
+								
+<span style="font-size: 7pt"><b>Sponsored Ads</b></span></td>
+			<td width="5" style="border-style:none; border-width:medium; " height="25" bgcolor="#FEEECD" align="left">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" align="left" style="border-style: none; border-width: medium" bgcolor="#FFFFFF" height="190">&nbsp;</td>
+			<td width="5" align="left" style="border-style: none; border-width: medium" height="190">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " align="left" height="190">
+<br>
+<!--/* Max Media Manager Javascript Tag v0.3.31-alpha */-->
+
+<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://bluewhaleweb.com/max/www/delivery/ajs.php':'http://bluewhaleweb.com/max/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=2");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'></scr"+"ipt>");
+//]]>--></script><noscript><a href='http://bluewhaleweb.com/max/www/delivery/ck.php?n=a0b620be&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://bluewhaleweb.com/max/www/delivery/avw.php?zoneid=2&amp;n=a0b620be' border='0' alt='' /></a></noscript>
+
+		
+			</td>
+			<td width="5" style="border-style:none; border-width:medium; " align="left" bgcolor="#FFFFE8" height="190">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="5" bgcolor="#FFFFFF" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="5" height="5" bgcolor="#FEEECD" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="5" bgcolor="#FEEECD" align="left">
+								
+				&nbsp;</td>
+			<td width="5" style="border-style:none; border-width:medium; " height="5" bgcolor="#FEEECD" align="left">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" align="left" style="border-style:none; border-width:medium; " bgcolor="#FFFFFF" height="180">&nbsp;</td>
+			<td width="5" align="left" style="border-style:none; border-width:medium; " height="180">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " align="left" height="180">
+			<br>
+<!--/* Max Media Manager Javascript Tag v0.3.31-alpha */-->
+
+<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://bluewhaleweb.com/max/www/delivery/ajs.php':'http://bluewhaleweb.com/max/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=4");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'></scr"+"ipt>");
+//]]>--></script><noscript><a href='http://bluewhaleweb.com/max/www/delivery/ck.php?n=ad8b307c&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://bluewhaleweb.com/max/www/delivery/avw.php?zoneid=4&amp;n=ad8b307c' border='0' alt='' /></a></noscript>
+				
+		
+			</td>
+			<td width="5" style="border-style:none; border-width:medium; " align="left" bgcolor="#FFFFE8" height="180">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="5" bgcolor="#FFFFFF" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="5" height="5" bgcolor="#FEEECD" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="5" bgcolor="#FEEECD" align="left">
+								
+				&nbsp;</td>
+			<td width="5" style="border-style:none; border-width:medium; " height="5" bgcolor="#FEEECD" align="left">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" align="left" style="border-style:none; border-width:medium; " bgcolor="#FFFFFF" height="180">&nbsp;</td>
+			<td width="5" align="left" style="border-style:none; border-width:medium; " height="180">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " align="left" height="180">
+<br>
+<!--/* Max Media Manager Javascript Tag v0.3.31-alpha */-->
+
+<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://bluewhaleweb.com/max/www/delivery/ajs.php':'http://bluewhaleweb.com/max/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=3");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'></scr"+"ipt>");
+//]]>--></script><noscript><a href='http://bluewhaleweb.com/max/www/delivery/ck.php?n=a592a645&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://bluewhaleweb.com/max/www/delivery/avw.php?zoneid=3&amp;n=a592a645' border='0' alt='' /></a></noscript>
+		
+			</td>
+			<td width="5" style="border-style:none; border-width:medium; " align="left" bgcolor="#FFFFE8" height="180">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="5" bgcolor="#FFFFFF" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="5" height="5" bgcolor="#FEEECD" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="5" bgcolor="#FEEECD" align="left">
+			
+				&nbsp;</td>
+			<td width="5" style="border-style:none; border-width:medium; " height="5" bgcolor="#FEEECD" align="left">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" align="left" style="border-style:none; border-width:medium; " bgcolor="#FFFFFF" height="140">&nbsp;</td>
+			<td width="5" align="left" style="border-style:none; border-width:medium; " height="140">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " align="left" height="140">
+			<br>
+<!--/* Max Media Manager Javascript Tag v0.3.31-alpha */-->
+
+<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://bluewhaleweb.com/max/www/delivery/ajs.php':'http://bluewhaleweb.com/max/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=5");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'></scr"+"ipt>");
+//]]>--></script><noscript><a href='http://bluewhaleweb.com/max/www/delivery/ck.php?n=a4444ee4&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://bluewhaleweb.com/max/www/delivery/avw.php?zoneid=5&amp;n=a4444ee4' border='0' alt='' /></a></noscript>
+</td>
+
+			<td width="5" style="border-style:none; border-width:medium; " align="left" bgcolor="#FFFFE8" height="140">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" height="25" bgcolor="#FFFFFF" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="5" height="25" bgcolor="#FEEECD" style="border-style:none; border-width:medium; " align="left">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " height="25" bgcolor="#FEEECD" align="left">
+			<b><font style="font-size: 7pt">Google Ads</font></b></td>
+			<td width="5" style="border-style:none; border-width:medium; " height="25" bgcolor="#FEEECD" align="left">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="5" align="left" valign="top" style="border-style:none; border-width:medium; " bgcolor="#FFFFFF">&nbsp;</td>
+			<td width="5" align="left" valign="top" style="border-style:none; border-width:medium; ">&nbsp;</td>
+			<td width="160" style="border-style:none; border-width:medium; " align="left" valign="top">
+
+<span style="font-size: 7pt">
+
+	
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-5120588263574562";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text_image";
+//2006-11-10: R-Bottom
+google_ad_channel = "0317567975";
+google_color_border = "FFFFE8";
+google_color_bg = "FFFFE8";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+
+</span>
+<p><span style="font-size: 7pt">&nbsp;</span></td>
+			<td width="5" style="border-style:none; border-width:medium; " align="left" valign="top" bgcolor="#FFFFE8">&nbsp;</td>
+		</tr>
+		</table>
+</div>
+
+<!--webbot bot="Include" i-checksum="26788" endspan --></td>
+					</tr>
+					<tr>
+						<td style="border-right-style: none; border-right-width: medium" bordercolor="#FF9900" width="140" bgcolor="#FFFFE8" align="center">
+						&nbsp;</td>
+						<td align="left" valign="top" style="border-left-width: medium; border-right-width: medium; border-bottom-width: 1px" bordercolor="#FF9900" bgcolor="#FFFFE8">
+						<font face="Verdana" color="#999999" size="1">Copyright 
+						© 2007 Blue Whale Web No portion may be reproduced 
+						without my written permission. Microsoft, MS-DOS, 
+						Windows, Windows 2000, Windows XP, Windows Server 2003, 
+						Windows NT, Windows 98, Windows 95 are either registered 
+						trademarks or trademarks of Microsoft Corporation in the 
+						U.S.A. and other countries. All other names are 
+						registered trademarks of their respective companies. 
+						Should any right be infringed, it is totally 
+						unintentional. Send me an e-mail and I will promptly and 
+						gladly rectify it. All external sites will open in a new 
+						browser. Petri.co.il does not endorse external sites and 
+						is not responsible for their content. For broken links, 
+						site problems - please send <a href="feedback.htm">
+						Feedback</a>.</font></td>
+						<td bordercolor="#FF9900" style="border-left-style: none; border-left-width: medium" width="170" bgcolor="#FFFFE8" align="center">
+						<p align="center">&nbsp;</td>
+					</tr>
+				</table>
+			</div>
+			</td>
+		</tr>
+	</table>
+</div>
+
+</body>
+
+<!-- #EndTemplate -->
+
+</html>

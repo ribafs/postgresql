@@ -1,0 +1,93 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2098"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-161_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-160.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-161_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-161_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-162.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-161_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P8409_458513"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.8.6 Usage Restrictions</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following are restrictions on cursor variable usage.</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Comparison operators cannot be used to test cursor variables for equality, inequality, null, or not null</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Null cannot be assigned to a cursor variable</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The value of a cursor variable cannot be stored in a database column</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Static cursors and cursor variables are not interchangeable. For example, a static cursor cannot be used in an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OPEN FOR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In
+addition the following table shows the permitted parameter modes for a
+cursor variable used as a procedure or function parameter depending
+upon the operations on the cursor variable within the procedure or
+function.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;"><a name="P8416_459173"></a>Table 4-4 Permitted Cursor Variable Parameter Modes</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="121"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Operation</span></p>
+</td>
+<td valign="top" width="70"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">IN</span></p>
+</td>
+<td valign="top" width="70"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">IN OUT</span></p>
+</td>
+<td valign="top" width="69"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">OUT</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="121"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">OPEN</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">No</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Yes</span></p>
+</td>
+<td valign="top" width="69"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">No</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="121"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FETCH</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Yes</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Yes</span></p>
+</td>
+<td valign="top" width="69"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">No</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="121"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOSE</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Yes</span></p>
+</td>
+<td valign="top" width="70"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Yes</span></p>
+</td>
+<td valign="top" width="69"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">No</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">So for example, if a procedure performs all three operations</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OPEN FOR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FETCH</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CLOSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> on a cursor variable declared as the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">procedure&#8217;s</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> formal parameter, then that parameter must be declared with </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> mode.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-160.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-161_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-161_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-162.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-161_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-161_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-161_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

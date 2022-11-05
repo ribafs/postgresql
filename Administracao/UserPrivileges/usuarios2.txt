@@ -1,0 +1,77 @@
+Criar usuário com muitos poderes
+
+sudo su
+su - postgres
+
+ou
+sudo -i -u postgres
+psql
+
+ou
+sudo -u postgres psql
+
+CREATE USER dnocs SUPERUSER INHERIT CREATEDB CREATEROLE;
+ALTER USER dnocs PASSWORD 'senha';
+
+alter role apoena SUPERUSER INHERIT CREATEDB CREATEROLE;
+
+No localhost este usuário casa e batiza.
+
+Apenas caso queira que este usuário acesse outras redes:
+Autenticação no pg_hba.conf
+
+Adicione uma entrada para cada integrante da equipe
+
+Toda uma subrede: 10.40.10.0/24
+
+
+# ribafs acessando todos os bancos usando md5 e o IP 10.40.10.133
+
+#TIPO	BANCOS		USUÁRIOS	ENDEREÇO			MÉTODO DE ACESSO
+
+host    all         ribafs         10.40.10.133/32		md5
+
+# Fátima acessando todos
+host    all         fatima         10.40.10.132/32		md5
+
+# Outro acessando somente o banco intranet
+host    intranet	outro         10.40.10.135/32		md5
+
+Configurar estilo de data no postgresql.conf
+
+datestyle = 'sql, dmy'
+
+ou
+datestyle = 'postgres, dmy'
+
+Assim podemos digitar as datas assim:
+'31/12/2016'
+
+
+Criar usuário com todos os poderes sobre o banco de dados do CakePHP
+
+sudo su
+su - postgres
+
+createdb intranet
+createuser intrane
+
+psql intranet
+ALTER DATABASE intranet OWNER TO intranet;
+
+alter role intranet password 'senha';
+
+REVOKE CONNECT ON DATABASE intranet FROM PUBLIC;
+GRANT CONNECT ON DATABASE intranet TO intranet;
+
+---
+REVOKE ALL ON ALL TABLES IN SCHEMA public FROM PUBLIC;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO intranet;
+
+---
+ALTER DEFAULT PRIVILEGES 
+    FOR ROLE outrousuario
+    IN SCHEMA public
+    GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO outrousuario;
+
+

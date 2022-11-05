@@ -1,0 +1,43 @@
+IMPORTAR SCRIPTS TIPO CSV E SQL PARA O POSTGRESQL
+
+1 - Importar Banco de CEPs (do Brasil) de arquivo tipo CSV para o PostgreSQG
+
+Remover a chave primária da tabela cep do banco cadastro_clientes.
+
+- Baixar CEP do site - http://ribafs.byethost2.com/ :
+1 - http://ribafs.byethost2.com/index.php?option=com_remository&Itemid=26&func=fileinfo&id=43
+2 - http://ribafs.byethost2.com/index.php?option=com_remository&Itemid=26&func=fileinfo&id=44
+
+Descompactar o primeiro com o winrar ou fillzip.
+
+Renomear o arquivo descompactado para cep.csv e copiar para o c:\
+
+Abrir o psql com:
+
+psql -U postgres -W
+
+Após fornecer a senha acesse o banco cadastro_clientes com:
+
+\c cadastro_clientes
+
+Então importe o arquivo com:
+
+\copy cep from c:\cep.csv e aguarde.
+
+
+2 - Importar arquivos .sql para o PostgreSQG
+
+Abrir o psql com:
+
+psql -U postgres -W
+
+Após fornecer a senha acesse o banco cadastro_clientes (por exemplo) com:
+
+\c cadastro_clientes
+
+Então importe o arquivo com:
+
+\i c:\nomearquivo.sql e aguarde
+
+-----------------------------
+Ribamar FS - ribafs@gmail.com

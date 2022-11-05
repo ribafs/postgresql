@@ -1,0 +1,57 @@
+Avaliando o desempenho de índices
+
+Cenário:
+Banco de dados de CEPs com 633.401 registros cep_brasil.
+tabela cep_full sem índice
+tabela cep_full_index com índice
+
+Criando o banco com codificação win1252:
+
+postgres=# create database cep_brasil encoding 'win1252';
+
+postgres=# \c cep_brasil
+
+create table cep_full (
+cep char(8),
+tipo char(72),
+logradouro char(70),
+bairro char(72),
+municipio char(60),
+uf char(2)
+);
+
+Importanto do CSV (http://tudoemum.ribafs.net/includes/cep_brasil.sql.bz2):
+\copy cep_full from E:\Enviar\cep_brasil_unique.csv
+
+Essa é interessante para quem não conhece. Crio uma segunda tabela
+tendo como base uma consulta sobre outra tabela, já importando todos
+os registros:
+create table cep_full_index as select * from cep_full;
+
+Alterar a tabela cep_full_index adicionando índice:
+alter table cep_full_index add constraint cep_pk primary key (cep);
+
+Atualizando as estatísticas:
+vacuum analyze;
+
+
+Pegando o plano de consulta da primeira consulta:
+explain select logradouro from cep_full where cep='60420440';
+                        QUERY PLAN
+-------------------------------------------------------------
+ Seq Scan on cep_full  (cost=0.00..33254.51 rows=1 width=71)
+  Filter: (cep = '60420440'::bpchar)
+(2 rows)
+
+O plano da segunda:
+explain select logradouro from cep_full_index where cep='60420440';
+                                 QUERY PLAN
+------------------------------------------------------------------------------
+ Index Scan using cep_pk on cep_full_index  (cost=0.00..8.37 rows=1 width=71)
+  Index Cond: (cep = '60420440'::bpchar)
+(2 rows)
+
+Isso foi interessante, pois numa tabela grande gasta um tempo muito pequeno. Como eu estava fazendo, usando o \timing, a consulta demorava muito.
+
+
+[1] – Adaptação de dica recebida do Roberto Mello (na lista pgbr-geral).

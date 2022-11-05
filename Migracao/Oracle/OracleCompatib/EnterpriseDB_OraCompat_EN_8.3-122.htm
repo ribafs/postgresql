@@ -1,0 +1,208 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2059"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-122_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-121.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-122_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-122_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-123.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-122_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P6302_347396"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.2.5 Procedure and Function Parameters</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">n
+important aspect of using procedures and functions is the capability to
+pass data from the calling program to the procedure or function and to
+receive data back from the procedure or function</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This is accomplished by using </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>parameters</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Parameters
+are declared in the procedure or function definition, enclosed within
+parenthesis following the procedure or function name. Parameters
+declared in the procedure or function definition are known as </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>formal parameters</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.
+When the procedure or function is invoked, the calling program supplies
+the actual data that is to be used in the called program&#8217;s processing
+as well as the variables that are to receive the results of the called
+program&#8217;s processing. The data and variables supplied by the calling
+program when the procedure or function is called are referred to as the
+</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>actual parameters</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is the general format of a formal parameter declaration.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [</span><span style="font-family: 'Courier New'; font-size: 11pt;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN</span><span style="font-family: 'Courier New'; font-size: 11pt;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OUT</span><span style="font-family: 'Courier New'; font-size: 11pt;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN OUT</span><span style="font-family: 'Courier New'; font-size: 11pt;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">] </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>data_type</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ DEFAULT </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ])</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is an identifier assigned to the formal parameter</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">specified, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> defines the parameter for receiving input data into the procedure or function</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">An </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> parameter can also be initialized to a default value</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If specified, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> defines the parameter for returning data from the procedure or function</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If specified</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> allows the parameter to be used for both input and output</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If all of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are omitted, then the parameter acts as if it were defined as </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> by default</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Whether a parameter is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is referred to as the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">parameter&#8217;s</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>mode</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>data_type</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> defines the data type of the parameter. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a default value assigned to an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> parameter in the called program if an actual parameter is not specified in the call.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is an example of a procedure that takes parameters:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE PROCEDURE emp_query (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_deptno        IN     NUMBER,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_empno         IN OUT NUMBER,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_ename         IN OUT VARCHAR2,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_job           OUT    VARCHAR2,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_hiredate      OUT    DATE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_sal           OUT    NUMBER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">IS</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    SELECT empno, ename, job, hiredate, sal</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        INTO p_empno, p_ename, p_job, p_hiredate, p_sal</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FROM emp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        WHERE deptno = p_deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">          AND (empno = p_empno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">           OR  ename = UPPER(p_ename));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In this example, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">p_deptno</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> f</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ormal parameter, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">p_empno</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">p_ename</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> formal parameters, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">p_job</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">p_hiredate</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">p_sal</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> formal parameters.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note:</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span></b><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In the previous example, no maximum length was specified on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">VARCHAR2</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> parameters and no precision and</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> scale were specifi</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ed on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+parameters. It is illegal to specify a length, precision, scale or
+other constraints on parameter declarations. These constraints are
+automatically inherited from the actual parameters that are used when
+the procedure or function is called.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_query</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure can be called by another program, passing it the actual parameters. The following is an example of another </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> program that calls </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_query</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_deptno        NUMBER(2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_empno         NUMBER(4);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_ename         VARCHAR2(10);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_job           VARCHAR2(9);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_hiredate      DATE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_sal           NUMBER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_deptno := 30;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_empno  := 7900;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_ename  := '';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    emp_query(v_deptno, v_empno, v_ename, v_job, v_hiredate, v_sal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Department : ' || v_deptno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Employee No: ' || v_empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Name       : ' || v_ename);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Job        : ' || v_job);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Hire Date  : ' || v_hiredate);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Salary     : ' || v_sal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In this example, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">v_deptno</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">v_empno</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">v_ename</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">v_job</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">v_hiredate</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">v_sal</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are the actual parameters.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The output from the preceding example is shown as follows:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Department : 30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Employee No: 7900</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Name       : JAMES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Job        : CLERK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Hire Date  : 03-DEC-81</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Salary     : 950</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;"><a name="P6356_351301"></a>4.2.5.1 Parameter Modes</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">As previously discussed, a parameter has one of three possible modes - </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. The following characteristics of a formal parameter are dependent upon its mode.</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Its initial value when the procedure or function is called</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Whether or not the called procedure or function can modify the formal parameter</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">How the actual parameter value is passed from the calling program to the called program</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">What happens to the formal parameter value when an unhandled exception occurs in the called program</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following table summarizes the behavior of parameters according to their mode.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;"><a name="P6363_351916"></a>Table 4-1 Parameter Modes</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="197"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Mode Property</span></p>
+</td>
+<td valign="top" width="126"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">IN</span></p>
+</td>
+<td valign="top" width="126"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">IN OUT</span></p>
+</td>
+<td valign="top" width="126"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">OUT</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="197"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Formal parameter initialized to:</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Actual parameter value</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Actual parameter value</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Actual parameter value</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="197"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Formal parameter modifiable by the called program?</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">No</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Yes</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Yes</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="197"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Actual parameter contains: (after normal called program termination)</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Original actual par</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ameter value prior to the call</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Last value of the formal parameter</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Last value of the formal parameter</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="197"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Actual parameter contains: (after a handled exception in the called program)</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Original actual parameter value prior to the call</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Last value of the formal pa</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">rameter</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Last value of the formal parameter</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="197"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Actual parameter contains: (after an unhandled exception in the called program)</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Original actual parameter value prior to the call</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Original actual parameter value prior to the call</span></p>
+</td>
+<td valign="top" width="126"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Original actual parameter value </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">prior to the call</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">As shown by the table, an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+formal parameter is initialized to the actual parameter with which it
+is called unless it was explicitly initialized with a default value</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> parameter may be referenced within the called program, however</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, the called program may not assign a new value to the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+parameter. After control returns to the calling program, the actual
+parameter always contains the same value as it was set to prior to the
+call.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+formal parameter is initialized to the actual parameter with which it
+is called. The called program may reference and assign new values to
+the formal parameter. If the called program terminates without an
+exception, the actual parameter takes on the value last set in the
+formal parameter. If a handled exception occurs, the value of the
+actual parameter takes on the last value assigned to the formal
+parameter. If an unhandled exception occurs, the value of the actual
+parameter remains as it was prior to the call.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Like an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> parameter, an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> formal parameter is initialized to the actual parameter with which it is called. Like an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> parameter, an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN OUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+formal parameter is modifiable by the called program and the last value
+in the formal parameter is passed to the calling program&#8217;s actual
+parameter if the called program terminates without an exception. If a
+handled exception occurs, the value of the actual parameter takes on
+the last value assigned to the formal parameter. If an unhandled
+exception occurs, the value of the actual parameter remains as it was
+prior to the call.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-121.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-122_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-122_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-123.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-122_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-122_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-122_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

@@ -1,0 +1,18 @@
+Agrupando Registros
+
+Sintaxe
+select campo, função(campo)
+	from tabela
+	group by campo
+	having campo;
+	
+Group by condensa em uma única linha todos os registros que possuem o mesmo valor do campo do group by.
+
+select sexo, count(*) from alunos
+		group by sexo;
+		
+group by pode ser usada em mais de um campo
+
+Alguns exemplos
+
+		

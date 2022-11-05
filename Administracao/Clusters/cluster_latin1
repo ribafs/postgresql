@@ -1,0 +1,24 @@
+Criando um cluster com LATIN1 no CentOS 6.2
+
+yum install postgresql postgresql-server
+
+service postgresql stop
+
+mkdir /var/lib/pgsql/datalatin1
+chown postgres /var/lib/pgsql/datalatin1
+
+su - postgres
+
+env LANG=LATIN1 /usr/bin/initdb --locale=pt_BR.iso88591 --encoding=LATIN1 -D /var/lib/pgsql/datalatin1
+
+Alterar a porta padrão para 5433:
+nano /var/lib/pgsql/datalatin1/postgresql.conf 
+
+pg_ctl -D /var/lib/pgsql/datalatin1
+
+psql -p 5433
+
+\l
+Veja que os bancos estão com LATIN1
+
+

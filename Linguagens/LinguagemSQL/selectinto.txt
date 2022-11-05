@@ -1,0 +1,13 @@
+SELECT INTO
+
+Cria uma nova tabela partindo de uma ou mais tabelas existentes.
+
+A nova tabela conterá apenas os campos do select. Se * todos, mas se especificados
+apenas os especificados.
+
+select * into informatica from disciplinas where codigo = 'inf';
+
+Este comando não traz as constraints, por conta disso o create table é preferido.
+Usando devemos após a criação adicionar as constraints manualmente.
+
+

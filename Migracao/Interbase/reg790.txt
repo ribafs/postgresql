@@ -1,0 +1,130 @@
+THIS IS AN AUTO-GENERATED MESSAGE - PLEASE DO NOT REPLY TO THIS MESSAGE
+
+Login Name: ribafs
+
+The attached file, (reg790.txt), activates your CodeGear InterBase 2007 Developer Edition.
+
+To complete product registration, save the attached file into
+<interbase_home>/license directory before starting the InterBase server.
+
+The contents of this e-mail and the attached file are for your
+exclusive use and should not be shared with others.
+
+If this e-mail has no attachment, save this e-mail as a text
+file  (reg790.txt) into <interbase_home>/license directory.
+
+Contacting CodeGear:
+
+CodeGear maintains an Internet site on the world-wide web for general
+InterBase information. The URL of this site is:
+http://www.codegear.com/products/interbase
+
+Technical information, such as white papers and FAQs, can be found at:
+http://dn.codegear.com/interbase/
+
+To discuss issues with other InterBase users, visit:
+http://support.codegear.com/newsgroups/
+
+For Customer Support, visit: 
+http://support.codegear.com
+
+
+-----BEGIN BLOCK-----
+
+%1C%09%AFT%00%00%04D%D6%E0%23o
+%D6%83%D2D%8Ehl%D9%89%C0f%BA_N
+%BE%B6%ADZ%E0%09%7C%EF%A8%CFD%
+B2at%E8%9C%DFb%90%17n%F9%80%F8
+d%C7f%1D%CC%B7%FE%3F%A0%02%5D%
+9D%E2%D9%04%89%06%03%BD%89%CF%
+03%D9Y%3B%D9%B3%D8%1E%87AR%A3%
+95%E9%27%E9%1D%08%C6%CF%D8%26%
+E1%03I%EA%E0%DB%07%CD%0FD%F0%D
+0%A5H%F8f%0C%9B%84%F0_%F1i%0C%
+AD%B1%AF%00%C3%3Er%AB%FE%84%12
+%A5cj%8D%A1%C3%0F%FA8%13%D3%FA
+%E9A%F6%3Cr%CB%BD%A1%5D%97%12x
+%A8%B1%86a%855X%A5%D3%B4%04%C2
+%3Dl%DC%B5%89Z%85x%2C%E0%FB%9B
+q%C5w%3C%C2%98%B2D%9F%27%1E%A8
+%95%EA%11%F7%19%3C%9A%C6%DFf%8
+90E%CF%F9%AAv%E6%2BY%C1%E3%E9%
+08%8D%18%7C%90%F1%8C%04%87WZ%B
+3%F6%C83%BB%0E%1F%B0%98%C3m%ED
+6G%9E%F8%92%18%9729%BD%A0%8Ek%
+ABbZ%D2%8C%8A%12%B6%0A9%AA%A2%
+D4-%E1%7F%0E%A9%D9%E1U%E8x.%A6
+%89%F7y%CEf0%A1%A1%A1%0B%B9oX%
+D5%97%ADi%A4d%27%D6%D8%F7%13%E
+CIO%9B%BD%9Ay%B6%25%06%C9%92%9
+C0%A4%18%14%86%B5%EFk%A7e_%96%
+89%BB%3B%90K%13%A2%DB%B2I%9Bbo
+%D3%E8%91C%C2jS%CD%87%F8V%DA%7
+DQ%8B%A9%91%24%D17%01%91%B9%A7
+d%B2JS%D4%F8%E1v%91%05n%FF%C9%
+8Ed%D4%3EL%D5%B5%8Dd%A2%03%7E%
+91%E2%E9x%D9uj%D3%EC%85Q%CCx%2
+6%83%A5%CA%08%BFbX%F4%A3%CFU%A
+Fk%0D%A5%84%E05%87%23T%AA%A2%9
+F%7F%B0dC%F5%E9%80%1E%A0%17z%B
+A%B1%8F%28%95y%3B%B0%88%FB%1B%
+DCs%0A%CE%A8%9B%3F%FFv%22%CE%E
+6%E2%13%EBY%23%DF%B0%ED%11%B7f
+2%87%BC%BC%21%93mu%D7%A0%8E%5C
+%8A-%2B%CB%A9%FD%1B%83%3D%40%F
+3%BC%E7%12%D9Z%08%C8%85%B01%B6
+1%60%BB%82%AE*%FC%2C%10%FA%DA%
+A5o%FDqK%84%8F%D6%29%98%06x%AC
+%F8%D0U%BD%2Bi%F1%AF%BEt%AE%2B
+5%B1%A6%E8%7B%E8%7Fr%90%F9%F7%
+0C%8D%60F%D2%A9%E3V%C4%08%15%F
+C%C9%F3%0D%C7%2Bh%89%B5%E0%24%
+FE%15q%85%85%9E%1A%E4%16j%C2%E
+A%8BQ%EDaN%97%87%C8I%D4ck%8B%A
+0%95L%97%601%E3%B7%ECu%C5%5Ew%
+AB%8C%C85%A6%05c%96%DB%C4d%B7%
+0ED%C4%A7%A3T%83%0E%1F%ED%8D%8
+5%2B%9F%12%3E%9C%87%D5%5D%FA%1
+DB%A6%FC%F47%AE%0FB%82%A0%B8%5
+E%CA%0Fw%CE%91%CD%7B%A6TH%DC%C
+F%A9%3C%A8%05x%9D%B1%84q%EC%11
+P%D6%83%B3%09%D3%5CL%DA%9A%E8t
+%B4%19b%D1%CE%84J%F34%7D%8B%FD
+%90%09%C8%0Cg%AE%9B%EE.%C6%7B*
+%EA%A7%A8P%ECv%16%D3%D8%F8%3A%
+E8%225%AC%83%92w%BFS%7D%C8%F0%
+D3B%EC6%7F%A9%E0%B6B%81%5D%0B%
+A0%E4%AEL%B7C%7E%FB%F8%D2%1C%E
+DI%0C%F3%B5%D5%3B%95u%07%B9%82
+%DE%02%91K1%E7%8F%C4l%BFAQ%D3%
+E0%A0H%CD%5BC%A9%9D%E0k%D6%60s
+%D6%AE%94%03%EC%23%12%B8%B7%DA
+A%F2%155%DD%F4%B0U%AF%5B%10%E6
+%8D%EFl%CB_D%CE%CA%BD%11%FD%7B
+I%EB%8C%C0d%9EM%5C%C3%D3%F2%60
+%F5%29%15%CD%B8%C7B%D5%1B%7C%9
+B%D4%9F%12%BDLK%A5%ED%DE2%B73L
+%C2%EB%91%0E%91%04l%87%B0%82%0
+9%EC%00%1F%B7%AF%E0%3C%B3%24%2
+5%8F%90%FAv%E2zs%A6%88%9F%7E%A
+8%00p%8B%ED%9B%05%87Xe%8E%C2%C
+D%13%D0QE%D5%F3%AE%00%CEKD%C7%
+B1%F7q%80As%FE%C1%FFb%A9j%1B%D
+1%A7%CBZ%92l%7F%D9%CD%E1_%FA%1
+EQ%CC%B1%C9%7D%E9%26%26%8D%CF%
+F6V%BBRy%C4%D6%D4o%C8-%2B%A5%F
+F%FFp%88%03%60%EF%C2%D8%0F%CDy
+%7F%AD%B6%E3%2B%E5n7%CE%9D%80%
+7F%FB_y%E0%F9%8D%09%C1_%15%8D%
+DD%83%08%E2%3Br%EA%F5%BAp%E0%7
+D%25%F9%C9%DE%23%A0T%7E%95%E3%
+E6%01%8F%12*%9E%F4%932%93%1D%0
+B%CA%8F%FC6%BEq5%88%A0%FD%09%8
+B%5DN%DF%83%A7%7F%B4.%08%DC%F4
+%86O%D1%0Bc%DD%C1%90A%D8%5D%3B
+%8F%92%B7C%F2%25%29%AB%D1%9C%2
+3%FC%5E%2F%9D%DB%91G%A53x%A3%C
+8%B4
+
+-----END BLOCK-----
+

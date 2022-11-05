@@ -1,0 +1,351 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Language" content="pt-br">
+<meta name="author" content="Traduzido por Halley Pacheco de Oliveira - Câmara Municipal do Rio de Janeiro">
+<meta name="keywords" content="postgresql manual documentação sql comandos tradução português brasil banco dados sgbd sgbdr sgbdor">
+<meta name="description" content="Tradução da Documentação do PostgreSQL 8.0.0 para o Português do Brasil">
+<title>PL/pgSQL - Linguagem procedural SQL</title>
+<meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7">
+<link rev="MADE" href="mailto:pgsql-docs@postgresql.org">
+<link rel="HOME" title="Documentação do PostgreSQL 8.0.0" href="index.html">
+<link rel="UP" title="Programação servidor" href="server-programming.html">
+<link rel="PREVIOUS" title="Linguagens procedurais" href="xplang.html">
+<link rel="NEXT" title="Dicas para desenvolvimento em PL/pgSQL" href="plpgsql-development-tips.html">
+<link rel="STYLESHEET" type="text/css" href="stylesheet.css">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="creation" content="2006-02-18T12:06:06">
+</head>
+<body class="CHAPTER">
+<div class="NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="5" align="center" valign="bottom">Documentação do PostgreSQL 8.0.0</th>
+</tr>
+
+<tr>
+<td width="10%" align="left" valign="top">
+<a href="xplang.html" accesskey="P">Anterior</a>
+</td>
+<td width="10%" align="left" valign="top">
+<a href="xplang.html">Início</a>
+</td>
+<td width="60%" align="center" valign="bottom"></td>
+<td width="10%" align="right" valign="top">
+<a href="pltcl.html">Fim</a>
+</td>
+<td width="10%" align="right" valign="top">
+<a href="plpgsql-development-tips.html" accesskey="N">Próxima</a>
+</td>
+</tr>
+</table>
+
+<hr align="LEFT" width="100%">
+</div>
+
+<div class="CHAPTER">
+<h1>
+<a name="PLPGSQL"></a>
+Capítulo 35. PL/pgSQL - Linguagem procedural SQL</h1>
+
+<div class="TOC">
+<dl>
+<dt><b>Sumário</b></dt>
+
+<dt>35.1. 
+<a href="plpgsql.html#PLPGSQL-OVERVIEW">Visão geral</a>
+</dt>
+
+<dd>
+<dl>
+<dt>35.1.1. 
+<a href="plpgsql.html#PLPGSQL-ADVANTAGES">Vantagens da utilização da linguagem PL/pgSQL</a>
+</dt>
+
+<dt>35.1.2. 
+<a href="plpgsql.html#PLPGSQL-ARGS-RESULTS">Tipos de dado suportados nos argumentos e no resultado</a>
+</dt>
+</dl>
+</dd>
+
+<dt>35.2. 
+<a href="plpgsql-development-tips.html">Dicas para desenvolvimento em PL/pgSQL</a>
+</dt>
+
+<dt>35.3. 
+<a href="plpgsql-structure.html">Estrutura da linguagem PL/pgSQL</a>
+</dt>
+
+<dt>35.4. 
+<a href="plpgsql-declarations.html">Declarações</a>
+</dt>
+
+<dd>
+<dl>
+<dt>35.4.1. 
+<a href="plpgsql-declarations.html#PLPGSQL-DECLARATION-ALIASES">Aliases para parâmetros de função</a>
+</dt>
+
+<dt>35.4.2. 
+<a href="plpgsql-declarations.html#PLPGSQL-DECLARATION-TYPE">Cópia de tipo</a>
+</dt>
+
+<dt>35.4.3. 
+<a href="plpgsql-declarations.html#PLPGSQL-DECLARATION-ROWTYPES">Tipos linha</a>
+</dt>
+
+<dt>35.4.4. 
+<a href="plpgsql-declarations.html#PLPGSQL-DECLARATION-RECORDS">Tipos registro</a>
+</dt>
+
+<dt>35.4.5. 
+<a href="plpgsql-declarations.html#PLPGSQL-DECLARATION-RENAMING-VARS">RENAME</a>
+</dt>
+</dl>
+</dd>
+
+<dt>35.5. 
+<a href="plpgsql-expressions.html">Expressões</a>
+</dt>
+
+<dt>35.6. 
+<a href="plpgsql-statements.html">Instruções básicas</a>
+</dt>
+
+<dd>
+<dl>
+<dt>35.6.1. 
+<a href="plpgsql-statements.html#PLPGSQL-STATEMENTS-ASSIGNMENT">Atribuições</a>
+</dt>
+
+<dt>35.6.2. 
+<a href="plpgsql-statements.html#PLPGSQL-SELECT-INTO">SELECT INTO</a>
+</dt>
+
+<dt>35.6.3. 
+<a href="plpgsql-statements.html#PLPGSQL-STATEMENTS-PERFORM">Execução de expressão ou de consulta sem resultado</a>
+</dt>
+
+<dt>35.6.4. 
+<a href="plpgsql-statements.html#PLPGSQL-STATEMENTS-NULL">Não fazer nada</a>
+</dt>
+
+<dt>35.6.5. 
+<a href="plpgsql-statements.html#PLPGSQL-STATEMENTS-EXECUTING-DYN">Execução de comandos dinâmicos</a>
+</dt>
+
+<dt>35.6.6. 
+<a href="plpgsql-statements.html#PLPGSQL-STATEMENTS-DIAGNOSTICS">Obtenção do status do resultado</a>
+</dt>
+</dl>
+</dd>
+
+<dt>35.7. 
+<a href="plpgsql-control-structures.html">Estruturas de controle</a>
+</dt>
+
+<dd>
+<dl>
+<dt>35.7.1. 
+<a href="plpgsql-control-structures.html#PLPGSQL-STATEMENTS-RETURNING">Retorno de uma função</a>
+</dt>
+
+<dt>35.7.2. 
+<a href="plpgsql-control-structures.html#PLPGSQL-CONDITIONALS">Condicionais</a>
+</dt>
+
+<dt>35.7.3. 
+<a href="plpgsql-control-structures.html#PLPGSQL-CONTROL-STRUCTURES-LOOPS">Laços simples</a>
+</dt>
+
+<dt>35.7.4. 
+<a href="plpgsql-control-structures.html#PLPGSQL-RECORDS-ITERATING">Laço através do resultado da consulta</a>
+</dt>
+
+<dt>35.7.5. 
+<a href="plpgsql-control-structures.html#PLPGSQL-ERROR-TRAPPING">Captura de erros</a>
+</dt>
+</dl>
+</dd>
+
+<dt>35.8. 
+<a href="plpgsql-cursors.html">Cursores</a>
+</dt>
+
+<dd>
+<dl>
+<dt>35.8.1. 
+<a href="plpgsql-cursors.html#PLPGSQL-CURSOR-DECLARATIONS">Declaração de variável cursor</a>
+</dt>
+
+<dt>35.8.2. 
+<a href="plpgsql-cursors.html#PLPGSQL-CURSOR-OPENING">Abertura de cursor</a>
+</dt>
+
+<dt>35.8.3. 
+<a href="plpgsql-cursors.html#PLPGSQL-CURSOR-USING">Utilização de cursores</a>
+</dt>
+</dl>
+</dd>
+
+<dt>35.9. 
+<a href="plpgsql-errors-and-messages.html">Erros e mensagens</a>
+</dt>
+
+<dt>35.10. 
+<a href="plpgsql-trigger.html">Gatilhos escritos em PL/pgSQL</a>
+</dt>
+
+<dt>35.11. 
+<a href="plpgsql-porting.html">Conversão do PL/SQL do Oracle para o PL/pgSQL do PostgreSQL</a>
+</dt>
+
+<dd>
+<dl>
+<dt>35.11.1. 
+<a href="plpgsql-porting.html#AEN39432">Exemplos de conversão</a>
+</dt>
+
+<dt>35.11.2. 
+<a href="plpgsql-porting.html#PLPGSQL-PORTING-OTHER">Outros detalhes a serem observados</a>
+</dt>
+
+<dt>35.11.3. 
+<a href="plpgsql-porting.html#PLPGSQL-PORTING-APPENDIX">Apêndice</a>
+</dt>
+</dl>
+</dd>
+</dl>
+</div>
+
+
+<a name="AEN38135"></a>
+
+<p><span class="APPLICATION">PL/pgSQL</span> é uma linguagem procedural carregável desenvolvida para o sistema de banco de dados <span class="PRODUCTNAME">PostgreSQL</span>. Os objetivos de projeto da linguagem <span class="APPLICATION">PL/pgSQL</span> foram no sentido de criar uma linguagem procedural carregável que pudesse:</p>
+
+<ul>
+<li>
+ser utilizada para criar procedimentos de funções e de gatilhos;
+</li>
+
+<li>
+adicionar estruturas de controle à linguagem <acronym class="ACRONYM">SQL</acronym>;
+</li>
+
+<li>
+realizar processamentos complexos;
+</li>
+
+<li>
+herdar todos os tipos de dado, funções e operadores definidos pelo usuário;
+</li>
+
+<li>
+ser definida como confiável pelo servidor;
+</li>
+
+<li>
+ser fácil de utilizar.
+</li>
+</ul>
+
+<p></p>
+
+<p>Exceto pelas funções de conversão de entrada/saída e cálculos para os tipos definidos pelo usuário, tudo mais que pode ser definido por uma função escrita na linguagem C também pode ser feito usando <span class="APPLICATION">PL/pgSQL</span>. Por exemplo, é possível criar funções para cálculos condicionais complexos e depois usá-las para definir operadores ou em expressões de índice.</p>
+
+<div class="SECT1">
+<h1 class="SECT1"><a name="PLPGSQL-OVERVIEW">35.1. Visão geral</a></h1>
+
+<p>O tratador de chamadas da linguagem <span class="APPLICATION">PL/pgSQL</span> analisa o texto do código fonte da função e produz uma árvore de instruções binária interna, na primeira vez em que a função é chamada (em cada sessão). A árvore de instruções traduz inteiramente a estrutura da declaração <span class="APPLICATION">PL/pgSQL</span>, mas as expressões <acronym class="ACRONYM">SQL</acronym> individuais e os comandos <acronym class="ACRONYM">SQL</acronym> utilizados na função não são traduzidos imediatamente.</p>
+
+<p>Assim que cada expressão ou comando <acronym class="ACRONYM">SQL</acronym> é utilizado pela primeira vez na função, o interpretador do <span class="APPLICATION">PL/pgSQL</span> cria um plano de execução preparado (utilizando as funções <code class="FUNCTION">SPI_prepare</code> e <code class="FUNCTION">SPI_saveplan</code> do gerenciador da Interface de Programação do Servidor - <acronym class="ACRONYM">SPI</acronym>). 
+<a name="AEN38170"></a>
+ As execuções posteriores da expressão ou do comando reutilizam o plano preparado. Por isso, uma função com código condicional, contendo muitas declarações que podem requerer um plano de execução, somente prepara e salva os planos realmente utilizados durante o espaço de tempo da conexão com o banco de dados. Isto pode reduzir muito a quantidade total de tempo necessário para analisar e gerar os planos de execução para as declarações na função <span class="APPLICATION">PL/pgSQL</span>. A desvantagem é que erros em uma determinada expressão ou comando podem não ser detectados até que a parte da função onde se encontram seja executada.</p>
+
+<p>Uma vez que o <span class="APPLICATION">PL/pgSQL</span> tenha construído um plano de execução para um determinado comando da função, este plano será reutilizado enquanto durar a conexão com o banco de dados. Normalmente há um ganho de desempenho, mas pode causar problema se o esquema do banco de dados for modificado dinamicamente. Por exemplo:</p>
+
+<pre class="PROGRAMLISTING">
+CREATE FUNCTION populate() RETURNS integer AS $$
+DECLARE
+    -- declarações
+BEGIN
+    PERFORM minha_funcao();
+END;
+$$ LANGUAGE plpgsql;
+</pre>
+
+<p>Se a função acima for executada fará referência ao OID da <code class="FUNCTION">minha_funcao()</code> no plano de execução gerado para a instrução <tt class="COMMAND">PERFORM</tt>. Mais tarde, se a função <code class="FUNCTION">minha_funcao()</code> for removida e recriada, então <code class="FUNCTION">populate()</code> não vai mais conseguir encontrar <code class="FUNCTION">minha_funcao()</code>. Por isso é necessário recriar <code class="FUNCTION">populate()</code>, ou pelo menos começar uma nova sessão de banco de dados para que a função seja compilada novamente. Outra forma de evitar este problema é utilizar <tt class="COMMAND">CREATE OR REPLACE FUNCTION</tt> ao atualizar a definição de <code class="FUNCTION">minha_funcao</code> (quando a função é <span class="QUOTE">"substituída"</span> o OID não muda).</p>
+
+<p>Uma vez que o <span class="APPLICATION">PL/pgSQL</span> salva os planos de execução desta maneira, os comandos SQL que aparecem diretamente na função <span class="APPLICATION">PL/pgSQL</span> devem fazer referência às mesmas tabelas e colunas em todas as execuções; ou seja, não pode ser utilizado um parâmetro como nome de tabela ou de coluna no comando SQL. Para contornar esta restrição podem ser construídos comandos dinâmicos utilizando a instrução <tt class="COMMAND">EXECUTE</tt> do <span class="APPLICATION">PL/pgSQL</span> &mdash; o preço a ser pago é a construção de um novo plano de execução a cada execução.</p>
+
+<div class="NOTE">
+<blockquote class="NOTE">
+<p><b>Nota:</b> A instrução <tt class="COMMAND">EXECUTE</tt> do <span class="APPLICATION">PL/pgSQL</span> não tem relação com a instrução 
+<a href="sql-execute.html"><i>EXECUTE</i></a>
+ do SQL suportada pelo servidor <span class="PRODUCTNAME">PostgreSQL</span>. A instrução <tt class="COMMAND">EXECUTE</tt> do servidor não pode ser utilizada dentro das funções <span class="APPLICATION">PL/pgSQL</span> (e não é necessário).</p>
+</blockquote>
+</div>
+
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-ADVANTAGES">35.1.1. Vantagens da utilização da linguagem PL/pgSQL</a></h2>
+
+<p>A linguagem <acronym class="ACRONYM">SQL</acronym> é a que o <span class="PRODUCTNAME">PostgreSQL</span> (e a maioria dos bancos de dados relacionais) utiliza como linguagem de comandos. É portável e fácil de ser aprendida. Entretanto, todas as declarações <acronym class="ACRONYM">SQL</acronym> devem ser executadas individualmente pelo servidor de banco de dados.</p>
+
+<p>Isto significa que o aplicativo cliente deve enviar o comando para o servidor de banco de dados, aguardar que seja processado, receber os resultados, realizar algum processamento, e enviar o próximo comando para o servidor. Tudo isto envolve comunicação entre processos e pode, também, envolver tráfego na rede se o cliente não estiver na mesma máquina onde se encontra o servidor de banco de dados.</p>
+
+<p>Usando a linguagem <span class="APPLICATION">PL/pgSQL</span> pode ser agrupado um bloco de processamento e uma série de comandos <span class="emphasis"><i class="EMPHASIS">dentro</i></span> do servidor de banco de dados, juntando o poder da linguagem procedural com a facilidade de uso da linguagem SQL, e economizando muito tempo, porque não há necessidade da sobrecarga de comunicação entre o cliente e o servidor. Isto pode aumentar o desempenho consideravelmente.</p>
+
+<p>Também podem ser utilizados na linguagem <span class="APPLICATION">PL/pgSQL</span> todos os tipos de dados, operadores e funções da linguagem SQL.</p>
+</div>
+
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-ARGS-RESULTS">35.1.2. Tipos de dado suportados nos argumentos e no resultado</a></h2>
+
+<p>As funções escritas em <span class="APPLICATION">PL/pgSQL</span> aceitam como argumento qualquer tipo de dado escalar ou matriz suportado pelo servidor, e podem retornar como resultado qualquer um destes tipos. As funções também aceitam e retornam qualquer tipo composto (tipo linha) especificado por nome. Também é possível declarar uma função <span class="APPLICATION">PL/pgSQL</span> como retornando <tt class="TYPE">record</tt>, significando que o resultado é um tipo linha, cujas colunas são determinadas pela especificação no comando que faz a chamada, conforme mostrado na 
+<a href="queries-table-expressions.html#QUERIES-TABLEFUNCTIONS">Seção 7.2.1.4</a>
+.</p>
+
+<p>As funções <span class="APPLICATION">PL/pgSQL</span> também podem ser declaradas como recebendo ou retornando os tipos polimórficos <tt class="TYPE">anyelement</tt> e <tt class="TYPE">anyarray</tt>. Os tipos de dado verdadeiros tratados pelas funções polimórficas podem variar entre chamadas, conforme mostrado na 
+<a href="extend-type-system.html#EXTEND-TYPES-POLYMORPHIC">Seção 31.2.5</a>
+. Na 
+<a href="plpgsql-declarations.html#PLPGSQL-DECLARATION-ALIASES">Seção 35.4.1</a>
+ é mostrado um exemplo.</p>
+
+<p>As funções <span class="APPLICATION">PL/pgSQL</span> também podem ser declaradas como retornando <span class="QUOTE">"set"</span> (conjunto), ou tabela, de qualquer tipo de dado para o qual pode ser retornada uma única instância. Este tipo de função gera sua saída executando <tt class="LITERAL">RETURN NEXT</tt> para cada elemento desejado do conjunto resultado.</p>
+
+<p>Por fim, uma função <span class="APPLICATION">PL/pgSQL</span> pode ser declarada como retornando <tt class="TYPE">void</tt> se não produzir nenhum valor de retorno útil.</p>
+
+<p>Atualmente a linguagem <span class="APPLICATION">PL/pgSQL</span> não possui suporte total para os tipos domínio: trata o domínio da mesma maneira que o tipo escalar subjacente. Isto significa que não obriga respeitar as restrições associadas ao domínio, o que não representa problema para os argumentos da função, mas é perigoso declarar uma função <span class="APPLICATION">PL/pgSQL</span> como retornando um tipo domínio.</p>
+</div>
+</div>
+</div>
+
+<div class="NAVFOOTER">
+<hr align="LEFT" width="100%">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="xplang.html" accesskey="P">Anterior</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Principal</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="plpgsql-development-tips.html" accesskey="N">Próxima</a>
+</td>
+</tr>
+
+<tr>
+<td width="33%" align="left" valign="top">Linguagens procedurais</td>
+<td width="34%" align="center" valign="top">
+<a href="server-programming.html" accesskey="U">Acima</a>
+</td>
+<td width="33%" align="right" valign="top">Dicas para desenvolvimento em PL/pgSQL</td>
+</tr>
+</table>
+</div>
+<div align="left"><a href="http://sourceforge.net"><img src="http://sourceforge.net/sflogo.php?group_id=130426&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" style="margin-top:0.5em"/></a></div>
+</body>
+</html>
+

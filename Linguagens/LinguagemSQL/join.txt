@@ -1,0 +1,51 @@
+JOIN
+
+Recuperar dados de duas ou mais tabelas.
+Caso o nome de algum campo se repita entre as tabelas, ele precisará ser prefi-
+xado com o nome da tabela.
+
+NATURAL JOIN
+Faz a junção de todos os campos com o mesmo nome em ambas as tabelas.
+
+Exemplos:
+
+
+JOIN USING
+Usado para especificar colunas/campos.
+
+JOIN ON
+Usado para especificar campos quando não existem campos repetidos.
+
+JOIN DE VÁRIAS TABELAS
+
+NON EQUI JOINS
+
+OUTER JOINS - pode ser usado para recuperar dados de uma tabela, mesmo que não
+existam linhas correspondentes para satisfazer a junção.
+
+Exemplos
+
+Tipos de OUTER JOINS:
+LEFT OUTER JOIN
+RIGHT OUTER JOIN
+FULL OUTER JOIN
+
+A palavra OUTER é opcional.
+
+LEFT OUTER JOIN - Retorna registros que satisfazem a igualdade da junção, como
+também os registros da tabela do lado esquerdo que não satisfazem.
+
+	JOIN USING com OUTER JOIN
+	JOIN ON com OUTER JOIN
+	NATURAL JOIN com OUTER JOIN
+
+RIGHT OUTER JOIN - Retorna os registros que satisfazem a igualdade da junção, 
+como também retorna os registros do lado direito que não satisfazem.
+
+FULL OUTER JOIN - retornam os registros que satisfazem a igualdade da junção e
+todos os outros que não satisfazem. Produto cartesiano?
+
+SELF JOIN (AUTO JOIN) - Usado quando se deseja unir uma tabela com ela mesma.
+Analisa a tabela duas vezes.
+
+

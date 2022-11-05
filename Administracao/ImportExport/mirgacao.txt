@@ -1,0 +1,23 @@
+Exportar e Importar 
+
+Se temos dois servidores com o PostgreSQL, um de testes e um de produção é interessante criar 
+os bancos para novos projetos no servidor de testes. 
+
+Fica mais confortável, pois no de testes podemos ficar mais à vontade para fazer testes e 
+sem receio de apagar dados ou danificar bancos em uso. 
+
+Acontece que após a conclusão dos testes devemos exportar as tabelas criadas para o de produção. 
+Sugestões para a exportação: 
+
+- Criar as tabelas no servidor de testes já no mesmo esquema que ficarão no de produção 
+- Quando estiverem testadas e prontas exporte: 
+	- Selecione o esquema criado, exemplo "pessoal" 
+	- Salvar backup (salvará os arquivos na sua máquina, lembrando que deve ter a extensão .backup) 
+	- Então conecte ao servidor de produção 
+	- Selecione o banco de destino (exemplo “engenharia”)
+	- Clique com o botão direito em engenharia e Restaurar 
+	- Selecione o arquivo que salvou em sua máquina e importe 
+
+Quando não puder importar diretamente, por algum motivo, então não exporte com o formato default (Compactado). 
+Mas exporte como texto plano e incluindo os Inserts e faça os devidos ajustes antes de importar. 
+

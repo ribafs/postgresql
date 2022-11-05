@@ -1,0 +1,363 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>CREATE TABLE</title>
+
+
+<meta name="keywords" content="create table, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1997"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-60_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-59.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-60_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-60_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-61.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-60_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P2939_161008"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.22 CREATE TABLE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2940_161027"></a>Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;define a new table</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2942_161067"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE [ GLOBAL TEMPORARY ] TABLE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table_name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> (</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  { </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column_name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>data_type</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ DEFAULT </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>default_expr</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column_constraint</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ ... ] ] | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table_constraint</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  )</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ ON COMMIT { PRESERVE ROWS | DELETE ROWS } ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ TABLESPACE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>tablespace</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">where </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column_constraint</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is:</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ CONSTRAINT </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>constraint_name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  { NOT NULL |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    NULL |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    UNIQUE [ USING INDEX TABLESPACE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>tablespace</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    PRIMARY KEY [ USING INDEX TABLESPACE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>tablespace</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    CHECK (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">) |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    REFERENCES </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>reftable</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ ( </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>refcolumn</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ) ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">      [ ON DELETE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>action</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ DEFERRABLE | NOT DEFERRABLE ] [ INITIALLY DEFERRED |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    INITIALLY IMMEDIATE ]</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table_constraint</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is:</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ CONSTRAINT </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>constraint_name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  { UNIQUE ( </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column_name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...] )</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">      [ USING INDEX TABLESPACE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>tablespace</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    PRIMARY KEY ( </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column_name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...] )</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">      [ USING INDEX TABLESPACE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>tablespace</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    CHECK ( </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ) |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    FOREIGN KEY ( </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column_name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...] )</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">        REFERENCES </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>reftable</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ ( </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>refcolumn</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...] ) ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">      [ ON DELETE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>action</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ DEFERRABLE | NOT DEFERRABLE ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ INITIALLY DEFERRED | INITIALLY IMMEDIATE ]</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2972_162114"></a>Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> will create a new, initially empty table in the current database. The table will be owned by the user issuing the command.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If a schema name is given (for example, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>myschema</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>mytable</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+...) then the table is created in the specified schema. Otherwise it is
+created in the current schema. Temporary tables exist in a special
+schema, so a schema name may not be given when creating a temporary
+table. The table name must be distinct from the name of any other
+table, sequence, index, or view in the same schema.</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+also automatically creates a data type that represents the composite
+type corresponding to one row of the table. Therefore, tables cannot
+have the same name as any existing data type in the same schema.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A table cannot have more than 1600 columns. (In practice, the effective limit is lower because of tuple-length constraints).</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+optional constraint clauses specify constraints (or tests) that new or
+updated rows must satisfy for an insert or update operation to succeed.
+A constraint is an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> object that helps define the set of valid values in the table in various ways.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">There
+are two ways to define constraints: table constraints and column
+constraints. A column constraint is defined as part of a column
+definition. A table constraint definition is not tied to a particular
+column, and it can encompass more than one column. Every column
+constraint can also be written as a table constraint; a column
+constraint is only a notational convenience if the constraint only
+affects one column.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2979_163659"></a>Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GLOBAL TEMPORARY</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If
+specified, the table is created as a temporary table. Temporary tables
+are automatically dropped at the end of a session, or optionally at the
+end of the current transaction (see </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ON </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COMMIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+below). Existing permanent tables with the same name are not visible to
+the current session while the temporary table exists, unless they are
+referenced with schema-qualified names. In addition, temporary tables
+are not visible outside the session in which it was created. (This
+aspect of global temporary tables is not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">.) Any indexes created on a temporary table are automatically temporary as well.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table_name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name (optionally schema-qualified) of the table to be created.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column_name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of a column to be created in the new table.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>data_type</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The data type of the column. This may include array specifiers. For more information on the data types included with </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, refer to Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-32.htm#P1733_92670">3.2</a></u>.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFAULT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>default_expr</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFAULT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+clause assigns a default data value for the column whose column
+definition it appears within. The value is any variable-free expression
+(subqueries and cross-references to other columns in the current table
+are not allowed). The data type of the default expression must match
+the data type of the column.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The
+default expression will be used in any insert operation that does not
+specify a value for the column. If there is no default for a column,
+then the default is null.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CONSTRAINT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>constraint_name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">An optional name for a column or table constraint. If not specified, the system generates a name.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOT NULL</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The column is not allowed to contain null values.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NULL</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The column is allowed to contain null values. This is the default.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">This clause is only available for compatibility with non-standard </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> databases. Its use is discouraged in new applications.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UNIQUE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> - column constraint</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><br>
+UNIQUE</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column_name</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> [, ...] ) - table constraint</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UNIQUE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+constraint specifies that a group of one or more distinct columns of a
+table may contain only unique values. The behavior of the unique table
+constraint is the same as that for column constraints, with the
+additional capability to span multiple columns.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">For the purpose of a unique constraint, null values are not considered equal.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Each
+unique table constraint must name a set of columns that is different
+from the set of columns named by any other unique or primary key
+constraint defined for the table. (Otherwise it would just be the same
+constraint listed twice.)</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PRIMARY KEY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> - column constraint</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><br>
+PRIMARY KEY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> ( </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column_name</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> [, ...] ) - table constraint</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The
+primary key constraint specifies that a column or columns of a table
+may contain only unique (non-duplicate), non-null values. Technically, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PRIMARY KEY</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is merely a combination of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UNIQUE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOT NULL</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">,
+but identifying a set of columns as primary key also provides metadata
+about the design of the schema, as a primary key implies that other
+tables may rely on this set of columns as a unique identifier for rows.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Only one primary key can be specified for a table, whether as a column constraint or a table constraint.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The
+primary key constraint should name a set of columns that is different
+from other sets of columns named by any unique constraint defined for
+the same table.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">C</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">HECK (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">)</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CHECK</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+clause specifies an expression producing a Boolean result which new or
+updated rows must satisfy for an insert or update operation to succeed.
+Expressions evaluating to &#8220;true&#8221; or &#8220;unknown&#8221; succeed. Should any row
+of an insert or update operation produce a &#8220;false&#8221; result an error
+exception is raised and the insert or update does not alter the
+database. A check constraint specified as a column constraint should
+reference that column&#8217;s value only, while an expression appearing in a
+table constraint may reference multiple columns.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Currently, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CHECK</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> expressions cannot contain subqueries nor refer to variables other than columns of the current row.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REFERENCES</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> reftable [ ( </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>refcolumn</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> ) ] [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ON DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>action</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> ] - column constraint</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><br>
+FOREIGN KEY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> ( </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> [, ...] ) </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REFERENCES</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>reftable</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> [ ( </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>refcolumn</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> [, ...] ) ] [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ON DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>action</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> ] - table constraint</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">These
+clauses specify a foreign key constraint, which requires that a group
+of one or more columns of the new table must only contain values that
+match values in the referenced column(s) of some row of the referenced
+table. If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>refcolumn</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is omitted, the primary key of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>reftable</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is used. The referenced columns must be the columns of a unique or primary key constraint in the referenced table.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">In
+addition, when the data in the referenced columns is changed, certain
+actions are performed on the data in this table&#8217;s columns. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ON DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+clause specifies the action to perform when a referenced row in the
+referenced table is being deleted. Referential actions cannot be
+deferred even if the constraint is deferrable. Here are the following
+possible actions for each clause:</span></p>
+
+  <p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASCADE</span></p>
+
+    </div><div style="margin-left: 72pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Delete
+any rows referencing the deleted row, or update the value of the
+referencing column to the new value of the referenced column,
+respectively.</span></p>
+
+  </div><div style="margin-left: 36pt;"><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SET NULL</span></p>
+
+    </div><div style="margin-left: 72pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Set the referencing column(s) to null.</span></p>
+
+  </div><div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If
+the referenced column(s) are changed frequently, it may be wise to add
+an index to the foreign key column so that referential actions
+associated with the foreign key column can be performed more
+efficiently.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFERRABLE</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><br>
+NOT DEFERRABLE</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">This
+controls whether the constraint can be deferred. A constraint that is
+not deferrable will be checked immediately after every command.
+Checking of constraints that are deferrable may be postponed until the
+end of the transaction (using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><!-- TRANSIT - HYPERLINK --><!-- .http://www.enterprisedb.com/documentation/8.2/sql-set-constraints.html. --><a href="http://www.enterprisedb.com/documentation/8.2/sql-set-constraints.html" target="_top">SET CONSTRAINTS</a></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> command). </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOT DEFERRABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is the default. Only foreign key constraints currently accept this clause. All other constraint types are not deferrable.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INITIALLY IMMEDIATE</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><br>
+INITIALLY DEFERRED</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If a constraint is deferrable, this clause specifies the default time to check the constraint. If the constraint is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INITIALLY IMMEDIATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, it is checked after each statement. This is the default. If the constraint is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INITIALLY DEFERRED</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, it is checked only at the end of the transaction. The constraint check time can be altered with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><!-- TRANSIT - HYPERLINK --><!-- .http://www.enterprisedb.com/documentation/8.2/sql-set-constraints.html. --><a href="http://www.enterprisedb.com/documentation/8.2/sql-set-constraints.html" target="_top">SET CONSTRAINTS</a></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> command.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ON COMMIT</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The behavior of temporary tables at the end of a transaction block can be controlled using </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ON COMMIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. The two options are:</span></p>
+
+  <p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PRESERVE ROWS</span></p>
+
+    </div><div style="margin-left: 72pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">No special action is taken at the ends of transactions. This is the default behavior. (Note that this aspect is not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> default is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE ROWS</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">.)</span></p>
+
+  </div><div style="margin-left: 36pt;"><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE ROWS</span></p>
+
+    </div><div style="margin-left: 72pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">All rows in the temporary table will be deleted at the end of each transaction block. Essentially, an automatic </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><!-- TRANSIT - HYPERLINK --><!-- .http://www.enterprisedb.com/documentation/8.2/sql-truncate.html. --><a href="http://www.enterprisedb.com/documentation/8.2/sql-truncate.html" target="_top">TRUNCATE</a></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is done at each commit.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TABLESPACE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>tablespace</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">tablespace</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is the name of the tablespace in which the new table is to be created. If not specified, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><!-- TRANSIT - HYPERLINK --><!-- .http://www.enterprisedb.com/documentation/8.2/runtime-config.html#GUC-DEFAULT-TABLESPACE. --><a href="http://www.enterprisedb.com/documentation/8.2/runtime-config.html#GUC-DEFAULT-TABLESPACE" target="_top">default_tablespace</a></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is used, or the database&#8217;s default tablespace if </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">default_tablespace</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is an empty string.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">USING INDEX TABLESPACE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>tablespace</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">This clause allows selection of the tablespace in which the index associated with a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UNIQUE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PRIMARY KEY</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> constraint will be created. If not specified, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><!-- TRANSIT - HYPERLINK --><!-- .http://www.enterprisedb.com/documentation/8.2/runtime-config.html#GUC-DEFAULT-TABLESPACE. --><a href="http://www.enterprisedb.com/documentation/8.2/runtime-config.html#GUC-DEFAULT-TABLESPACE" target="_top">default_tablespace</a></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is used, or the database&#8217;s default tablespace if </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">default_tablespace</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is an empty string.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3031_170795"></a>Notes</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Ad</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">vanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+automatically creates an index for each unique constraint and primary
+key constraint to enforce the uniqueness. Thus, it is not necessary to
+create an explicit index for primary key columns. (See <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-52.htm#P2480_135985">CREATE INDEX</a></u> for more information.)</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Create table </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">dept</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and table </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE dept (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    deptno          NUMBER(2) NOT NULL CONSTRAINT dept_pk PRIMARY KEY,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    dname           VARCHAR2(14),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    loc             VARCHAR2(13)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE emp (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    empno           NUMBER(4) NOT NULL CONSTRAINT emp_pk PRIMARY KEY,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    ename           VARCHAR2(10),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    job             VARCHAR2(9),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    mgr             NUMBER(4),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    hiredate        DATE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sal             NUMBER(7,2),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    comm            NUMBER(7,2),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    deptno          NUMBER(2) CONSTRAINT emp_ref_dept_fk</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                        REFERENCES dept(deptno)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">);</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Define a unique table constraint for the table </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">dept</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. Unique table constraints can be defined on one or more columns of the table.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE dept (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    deptno          NUMBER(2) NOT NULL CONSTRAINT dept_pk PRIMARY KEY,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    dname           VARCHAR2(14) CONSTRAINT dept_dname_uq UNIQUE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    loc             VARCHAR2(13)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">);</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Define a check column constraint:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE emp (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    empno           NUMBER(4) NOT NULL CONSTRAINT emp_pk PRIMARY KEY,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    ename           VARCHAR2(10),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    job             VARCHAR2(9),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    mgr             NUMBER(4),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    hiredate        DATE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sal             NUMBER(7,2) CONSTRAINT emp_sal_ck CHECK (sal &gt; 0),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    comm            NUMBER(7,2),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    deptno          NUMBER(2) CONSTRAINT emp_ref_dept_fk</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                        REFERENCES dept(deptno)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">);</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Define a check table constraint:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE emp (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    empno           NUMBER(4) NOT NULL CONSTRAINT emp_pk PRIMARY KEY,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    ename           VARCHAR2(10),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    job             VARCHAR2(9),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    mgr             NUMBER(4),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    hiredate        DATE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sal             NUMBER(7,2),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    comm            NUMBER(7,2),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    deptno          NUMBER(2) CONSTRAINT emp_ref_dept_fk</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                        REFERENCES dept(deptno),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CONSTRAINT new_emp_ck CHECK (ename IS NOT NULL AND empno &gt; 7000)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">);</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Define a primary key table constraint for the table </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">jobhist</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. Primary key table constraints can be defined on one or more columns of the table.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE jobhist (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    empno           NUMBER(4) NOT NULL,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    startdate       DATE NOT NULL,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    enddate         DATE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    job             VARCHAR2(9),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sal             NUMBER(7,2),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    comm            NUMBER(7,2),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    deptno          NUMBER(2),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    chgdesc         VARCHAR2(80),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CONSTRAINT jobhist_pk PRIMARY KEY (empno, startdate)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">);</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This assigns a literal constant default value for the column, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">job</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and makes the default value of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">hiredate</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> be the date at which the row is inserted.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE emp (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    empno           NUMBER(4) NOT NULL CONSTRAINT emp_pk PRIMARY KEY,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    ename           VARCHAR2(10),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    job             VARCHAR2(9) DEFAULT 'SALESMAN',</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    mgr             NUMBER(4),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    hiredate        DATE DEFAULT SYSDATE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sal             NUMBER(7,2),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    comm            NUMBER(7,2),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    deptno          NUMBER(2) CONSTRAINT emp_ref_dept_fk</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                        REFERENCES dept(deptno)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">);</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Create table </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">dept</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in tablespace </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">diskvol1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE dept (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    deptno          NUMBER(2) NOT NULL CONSTRAINT dept_pk PRIMARY KEY,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    dname           VARCHAR2(14),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    loc             VARCHAR2(13)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">) TABLESPACE diskvol1;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3112_174128"></a>See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-43.htm#P2073_114016"><u>ALTER TABLE</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-74.htm#P3451_190472"><u>DROP TABLE</u></a></span></p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-59.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-60_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-60_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-61.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-60_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-60_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-60_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

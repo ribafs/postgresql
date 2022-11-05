@@ -1,0 +1,375 @@
+<html>
+<head>
+<title>Basic Procedures in PostgreSQL</title>
+<meta name="keywords"
+	content="postgreSQL, psql">
+<meta name="description"
+	content="How to perform basic procedures such as defining primary and
+	foreign keys in PostgreSQL">
+<meta name="author"
+	content="Melanie R. Nelson">
+</head>
+
+<body bgcolor="#ffffff">
+<!--Navigation bar/table follows-->
+
+<TABLE WIDTH="100%">
+<TR>
+ 
+<TD ROWSPAN=3>
+<A HREF="http://structbio.vanderbilt.edu/chazin"><IMG SRC="/chazin/cover_icon.gif" ALT="Chazin Home" ALIGN=left WIDTH="51" HEIGHT="44" BORDER="0" HSPACE="5"></A>
+
+<TD ALIGN=center> <FONT SIZE="-1">
+<A HREF="http://structbio.vanderbilt.edu/chazin"> Chazin Home</A> |
+<A HREF="http://structbio.vanderbilt.edu/cabp_database/cabp.html">Ca-binding Protein DB</A> |
+<A HREF="http://www.vanderbilt.edu/">Vanderbilt Home</A>
+</FONT>
+  
+<TD ROWSPAN=3><A HREF="http://www.vanderbilt.edu/"><IMG SRC="/images/vu_seal.gif" ALT="Vanderbilt Home" ALIGN=right WIDTH="50" HEIGHT="50" BORDER="0" HSPACE="5"></A>
+
+<TR>
+<TD ALIGN=center> <FONT SIZE="-1">
+<A HREF="http://structbio.vanderbilt.edu/chazin/work.html">Research Description</A> |
+<A HREF="http://structbio.vanderbilt.edu/chazin/publication/">Publications</A> |
+<A HREF="http://structbio.vanderbilt.edu/chazin/wisdom/">Wisdom</A> |
+<A HREF="/chazin/search.html">Search</A>
+</FONT>
+
+<TR>
+<TD ALIGN=center> <FONT SIZE="-1">
+<A HREF="http://structbio.vanderbilt.edu/chazin/wisdom/contribute.html">How to contribute</A> |
+<A HREF="http://structbio.vanderbilt.edu/chazin/wisdom/about.html">About this page</A>
+</FONT>
+</TABLE>
+
+<!--Navigation table done-->
+
+<h3 align=center>Basic Procedures in PostgreSQL</h3>
+<P align=center><I>Written by:</I> 
+<a href="mailto:mnelson@scripps.edu">Melanie Nelson</a>, fall 1998</P>
+<hr>
+<P><B>See also:</B> Information on <a href="dbi_howto.html">how to use DBI
+and DBD:Pg</a>, Perl modules for accessing postgres databases.</P>
+
+<P>This document was written for postgresql 6.3.2, running under 
+IRIX 6.2. However, most of the procedures described in this document are very
+basic, and are unlikely to be operating system dependent.</P>
+
+<P>This document does not attempt to be a complete reference about
+PostgreSQL, relational databases, or SQL! For more
+information about PostgreSQL, see the 
+<a href="http://www.postgresql.org/index.html">postgresql
+website</a> (http://www.postgresql.org/index.html). For more
+information about relational databases in general, see "An
+Introduction to Database Systems," by C.J. Date. This book will be
+referred to in the text below. Chapter and page numbers will refer to
+the 6th edition. For more information about SQL, see "Understanding
+the New SQL: A Complete Guide," by Jim Melton and Alan R. Simon.
+This book will also be referred to in the text below. Chapter and
+page numbers refer to the first edition, published in 1993.</P>
+
+<P><B>Please note:</B> For clarity, SQL commands are in capital
+letters. However, PostgreSQL does not require this to interpret the
+commands. Also, no attempt has been made to exclusively use the
+correct relational database terms such as <I>relation, attribute,</I>
+etc. Briefly: relation = table, attribute = column, tuple = row.
+Also, since PostgreSQL is an object-relational database management
+system, you will often find things referred to by names used in
+object-oriented systems. For instance, in the PostgreSQL
+documentation, class = table and instance = row.</P>
+
+<P>Procedures are in rough alphabetical order, by keyword. You can skip to a
+specific procedure using the links below:</P>
+<center>
+<table cellpadding=8>
+<tr valign=top>
+	<td><a href="#alter">Altering a table</a><br></td>
+	<td><a href="#backup">Backing up a database</a><br></td>
+	<td><a href="#def_fk">Defining a foreign key
+	(referential integrity) for a table</a><br></td>
+</tr>
+<tr valign=top>
+	<td><a href="#grant">Granting privileges to a user</a><br></td>
+	<td><a href="#sing_quote">Inserting a string containing a single quote 
+	into an attribute</a><br></td>
+	<td><a href="#insert_null">Inserting a NULL value into a
+	table<br></td>
+</tr>
+<tr valign=top>
+	<td><a href="#def_pk">Defining a primary key for a table</a><br></td>
+	<td><a href="#vacuum">Vacuuming a database</a><br></td>
+	<td><br></td>
+</table>
+</center>
+
+<hr>
+
+<h3><a name="alter">To alter a table once it has been
+created:</a></h3>
+
+<P>PostgreSQL follows the SQL92 standard for altering an existing
+table. For instance, the following statement is used to add a new column 
+called "comment" to the table "subfamily":</P>
+<P>
+<kbd>
+ALTER TABLE subfamily<br>
+ADD COLUMN comment text;
+</kbd>
+</P>
+<P>See Melton and Simon, section 4.3.5 for more information.</P>
+<P>ALTER TABLE/DROP COLUMN is not yet implemented in PostgreSQL. To
+drop a column from a table, you either have to delete and recreate
+the table or create a dumpfile (see <a href="#backup"> to backup a
+database</a>) and edit the dumpfile before recreating the database.
+I recommend the second method if you have triggers defined on the
+table, because if you drop the table you will have to redefine the
+triggers as well. When editing the dumpfile, be sure to edit both
+the CREATE TABLE statement and the COPY statement that imports the
+data into the table.</P>
+
+<P>The <a href="http://www.PostgreSQL.ORG/docs/faq-english.shtml">PostgreSQL 
+FAQ</a> recommends the follwing method for dropping a table:</P>
+
+<P><kbd>
+	SELECT ...  -- select all columns but the one you want to remove<br>
+	INTO TABLE new_table<br>
+	FROM old_table;<br>
+	DROP TABLE old_table;<br>
+	ALTER TABLE new_table RENAME TO old_table;<br>
+</kbd></P>
+
+<P>I believe that you will still have to redfine any triggers that
+were defined on this table.</P>
+
+<hr>
+
+<h3><a name="backup">To backup a database:</a></h3>
+
+<P>The PostgreSQL database will NOT be correctly backed up by any
+automatic system-wide backup system.  To ensure proper backups, use the 
+<kbd>pg_dump</kbd> or <kbd>pg_dumpall</kbd> commands to create a
+text file containing the commands to recreate the database. This
+file can then be backed up like any other text file.</P>
+
+<P>Some aspects of the database are not saved in the dump file.
+However, all tables, indices and triggers will be saved. For more
+information about how to use these commands and about the
+limitations, see the man pages for the commands.</P>
+
+<P>Briefly, the command to dump all databases is:</P>
+<P><kbd>pg_dumpall -o > dumpfile</kbd><br>
+The -o option causes the unique object identifiers to be dumped as
+well as the user-defined database objects.</P>
+
+<P>If you have issued GRANT and REVOKE privileges commands, you must
+include the <tt>-z</tt> flag in the dump command to have these stored:<br>
+<kbd>pg_dumpall -oz > dumpfile</kbd><br></P>
+
+<P>The command to reload the database is:</P>
+<P><kbd>psql -e database < dumpfile</kbd></P>
+
+<hr>
+
+
+<h3><a name="def_fk">To define a foreign key for a table:</a></h3>
+
+<P>PostgreSQL only supports referential integrity (foreign keys) by way of 
+triggers that call two additional functions, which you may need to
+compile separately (after having compiled the main PostgreSQL
+program). These triggers are in postgresql-6.3.2/contrib/spi. The refint files 
+are what are needed for referential integrity. However, all files in the
+directory are compiled by the included Makefile. To compile the files, 
+you'll need gmake, and you'll need to rebuild the file fmgr.h. 
+Instructions for this can be found in one of the original make files.</P>
+
+<P>Once everything is compiled and installed, you need to create the 
+two functions check_foreign_key and check_primary_key, using the SQL in 
+refint.sql</P>
+
+<P>Once this is done, you can use CREATE TRIGGER to define the constraints on
+your table. Examples for how to do this are in refint.example. If you
+want different actions ( the possible actions are: 'cascade', 'restrict', and
+'setnull') for UPDATEs and DELETEs, you will need to define two triggers. 
+See Date, section 5.5 for a discussion on what these actions mean.</P>
+
+<P>Here is an example of two triggers, defined to restrict DELETions and
+cascade UPDATEs:</P>
+
+<P><KBD>
+CREATE TRIGGER sample_del_fk BEFORE DELETE ON parent FOR EACH ROW 
+EXECUTE PROCEDURE<br>
+check_foreign_key(1, 'restrict', 'parent_pk', 'child', 'child_fk');<br>
+
+CREATE TRIGGER sample_up_fk BEFORE UPDATE ON protein FOR EACH ROW 
+EXECUTE PROCEDURE<br>
+check_foreign_key(1, 'cascade', 'parent_pk', 'child', 'child_fk');<br>
+</kbd>
+
+<ul>
+	<li>The parent table is <I>parent</I>, the child table is <I>child</I>
+	<li>parent_pk is the primary key in the parent table, and child_fk
+	is the foreign key in the child table. Notice that although they
+	contain exactly the same information, they don't have to have the same name.
+	<li>sample_del_fk and sample_up_fk are the trigger names. Pick something
+	informative for these names, because this is how you can refer to triggers
+	(in the pg_trigger table: see below)
+</ul></P>
+
+<P>The triggers defined above will ensure that no inappropriate
+changes are made to the parent table. However, referential integrity
+also requires that any row inserted into the child table must have a
+matching row in the parent table (i.e., each value of the foreign
+key in the child table must refer to a value of the primary (or
+candidate) key in the parent table). See Date, chapter 5 for more
+information about these concepts. The following trigger will ensure
+that no row inserted into the child table violates this aspect of
+referential integrity:</P>
+
+<P><KBD>
+CREATE TRIGGER sample_pk BEFORE INSERT OR UPDATE ON
+child FOR EACH ROW EXECUTE PROCEDURE<br>
+check_primary_key ('child_fk', 'parent', 'parent_pk');
+</kbd></P>
+
+<P>The <kbd>check_primary_key</kbd> trigger seems to allow NULL
+values for the child's foreign key, hence allowing optional,
+non-identifying relationships.</P>
+
+<P>To get rid of a trigger, you can use the drop trigger
+command:<br>
+<kbd>
+DROP TRIGGER trigger_name ON table_name;
+</kbd></P>
+
+<P>Information about triggers is stored in the pg_trigger table. So,
+to get rid of a trigger, you could delete the relevant row from this table:<br>
+<kbd>
+DELETE FROM pg_trigger
+   WHERE tgname = "your_trigger_name";
+</kbd>
+</P>
+
+<hr>
+
+<h3><a name="insert_null">To insert a NULL value into a table:</a></h3>
+<P>
+<kbd>
+INSERT INTO table
+	VALUES ('xxx', 'yyy', NULL, 'zzz')
+</kbd></P>
+
+<P>If the NULL is to go into the last field, it can be omitted, and will 
+be inserted by default (unless you specified otherwise at the time you 
+created the table)</P>
+
+<P><I>note:</I>The single quotes around non-null values are only required for
+character type fields</P>
+
+<P>If you are using the COPY command, NULL fields should be
+indicated by <kbd>\N</kbd> in the file from which the data is being
+copied.</P>
+
+<hr>
+
+<h3><a name="grant">To grant privileges to a user:</a></h3>
+
+<P>Postgres supports the SQL GRANT and REVOKE statements. These
+allow control at the table level of what the user can and cannot see
+and/or modify. For instance, to grant user <tt>johndoe</tt> the
+ability to read from a table <tt>table1</tt> (but not to modify
+it):<br>
+<tt>GRANT SELECT<br>
+ON table1<br>
+TO johndoe<br></tt>
+</P>
+
+<P>You will now need to use the <kbd>-z</kbd> flag in your dump
+statements to include these privileges in the dumpfile. See the
+section on <a href="#backup">backing up a database</a> for more
+information.</P>
+
+<hr>
+
+<h3><a name="sing_quote">To insert a string containing a single
+quote into an attribute:</a></h3>
+
+<P>SQL requires string literals to be encased in single quotes
+(<kbd>'</kbd>). However, sometimes the value of an attribute should
+have a single quote in it. To insert such a value in the interactive
+psql session, type two consecutive single quotes in place of the one
+desired single quote. For instance, to insert the value
+<kbd>O'Neil</kbd> into the <kbd>lastname</kbd> attribute of 
+<kbd>auth_name</kbd>, a table with two columns <kbd>refnum</kbd> and i
+<kbd>lastname</kbd>, type:</P>
+
+<kbd>INSERT INTO auth_name<br>
+VALUES (15, 'O''Neil');
+</kbd></P>
+
+<P>However, if you are inserting the values using a COPY statement, there is
+no need to replace the single quote with two single quotes.</P>
+<hr>
+
+<h3><a name="def_pk">To define a primary key for a table:</a></h3>
+
+<P>It is best to name all your constraints (see Melton and Simon 
+section 10.2.4 for a discussion of why). To created a named primary key 
+constraint, do the following:<br>
+
+<kbd>
+CREATE TABLE table (<br>
+	column1 <I>type</I>,<br>
+	column2 <I>type</I>,<br>
+	etc.,<br>
+	CONSTRAINT table_pk PRIMARY KEY (column1) )
+</kbd>
+
+<P>table_pk is the constraint name. col1 is the primary key. 
+The column1, column2, etc lines are where the columns are defined (<I>type</I>
+is the data type for that column), as specified in the pgsql 
+documentation. More than one column can be included in the primary key.
+Multiple columns are separated by commas.</P>
+
+<P>If you don't want to name the constraint, and the primary key is composed of 
+only one column, the key can also be defined as a column constraint:<br>
+<kbd>
+CREATE TABLE table (<br>
+	column1 <I>type</I> PRIMARY KEY,<br>
+	column2 <I>type</I>,<br>
+	etc. )
+</kbd></P>
+
+<P>Yet another way to define a primary key is as follows:<br>
+<kbd>
+CREATE TABLE table (<br>
+	column1 <I>type</I>,<br>
+	column2 <I>type</I>,<br>
+	etc.,<br>
+	PRIMARY KEY (column1) )
+</kbd></P>
+<hr>
+
+<h3><a name="vacuum">Vacuuming a database:</a></h3>
+
+<P>It is a good idea to vacuum your databases periodically,
+particularly after doing a lot of <TT>INSERT</TT>, <TT>DELETE</TT>,
+or <TT>UPDATE</TT> commands. Vacuuming the database will update the
+indeces, etc., and make your queries run faster. To vacuum a
+database while connected to it (using the psql interface), simply
+type:<br>
+<tt>vacuum;</tt>
+<br>
+Consult the postgres documentation for more information about this
+command.</P>
+
+<P>Sometimes, the vacuum cleaner will crash before it finishes. This
+is rare, but usually causes a fatal error. To be safe, you should restart the
+postmaster after this occurs. You will also need to remove the
+vacuum cleaner's lock file, or else you will not be able to run
+<tt>vacuum</tt> again. This lock file is stored in:<br>
+<tt>you_data_dir/base/your_dbname</tt><br>
+For instance, I have my data stored in
+<tt>/home/postgres/pgsql/data</tt>, and my database is named
+<tt>cabp_db</tt>, so my vacuum cleaner lock file is in:<br>
+<tt>/home/postgres/pgsql/data/base/cabp_db</tt>
+</P>

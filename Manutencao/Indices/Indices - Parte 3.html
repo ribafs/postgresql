@@ -1,0 +1,282 @@
+<html><head><link href="Indices%20-%20Parte%203_files/padrao.css" rel="stylesheet" type="text/css"><meta name="description" content="Comunidade de profissionais, estudantes e mestres em tecnlogias e ferramentas voltadas para o desenvolvimento web. Microsoft, linux, programação asp, php, css, javascript, delphi, sql, oracle, interbase, dreamweaver, photoshop, fireworks e flash.">
+<meta name="keywords" content="programação, microsoft, asp, php, internet, linux, curso online, webmaster, java, flash, delphi, sql, oracle, cursos online, javascript, css, photoshop, interbase, fireworks, dreamweaver">
+<meta name="url" content="http://www.imasters.com.br">
+<meta name="Language" content="PT-BR">
+<meta name="robots" content="INDEX,FOLLOW"><link rel="shortcut icon" href="http://www.imasters.com.br/favicon.ico" type="image/x-icon"><script src="Indices%20-%20Parte%203_files/jscolab.js"></script><script src="Indices%20-%20Parte%203_files/selects.js"></script><script src="Indices%20-%20Parte%203_files/padrao.js"></script><script src="Indices%20-%20Parte%203_files/padrao_ie.js"></script></head><body><table class="texto" width="487"><tbody><tr><td><img src="Indices%20-%20Parte%203_files/marca.gif" border="0"><br>Daniel Oslei<br><span class="c333333">Terça-feira, 13 de abril de 2004 </span><br>
+		<span class="size16 bold c000000">Índices - Parte 3</span><br>
+		<br><p class="texto">Olá pessoal. Nesta série de artigos 
+                    sobre índice, vimos, no primeiro artigo, conceitos 
+                    básicos sobre o assunto, sem detalhar os índices 
+                    no PostgreSQL. No segundo artigo tivemos a oportunidade de 
+                    aprendermos como se cria índices e quais as possibilidades 
+                    de índices que temos para usar. Neste terceiro artigo 
+                    avançaremos mais um pouco, mostrando mais alguns detalhes 
+                    importantes na sua criação. Se acaso desejar 
+                    ver os dois primeiros artigos, acesse o links abaixo:</p>
+                  <p class="texto">- <a href="http://www.imasters.com.br/web/conteudo/coluna_postgresql_daniel.php?codcoluna=1983&amp;cod_secao=35">Parte 
+                    1</a>;<br>
+                    - <a href="http://www.imasters.com.br/web/conteudo/coluna_postgresql_daniel.php?codcoluna=2008&amp;cod_secao=35">Parte 
+                    2</a>;</p>
+                  <p class="texto"><b>Índices únicos </b></p>
+                  <p class="texto">Os índices não precisam ser necessariamente 
+                    usados como forma de aceleração nas consultas, 
+                    mas também como uma maneira de restringir que dados 
+                    se repitam em uma determinada coluna. Portanto, ele funciona 
+                    de forma semelhante a uma chave primária, não 
+                    permitindo que, por exemplo, num campo onde se digita o cpf 
+                    de um usuário sejam inseridos duas vezes o mesmo cpf. 
+                    Para criar um índice que tenha esta função 
+                    acrescenta-se a cláusula UNIQUE após a palavra 
+                    CREATE:</p>
+                  <p class="texto"><font color="#0066cc">CREATE UNIQUE INDEX nome_indice 
+                    ON tabela (coluna) </font> </p>
+                  <p class="texto">Em casos em que são acrescentados valores 
+                    nulos para a coluna, o PostgreSQL não restringe a sua 
+                    inserção, podendo assim, existir vários 
+                    valores nulos nesta determinada coluna da tabela. Outro detalhe 
+                    importante é o de usar duas ou mais colunas com índices 
+                    únicos, nestes casos apenas será impedida a 
+                    inserção de dados quando todos os novos dados 
+                    pertencentes ao índice estão coincidindo com 
+                    uma outra tupla já existente. Num caso em que haja 
+                    três colunas num índice, e se acaso for inserir 
+                    um registro que repita os dados das duas primeiras colunas, 
+                    mas não da terceira, o registro será inserido 
+                    sem nenhum problema. </p>
+                  <p class="texto"> <font color="#669900">B-Tree é o único 
+                    tipo de índice que aceita restrição de 
+                    unicidade.</font></p>
+                  <p class="texto">O PostgreSQL oferece esta possibilidade, mas 
+                    se for usar restrição em colunas para que sejam 
+                    dados únicos, é mais aconselhável utilizar 
+                    as CONSTRAINTs, a utilização de índices 
+                    para impor a restrição de unicidade pode ser 
+                    considerada um detalhe de implementação que 
+                    não deve ser acessado diretamente. Entretanto, se deve 
+                    ter em mente que não há necessidade de criar 
+                    índices em colunas únicas manualmente; se isto 
+                    for feito, simplesmente será duplicado o índice 
+                    criado automaticamente.</p>
+                  <p class="texto"><span class="codigo"><font color="#0066cc">CREATE 
+                    TABLE usuario <br>
+                    (<br>
+                    cpf int,<br>
+                    nome varchar,<br>
+                    CONSTRAINT constraint_exemplo UNIQUE (cpf)<br>
+                    ) ;</font></span></p>
+                  <p class="texto"><b>Utilização de índices 
+                    em expressões </b></p>
+                  <p class="texto">Os índices não precisam necessariamente 
+                    ficarem atrelados aos dados contidos na base de dados. Eles 
+                    podem, de acordo com a necessidade, estar baseados em funções 
+                    do PostgreSQL. Esta funcionalidade é útil para 
+                    obter acesso rápido às tabelas baseado no resultado 
+                    de cálculos.</p>
+                  <p class="texto">Por exemplo, são utilizadas freqüentemente 
+                    as funções lower e upper. A primeira função 
+                    tem como finalidade converter os caracteres de uma string 
+                    totalmente para minúsculas, e a segunda para maiúsculas. 
+                    Podemos fazer comparações da seguinte forma:</p>
+                  <p class="texto"><font color="#0066cc">SELECT * FROM tabela 
+                    WHERE lower(coluna) = 'valor';</font><br>
+                    <br>
+                    <span class="texto">ou</span> </p>
+                  <p class="texto"><font color="#0066cc">SELECT * FROM teste1 
+                    WHERE upper(coluna) = 'VALOR';</font></p>
+                  <p class="texto">Para que haja uma melhora de performance nestes 
+                    tipos de consultas, podemos utilizar índices que já 
+                    utilizem uma determinada função para a sua organização: 
+                  </p>
+                  <p class="texto"><span class="codigo"><font color="#0066cc">CREATE 
+                    INDEX idx_tabela_lower_coluna ON (lower(coluna));</font></span><br>
+                    <br>
+                    ou</p>
+                  <p class="texto"><span class="codigo"><font color="#0066cc">CREATE 
+                    INDEX idx_tabela_upper_coluna ON (upper(coluna));</font></span></p>
+                  <p class="texto">Outro exemplo que podemos dar está relacionado 
+                    ao fato de muitas vezes quando é inserido dados em 
+                    um determinado campo, eles podem vir com caracteres de espaço 
+                    no início ou no fim da string. Para isso podem ser 
+                    criados índices que automaticamente se adaptem aos 
+                    registros da coluna, sem considerar os caracteres de espaço 
+                    que estão sobrando. Neste caso, teremos que utilizar 
+                    a função ltrim, que remove os caracteres que 
+                    desejarmos no início de uma string:</p>
+                  <p class="texto"><font color="#0066cc">CREATE INDEX idx_testando_ltrim_coluna<br>
+                    ON tabela <br>
+                    USING btree<br>
+                    (ltrim(coluna));</font></p>
+                  <p class="texto"><span class="texto">Um outro exemplo pode ser 
+                    utilizado para quem habitualmente faz consultas como:</span></p>
+                  <p class="texto"><font color="#0066cc">SELECT * FROM pessoas 
+                    WHERE (nome || ' ' || sobrenome) = 'Juca Silva';</font></p>
+                  <p class="texto"><span class="texto">Então vale a pena 
+                    criar um índice como:</span></p>
+                  <p class="texto"><font color="#0066cc">CREATE INDEX idx_pessoas_nome 
+                    ON pessoas ((nome || ' ' || sobrenome));</font></p>
+                  <p class="texto"><span class="texto">Se o índice for 
+                    declarado como UNIQUE, este impede a criação 
+                    de linhas cujos valores da coluna diferem apenas em maiúsculas 
+                    e minúsculas, assim bem como linhas cujos valores da 
+                    coluna são realmente idênticos. Portanto, os 
+                    índices em expressões podem ser utilizados para 
+                    impor restrições que não podem ser definidas 
+                    como restrições simples de unicidade.</span></p>
+                  <p class="texto"><b>Índices parciais</b></p>
+                  <p class="texto">Os índices parciais, como o próprio 
+                    nome nos diz, não cobre uma coluna na sua totalidade, 
+                    cobre apenas um subconjunto, obedecendo a uma determinada 
+                    condição. Para isso, o índice conterá 
+                    apenas entradas que satisfaçam a condição 
+                    indicada na sua criação. O principal objetivo 
+                    dos índices parciais é evitar que valores muito 
+                    comuns para aquela coluna sejam indexados. A vantagem da indexação 
+                    parcial, é que não será necessário 
+                    atualizar o índice a cada vez que ocorrer uma atualização 
+                    na tabela, apenas quando envolverem valores específicos 
+                    para o índice, o que também implicará 
+                    na redução do tamanho do índice e maior 
+                    agilidade em consultas. Abaixo serão apresentados dois 
+                    exemplos de possíveis utilizações de 
+                    índices parcias, o segundo foi extraído da própria 
+                    documentação do PostgreSQL: </p>
+                  <p class="texto"><b>a) </b>Dentro de uma livraria existem uma 
+                    grande quantidade de livros, sendo que existem livros escritos 
+                    em português, inglês, alemão, francês 
+                    e italiano. Do total destes livros, 8% são em português, 
+                    80% em inglês, 2% em alemão, 6% em francês 
+                    e 4% em italiano. Mas 70% das buscas são procurando 
+                    livros escritos em português, italiano, francês 
+                    ou alemão e 30% em inglês.Portanto, há 
+                    uma considerável quantidade de procura para livros 
+                    nos idiomas que não seja o inglês.</p>
+                  <p class="texto">Podemos criar um índice para o campo 
+                    idioma envolvendo a coluna toda. Mas, no entanto, se as consultas 
+                    são a maior parte para os idiomas em português, 
+                    italiano, francês e alemão, vamos criar um índice 
+                    apenas para os quatro idiomas mais usados e que possuem menos 
+                    registros no banco.</p>
+                  <p class="texto">Considerando que os nomes dos idiomas estão 
+                    numa tabelas a parte, e inclui-se apenas o código do 
+                    idioma na tabela principal, a tabela idioma possui os seguintes 
+                    valores:</p>
+                  <p align="center"> 
+                  <table border="0" cellpadding="4" cellspacing="1" width="200">
+                    <tbody><tr class="tabela1" bgcolor="#0066cc"> 
+                      <th colspan="2" width="29%"><p class="texto"><font color="#ffffff">Tabela 
+                        idioma</font></p></th>
+                    </tr>
+                    <tr bgcolor="#f0f0f0"> 
+                      <th scope="col" width="29%"><p class="texto">codigo</p></th>
+                      <th scope="col" width="71%"><p class="texto">idioma</p></th>
+                    </tr>
+                    <tr bgcolor="#f9f9f9"> 
+                      <td> 
+                        <div align="center"><p class="texto">1</p></div>
+                      </td>
+                      <td> 
+                        <div align="center"><p class="texto">Inglês</p></div>
+                      </td>
+                    </tr>
+                    <tr bgcolor="#f9f9f9"> 
+                      <td> 
+                        <div align="center"><p class="texto">2</p></div>
+                      </td>
+                      <td> 
+                        <div align="center"><p class="texto">Português</p></div>
+                      </td>
+                    </tr>
+                    <tr bgcolor="#f9f9f9"> 
+                      <td> 
+                        <div align="center"><p class="texto">3</p></div>
+                      </td>
+                      <td> 
+                        <div align="center"><p class="texto">Alemão</p></div>
+                      </td>
+                    </tr>
+                    <tr cbgcolor="#F9F9F9"> 
+                      <td> 
+                        <div align="center"><p class="texto">4</p></div>
+                      </td>
+                      <td> 
+                        <div align="center"><p class="texto">Francês</p></div>
+                      </td>
+                    </tr>
+                    <tr bgcolor="#f9f9f9"> 
+                      <td> 
+                        <div align="center"><p class="texto">5</p></div>
+                      </td>
+                      <td> 
+                        <div align="center"><p class="texto">Italiano</p></div>
+                      </td>
+                    </tr>
+                  </tbody></table>
+                  </p><p></p>
+                  <p class="texto">Usando as informações citadas 
+                    acima, podemos criar um índice parcial da seguinte 
+                    forma:</p>
+                  <p class="texto"><font color="#0066cc">CREATE INDEX idx_livro_idioma 
+                    ON livro (idioma) WHERE idioma != 1;</font></p>
+                  <p class="texto">Consultas que usarem como condição 
+                    ser de qualquer idioma exceto inglês , utilizará 
+                    o índice parcial.</p>
+                  <p class="texto"><b>b) </b>Suponha que as informações 
+                    sobre o acesso ao servidor Web são armazenadas no banco 
+                    de dados, e que a maioria dos acessos se origina na faixa 
+                    de endereços de IP da própria organização, 
+                    mas alguns são de fora (digamos, empregados com acesso 
+                    discado). Se a procura por endereços de IP for principalmente 
+                    sobre o acesso externo, provavelmente não será 
+                    necessário indexar a faixa de endereços de IP 
+                    correspondente à subrede da própria organização.</p>
+                  <p class="texto">Para criar um índice parcial adequado 
+                    ao exemplo acima, deve ser utilizado um comando como este:<br>
+                    <br>
+                    <span class="codigo"><font color="#0066cc">CREATE INDEX idx_registro_acesso_ip_cliente<br>
+                    ON tbl_registro_acesso (ip_cliente)<br>
+                    WHERE NOT (ip_cliente &gt; inet '192.168.100.0'<br>
+                    AND ip_cliente &lt; inet '192.168.100.255');</font></span></p>
+                  <p class="texto">Tipicamente, uma consulta que poderia utilizar 
+                    este índice seria:</p>
+                  <p class="texto"><span class="exemplo"><font color="#0066cc">SELECT 
+                    * FROM tbl_registro_acesso WHERE url = '/index.html' AND ip_cliente 
+                    = inet '212.78.10.32';</font></span></p>
+                  <p class="texto">Uma consulta que não poderia utilizar 
+                    este índice seria:</p>
+                  <p class="texto"><span class="codigo"><font color="#0066cc">SELECT 
+                    * FROM tbl_registro_acesso WHERE ip_cliente = inet '192.168.100.23';</font></span></p>
+                  <p class="texto">Deve-se levar em consideração 
+                    que os exemplos dados anteriormente, são meramente 
+                    explicativos ao que se refere os índices parciais, 
+                    sem seguir ou levar em consideração conceitos 
+                    de normalização de banco de dados. O PostgreSQL 
+                    suporta índice parcial com predicados arbitrários, 
+                    desde que somente colunas da tabela sendo indexada estejam 
+                    envolvidas. Entretanto, deve-se ter em mente que a condição 
+                    colocada na criação do índice deve corresponder 
+                    às condições utilizadas nas consultas 
+                    que supostamente vão se beneficiar do índice. 
+                    O índice parcial apenas será utilizado em uma 
+                    consulta se o sistema puder reconhecer que a condição 
+                    WHERE da consulta implica matematicamente no predicado do 
+                    índice. </p>
+                  <p class="texto">O PostgreSQL não possui um provador 
+                    de teoremas sofisticado que possa reconhecer predicados matematicamente 
+                    equivalentes escritos de formas diferentes. O sistema pode 
+                    reconhecer implicações de desigualdades simples 
+                    como, por exemplo, &#8220;x &lt; 1&#8221; implica &#8220;x 
+                    &lt; 2&#8221;; senão, a condição do predicado 
+                    deve corresponder exatamente à condição 
+                    WHERE da consulta, ou o índice não será 
+                    reconhecido como utilizável. Normalmente, o PostgreSQL 
+                    realiza escolhas racionais sobre a utilização 
+                    dos índices, por exemplo, evita-os ao buscar valores 
+                    com muita ocorrência, de tal forma que o segundo exemplo 
+                    realmente economiza apenas o tamanho do índice, não 
+                    sendo necessário para evitar a utilização 
+                    do índice.</p>
+                  <p class="texto">No próximo artigo veremos o que mais 
+                    interessa sobre os índices, que são dicas para 
+                    que os índices realmente tenham um significado positivo 
+                    no seu banco de dados. Por enquanto é isso pessoal, 
+                    um grande abraço a todos e até mais. </p></td></tr></tbody></table></body></html>

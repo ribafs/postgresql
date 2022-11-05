@@ -1,0 +1,6 @@
+euler@harman:~$ time for i in `seq 1 1000`; do psql -c "select 1"
+1>/dev/null 2>&1; done
+
+real    1m20.261s
+user    0m7.712s
+sys     0m3.252s

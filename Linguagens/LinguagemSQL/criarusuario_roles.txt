@@ -1,0 +1,28 @@
+ROLES
+
+Roles representam grupos ou usuários mas também podem conter privilégios que
+podem ser atribuídos a outros usuários ou grupos juntamente com os privilégios.
+
+create role nome password 'senha' createdb valid until '31/12/2016';
+
+alter role nome createdb;
+
+Mostrar usuário atual:
+select current_user;
+
+Mostrar todos os usuários do banco atual:
+select usename from pg_user;
+
+ou
+\du
+
+createuser --interactive
+
+ou
+
+sudo -u postgres createuser --interactive
+
+Criar outro super usuário:
+create role dba with login password 'senha' createdb createuser;
+
+

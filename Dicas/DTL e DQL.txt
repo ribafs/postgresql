@@ -1,0 +1,148 @@
+DTL e DQL
+
+DTL - Linguagem de Transação de Dados
+
+    * BEGIN WORK (ou START TRANSACTION, dependendo do dialeto SQL) pode ser usado para marcar o começo de uma transação de banco de dados que pode ser completada ou não.
+
+    * COMMIT envia todos os dados das mudanças permanentemente.
+
+    * ROLLBACK faz com que as mudanças nos dados existentes desde que o último COMMIT ou ROLLBACK sejam descartadas.
+
+COMMIT e ROLLBACK interagem com áreas de controle como transação e locação. Ambos terminam qualquer transação aberta e liberam qualquer cadeado ligado a dados. Na ausência de um BEGIN WORK ou uma declaração semelhante, a semântica de SQL é dependente da implementação.
+
+outros comandos DCL:
+
+    * ALTER PASSWORD
+
+    * CREATE SYNONYM
+
+[editar] DQL - Linguagem de Consulta de Dados
+
+Embora tenha apenas um comando a DQL é a parte da SQL mais utilizada. O comando SELECT é composta de várias cláusulas e opções, possibilitando elaborar consultas das mais simples as mais elaboradas. Exemplos:
+
+SELECT 
+  nome
+FROM
+  pessoas;
+
+SELECT 
+  aP.
+  aP.nome,
+  aP.data_nascimento,
+  aO.nome,
+  aO.local
+FROM
+ pessoas aP,
+ objetos aO,
+WHERE
+ aP.codigo = aO.codigo_pessoa and
+ aP.codigo = (
+   SELECT
+     codigo_pessoa
+   FROM
+     catalogo
+   WHERE
+    cod_catalogo = 5
+ ); 
+
+Obs.: O SELECT também é considerado um comando DML.
+
+[editar] Cláusulas
+
+As cláusulas são condições de modificação utilizadas para definir os dados que deseja selecionar ou modificar em uma consulta.
+
+FROM
+
+Descrição – Utilizada para especificar a tabela que se vai selecionar os registros.
+
+WHERE
+
+Descrição – Utilizada para especificar as condições que devem reunir os registros que serão selecionados.
+
+GROUP BY
+
+Descrição – Utilizada para separar os registros selecionados em grupos específicos.
+
+HAVING
+
+Descrição – Utilizada para expressar a condição que deve satisfazer cada grupo.
+
+ORDER BY
+
+Descrição – Utilizada para ordenar os registros selecionados com uma ordem especifica.
+
+DISTINCT
+
+Descrição – Utilizada para selecionar dados sem repetição.
+
+[editar] Operadores Lógicos
+
+AND
+
+Descrição – E lógico. Avalia as condições e devolve um valor verdadeiro caso ambos sejam corretos.
+
+OR
+
+Descrição – OU lógico. Avalia as condições e devolve um valor verdadeiro se algum for correto.
+
+NOT
+
+Descrição – Negação lógica. Devolve o valor contrário da expressão.
+
+[editar] Operadores de Comparação
+
+<
+
+Descrição – Menor que
+
+>
+
+Descrição – Maior que
+
+<>
+
+Descrição – Diferente de
+
+<=
+
+Descrição – Menor ou Igual que
+
+>=
+
+Descrição – Maior ou Igual que
+
+=
+
+Descrição – Igual que
+
+BETWEEN
+
+Descrição – Utilizado para especificar um intervalo de valores.
+
+LIKE
+
+Descrição – Utilizado na comparação de um modelo e para especificar registros de um banco de dados."Like" + extensão % vai significar buscar todos resultados com o mesmo início da extensão.
+
+[editar] Funções de Soma
+
+As funções de soma se usam dentro de uma cláusula SELECT em grupos de registros para devolver um único valor que se aplica a um grupo de registros.
+
+AVG
+
+Descrição – Utiliza para calcular a media dos valores de um campo determinado.
+
+COUNT
+
+Descrição – Utilizada para devolver o número de registros da seleção.
+
+SUM
+
+Descrição – Utilizada para devolver a soma de todos os valores de um campo determinado.
+
+MAX
+
+Descrição – Utilizada para devolver o valor mais alto de um campo especificado.
+
+MIN
+
+Descrição – Utilizada para devolver o valor mais baixo de um campo especificado.

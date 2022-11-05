@@ -1,0 +1,114 @@
+DROP TABLE product CASCADE;
+DROP TABLE server CASCADE;
+DROP VIEW possible_server_products CASCADE;
+DROP VIEW actual_server_products CASCADE;
+DROP TABLE server_products CASCADE;
+
+CREATE TABLE product (
+pr_id int NOT NULL,
+pr_type int NOT NULL,
+PRIMARY KEY (pr_id)
+);
+
+CREATE TABLE server (
+svr_id varchar(4) NOT NULL,
+pr_type int NOT NULL,
+PRIMARY KEY (svr_id)
+);
+
+CREATE TABLE server_products (
+svr_id varchar(4) NOT NULL REFERENCES server (svr_id),
+pr_id int NOT NULL REFERENCES product (pr_id),
+PRIMARY KEY (svr_id, pr_id)
+);
+
+-- Now add some triggers to check pr_type is valid for servers
+-- 
+CREATE VIEW possible_server_products AS
+	SELECT s.svr_id, s.pr_type, p.pr_id FROM server s, product p WHERE p.pr_type=s.pr_type;
+
+CREATE VIEW actual_server_products AS
+	SELECT s.svr_id, s.pr_type, sp.pr_id FROM server s, server_products sp WHERE s.svr_id=sp.svr_id;
+
+CREATE OR REPLACE FUNCTION check_srv_prodtype() RETURNS trigger AS '
+DECLARE
+prod_id int4;
+prod_type int4;
+server_id varchar(4);
+BEGIN
+IF TG_RELNAME=''server_products'' THEN
+-- check product can be allocated to this server
+SELECT pr_type INTO prod_type FROM possible_server_products WHERE svr_id=NEW.svr_id AND pr_id=NEW.pr_id;
+IF FOUND THEN
+-- product type is valid for this server
+RETURN NEW;
+ELSE
+SELECT pr_type INTO prod_type FROM product WHERE pr_id=NEW.pr_id;
+IF FOUND THEN
+RAISE EXCEPTION ''Server % does not support products of type % (product id = %)''
+, NEW.svr_id, prod_type, NEW.pr_id;
+ELSE
+-- Need this in case we are called from BEFORE trigger
+-- in which case foreign key check has not happened
+RAISE EXCEPTION ''Server % does not support non-existent products (product id = %)''
+, NEW.svr_id, NEW.pr_id;
+END IF;
+RETURN NULL;
+END IF;
+ELSIF TG_RELNAME=''product'' THEN
+-- Inserting/updating a "product"
+SELECT svr_id INTO server_id FROM actual_server_products WHERE pr_id=NEW.pr_id AND pr_type<>NEW.pr_type;
+IF NOT(FOUND) THEN
+-- this product is either not used or the new type is valid where it is used.
+RETURN NEW;
+ELSE
+SELECT pr_type INTO prod_type FROM server WHERE svr_id=server_id;
+RAISE EXCEPTION ''Server % uses product % and only allows product type %''
+, server_id, NEW.pr_id, prod_type;
+RETURN NULL;
+END IF;
+ELSE
+-- Must be updating a "server", see if there are any products for it.
+SELECT pr_id INTO prod_id FROM server_products WHERE svr_id=NEW.svr_id;
+IF found THEN
+-- Have products, so no change to pr_type allowed.
+IF OLD.pr_type<>NEW.pr_type THEN
+SELECT pr_type INTO prod_type FROM product WHERE pr_id=prod_id;
+RAISE EXCEPTION ''Server % uses product % and so requires product type %'
+, NEW.svr_id, prod_id, prod_type;
+RETURN NULL;
+END IF;
+END IF;
+-- All OK, either no server_products or type isnt changed
+RETURN NEW;
+END IF;
+END;
+LANGUAGE 'plpgsql';
+
+CREATE TRIGGER check_server_products
+AFTER INSERT OR UPDATE ON server_products
+FOR EACH ROW EXECUTE PROCEDURE check_srv_prodtype();
+
+CREATE TRIGGER check_used_product_type
+AFTER INSERT OR UPDATE ON product
+FOR EACH ROW EXECUTE PROCEDURE check_srv_prodtype();
+
+CREATE TRIGGER check_server_product_type
+AFTER INSERT OR UPDATE ON server
+FOR EACH ROW EXECUTE PROCEDURE check_srv_prodtype(); -- OK, now try inserting some data
+
+INSERT INTO product VALUES (1,1);
+INSERT INTO product VALUES (2,2);
+INSERT INTO product VALUES (3,1);
+INSERT INTO product VALUES (4,2);
+INSERT INTO server VALUES (a,1);
+INSERT INTO server VALUES (b,2);
+INSERT INTO server_products VALUES (a,1);
+INSERT INTO server_products VALUES (a,3);
+-- Next insert should fail
+INSERT INTO server_products VALUES (a,2);
+-- And this should fail
+
+UPDATE product SET pr_type=2 wHERE pr_id=1;
+-- As should this
+UPDATE server SET pr_type=2 WHERE svr_id='a';

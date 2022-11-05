@@ -1,0 +1,19 @@
+Transações
+
+As transações têm como objetivo evitar inconsistências em alguns tipos de 
+operações, quando um bloco de comandos é efetivado ou inteiramente cancelado
+em bloco. Para a execução das transações temos os comandos:
+
+COMMIT
+ROLLBACK
+SAVEPOINT
+
+COMMIT - efetiva todos os comandos do bloco
+ROLLBACK - cancela todos os comandos
+SAVEPOINT - salva todos os comandos somente até onde se encontra o SAVEPOINT
+
+Exemplo:
+
+Operações bancárias
+
+

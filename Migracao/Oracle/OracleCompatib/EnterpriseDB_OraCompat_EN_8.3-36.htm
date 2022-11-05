@@ -1,0 +1,234 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>EnterpriseDB Oracle Compatibility Developer's Guide: Date/Time Types</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1973"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-36_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-35.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-36_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-36_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-37.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-36_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P1864_101524"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.2.4 Date/Time Types</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The following discussion of the date/time types assumes that the configuration parameter, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb_redwood_date</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, has been set to true whenever a table is created or altered.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P1866_101713"></a>Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> supports the date</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">/time</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> types shown </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">in the following </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">table</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-5 Date/Time Types</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="133"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name</span></p>
+</td>
+<td valign="top" width="60"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Storage Size</span></p>
+</td>
+<td valign="top" width="84"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td>
+<td valign="top" width="72"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Low Value</span></p>
+</td>
+<td valign="top" width="84"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">High Value</span></p>
+</td>
+<td valign="top" width="96"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Resolution</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE</span></p>
+</td>
+<td valign="top" width="60"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">8 bytes</span></p>
+</td>
+<td valign="top" width="84"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Date and time</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">4713</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> BC</span></p>
+</td>
+<td valign="top" width="84"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">5874897 AD</span></p>
+</td>
+<td valign="top" width="96"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">1 second</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TIMESTAMP [ (</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>p</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">) ]</span></p>
+</td>
+<td valign="top" width="60"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">8 bytes</span></p>
+</td>
+<td valign="top" width="84"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Date and time</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">4713 BC</span></p>
+</td>
+<td valign="top" width="84"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">5874897 AD</span></p>
+</td>
+<td valign="top" width="96"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">1 microsecond</span></p>
+<p><a name="P1887_101998"></a></p></td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> appears as the data type of a column in the data definition language (DDL) commands, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, it is translated to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TIMESTAMP(0)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+at the time the table definition is stored in the database. Thus, a
+time component will also be stored in the column along with the date.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> appears as a data type of a variable in an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> declaration section, or the data type of a formal parameter in an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure or an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function, or the return type of an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function, it is always translated to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TIMESTAMP(0)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and thus can handle a time component if present.</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TIMESTAMP</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">accepts</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> an optional precision value </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>p</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> which specifies the number of fractional digits retained in the seconds field.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The allowed range of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>p</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is from 0 to 6 with the default being 6.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TIMESTAMP</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+values are stored as double precision floating-point numbers (currently
+the default), the effective limit of precision may be less than 6. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TIMESTAMP</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+values are stored as seconds before or after midnight 2000-01-01.
+Microsecond precision is achieved for dates within a few years of
+2000-01-01, but the precision degrades for dates further away. When </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TIMESTAMP</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+values are stored as eight-byte integers (a compile-time option),
+microsecond precision is available over the full range of values.
+However eight-byte integer timestamps have a more limited range of
+dates than shown above: from 4713 BC up to 294276 AD.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;"><a name="P1892_103392"></a>3.2.4.1 Date/Time Input</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Date and tim</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">e input is accepted in ISO 8601</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">-compatible format</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">default dd-MON</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">-yy format</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, as well as a number of other formats provided that there </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">i</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">s no ambiguity as to which </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">component is the year, month, and day</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">However, use of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TO_DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function is strongly recommended to avoid ambiguities. See Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-104.htm#P4993_288530">3.5.6</a></u>.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Any date or time literal input needs to be enclosed in single quotes, like text strings. The following </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL standard syntax is also accepted:</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>type</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> '</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">'</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>type</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is either </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TIMESTAMP</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a date/time text string.</span></p>
+
+  <div style="margin-left: 50pt;"><h5><span style="font-family: 'Times New Roman'; font-size: 13pt;"><i><a name="P1897_103963"></a>3.2.4.1.1 Dates</i></span></h5>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P1898_103978"></a>The following table shows some possible input formats for dates, all of which equate to January 8, 1999.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;"><a name="P1899_104082"></a>Table 3-6 Date Input</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="156"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Example</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">January 8, 1999</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">1999-01-08</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">1999-Jan-08</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Jan-08-1999</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">08-Jan-1999</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">08-Jan-99</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Jan-08-99</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">19990108</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">990108</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The date values can be assigned to a</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TIMESTAMP</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> column or variable.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The hour, minute, and seconds fields will be set to zero if the date value is not appended with a time value</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+  <div style="margin-left: 50pt;"><h5><span style="font-family: 'Times New Roman'; font-size: 13pt;"><i><a name="P1913_104383"></a>3.2.4.1.2 Times</i></span></h5>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P1914_104398"></a>Some examples of the time component of a date or time stamp are shown in the following table.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;"><a name="P1915_104491"></a>Table 3-7 Time Input</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="193"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Example</span></p>
+</td>
+<td valign="top" width="285"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="193"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">04:05:06.789</span></p>
+</td>
+<td valign="top" width="285"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ISO 8601</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="193"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">04:05:06</span></p>
+</td>
+<td valign="top" width="285"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ISO 8601</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="193"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">04:05</span></p>
+</td>
+<td valign="top" width="285"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ISO 8601</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="193"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">040506</span></p>
+</td>
+<td valign="top" width="285"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ISO 8601</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="193"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">04:05 AM</span></p>
+</td>
+<td valign="top" width="285"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as 04:05; AM does not affect value</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="193"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">04:05 PM</span></p>
+</td>
+<td valign="top" width="285"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as 16:05</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">; input hour must</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> be &lt;= 12</span></p>
+<p><a name="P1931_104686"></a></p></td></tr></tbody></table>
+
+  </p><div style="margin-left: 50pt;"><h5><span style="font-family: 'Times New Roman'; font-size: 13pt;"><i>3.2.4.1.3 Time Stamps</i></span></h5>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P1933_104707"></a>Valid input for time st</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">amp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">s</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">consists
+of a concatenation of a date and a time. The date portion of the time
+stamp can be formatted according to any of the examples shown in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><u><a href="#P1899_104082">Table 3-6 Date Input</a></u></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The tim</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">e portion of the time stamp can be formatted according to any of examples shown in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><u><a href="#P1915_104491">Table 3-7 Time Input</a></u>.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is an example of a time stamp which follows the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> default format.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">08-JAN-99 04:05:06</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The f</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ollowing is an example of a time stamp which follows the </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">ISO</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> 8601 standard.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">1999-01-08 04:05:06</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;"><a name="P1938_105213"></a>3.2.4.2 Date/Time Output</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The default output format of the date/time types will be either </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> style</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> (dd-MON</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">-yy) referred to as the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>Redwood date style</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">or the ISO 8601 format </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">(yyyy-mm-dd) </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">depending upon the application interface to the database.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Applications that use JDBC such as </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL Interactive</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> always present the date in ISO 8601 form.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Other applications such as </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">PSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> present the date in Redwood form.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P1940_105632"></a>The following table shows examples of the output formats for the two styles, Redwood and ISO 8601.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-8 Date/Time Output Styles</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="193"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td>
+<td valign="top" width="208"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Example</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="193"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Redwood style</span></p>
+</td>
+<td valign="top" width="208"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">31-DEC-05 07:37:16</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="193"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ISO 8601/SQL standard</span></p>
+</td>
+<td valign="top" width="208"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">19</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">97-12-17 07:37:16</span></p>
+<p><a name="P1949_105852"></a></p></td></tr></tbody></table>
+
+  </p><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">3.2.4.3 Internals</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+uses Julian dates for all date/time calculations. They have the nice
+property of correctly predicting/calculating any date more recent than
+4713 BC to far into the future, using the assumption that</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> the length of the year is 365.2425</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> days.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-35.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-36_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-36_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-37.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-36_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-36_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-36_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

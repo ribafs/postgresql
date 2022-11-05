@@ -1,0 +1,20 @@
+> Preciso fazer um select normal que me traga os dados de uma tabela,
+> mas no campo titulo existem alguns registros que contem o titulo com
+> quebra de linha no final. E na hora de fazer um select nesse registro
+> estou tendo dificuldades...
+>
+> Ex:
+>
+> titulo = descricao do titulo\n
+>
+> select titulo from tabela where titulo = 'descricao do titulo';
+>
+> Preciso garantir que mesmo que o registro tenho quebra de linha no
+> final do seu texto, eu consiga pegar a informação na condição do
+> where....
+>
+
+
+Tente:
+SELECT titulo FROM tabela WHERE titulo ~* E'descricao do titulo\n*$';
+

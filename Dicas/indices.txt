@@ -1,0 +1,75 @@
+																		Criar e Remover Índices
+
+
+Criar um índice
+
+CREATE INDEX nomeindice ON tabela (campo);
+
+
+Remover índice:
+
+DROP INDEX nomeindice;
+
+Criar um índice Único:
+
+CREATE UNIQUE INDEX nomeindice ON tabela (campo);
+
+Obs.: Somente os índices tipo B-tree podem ser do tipo Unique.
+
+
+Criar um índice com várias colunas:
+
+CREATE INDEX idx_clientes_ps ON clientes (codigo, nome);
+
+Boa indicação para consultas com WHERE...AND. Ao usar OR o índice não será utilizado pelo PostgreSQL:
+
+SELECT nome FROM clientes WHERE codigo = 12 AND nome = 'João';
+
+Atentar para usar índices nos campos das Cláusulas
+- FOREIGN KEY
+- ORDER BY
+- WHERE
+- ON
+- GROUP BY
+- HAVING
+
+Índice Funcional
+
+CREATE INDEX nomeindice ON tabela (lower (nomecampo));
+
+Teste de desempenho com e sem Índices
+
+psql -U postgres
+
+create database cep;
+
+\c cep
+
+create table ceps (cep char(8), tipo char(72), logradouro char(70), bairro char(72), municipio char(60), uf char(2));
+
+\copy ceps from c:/ceps.csv
+
+\timing
+
+select count(*) from ceps;
+
+Aqui (com o meu hardware e softwares) ficou em 5004,379 ms. Num outro teste demorou 13s e outra 51.
+
+\q
+
+psql -U postgres
+
+\c cep
+
+alter table ceps add constraint ceps_pk primary key (cep);
+
+\d ceps
+
+\timing
+
+select count(*) from ceps;
+
+Agora ficou em 556,302ms (noutro teste demorou 700ms e noutro 718ms).
+
+Uma diferença extremamente grande em termos de bancos de dados.
+

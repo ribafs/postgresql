@@ -1,0 +1,160 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>REVOKE</title>
+
+
+<meta name="keywords" content="revoke, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2019"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-82_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-81.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-82_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-82_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-83.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-82_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P3719_213724"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.44 REVOKE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3720_213737"></a>Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;remove access privileges</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3722_213777"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE { { SELECT | INSERT | UPDATE | DELETE | REFERENCES }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [,...] | ALL [ PRIVILEGES ] }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ON </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>tablename</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  FROM { </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">username</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">groupname</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | PUBLIC } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ CASCADE | RESTRICT ]</span>
+
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE { SELECT | ALL [ PRIVILEGES ] }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ON </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sequen</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">cename</span></i>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  FROM { </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">username</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">groupname</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | PUBLIC } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ CASCADE | RESTRICT ]</span>
+
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE { EXECUTE | ALL [ PRIVILEGES ] }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ON FUNCTION </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>progname</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    ( [ [ </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">argmode</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] [ </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">argname</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">argtype</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] [, ...] )</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  FROM { </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>username</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>groupname</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | PUBLIC } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ CASCADE | RESTRICT ]</span>
+
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE { EXECUTE | ALL [ PRIVILEGES ] }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ON PROCEDURE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>progname</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    [ ( [ [ </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">argmode</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] [ </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">argname</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">argtype</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] [, ...] ) ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  FROM { </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>username</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>groupname</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | PUBLIC } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ CASCADE | RESTRICT ]</span>
+
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE { EXECUTE | ALL [ PRIVILEGES ] }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ON PACKAGE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>packagename</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  FROM { </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">username</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">groupname</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | PUBLIC } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ CASCADE | RESTRICT ]</span>
+
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>role</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...] FROM { </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>username</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>groupname</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | PUBLIC }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ CASCADE | RESTRICT ]</span>
+
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE { CONNECT | RESOURCE | DBA } [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  FROM { </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>username</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">gr</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">oupname</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> } [, ...]</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3757_214769"></a>Description</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command revokes previously granted privileges from one or more roles. The key word </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUBLIC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> refers to the implicitly defined group of all roles.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See the description of the <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-79.htm#P3540_194132"><u>GRANT</u></a> command for the meaning of the privilege types.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note
+that any particular role will have the sum of privileges granted
+directly to it, privileges granted to any role it is presently a member
+of, and privileges granted to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUBLIC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. Thus, for example, revoking </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege from </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUBLIC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> does not necessarily mean that all roles have lost </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege on the object: those who have it granted directly or via another role will still have it.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If
+the privilege had been granted with the grant option, the grant option
+for the privilege is revoked as well as the privilege, itself.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If
+a user holds a privilege with grant option and has granted it to other
+users then the privileges held by those other users are called
+dependent privileges. If the privilege or the grant option held by the
+first user is being revoked and dependent privileges exist, those
+dependent privileges are also revoked if </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASCADE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+is specified, else the revoke action will fail. This recursive
+revocation only affects privileges that were granted through a chain of
+users that is traceable to the user that is the subject of this </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command. Thus, the affected users may effectively keep the privilege if it was also granted through other users.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><b>Note</b></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">: </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASCADE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is not an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> option. By default </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> always cascades dependent privileges, but </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> requires the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASCADE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> keyword to be explicitly given, otherwise the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command will fail.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When revoking membership in a role, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GRANT OPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is instead called </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ADMIN OPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, but the behavior is similar.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3765_216525"></a>Notes</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A user can only revoke privileges that were granted directly by that user. If, for example, user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">A</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> has granted a privilege with grant option to user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">B</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">B</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> has in turned granted it to user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">C</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, then user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">A</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> cannot revoke the privilege directly from </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">C</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. Instead, user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">A</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> could revoke the grant option from user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">B</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and use the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASCADE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> option so that the privilege is in turn revoked from user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">C</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. For another example, if both </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">A</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">B</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> have granted the same privilege to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">C</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">A</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> can revoke his own grant but not </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">B</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8217;s grant, so </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">C</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> will still effectively have the privilege.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When a non-owner of an object attempts to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+privileges on the object, the command will fail outright if the user
+has no privileges whatsoever on the object. As long as some privilege
+is available, the command will proceed, but it will revoke only those
+privileges for which the user has grant options. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE ALL PRIVILEGES</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+forms will issue a warning message if no grant options are held, while
+the other forms will issue a warning if grant options for any of the
+privileges specifically named in the command are not held. (In
+principle these statements apply to the object owner as well, but since
+the owner is always treated as holding all grant options, the cases can
+never occur.)</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If a superuser chooses to issue a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">G</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RANT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command, the command is performed as though it were issued by the owner
+of the affected object. Since all privileges ultimately come from the
+object owner (possibly indirectly via chains of grant options), it is
+possible for a superuser to revoke all privileges, but this may require
+use of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASCADE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> as stated above.</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+can also be done by a role that is not the owner of the affected
+object, but is a member of the role that owns the object, or is a
+member of a role that holds privileges </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WITH</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> GRANT OPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+on the object. In this case the command is performed as though it were
+issued by the containing role that actually owns the object or holds
+the privileges </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WITH GRANT OPTION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. For example, if table </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">t1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is owned by role </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">g1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, of which role </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">u1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a member, then </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">u1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> can revoke privileges on </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">t1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> that are recorded as being granted by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">g1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. This would include grants made by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">u1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> as well as by other members of role </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">g1</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the role executing </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+holds privileges indirectly via more than one role membership path, it
+is unspecified which containing role will be used to perform the
+command. In such cases it is best practice to use <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-88.htm#P4076_242665">SET ROLE</a></u> to become the specific role you want to do the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REVOKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> as. Failure to do so may lead to revoking privileges other than the ones you intended, or not revoking anything at all.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3771_219149"></a>Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Revoke insert privilege for the public on table </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">: </span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">REVOKE INSERT ON emp FROM PUBLIC;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Revoke all privileges from user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">mary</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> on view </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">salesemp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">REVOKE ALL PRIVILEGES ON salesemp FROM mary;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note that this actually means &#8220;</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">revoke all privileges that I granted&#8221;.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Revoke membership in role </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">admins</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> from user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">joe</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">REVOKE admins FROM joe;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3779_219484"></a>Revoke </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CONNECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege from user </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">joe</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">REVOKE CONNECT FROM joe;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-79.htm#P3540_194132"><u>GRANT</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-88.htm#P4076_242665"><u>SET ROLE</u></a></span></p>
+
+<p><a name="P3783_219570"></a></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-81.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-82_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-82_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-83.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-82_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-82_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-82_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

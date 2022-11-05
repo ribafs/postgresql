@@ -1,0 +1,46 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>EnterpriseDB Oracle Compatibility Developer's Guide: edb_redwood_date</title>
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1942"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style>
+</head>
+<body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="http://www.enterprisedb.com/images/logo.gif" border="0"></a><p style="text-align: center"><a href="EnterpriseDB_OraCompat_EN_8.3-04.htm#TopOfPage"><img src="inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="invetoc.gif" alt="Table Of Contents" border="0"></a><a href="EnterpriseDB_OraCompat_EN_8.3-06.htm#TopOfPage"><img src="invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt"><p><a name="P372_14268"></a><span style="font-family: 'Arial'; font-size: 13pt">1.3.1 edb_redwood_date</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">When </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> appears as the data type of a column in the commands, <u><a href="EnterpriseDB_OraCompat_EN_8.3-60.htm#P2939_161008">CREATE TABLE</a></u> or <u><a href="EnterpriseDB_OraCompat_EN_8.3-43.htm#P2073_114016">ALTER TABLE</a></u>, it is translated to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">TIMESTAMP(0)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> at the time the table definition is stored in the data base if the configuration parameter </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_redwood_date</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> is set to &#8220;true&#8221;. Thus, a time component will also be stored in the column along with the date. This is consistent with </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">&#8217;s </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> data type.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_redwood_date</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> is set to &#8220;false&#8221; the column&#8217;s data type in a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">CREATE TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">ALTER TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> command remains as a native </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">PostgreSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> data type and is stored as such in the database. The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">PostgreSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> data type stores only the date without a time component in the column.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">Regardless of the setting of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">edb_redwood_date</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">, when </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> appears as a data type in any other context such as the data type of a variable in an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> declaration section, or the data type of a formal parameter in an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> procedure or </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> function, or the return type of an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> function, it is always internally translated to a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black">TIMESTAMP(0)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black"> and thus, can handle a time component if present.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black">See Section <a href="EnterpriseDB_OraCompat_EN_8.3-36.htm#P1864_101524"><u>3.2.4</u></a> for more information on date/time data types.</span></p>
+
+<p style="text-align: center"><a href="EnterpriseDB_OraCompat_EN_8.3-04.htm#TopOfPage"><img src="inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="invetoc.gif" alt="Table Of Contents" border="0"></a><a href="EnterpriseDB_OraCompat_EN_8.3-06.htm#TopOfPage"><img src="invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com"><img src="transpwr.gif" alt="Powered by Transit"/></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body>
+</html>

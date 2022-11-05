@@ -1,0 +1,29 @@
+No link tipo simbólico, o link é um arquivo especial de disco do tipo link, que tem como conteúdo o caminho para chegar até o arquivo alvo.
+
+Características:
+
+    Pode-se fazer links simbólicos em arquivos e diretórios;
+    O link simbólico e o arquivo alvo não precisam estar na mesma partição de disco;
+    Se o link simbólico for apagado/movido. Somente o link será apagado/movido;
+    Qualquer usuário pode criar/desfazer um link simbólico (respeitando as permissões). 
+
+Exemplo:
+
+Criando um link simbólico chamado "emulador" para o diretório /home/ribafs/emulador_n64/:
+
+$ ln -s /home/ribafs/vagrant/ub1704 ubuntu
+
+Ele cria um arquivo com nome ubuntu na pasta atual.
+
+Para receber informações específicas sobre o arquivo criado:
+
+ls -lah | grep ubuntu
+
+Retornará a linha:
+
+lrwxrwxrwx  1 ribafs ribafs   27 Jun 17 18:04 ubuntu -> /home/ribafs/vagrant/ub1704
+
+Veja que a primeira letra é o l, de link.
+
+Crédito: https://www.vivaolinux.com.br/dica/Link-simbolico-e-hardlink
+

@@ -1,0 +1,65 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>EnterpriseDB Oracle Compatibility Developer's Guide: Identifiers and Key Words</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1966"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-29_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-28.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-29_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-29_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-30.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-29_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P1691_87117"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.1.2 Identifiers and Key Words</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P1692_87148"></a>Tokens such as </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">VALUES</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in the example above are examples of </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>key words</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, that is, words that have a fixed meaning in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> language. The tokens </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">MY_TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">A</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are examples of </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>identifiers</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.
+They identify names of tables, columns, or other database objects,
+depending on the command they are used in. Therefore they are sometimes
+simply called, &#8220;</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>names</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#8221;. Key words and identifiers have the same </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>lexical structure</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, meaning that one cannot know whether a token is an identifier or a key word without knowing the language.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> identifiers and key words must begin with a letter (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">a-z</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">A-Z</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">). Subsequent characters in an identifier or key word can be letters, underscores, digits (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">0-9</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">), dollar signs (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">$</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">), or number signs (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">#</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">).</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P1694_87886"></a>Identifier and key word names are case insensitive. Therefore</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">UPDATE MY_TABLE SET A = 5;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">can equivalently be written as:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">uPDaTE my_TabLE SeT a = 5;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A convention often used is to write key words in upper case and names in lower case, e.g.,</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">UPDATE my_table SET a = 5;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P1700_88146"></a>There is a second kind of identifier: the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>delimited identifier</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>quoted identifier</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. It is formed by enclosing an arbitrary sequence of characters in double-quotes (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">"</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">). A delimited identifier is always an identifier, never a key word. So </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">"select"</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> could be used to refer to a column or table named </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">"select"</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,
+whereas an unquoted select would be taken as a key word and would
+therefore provoke a parse error when used where a table or column name
+is expected. The example can be written with quoted identifiers like
+this:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">UPDATE "my_table" SET "a" = 5;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Quoted
+identifiers can contain any character, except the character with code
+zero. (To include a double quote, write two double quotes.) This allows
+constructing table or column names that would otherwise not be
+possible, such as ones containing spaces or ampersands. The length
+limitation still applies.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Quoting
+an identifier also makes it case-sensitive, whereas unquoted names are
+always folded to lower case. For example, the identifiers </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FOO</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">foo</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">"foo"</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are considered the same by </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, but </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">"Foo"</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">"FOO"</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are different from these three and each other. (The folding of unquoted names to lower case in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is an area of </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">-incompatibility. In </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> unquoted names are folded to upper case. Thus, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">foo</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is equivalent to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">"FOO"</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> not </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">"foo"</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. If you want to write portable applications you are advised to always quote a particular name or never quote it.)</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-28.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-29_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-29_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-30.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-29_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-29_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-29_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

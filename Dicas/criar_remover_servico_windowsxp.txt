@@ -1,0 +1,56 @@
+Criar Novo Serviço no Windows XP
+
+Applications as Services Utility (srvany.exe) e Service Installer (instsrv.exe). Essa ferramentas fazem parte do Windows Server 2003 Resource Kit Tools:
+http://www.microsoft.com/downloads/details.aspx?FamilyID=9d467a69-57ff-4ae7-96ee-b18c4790cffd&displaylang=en
+
+Esses dois utilitários são bem pequenos, menos de 40 KB em conjunto. Por outro lado, o Resource Kit Tools tem cerca de 12 MB.
+
+Como exemplo de uso dos programas, mostrarei um passo-a-passo de como se executar a Calculadora do Windows como serviço. Para executar outro programa, siga o modelo e faça as devidas alterações. Se souber inglês, leia a ajuda do Resource Kit Tools referente a esses dois utilitários para ver mais opções.
+
+1. Baixe e instale o Resource Kit Tools.
+
+2. Abra a pasta onde o Resource Kit Tools foi instalado e copie os arquivos srvany.exe e instsrv.exe para uma pasta qualquer. Neste exemplo, os arquivo serão copiados para C:\Windows. Se quiser, pode desinstalar o Resource Kit Tools.
+
+3. Abra uma janela do Prompt de comando e digite o comando abaixo:
+
+Código:
+
+C:\Windows\instsrv.exe Calculadora C:\Windows\srvany.exe
+
+Calculadora é o nome que dei ao serviço. Pode usar o nome que quiser, com exceção (suponho) dos nomes dos serviços já existentes.
+
+4. No Editor do registro (regedit.exe), abra a chave seguinte:
+
+Código:
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Calculadora
+
+5. Crie uma nova chave de nome Parameters:
+
+Código:
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Calculadora\Parameters
+
+6. Crie na chave acima um novo Valor de seqüência de nome Application. Dê um duplo clique em Application e digite o seguinte no campo em branco:
+
+Código:
+
+C:\Windows\System32\Calc.exe
+
+Pode fechar o Editor do registro.
+
+7. Clique em Iniciar, selecione Painel de controle => Ferramentas administrativas e clique em Serviços ou, alternativamente, clique em Iniciar => Executar e digite services.msc.
+
+8. Na janela dos Serviços, dê um duplo clique em Calculadora. Em Propriedades Calculadora, clique em Logon, marque a opção Permitir que o serviço interaja com a área de trabalho e clique em OK.
+
+9. Reinicie o computador.
+
+Se quiser remover o serviço criado, primeiro abra no Painel de controle a janela dos Serviços, localize o serviço criado e pare-o. Depois, digite o seguinte na linha de comando:
+
+Código:
+
+C:\Windows\instsrv.exe Calculadora remove
+
+Apesar de na ajuda do Resource Kit Tools constar que o Applications as Services Utility funciona apenas no Windows Server 2003, ele funcionou também no Windows XP Home Edition, que é o sistema que eu uso.
+
+Roberto em http://forum.clubedohardware.com.br/criar-servico/167311

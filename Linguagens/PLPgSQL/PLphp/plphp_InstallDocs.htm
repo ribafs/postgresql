@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><title>InstallDocs - PLphp - Trac</title>
+
+
+ <link rel="start" href="https://projects.commandprompt.com/public/plphp/wiki"><link rel="search" href="https://projects.commandprompt.com/public/plphp/search"><link rel="help" href="https://projects.commandprompt.com/public/plphp/wiki/TracGuide"><link rel="stylesheet" href="plphp_InstallDocs_arquivos/trac.css" type="text/css"><link rel="stylesheet" href="plphp_InstallDocs_arquivos/wiki.css" type="text/css"><link rel="icon" href="https://projects.commandprompt.com/public/plphp/chrome/common/trac.ico" type="image/x-icon"><link rel="shortcut icon" href="https://projects.commandprompt.com/public/plphp/chrome/common/trac.ico" type="image/x-icon"><link rel="alternate" href="https://projects.commandprompt.com/public/plphp/wiki/InstallDocs?format=txt" title="Plain Text" type="text/plain"><style type="text/css">
+</style>
+ <script type="text/javascript" src="plphp_InstallDocs_arquivos/trac.js"></script>
+  <link rel="stylesheet" type="text/css" href="plphp_InstallDocs_arquivos/cmd4trac.css">
+  
+  <style type="text/css">
+    a.plain { text-decoration: none; border: none; background: none; font-weight: normal;}
+    a.plain:link { text-decoration: none; border: none; background: none; font-weight: normal;}
+    a.plain:active { text-decoration: none; border: none; background: none; font-weight: normal;}
+    a.plain:visited { text-decoration: none; border: none; background: none; font-weight: normal;}
+    a.plain:hover { text-decoration: none; border: none; background: none; font-weight: normal;}
+    
+    div#metanav a       { color: #ffffff; }
+    div#metanav a:hover { color: #000000; }
+    div#metanav ul li   { color: #ffffff; }
+    
+    div#mainnav         { border: none; background-color: #acacac; color: #ffffff; height: 15px; margin: 0 0 6px 0; padding: 2px 0 0 0; }
+    div#mainnav ul      { border: none; background-color: #acacac; color: #ffffff; height: 15px; margin: 0px 0 0px 0; padding: 0 0 0 0; }
+    div#mainnav ul li   { background-color: #acacac; color: #ffffff; margin: 0 0 0 0; padding: 0 0 0 0; }
+    div#mainnav ul li a { background-color: #acacac; color: #ffffff; margin: 0 0 0 0; padding: 0 0 0 0; }
+    div#mainnav a         { background-color: #acacac; color: #000; }
+    div#mainnav a:link    { background-color: #acacac; color: #000; }
+    div#mainnav a:visited { background-color: #acacac; color: #000; }
+    div#mainnav a:active  { background-color: #acacac; color: #000; }
+    div#mainnav a:hover   { background-color: #acacac; color: #000; }
+    
+    div#mainnav a.plain { padding: 0 2px 0 6px;  margin: 0 0 0 0; text-decoration: none; border: none; background: none; }
+    div#mainnav a.plain:link { padding: 0 2px 0 6px;  margin: 0 0 0 0; text-decoration: none; border: none; background: none; }
+    div#mainnav a.plain:active { padding: 0 2px 0 6px;  margin: 0 0 0 0; text-decoration: none; border: none; background: none; }
+    div#mainnav a.plain:visited { padding: 0 2px 0 6px;  margin: 0 0 0 0; text-decoration: none; border: none; background: none; }
+    div#mainnav a.plain:hover { padding: 0 2px 0 6px;  margin: 0 0 0 0; text-decoration: none; border: none; background: none; }
+  </style></head><body>
+
+
+
+	
+
+      <div align="center">
+       <div id="widecontainer">
+         <div id="widetop">
+           <div class="throwleft" style="width: 300px; text-align: left;"><a style="border: 0pt none ;" class="plain" href="http://www.commandprompt.com/"><img style="border: 0pt none ;" src="plphp_InstallDocs_arquivos/cmd4logo_wide.gif" alt="Command Prompt, Inc." border="0"></a></div>
+           <div class="throwright" style="text-align: right; padding-right: 5px;">
+             <div id="metanav" style="border: medium none ; text-align: right;" class="nav"><ul><li class="first"><a href="https://projects.commandprompt.com/public/plphp/login">Login</a></li><li><a href="https://projects.commandprompt.com/public/plphp/settings">Settings</a></li><li><a href="https://projects.commandprompt.com/public/plphp/wiki/TracGuide" accesskey="6">Help/Guide</a></li><li class="last"><a href="https://projects.commandprompt.com/public/plphp/about">About Trac</a></li></ul></div>
+             <div id="topright">
+<form id="search" action="/public/plphp/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <ul>
+    <li><input id="proj-search" name="q" size="24" accesskey="f" value="" type="text"></li>
+    <li><input value="Search" type="submit"></li>
+  </ul>
+  <input name="wiki" value="on" type="hidden">
+  <input name="changeset" value="on" type="hidden">
+  <input name="ticket" value="on" type="hidden">
+ </div>
+</form>
+             </div>
+           </div>
+         </div>
+       </div>
+       
+       <div style="clear: both;"></div>
+       <div id="mainnav" class="nav">
+         <div style="float: left;"><ul><li class="active first"><a href="https://projects.commandprompt.com/public/plphp/wiki" accesskey="1">Wiki</a></li><li><a href="https://projects.commandprompt.com/public/plphp/timeline" accesskey="2">Timeline</a></li><li><a href="https://projects.commandprompt.com/public/plphp/roadmap" accesskey="3">Roadmap</a></li><li><a href="https://projects.commandprompt.com/public/plphp/browser">Browse Source</a></li><li><a href="https://projects.commandprompt.com/public/plphp/report">View Tickets</a></li><li><a href="https://projects.commandprompt.com/public/plphp/search" accesskey="4">Search</a></li><li class="last"><a href="https://projects.commandprompt.com/public/plphp/pastebin">Pastebin</a></li></ul></div>
+         <div style="margin: 0pt; padding: 0pt; float: right;"><a class="plain" href="http://www.commandprompt.com/contact/"><img src="plphp_InstallDocs_arquivos/greymenu_right_contactus_trac.gif" alt="Contact Us Now" title="Contact Us Now" border="0"></a></div>
+       </div>
+       <div style="clear: both;"></div>
+       
+       <div style="padding-left: 12px; text-align: left;">
+
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="https://projects.commandprompt.com/public/plphp/wiki">Start Page</a></li>
+  <li><a href="https://projects.commandprompt.com/public/plphp/wiki/TitleIndex">Title Index</a></li>
+  <li><a href="https://projects.commandprompt.com/public/plphp/wiki/RecentChanges">Recent Changes</a></li>
+  
+   <li class="last"><a href="https://projects.commandprompt.com/public/plphp/wiki/InstallDocs?action=history">Page History</a></li>
+  
+ </ul>
+ <hr>
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><h1 id="InstallationProcedureforPL/php1.3.2andbeyond">Installation Procedure for PL/php 1.3.2 and beyond<a title="Link to this section" class="anchor" href="https://projects.commandprompt.com/public/plphp/wiki/InstallDocs#InstallationProcedureforPL/php1.3.2andbeyond"> ¶</a></h1>
+<p>
+Current PL/php release utilizes the GNU build system using
+autoconf/configure to detect system-specific features. To build PL/php
+you need PHP development package as well as PHP library (i.e. libphp5.a
+or libphp5.so). To build a static PHP library you need to download PHP
+sources, unpack them, configure and then do:
+</p>
+<pre class="wiki">make libphp5.la install 
+</pre>
+<p>Another option would be building a PHP embed library (either static
+or shared). This would also require PHP sources. To build a shared PHP
+embed library unpack PHP tarball, change dir to the PHP source dir and
+use
+</p>
+<pre class="wiki">configure --enable-embed --prefix=your_prefix [--other-options]
+make install
+</pre>
+<p>
+Note that building against Apache's mod_php (libphp.so) is no longer supported.
+After building PHP library you can use --with-php PL/php configure option to point to the location where it was installed. 
+</p>
+<p>In some cases configure may fail to locate your PostgreSQL or PHP
+installation. You can use the following configure options to correct
+this (use configure --help to list all available configure options):
+</p>
+<dl><dt>--with-php=[DIR]</dt><dd>
+specify a path to the existing PHP installation (configure searches for php-config in the specified DIR or DIR/bin)
+</dd><dt>--with-postgres=[DIR]</dt><dd>
+specify a path to the PostgreSQL installation (configure looks for pg_config in the DIR or DIR/bin).
+</dd></dl>
+<p>
+Note 1: you need at least PostgreSQL 8.1 to use PL/php 1.3.2 and beyond. Current PL/php was tested with PostgreSQL 8.2/PHP 5.
+</p>
+<p>Note 2: you need GNU make to build pl/php. On systems where GNU make
+is not a default make program (i.e. FreeBSD) you can usually invoke it
+with gmake command. </p>
+<h1 id="InstallationProcedureforPL/php1.1andbeyond">Installation Procedure for PL/php 1.1 and beyond<a title="Link to this section" class="anchor" href="https://projects.commandprompt.com/public/plphp/wiki/InstallDocs#InstallationProcedureforPL/php1.1andbeyond"> ¶</a></h1>
+<h1 id="ReadandEdittheMakefile">Read and Edit the Makefile<a title="Link to this section" class="anchor" href="https://projects.commandprompt.com/public/plphp/wiki/InstallDocs#ReadandEdittheMakefile"> ¶</a></h1>
+<p>
+The Makefile asks for answers to several questions. If answered correctly, plPHP should compile without issue.
+</p>
+<hr>
+<h1 id="Ifyouhavefurtherproblems">If you have further problems<a title="Link to this section" class="anchor" href="https://projects.commandprompt.com/public/plphp/wiki/InstallDocs#Ifyouhavefurtherproblems"> ¶</a></h1>
+<p>
+Please note that this only works with PostgreSQL 8.0 and beyond.
+</p>
+<p>
+First, you need to have the PHP development and Apache support packages
+installed on your system. You can verify this by issuing the commands
+</p>
+<pre class="wiki">php-config --version
+</pre>
+<p>
+This should give you an output similar to
+</p>
+<pre class="wiki">4.4.0-4
+</pre>
+<p>If it doesn't, install it. On my Debian system this is done by
+installing the php4-dev or php5-dev package. I figure on Fedora and
+similar RedHat-ish systems this is achieved by installing a package
+whose name contains "php4" and "devel". (Or php5, whatever.)
+</p>
+<p>Additionally you need libphp4.so or libphp5.so, the library that
+conforms the Apache 2 module for PHP. In my case this is done by
+installing the libapache2-mod-php4 package.
+</p>
+<p>Now we have the PHP side solved, we need to get the PostgreSQL side
+of things. First you need to install the PostgreSQL development
+package. You should be able to verify that it works by issuing
+</p>
+<pre class="wiki">pg_config --version
+</pre>
+<p>
+and it should tell you
+</p>
+<pre class="wiki">PostgreSQL 8.1
+</pre>
+<p>If it doesn't work, install postgresql-8.1-dev or postgresql-devel
+or whatever your distribution ships. (PostgreSQL 8.0 works as well.)
+</p>
+<p>Now, you have the PL/php tarball (.tar.gz or .tar.bz2 file you
+downloaded from somewhere). Uncompress it. It should create a
+directory. cd into it. </p>
+<p>
+Now type "make", and if it works, follow it by "make install" (you may
+need to become root using "su" in order for this last command to
+succeed).
+</p>
+<p>
+That should be it.  At this point the PL/php language is installed and ready to be used.
+</p>
+<h2 id="InstallingPHPand/orPostgreSQLfromsource">Installing PHP and/or PostgreSQL from source<a title="Link to this section" class="anchor" href="https://projects.commandprompt.com/public/plphp/wiki/InstallDocs#InstallingPHPand/orPostgreSQLfromsource"> ¶</a></h2>
+<p>Just follow their instructions. After everything is installed make
+sure the php-config and pg_config executables are somewhere in your
+PATH.
+</p>
+<h2 id="Ifitdoesntwork">If it doesn't work<a title="Link to this section" class="anchor" href="https://projects.commandprompt.com/public/plphp/wiki/InstallDocs#Ifitdoesntwork"> ¶</a></h2>
+<h3 id="Linkerproblems">Linker problems<a title="Link to this section" class="anchor" href="https://projects.commandprompt.com/public/plphp/wiki/InstallDocs#Linkerproblems"> ¶</a></h3>
+<p>
+The most likely cause of error is that the linker is not finding the libphp4.so library that it needs.
+The symptom is an error message similar to this:
+</p>
+<pre class="wiki">/usr/bin/ld: cannot find -lphp4
+collect2: ld returned 1 exit status
+</pre>
+<p>
+at the end of the <tt>make</tt> run.
+</p>
+<p>
+Figure out where did the libphp4.so file go.  You will need this path for later.  So on Debian I did
+</p>
+<pre class="wiki">dpkg -L libapache2-mod-php4 | grep libphp
+</pre>
+<p>
+and it said
+</p>
+<pre class="wiki">/usr/lib/apache2/modules/libphp4.so
+</pre>
+<p>so it's /usr/lib/apache2/modules that I need. Great. I write this on
+the palm of my hand. You don't have to, of course -- use your
+imagination.
+</p>
+<p>Now go back to the plphp directory. A file called "Makefile" should
+be sitting there. Open it with your favorite text editor. There is a
+line that reads
+</p>
+<pre class="wiki">SHLIB_LINK = 
+</pre>
+<p>and some stuff after that. You need to put two things there: the
+name of the PHP library, without the "lib" prefix and with the "so"
+part removed. So if the library is called libphp4.so, use "php4". Now
+prepend this with a -l.
+</p>
+<p>
+The second thing is the location of that library -- the path I told you not to write on your hand.  Prepend it with -L.
+</p>
+<p>
+So in my case the line reads
+</p>
+<pre class="wiki">SHLIB_LINK = -lphp4 -L/usr/lib/apache2/modules
+</pre>
+<p>
+if you are on a system similar to mine you should not need to change anything.  If you are not, well, guess what.
+</p>
+<h3 id="MacOSX">Mac OS X<a title="Link to this section" class="anchor" href="https://projects.commandprompt.com/public/plphp/wiki/InstallDocs#MacOSX"> ¶</a></h3>
+<p>
+As <tt>libphp4.so</tt> is typically built as a Mach-O bundle on OS X you'll be unable to link to it via gcc with the <tt>-l</tt> flag as you might expect from gcc's relationship with ".so" files on other systems. As such, we need to have a static <tt>libphp4.a</tt>
+file to link against. If you don't already have one, you'll need to get
+a copy of the Apache source as well as the source for PHP.
+</p>
+<p>
+Once you've got the source, run a generic <tt>./configure</tt> in the Apache source path, wait for it to finish, then configure PHP specifying <tt>--with-apache=/path/to/apache/src</tt> (rather than specifying the use of <tt>apxs</tt>). Then just run a <tt>make</tt> and you should have your <tt>libphp4.a</tt> built in <tt>./libs</tt>. (NOTE: Unless you're also installing or upgrading your Apache and PHP manually, you probably don't actually want to do any <tt>make install</tt>
+during this process, as this process is just a workaround to get the
+static copy of PHP built and available to link against plphp -- Apache
+will still expect whatever you presently have installed.)
+</p>
+<p>
+Once it's built, copy the fresh <tt>libphp4.a</tt> file to <tt>/usr/libexec/httpd/</tt> and run <tt>ranlib</tt> on it and you'll be prepped to build plphp (you may need to use <tt>sudo</tt> here).
+</p>
+<p>
+Here's an example build:
+</p>
+<pre class="wiki">[lx@Mercury src]$ tar xf apache_1.3.34.tar.gz
+[lx@Mercury src]$ tar xf php-4.2.2.tar.gz
+[lx@Mercury src]$ cd apache_1.3.34
+[lx@Mercury apache_1.3.34]$ ./configure
+Configuring for Apache, Version 1.3.34
+ + Warning: Configuring Apache with default settings.
+ + This is probably not what you really want.
+ + Please read the README.configure and INSTALL files
+ + first or at least run './configure --help' for
+ + a compact summary of available options.
+ + using installation path layout: Darwin (config.layout)
+Creating Makefile
+[...]
+[lx@Mercury apache_1.3.34]$ cd ../php-4.4.2
+[lx@Mercury php-4.4.2]$ ./configure --with-apache=../apache_1.3.34
+loading cache ./config.cache
+[...]
+Thank you for using PHP.
+
+[lx@Mercury php-4.4.2]$ make
+[...]
+Build complete.
+(It is safe to ignore warnings about tempnam and tmpnam).
+
+[lx@Mercury php-4.4.2]$ sudo cp -iv libs/libphp4.a /usr/libexec/httpd/
+Password:
+libs/libphp4.a -&gt; /usr/libexec/httpd/libphp4.a
+[lx@Mercury php-4.4.2]$ sudo ranlib /usr/libexec/httpd/libphp4.a
+[lx@Mercury php-4.4.2]$ cd ../plphp-1.2
+[lx@Mercury plphp-1.2]$ make
+[...]
+ln -s -f /usr/libexec/httpd/libphp4.so /usr/local/pgsql/lib
+/bin/sh /usr/local/pgsql/lib/pgxs/src/makefiles/../../config/install-sh -c -m 755  libplphp.0.0.so /usr/local/pgsql/lib/plphp.so
+</pre>
+<p>
+Note that if your Makefile is out-of-date, you may need to tack <tt>${shell ${APXS} -q LDFLAGS_SHLIB} -lpq</tt>
+on to the end of your SHLIB_LINK environment variable to make sure all
+the X-isms (e.g., -bundle -undefined suppress -flat_namespace
+-Wl,-bind_at_load) are included in the build.
+</p>
+<h3 id="Otherproblems">Other problems<a title="Link to this section" class="anchor" href="https://projects.commandprompt.com/public/plphp/wiki/InstallDocs#Otherproblems"> ¶</a></h3>
+<p>I don't know of any other problem with the build system. Please open
+a ticket here if you see one, with all the details you manage to put
+into it.
+</p>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="https://projects.commandprompt.com/public/plphp/wiki/InstallDocs?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+</div>
+
+<div id="footer">
+ <hr>
+ <a id="tracpowered" href="http://trac.edgewall.com/"><img src="plphp_InstallDocs_arquivos/trac_logo_mini.png" alt="Trac Powered" height="30" width="107"></a>
+ <p class="left">
+  Powered by <a href="https://projects.commandprompt.com/public/plphp/about"><strong>Trac 0.9.6</strong></a><br>
+  By <a href="http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  
+ </p>
+</div>
+</div>
+
+
+
+ 
+</body></html>

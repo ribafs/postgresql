@@ -1,0 +1,306 @@
+Sintaxe dos comandos para backup
+
+pg_dump
+
+-a - somente dados
+-C - recriar os bancos de dados no restore
+-d - incluir INSEERTs no script
+-F{c|t|p} - c(gzip), t(tar), p(plain text)
+-O - sem o user dono. No restore será o dono quem restaura
+-s - somente esquema/estrutura, sem dados
+-t - backup somente de tabela
+-Z - compressão de 0 a 9
+
+pg_dumpall
+
+-h - host
+-p - porta
+
+Sintaxe completa
+pg_dump -U user_name -h localhost -d dbname -n schemaname -t table_name --data-only --column-inserts db_name > data_dump.sql
+
+Usando psql para dumps em texto plano
+
+pg_restore para dumps em tar e comprimidos
+
+-a - somente dados
+-C - recriar banco ao restaurar
+-d - banco
+-f - nome do arquivo
+-F{c|t}
+-h - host
+-p - porta
+-t - restaurar somente uma tabela
+-T - restaurar somente uma trigger
+
+
+Restartar
+/etc/init.d/postgresql restart
+
+Acessar com:
+psql -h IP -U usuario -d banco
+
+ou (acessar banco default, postgres)
+psql -h IP -U usuario
+
+Listar bancos remotamente
+psql -l -h 192.168.1.12 -U postgres
+
+Ajuda
+psql --help
+
+
+Backup local e restore remoto
+pg_dump banco | psql -h hostname banco -U postgres
+
+pg_restore apoena -f 
+
+
+===
+Usando o PostgreSQL
+
+Remoto
+pg_dump -h host1 dbname | psql -h host2 dbname
+
+Local
+sudo su - postgres
+pg_dump postgres > postgres_db.bak
+
+Remoto
+pg_dump -h remote_host -p remote_port name_of_database > name_of_backup_file
+
+Diferente usuário
+pg_dump -U user_name -h remote_host -p remote_port name_of_database > name_of_backup_file
+
+
+Só esquema:
+
+pg_dump -U ribamar_sousa -h 10.0.0.60 -p 5432 apoena -Fc -n veiculos > apoena_veiculos.dmp
+
+pg_dump ...other...options... -Fc -n B >dump.dmp
+
+Restore o dump file:
+
+pg_restore -d somedb dump.dmp
+
+pg_restore -d apoena apoena_veiculos.dmp
+
+
+Backup plain text sql com inserts somente uma tabela somente os dados
+
+pg_dump --table=veiculos --data-only --column-inserts apoena -n veiculos > veiculos.sql
+
+
+For a data-only export use COPY.
+You get a file with one table row per line as plain text (not INSERT commands), it's smaller and faster:
+
+COPY (SELECT * FROM nyummy.cimory WHERE city = 'tokio') TO '/path/to/file.csv';
+
+Import the same to another table of the same structure anywhere with:
+
+COPY other_tbl FROM '/path/to/file.csv';
+
+=========
+
+Backup e Restore de Dados
+
+Comandos de Backup
+
+pg_dumpall - backup em modo texto de todos os bancos do cluster
+pg_dump - 
+psql
+
+Os dois primeiros são mais consistentes
+
+== Backup de todos os bancos
+
+pg_dumpall -h localhost -p 5432 -U postgres -v -f "/backup/dbserver.sql"
+
+Restore num PostgreSQL limpo
+
+su postgres
+psql -f /backup/dbserver.sql
+
+
+O pg_dump faz backup tipo texto e tipo binário para um maior controle da
+restauração.
+
+Backup de todos os bancos de dados do tipo texto. A ideia por traz do dump é
+criar um arquivo cm comandos SQL capaz de recriar o estado do banco quando 
+restaurada.
+
+pg_dumpall > cluster.sql
+
+Restore do dump acima:
+psql -f cluster.sql postgres
+
+Backup de apenas um banco no formato texto:
+pg_dump --inserts intranet > intranet.sql
+
+Restaurando:
+psql intranet < intranet.sql
+
+Trabalhando com grandes bancos de dados:
+pg_dump banco | gzip > banco.gz
+
+Restaurando:
+gunzip -c banco.gz | psql banco
+
+ou
+cat banco.gz | gunzip | psql banco
+
+Usando split, que permite quebrar um arquivo em pedaços. Exemplo para 1MB:
+pg_dump banco | split -b 1m - script
+
+Restaurar
+cat script* | psql banco
+
+
+Backups Customizados
+
+Gerar backup com formatos customizados. Estes formatos de backup oferecem a
+facilidade de permitir que o restore aconteça de forma seletiva.
+
+Criar um backup usando o formato customizado:
+pg_dump -Fc banco > banco.dump
+
+Restore
+pg_restore -d banco banco.dump
+
+Para grandes bancos use o formato paralelo (-j) para compactar e para restaurar
+com o pg_restore.
+
+Backup no formato tar:
+pg_dump -Ft banco > banco.tar
+
+Restore
+pg_restore -d banco banco.dump.tar
+
+Para que o backup contenha os comandos SQL devemos compactar com:
+pg_dump -Ft -c banco > banco.tar
+
+
+Efetuar backup de apenas um único esquema de um banco
+pg_dump -n dp_k1 intranet > dp_k1.sql
+
+Restore
+psql intranet < dp_k1.sql
+
+Backup de uma única tabela
+pg_dump -n dp_k1 -t lotes intranet > dp_k1_lotes.sql
+
+Restore
+psql intranet < dp_k1_lotes.sql
+
+Efetuar o backup de um banco em um servidor e recriar o banco em outro servidor
+pg_dump -h hostlocal bancolocal | psql -h hostremoto bancoremoto
+
+Restore
+Usar somente em caso de desastre ou quando se confia que o backup está realmente
+melhor que o atual.
+Usar preferentemente um novo banco para restaurações.
+
+O psql é usado para restaurar backups de arquivos texto.
+
+Após a restauração de backup executar o
+analyze
+
+para atualizar as estatísticas e melhorar a performance do novo banco.
+
+Restore para backup customizado/binário:
+pg_restore opções arquivo.tar
+
+========
+PostgreSQL - Backup e Restore
+
+Gerar backup de um banco:
+pg_dump -U postgres nomebanco > nomebanco.sql
+
+Restaurar o backup do banco num banco recem-criado:
+psql -U postgres -d nomebanco -f novobanco.sql
+
+Restaurar backup de um servidor para outro (remoto):
+pg_dump -U postgres -h host1 nomebanco | psql -h host2 nomebanco
+
+
+Backup de todos os bancos do servidor:
+pg_dumpall -U postgres > todos.sql
+
+Restaurando todos os bancos no banco postgres (ou template1):
+psql -U postgres -f todos.sql postgres
+
+Manipulando grandes bancos de dados:
+pg_dump -U postgres banco | gzip > banco.gz
+
+Restaurar com:
+gunzip -c banco.gz | psql banco
+
+ou:
+
+cat banco.gz | gunzip | psql banco
+
+Usando split:pg_dump -Fc mydb > db.dump
+pg_dump -U postgres banco | split -b 1m - banco.sql
+
+Restaurar com:
+cat banco* | psql banco
+
+
+Usando formatos personalizados:
+pg_dump -U postgres -Fc banco > banco.sql
+
+Restaurando:
+pg_restore -U postgres -d banco banco.sql
+
+
+Usando o pg_restore:
+Quando usamos formatos personalizados: Fc ou Ft então podemos restaurar com pg_restore
+
+Assumindo que o dump foi feito usando um formato personalizado:
+pg_dump -U postgres -Fc banco > banco.dump
+
+dropdb -U postgres banco
+
+pg_restore -U postgres -C -d postgres banco.dump  -- Criar o abnco e então restaurar o dump
+
+
+Restaurando num novo e limpo banco:
+createdb -U postgres -T template0 novobanco
+pg_restore -U postgres -d novobanco banco.dump
+
+pg_dump -U postgres -Fc banco > banco.sql
+pg_dump -U postgres -Ft banco > banco.tar
+
+pg_restore -U postgres -d novobanco banco.tar
+
+Gerar o backup de uma única tabela:
+pg_dump -U postgres -t tabela banco > banco.sql
+
+Gerar um backup de todas as tabelas que começam com emp do esquema pessoal, exceto a tabela empregados_log:
+pg_dump -U postgres -t 'pessoal.emp*' -T pessoal.empregados_log banco > banco.sql
+
+
+Gerar backup de todos os objetos dos bancos de dados exceto tabelas com nomes iniciados com ar_:
+pg_dump -U postgres -T 'ar_*' banco > banco.sql
+
+Restaurar apenas a estrutura de um banco, sem os dados:
+pg_restore -U postgres -s -d novobanco banco.sql
+
+Restaurar somente os dados de um banco sem a estrutura:
+pg_restore -U postgres -a -d novobanco banco.sql
+
+Restaurar somente um esquema de um banco:
+pg_restore -U postgres -d novobanco -n nomeesquema banco.sql
+
+Restaurar somente uma tabela de um banco:
+pg_restore -U postgres -d novobanco -t nometabela banco.sql
+
+
+Criar banco limpo, tendo como base o template0:
+CREATE DATABASE foo WITH TEMPLATE template0;
+
+
+Referências:
+http://www.postgresql.org/docs/8.3/interactive/app-pgdump.html
+http://www.postgresql.org/docs/current/static/backup.html
+http://www.postgresql.org/docs/8.3/interactive/app-pgrestore.html

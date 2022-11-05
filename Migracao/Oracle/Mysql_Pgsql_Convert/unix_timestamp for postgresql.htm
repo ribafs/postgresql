@@ -1,0 +1,172 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<html>
+	<head>
+	 <title>unix_timestamp for postgresql.</title>
+	
+	 <script type="text/javascript" src="/wiki/stylesheets/wikibits.js"></script>
+	 <style type='text/css'>
+  	  /*/*/ /*<![CDATA[*/
+	  @import "/inc/default.css";
+	  #quickbar { position: absolute; left: 0px; }
+	  #article { margin-left: 141px; margin-right: 12px; }
+	  a.new, #quickbar a.new { color: #CC2200; }
+	  /*]]>*/ /* */
+	 </style>
+
+	</head>
+	<body>
+	
+	
+	
+<div id='content'>
+
+  	<div id='quickbar'>
+				<p>
+				<A href="/"><img src="/images/lamp.jpg"  border="0" alt="A LAMP Portal"></A></p>
+				<br>
+				<p>
+				<a href="/linux/">Linux</a><br/>
+				<a href="/java/">Java</a><br/>
+				<a href="/php/">PHP</a><br/>
+				<p>
+				<hr width="50%">
+				<p>
+				<a href="/jabber/">Jabber</a><br/>
+				<a href="/etc/">etc</a><br/>
+				</p>
+				<p>
+				<A href="http://www.radinks.com"><IMG src="/images/drop-logo100.jpg" 
+					width=100 height=100 border=0 style="margin-bottom: 30px; margin-top: 60px"
+					 alt="The totally Rad Software Company - Sponsor"></A>
+				</p>
+
+	</div>
+<div id='topbar'><table width='100%' border='0' cellspacing='0' cellpadding='8'><tr><td class='top' align='left' valign='middle' nowrap='nowrap'><a href='/'><span id='sitetitle'>Site With The Lamp</span></a></td></tr></table>
+</div>
+<div id='article'>
+<h1 align='center'>Time Calculations</h1><table class="newboxTable" align="right" clear="left">
+ <tr><td class="newboxTitle"  align="center">More Articles</td></tr>
+ <tr><td class="newboxText">
+ 	<p><a href="/etc/session.php">What is a Session?</a></p>
+	<p><a href="/linux/rcalsa.php">Mystery of the dead speaker.</a></p>
+	<p><a href="/java/proxy.php">Applets and Proxies.</a></p>
+ </td></tr>
+</table>
+
+<p>We have come a long way since we started converting Rad User, a  PHP/mysql user management system to postgresql. Yet we find ourselves unable to login to the system. We have one more change to make before we allowed in. That change has to do with the use of the unix_timestamp() function of mysql, a function that is not to be found in postgresql.
+</p>
+
+<p>There isn't an exact equavalent either but we have a small work around. <em>select round(date_part('epoch', my_date))</em> seems to do pretty much what <em>unix_timestampe(my_date)</em> seems to do. Now we need to change the queries that make use of this function.
+</p>
+
+<pre>
+	if($db_type=='mysql')
+	{
+		$query = "delete from loggedUsers where
+				unix_timestamp(date_add(lastAccess, interval 1 hour)) <
+				unix_timestamp(now())";
+	}
+	else
+	{
+		$query = "delete from loggedUsers where
+				round(date_part('epoch',lastAccess + interval '1 hour')) <
+				round(date_part('epoch',now()))";
+	}
+</pre>
+
+<p>The above code extracted from clean_sessions() demonstrates how we should change the query to avoid the unix_timestamp() call. Notice how date addition differs between postgres and mysql. We need to make similar changes in few other places in common.php
+</p>
+
+<p>Now you heave a sign of relief and try to login again. Unfortunately the system still does not let you in. What could the matter be? The problem is that we have an insert that postgres is choking on. 
+</p>
+
+<pre>
+	INSERT INTO loggedUsers set userId = $userId,
+		  sessionId = '$sessionId', loginTime = now(),
+		  lastAccess = now()
+</pre>
+
+<p>Unfortunately <em>insert into tableName set field1=value1, ... </em> is not supported in postgresql. We need to change it into the more standard form of <em>insert into tableName(field1,field2,...) values(value1,value2,...)</em>. We need to hunt down other queries that are similar in nature and change them as well. Oh Bother.
+</p>
+
+<pre>
+	INSERT INTO loggedUsers(userId,sessionId, loginTime,lastAccess )
+		VALUES($userId,'$sessionId', now(),now())
+</pre>
+
+<p>Finally when you do make those changes you find that the system does allow you to login. What a relief. </p>
+
+<p>Coming up: <a href="error.php">error handling</a></p>
+<p>&nbsp;</p>
+<div align="center" style="margin-left:-120px">
+<table border=0 cellpadding=5>
+ <tr><td bgcolor="#e0e0ff"> &nbsp; Part 1: &nbsp; </td>
+     <td><a href="/postgres/">Getting Started</a> &nbsp; , &nbsp;
+	<a href="/postgres/convert.php">The Schema</a> &nbsp; , &nbsp;
+	<a href="/postgres/query.php">Queries</a>
+    </td>
+ </tr>
+ <tr><td bgcolor="#e0e0ff"> &nbsp; Part 2: &nbsp; </td>
+     <td><a href="/postgres/password.php">Passwords</a> &nbsp; , &nbsp;
+	 <a href="/postgres/timestamp.php">Times Up</a> &nbsp; , &nbsp;
+	 <a href="/postgres/error.php">Errors</a> &nbsp; , &nbsp;
+	 <a href="/postgres/download.php">Download</a>
+     </td>
+ </tr>
+</table>
+</div>
+
+	  </div>
+	</div>
+	<br clear='all' />
+	<div id='footer'>
+		<p style="margin-top:30px">&nbsp;</p>		
+	    <hr width="45%" align="center">
+		<p align="center">		
+			<a href="/jabber/">Jabber</a> &nbsp;|&nbsp;
+			<a href="/linux/">Linux</a> &nbsp;|&nbsp;
+			<a href="/mysql/">mySQL</a> &nbsp;|&nbsp;
+			<a href="/php/">PHP</a> &nbsp;|&nbsp;				
+			<a href="/java/">Java</a>  &nbsp;|&nbsp;
+			<a href="/sitemap.php">Site Map</a> &nbsp;|&nbsp;
+			<a href="/wiki/">Wiki</a>
+			
+		</p>
+		<p align="center">					
+			<a href="/downloads/">Downloads</a> &nbsp;|&nbsp;
+			<a href="/about.php">About</a> &nbsp;|&nbsp;
+			<a href="/mysql/links.php">Links</a> &nbsp;|&nbsp;
+			<a href="/contact.php">Contact</a> &nbsp;|&nbsp;
+			<a href="/">Home</a>
+		</p>
+		<p>&nbsp;</p>
+	   
+<script type="text/javascript"><!--
+google_ad_client = "pub-6509966129456920";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text_image";
+//--></script>
+	
+	<p align="center">
+		<script type="text/javascript"
+		src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+		</script>  
+	</p>
+		<p>&nbsp;</p>
+		<p align=center>Copyright &copy; Raditha Dissanayake 2005</p>
+
+		<p align=center  style="font-size:90%" >
+		<a href="/terms.php">Terms of Use</a>  &nbsp;|&nbsp;
+		<a href="/privacy.php">Privacy</a>
+		</p>
+	
+  </div>
+  
+ </body>
+</html>

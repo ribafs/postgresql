@@ -1,0 +1,48 @@
+/*
+O problema é usar herança.  Pode procurar o histórico da lista, isso
+já deu discussão de montes, mas o resumo é: herança foi uma má idéia
+que não vai embora porque acabou sendo usada para implementar alguns
+buracos como particionamento de tabela.
+
+Prefira a muito mais simples e lógica normalização com integridade referencial.
+
+Leandro Dutra
+
+
+> Ola pessoal, estive lendo um aritgo de Fabio Telles sobre
+>  particionamento de tabela muito grandes. Como isso funciona e como eh
+>  feito ?
+
+A tabela poder ser dividida em tabelas menores, por exemplo de acordo
+com faixas de valores.  No PostgreSQL, ainda é feito com uma gambiarra
+de herança - aliás é a única utilidade real da herança de tabelas
+hoje.
+
+*/
+-- 
+CREATE TABLE pessoas(
+			id SERIAL PRIMARY KEY,
+			nome VARCHAR(30),
+			endereco VARCHAR(80)
+);
+--
+CREATE TABLE pf(
+			cpf VARCHAR(14),
+			rc VARCHAR(20)
+)INHERITS (pessoas) ;
+-- inserindo pessoas
+INSERT INTO pessoas(nome, endereco) VALUES('MARIA','RUAX');
+INSERT INTO pessoas(nome, endereco) VALUES('JOAO','RUAX');
+INSERT INTO pessoas(nome, endereco) VALUES('JOSE','RUAX');
+INSERT INTO pessoas(nome, endereco) VALUES('ANA','RUAX');
+-- inserindo pf
+INSERT INTO pf(nome, endereco, cpf, rc) VALUES('CRISTINA','RUAy','12','13');
+INSERT INTO pf(nome, endereco, cpf, rc) VALUES('MARCELO' ,'RUAy','10','45');
+INSERT INTO pf(nome, endereco, cpf, rc) VALUES('MONICA'  ,'RUAy','11','50');
+INSERT INTO pf(nome, endereco, cpf, rc) VALUES('ROMUALDO','RUAy','50','34');
+INSERT INTO pf(nome, endereco, cpf, rc) VALUES('JOSE'    ,'RUAy','10','10');
+INSERT INTO pf(nome, endereco, cpf, rc) VALUES('PAULO'   ,'RUAy','40','80');
+-- selecionando somente pessoas
+select * from only pessoas 
+-- 
+

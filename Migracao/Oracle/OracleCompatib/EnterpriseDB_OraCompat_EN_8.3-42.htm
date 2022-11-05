@@ -1,0 +1,96 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>ALTER SESSION</title>
+
+
+<meta name="keywords" content="alter session, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1979"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-42_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-41.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-42_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-42_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-43.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-42_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P2041_111577"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.4 ALTER SESSION</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2042_111596"></a>Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER SESSION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> &nbsp;--&nbsp; change a runtime parameter</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2044_111647"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER SESSION SET </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> = </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value</i></span><a name="P2045_111685"></a></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Description</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER SESSION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command changes runtime configuration parameters. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER SESSION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> only affects the value used by the current session. Some of these parameters are provided solely for </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> syntax compatibility and have no effect whatsoever on the runtime behavior of </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. Others will alter a corresponding </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database server runtime configuration parameter.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2048_112107"></a>Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Name of a settable runtime parameter. Available parameters are listed below.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">New value of parameter.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2053_112225"></a>Configuration Parameters</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following configuration parameters can be modified using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER SESSION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command:</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NLS_DATE_FORMAT (string)</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Sets
+the display format for date and time values as well as the rules for
+interpreting ambiguous date input values. Has the same effect as
+setting the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">datestyle</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> runtime configuration parameter.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NLS_LANGUAGE (string)</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Sets the language in which messages are displayed. Has the same effect as setting the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">lc_messages</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> runtime configuration parameter.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NLS_LENGTH_SEMANTICS (string)</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Valid values are </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BYTE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CHAR</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. The default is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BYTE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. This parameter is provided for syntax compatibility only and has no effect in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postg</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">res Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OPTIMIZER_MODE (string)</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Sets the default optimization mode for queries. Valid values are </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALL_ROWS</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CHOOSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FIRST_ROWS</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FIRST_ROWS_10</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FIRST_ROWS_100</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FIRST_ROWS_1000</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. The default is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CHOOSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. This parameter is implemented in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Pos</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">tgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. See Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-91.htm#P4179_251202">3.4</a></u> for more information.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">QUERY_REWRITE_ENABLED (string)</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Valid values are </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TRUE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FALSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. The default is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FALSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. This parameter is provided for syntax compatibility only and has no effect in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">QUERY_REWRITE_INTEGRITY (string)</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Valid values are </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ENFORCED</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TRUSTED</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">STALE_TOLERATED</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. The default is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ENFORCED</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. This parameter is provided for syntax compatibility only and has no effect in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postg</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">res Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2067_113671"></a>Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Set the language to U.S. English in UTF-8 encoding. Note that in this example, the value, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">en_US.UTF-8</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, is in the format that must be specified for </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. This form is not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">ALTER SESSION SET NLS_LANGUAGE = 'en_US.UTF-8';</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Set the date display format.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">ALTER SESSION SET NLS_DATE_FORMAT = 'dd/mm/yyyy';</span>
+<a name="P2072_114016"></a></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-41.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-42_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-42_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-43.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-42_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-42_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-42_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

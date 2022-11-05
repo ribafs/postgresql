@@ -1,0 +1,116 @@
+Migrando entre Versões
+
+Caso você tenha uma versão que não seja 8.1.x e esteja querendo instalar a 8.1.4, então precisa fazer um backup dos seus dados e restaurar logo após a instalação como sugerido em seguida. Será assumido que sua instalação foi em:
+/usr/local/pgsql e seus dados no sub diretório data. Caso contrário faça os devidos ajustes.
+
+1 – Atenção para que seus bancos não estejam recebendo atualização durante o backup. Se preciso proíba acesso no pg_hba.conf.
+2 – Efetuando backup:
+pg_dumpall > bancos.sql   .Para preservar os OIDs use a opção -o no pg_dumpall.
+3 – Pare o servidor
+pg_ctl stop ou outro comando
+
+Caso queira instalar a nova versão no mesmo diretório da anterior
+mv /usr/local/pgsql /usr/local/pgsql.old
+
+Então instale a nova versão, crie o diretório de dados e einicie o novo servidor.
+/usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
+/usr/local/pgsql/bin/postmaster -D /usr/local/pgsql/data
+
+Finalmente, restore seus dados usando o novo servidor com:
+/usr/local/pgsql/bin/psql -d postgres -f bancos.sql
+
+
+Mais detalhes:
+http://pgdocptbr.sourceforge.net/pg80/install-upgrading.html
+http://pgdocptbr.sourceforge.net/pg80/migration.html
+http://pgdocptbr.sourceforge.net/pg80/migration.html 
+http://www.postgresql.org/docs/8.3/interactive/install-upgrading.html
+http://www.postgresql.org/docs/8.3/interactive/migration.html
+
+
+Texto de discussão na lista pgbr-geral:
+
+>  Salve Pessoal, 
+
+Opa! 
+
+>  Estou pensando em atualizar a versão do meu banco para a 8.3. 
+>  Alguma recomendação especial? algum how to a indicar? 
+>  Obrigado. 
+
+Kra, não há muitos mistérios. Siga: 
+
+1. Faça um backup (com o pg_dump) 
+2. pare o serviço da versão instalada e instale a nova (por enquanto 
+não desinstale a antiga...) 
+3. restaure o backup na versão nova. 
+4. faça testes e  tunning e todas as configurações que são necessárias 
+5. se tudo deu certo até aqui, desinstale a anterior e corra pro abraço! 
+
+
+Prezado Marco, 
+
+Recomendações: 
+
+* Revise todas as consultas que montam textos, seja unindo com constantes, 
+seja concatenando campos texto: 
+*** Coloque um CAST explícito em todas elas. *** 
+
+* Revise todas as comparações entre campos e de campos com constantes. 
+Todas 
+as comparações devem ter rigorosamente o mesmo tipo de dado: 
+*** Coloque um CAST explícito em todas elas. *** 
+
+* Se tiver stored procedures, revise se os tipos de dados dos parâmetros 
+batem 
+rigorosamente com o que estiver declarado na stored procedure: 
+*** Coloque um CAST explícito em todas elas. *** 
+
+* Se em algum lugar você vir uma mensagem de erro ao comparar alguma coisa: 
+*** Coloque um CAST explícito em todas elas. *** 
+
+* Cuidado com tabelas temporárias, o Postgres 8.3 não deixa você 
+excluí-las. Caso tenha algum caso desses, você pode precisar usar tabelas 
+reais e controlar sua limpeza manualmente. 
+
+* Prepare-se para sofrer muito e estourar seu cronograma, pois essa migração 
+é cheia de surpresas. Teste cada consulta de cada script e cada programa com 
+todas as alternativas imagináveis. Quanto mais cuidadoso for nisso, menos 
+erros vão escapar. 
+
+* Quando seu chefe reclamar que está demorando para migrar, lembre-o de que a 
+diferença de desempenho da versão 7 para a 8 é enorme e que, ao contrário 
+da versão 7, a versão 8 não perde de lavada do SQL Server 2000 quando você 
+começa a escrever consultas mais complexas em tabelas que não sejam 
+pequenas. Não medi ainda para saber se empata ou ganha, mas pelo menos a 
+diferença não é mais tão absurda. 
+
+Para finalizar: Boa sorte! 
+
+
+Mozart Hasse 
+
+Apenas para acrescentar, como se trata de uma versão '7' para a '8' é 
+importante que voce verifique as releases notes da 8.3, pois muitas 
+coisas mudaram e isso pode gerar um impacto em determinados pontos de 
+sua aplicação. 
+
+Conversões implicitas, tsearch2 entre outros, sofreram mudanças desde a 
+versão 7.4... 
+
+Use sempre um ambiente de teste e realmente teste tudo o que puder, 
+antes de colocar isso em produção. 
+
+Em muitas empresas existe a figura do Testador utilize-o para checar se 
+sua aplicação não sofreu danos na lógica das regras de negócio. 
+-- 
+[]s 
+Dickson S. Guedes 
+
+Tem mais uma: 
+
+Como as versões 8.X passaram a gravar usuários e grupos na mesma tabela. 
+Elas não permitem mais a criação de um usuário com nome igual ao de um 
+grupo. 
+
+Marco Aurélio

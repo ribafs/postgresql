@@ -1,0 +1,37 @@
+																	Usando SubConsultas
+
+select nome, (select max(preco) from produtos where codigo=1) as "maior preço" from produtos;
+
+SELECT * FROM tabela1 WHERE tabela1.col1 =
+(SELECT col2 FROM tabela2 WHERE col2 = valor);
+
+SELECT name FROM customer WHERE customer_id NOT IN ( SELECT customer_id FROM salesorder );
+
+SELECT 'test' AS test, id FROM (SELECT * FROM books) AS example_sub_query;
+
+SELECT firstname, state,
+CASE
+WHEN state = 'PA' THEN 'close'
+WHEN state = 'NJ' OR state = 'MD' THEN 'far'
+ELSE 'very far'
+END AS distance
+FROM friend;
+
+Expressões de Sub Consultas
+
+EXISTS
+
+SELECT campo1 FROM tabela1 WHERE EXISTS
+(SELECT 1 FROM tabela2 WHERE campo2 = tabela1.campo2);
+
+Combinando CASE e EXISTS
+
+CREATE TEMPORARY TABLE frutas (id SERIAL PRIMARY KEY, nome TEXT);
+
+INSERT INTO frutas VALUES (DEFAULT, 'banana');
+INSERT INTO frutas VALUES (DEFAULT, 'maçã');
+
+CREATE TEMPORARY TABLE alimentos (id SERIAL PRIMARY KEY, nome TEXT);
+
+INSERT INTO alimentos VALUES (DEFAULT, 'maçã');
+INSERT INTO alimentos VALUES (DEFAULT, 'espinafre');

@@ -1,0 +1,412 @@
+<html><head>
+
+
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+
+
+</style>
+
+<link href="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados_arquivos/estilo.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript">
+
+function EmptyString(s) { 
+var Count; 
+var Nblank = 0; 
+if (s.length == 0) return (true); // empty string 
+// count the number of blank chars 
+for (Count = 0; Count < s.length; Count++) { 
+if (s.charAt(Count) == " ") Nblank++; 
+} 
+if (Nblank == s.length) 
+return (true); 
+else 
+return (false); 
+} 
+
+function ValidEmail(s) { 
+var Count; 
+var s2; 
+// empty or blank email 
+if (EmptyString(s) == true) return (false); 
+// email without @ 
+if (s.indexOf('@') == -1) return (false); 
+// email with @ as the 1st char 
+if (s.indexOf('@') == 0) return (false); 
+// email with @ as the last char 
+if ((s.indexOf('@')+1) == s.length) return (false); 
+// email without . 
+if (s.indexOf('.') == -1) return (false); 
+// email with . as the 1st char 
+if (s.indexOf('.') == 0) return (false); 
+// email with . as the last char 
+if ((s.indexOf('.')+1) == s.length) return (false); 
+
+// Now look for the first . after the first @ 
+// s2 = string after the first @ 
+s2=s.substring(s.indexOf('@')+1,s.length); 
+// email without a dot after the first @ 
+if (s2.indexOf('.') == -1) return (false); 
+// email dot right after the first @ 
+if (s2.indexOf('.') == 0) return (false); 
+return (true); 
+} 
+</script>
+
+
+<script language="JavaScript">
+
+function EmptyString(s) { 
+var Count; 
+var Nblank = 0; 
+if (s.length == 0) return (true); // empty string 
+// count the number of blank chars 
+for (Count = 0; Count < s.length; Count++) { 
+if (s.charAt(Count) == " ") Nblank++; 
+} 
+if (Nblank == s.length) 
+return (true); 
+else 
+return (false); 
+} 
+
+function ValidEmail(s) { 
+var Count; 
+var s2; 
+// empty or blank email 
+if (EmptyString(s) == true) return (false); 
+// email without @ 
+if (s.indexOf('@') == -1) return (false); 
+// email with @ as the 1st char 
+if (s.indexOf('@') == 0) return (false); 
+// email with @ as the last char 
+if ((s.indexOf('@')+1) == s.length) return (false); 
+// email without . 
+if (s.indexOf('.') == -1) return (false); 
+// email with . as the 1st char 
+if (s.indexOf('.') == 0) return (false); 
+// email with . as the last char 
+if ((s.indexOf('.')+1) == s.length) return (false); 
+
+// Now look for the first . after the first @ 
+// s2 = string after the first @ 
+s2=s.substring(s.indexOf('@')+1,s.length); 
+// email without a dot after the first @ 
+if (s2.indexOf('.') == -1) return (false); 
+// email dot right after the first @ 
+if (s2.indexOf('.') == 0) return (false); 
+return (true); 
+} 
+</script>
+
+
+
+<meta http-equiv="refresh" content="1300">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta name="description" content="Portal para analistas, desenvolvedores de sistemas e webdesigners. Artigos, dicas e vídeo aulas sobre C#, Java, Visual Basic .NET, PHP, ASP, Delphi, Visual Basic, ColdFusion, Javascript, HTML, Oracle, SQL Server, InterBase, Firebird, e muito mais.">
+<meta name="keywords" content="c#, visual basic .net, asp.net, java, php, programação, análise, web, apostilas, gratuito, grátis, projeto, engenharia de software, visual basic, delphi, sql, xml, asp, coldfusion, css, stylesheet, javascript, webmaster, ti, linux, windows, livros, empregos, oportunidades, aplicativos, componentes, tecnologia, desenvolvimento, eventos, software, downloads, artigos, cursos online, flash, interbase, fireworks, dreamweaver, xsql"><!--include file="../include/countpageview.asp" --><title>Devmedia - SQL Magazine - Administração de Dados &#8211; Como Implementar</title></head><body>
+
+
+<!--include file="../include/barradevmedia.asp"-->
+
+
+ <table>
+   <tbody><tr><td bgcolor="" valign="top" width="3"></td>
+     <td valign="top">
+	   <img src="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados_arquivos/logo_devmedia_.gif">
+	   </td>
+	   <td valign="center">
+	   <font face="verdana" size="4">www.devmedia.com.br
+	   <!--include file="../include/topo.html" --> 
+     </font></td>
+   </tr>
+    <tr><td bgcolor="" valign="top" width="3"></td>
+          <td colspan="2" background="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados_arquivos/line.gif"><img src="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados_arquivos/casper.gif" height="1" width="1"></td></tr>
+         
+
+ </tbody></table>
+
+ <table border="0">
+  <tbody><tr> 
+    <td bgcolor="" valign="top" width="3">
+		<!-- include esquerda.html -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+	</td>
+    <td valign="top" width="651">
+		
+		<table width="100%">
+		  <tbody><tr>
+		    <td><!--include file="../include/box_renova.asp" -->
+			</td>
+		  </tr>
+		</tbody></table>
+		
+		
+			<!-- aqui entra o box de servicos -->
+			
+		
+
+
+		<table cellpadding="0" cellspacing="0">
+		  <tbody><tr>
+		    <td>
+			   	<!--include file="exibe_anotacoes.asp" -->
+			</td>
+		  </tr>
+		</tbody></table>
+
+		
+		
+		<table>
+		  <tbody><tr>
+		    <td bgcolor="#ffff99">
+			 
+     			  <!--<a href="#feedback"> <font face=Tahoma><b>Ajude-nos! Clique aqui e dê o seu feedback sobre este conteúdo!</a><br>-->
+			    
+
+			</td>
+		  </tr>
+		</tbody></table>
+		
+
+	   <table border="0">
+	    <tbody><tr>
+		 <td>
+
+    			
+					<table border="0">
+					<tbody><tr>
+					  <td>  
+						<table border="0">
+						  <tbody><tr valign="top">
+							<td>
+							  
+							     <a href="http://www.devmedia.com.br/space.asp?id=174005"><img src="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados_arquivos/Col_174005_Roberta_E.jpg" border="0"></a>
+							  
+							</td>
+							<td><span id="lblCurriculo"><span class="font4-preto">
+							<a href="http://www.devmedia.com.br/space.asp?id=174005">Roberta Emerenciano Berrondo<span><br><br>
+							  <span id="lblCurriculo"><span class="font1-preto">Roberta
+Emerenciano Berrondo (rberrondo@yahoo.com.br), analista de sistemas há
+9 anos, especializada em banco de dados atuando com diversos SGBDs.
+Comecei a atuar em administração de dados em 2002 e desde de então
+venho implementado e difundindo a área em diversas empresas. Atualmente
+atuo com Consultoria em administração de dados e auditoria em banco de
+dados, administração de dados, modelagem de dados e sistemas.</span></span></span></a>
+							</span></span></td>
+						  </tr>
+						</tbody></table>
+					  </td>
+					</tr>
+					</tbody></table>
+					
+
+         </td>
+        </tr>
+		
+
+		
+
+		<tr>
+		 <td>
+		   
+		 </td>
+		</tr>
+	    <tr>
+		  <td>
+		   <h1 style="margin: 12pt 0cm 3pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><font size="5">Administração de Dados &#8211; Como Implementar<o:p></o:p></font></span></h1>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Em
+outros artigos venho tratando da importância da administração de dados,
+bem como de algums papeis da área dentro das organizações como um todo.
+Pretendo nos próximos artigos tratar de um assunto bastante
+controverso, como implementar uma área de administração.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Como
+já vimos, a administração de dados não se limita apenas a controlar
+padrões, documentar modelos, homologar modelos, etc... Possuindo um
+papel muito importante dentro das empresas muitas vezes deixado de
+lados pelas organizações, fazendo dela uma área meramente operacional e
+não estratégica. Além das atividades já mencionadas, o AD
+(Administrador de Dados) deve ter a preocupação de garantir a
+integridade entre os modelos de dados e as regras de negócios que
+cercam a sua organização, &nbsp;promover análises de qualidade do
+desenvolvimento de modelos, e capacitar se necessário às frentes que
+possuem dificuldades na elaboração de seus modelos lógicos e físicos. <span style="">&nbsp;</span>Se
+pesquisarmos na literatura, ou mesmo observar as organizações que já
+possuem uma área de administração de dados estruturada, certamente
+encontraremos definições da administração de dados como:&nbsp;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">&#8220;O
+administrador de dados deve garantir a documentação dos modelos de
+dados da empresa e disponibilizá-los para entendimento de todos da
+corporação.&#8221;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">&#8220;A administração de dados tem por finalidade monitorar os desenvolvedores!&#8221;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">&#8220;O AD deve se preocupar em apenas homologar os modelos de dados de sua empresa.&#8221;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">&nbsp;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Os
+comentários acima não estão de todo errados, porém, não refletem o
+verdadeiro papel do administrador de dados dentro de uma organização,
+tendo em vista que o papel de um administrador de dados é bem mais
+amplo do que estes conceitos. Uma área de administração de dados serve
+principalmente para:<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Obter um melhor conhecimento do contexto de negócio da organização;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Projetar adequadamente a base de dados;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Permitir o compartilhamento dos dados e a integração dos sistemas;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Contribuir para a unificação da visão que a empresa tem dos dados.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt; text-indent: 35.4pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Auxiliar
+os analistas e desenvolvedores, servindo como elo entre os mesmo e o
+Banco de dados, garantindo a qualidade na elaboração e implementação
+dos modelos de dados;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Documentar os dados da organização eliminando retundâncias e garantindo a segurança e qualidade dos dados.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">As
+atribuições acima são papeis da administração de dados para analisar e
+controlar, partindo do principio de não mais ADMINISTRAR DADOS, mas sim
+GERIR ATIVOS DIGITAIS. Os ativos digitais em AD são os documentos
+gerados, padrões, check-list, processos, métricas, laudos e todos os
+materiais elaborados para gestão da informação.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Uma
+preocupação importante que se deve tomar ao estruturar uma área de
+administração de dados é até onde esta área deve atuar? Como identifico
+a fronteira entre o AD e o DBA?<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Como Já vimos no artigo Administração de Dados X Administração de Base de Dados </span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><span style="">&nbsp;</span><span class="MsoHyperlink"><u><font color="#0000ff">http://www.devmedia.com.br/articles/viewcomp.asp?comp=4658</font></u></span></span><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">
+, este é um dos maiores questionamentos relativos à administração de
+dados, como vimos nos últimos anos à administração de dados foi sendo
+incorporada erroneamente à área de administração de base de dados,
+tendo em vista que os resultados da área de administração de base de
+dados são mais facilmente contabilizáveis e visíveis para o corpo
+executivo de uma empresa. Resumindo, a área de AD é canibalizada pelos
+DBA&#8217;s.&nbsp;<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Seguindo
+alguns passos simples é possível redefinir as tarefas fazendo com que
+cada área dentro da organização se ocupe realmente das tarefas
+inerentes às suas atividades: <o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Identificar
+quais as atividades executadas atualmente pela área de DBA&#8217;s de sua
+empresa, e verifique se não existem atividades que são pertinentes à
+área de AD e promover reuniões para a discussão da redundância destas
+atividades e formalizando quais os limites de atuação de cada área.
+Normalmente, encontraremos relutância entre os DBA&#8217;s nesta
+redistribuição de tarefas, porém cabe à direção de TI deixar claro que
+a administração de dados veio para somar e não para diminuir a
+importância da área de DBA&#8217;s.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Procurar
+sempre manter um elo de integração entre estas duas áreas, promovendo
+comunicação e sinergia para um melhor desempenho das atividades de cada
+uma.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">A
+administração de dados deve sempre tomar o cuidado de não elaborar
+modelos sejam conceituais, lógicos ou físicos. O seu papel é homologar
+e garantir padrões e consonância com as regras de negócios da
+organização.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Além
+disto hoje cabe à administração de dados a visão de STORAGE e
+PERFORMANCE. OK! Você deve estar se perguntando, mas isto não seria uma
+atribuição exclusiva dos DBA&#8217;s? SIM!<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Este
+é o papel da área de DBA, mas tomando como realidade que as empresas
+estão cada vez mais terceirizando as atividades de DBA, storage e
+performance, é necessário que haja alguém da empresa para controlar os
+serviços prestados pelas empresas terceiras. E qual área seria a mais
+indicada para isto?&nbsp;Exatamente! A área de ADMINISTRAÇÃO DE DADOS é
+a mais indicada pelo o seu know-how em dados, e por deter o
+conhecimento das necessidades da organização. Em organizações onde
+existe área de DBA, onde todos são seus funcionários, não há a
+necessidade de se controlar estas atividades, mas o cenário atual nos
+remete a tomar alguns cuidados. Então não devemos nos deixar levar
+apenas por conceitos acadêmicos e levar em conta à realidade do
+mercado, bem como a necessidade individual de cada organização&nbsp;.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';">Como
+opinião de quem já atua na área, existe uma figura estratégica em se
+absorver as atividades de STORAGE e PERFORMANCE, pois são atividades
+mensuráveis e que geram redução de despesa uma vez&nbsp;quando são bem
+administradas. Tendo como realidade o cenário atual de TI, é importante
+saber vender bem a sua área, para garantir a sua sobrevivência e
+promover o conhecimento dos resultados alcançados pela AD garantindo
+assim a sua implantação e manutenção dentro das organizações.<o:p></o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 0pt;"><span style="font-size: 10pt; font-family: 'Verdana','sans-serif';"><o:p>&nbsp;</o:p></span></p>
+		  </td>
+		</tr>	
+		
+		<tr>
+		 <td><!--include file="../include/barra_digg.asp" -->
+		 </td>
+		</tr>
+           
+
+		<tr>
+		  <td>
+				
+    	<!--include file="visualizacomentarios.asp" -->
+
+		  </td>
+		</tr>
+	   
+	   	
+		 <tr>
+	     	  <td>
+					
+					<!--include file="posts_relacionados.asp" -->
+				</td>
+			</tr>
+
+		
+
+			  
+			  <tr>
+	     	  <td>
+					
+					<!--include file="noticia_ultimas_autor.asp" -->
+				</td>
+			</tr>
+
+
+
+        <tr>
+          <td background="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados_arquivos/line.gif"><img src="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados_arquivos/casper.gif" height="1" width="1"></td></tr>
+         
+
+		<tr>
+		  <td>
+		    <table><tbody><tr><td>
+		  	<img src="Administra%C3%83%C2%A7%C3%83%C2%A3o%20de%20Dados_arquivos/logo_devmedia_.gif"> </td>
+			<td valign="center"><font face="verdana">www.devmedia.com.br/articles/viewcomp.asp?comp=6767</font></td></tr>
+			</tbody></table>
+
+		  </td>
+		</tr>
+
+	   </tbody></table>	
+    </td>
+	<td width="30"></td>
+    <td valign="top" width="250">
+				<!--include file="../include/box_bemvindo2.asp" -->
+
+     </td>
+   </tr>
+</tbody></table>
+
+</body></html>

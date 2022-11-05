@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><title>CreateLang - PLphp - Trac</title>
+
+
+ <link rel="start" href="https://projects.commandprompt.com/public/plphp/wiki"><link rel="search" href="https://projects.commandprompt.com/public/plphp/search"><link rel="help" href="https://projects.commandprompt.com/public/plphp/wiki/TracGuide"><link rel="stylesheet" href="plphp_CreateLang_arquivos/trac.css" type="text/css"><link rel="stylesheet" href="plphp_CreateLang_arquivos/wiki.css" type="text/css"><link rel="icon" href="https://projects.commandprompt.com/public/plphp/chrome/common/trac.ico" type="image/x-icon"><link rel="shortcut icon" href="https://projects.commandprompt.com/public/plphp/chrome/common/trac.ico" type="image/x-icon"><link rel="alternate" href="https://projects.commandprompt.com/public/plphp/wiki/CreateLang?format=txt" title="Plain Text" type="text/plain"><style type="text/css">
+</style>
+ <script type="text/javascript" src="plphp_CreateLang_arquivos/trac.js"></script>
+  <link rel="stylesheet" type="text/css" href="plphp_CreateLang_arquivos/cmd4trac.css">
+  
+  <style type="text/css">
+    a.plain { text-decoration: none; border: none; background: none; font-weight: normal;}
+    a.plain:link { text-decoration: none; border: none; background: none; font-weight: normal;}
+    a.plain:active { text-decoration: none; border: none; background: none; font-weight: normal;}
+    a.plain:visited { text-decoration: none; border: none; background: none; font-weight: normal;}
+    a.plain:hover { text-decoration: none; border: none; background: none; font-weight: normal;}
+    
+    div#metanav a       { color: #ffffff; }
+    div#metanav a:hover { color: #000000; }
+    div#metanav ul li   { color: #ffffff; }
+    
+    div#mainnav         { border: none; background-color: #acacac; color: #ffffff; height: 15px; margin: 0 0 6px 0; padding: 2px 0 0 0; }
+    div#mainnav ul      { border: none; background-color: #acacac; color: #ffffff; height: 15px; margin: 0px 0 0px 0; padding: 0 0 0 0; }
+    div#mainnav ul li   { background-color: #acacac; color: #ffffff; margin: 0 0 0 0; padding: 0 0 0 0; }
+    div#mainnav ul li a { background-color: #acacac; color: #ffffff; margin: 0 0 0 0; padding: 0 0 0 0; }
+    div#mainnav a         { background-color: #acacac; color: #000; }
+    div#mainnav a:link    { background-color: #acacac; color: #000; }
+    div#mainnav a:visited { background-color: #acacac; color: #000; }
+    div#mainnav a:active  { background-color: #acacac; color: #000; }
+    div#mainnav a:hover   { background-color: #acacac; color: #000; }
+    
+    div#mainnav a.plain { padding: 0 2px 0 6px;  margin: 0 0 0 0; text-decoration: none; border: none; background: none; }
+    div#mainnav a.plain:link { padding: 0 2px 0 6px;  margin: 0 0 0 0; text-decoration: none; border: none; background: none; }
+    div#mainnav a.plain:active { padding: 0 2px 0 6px;  margin: 0 0 0 0; text-decoration: none; border: none; background: none; }
+    div#mainnav a.plain:visited { padding: 0 2px 0 6px;  margin: 0 0 0 0; text-decoration: none; border: none; background: none; }
+    div#mainnav a.plain:hover { padding: 0 2px 0 6px;  margin: 0 0 0 0; text-decoration: none; border: none; background: none; }
+  </style></head><body>
+
+
+
+	
+
+      <div align="center">
+       <div id="widecontainer">
+         <div id="widetop">
+           <div class="throwleft" style="width: 300px; text-align: left;"><a style="border: 0pt none ;" class="plain" href="http://www.commandprompt.com/"><img style="border: 0pt none ;" src="plphp_CreateLang_arquivos/cmd4logo_wide.gif" alt="Command Prompt, Inc." border="0"></a></div>
+           <div class="throwright" style="text-align: right; padding-right: 5px;">
+             <div id="metanav" style="border: medium none ; text-align: right;" class="nav"><ul><li class="first"><a href="https://projects.commandprompt.com/public/plphp/login">Login</a></li><li><a href="https://projects.commandprompt.com/public/plphp/settings">Settings</a></li><li><a href="https://projects.commandprompt.com/public/plphp/wiki/TracGuide" accesskey="6">Help/Guide</a></li><li class="last"><a href="https://projects.commandprompt.com/public/plphp/about">About Trac</a></li></ul></div>
+             <div id="topright">
+<form id="search" action="/public/plphp/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <ul>
+    <li><input id="proj-search" name="q" size="24" accesskey="f" value="" type="text"></li>
+    <li><input value="Search" type="submit"></li>
+  </ul>
+  <input name="wiki" value="on" type="hidden">
+  <input name="changeset" value="on" type="hidden">
+  <input name="ticket" value="on" type="hidden">
+ </div>
+</form>
+             </div>
+           </div>
+         </div>
+       </div>
+       
+       <div style="clear: both;"></div>
+       <div id="mainnav" class="nav">
+         <div style="float: left;"><ul><li class="active first"><a href="https://projects.commandprompt.com/public/plphp/wiki" accesskey="1">Wiki</a></li><li><a href="https://projects.commandprompt.com/public/plphp/timeline" accesskey="2">Timeline</a></li><li><a href="https://projects.commandprompt.com/public/plphp/roadmap" accesskey="3">Roadmap</a></li><li><a href="https://projects.commandprompt.com/public/plphp/browser">Browse Source</a></li><li><a href="https://projects.commandprompt.com/public/plphp/report">View Tickets</a></li><li><a href="https://projects.commandprompt.com/public/plphp/search" accesskey="4">Search</a></li><li class="last"><a href="https://projects.commandprompt.com/public/plphp/pastebin">Pastebin</a></li></ul></div>
+         <div style="margin: 0pt; padding: 0pt; float: right;"><a class="plain" href="http://www.commandprompt.com/contact/"><img src="plphp_CreateLang_arquivos/greymenu_right_contactus_trac.gif" alt="Contact Us Now" title="Contact Us Now" border="0"></a></div>
+       </div>
+       <div style="clear: both;"></div>
+       
+       <div style="padding-left: 12px; text-align: left;">
+
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="https://projects.commandprompt.com/public/plphp/wiki">Start Page</a></li>
+  <li><a href="https://projects.commandprompt.com/public/plphp/wiki/TitleIndex">Title Index</a></li>
+  <li><a href="https://projects.commandprompt.com/public/plphp/wiki/RecentChanges">Recent Changes</a></li>
+  
+   <li class="last"><a href="https://projects.commandprompt.com/public/plphp/wiki/CreateLang?action=history">Page History</a></li>
+  
+ </ul>
+ <hr>
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><h1 id="CreatingthePL/phplanguageinaPostgreSQLdatabase">Creating the PL/php language in a PostgreSQL database<a title="Link to this section" class="anchor" href="https://projects.commandprompt.com/public/plphp/wiki/CreateLang#CreatingthePL/phplanguageinaPostgreSQLdatabase"> ¶</a></h1>
+<p>
+In 8.1 and beyond you need to have a PL/php entry in the pg_pltemplate system catalog.
+You can insert one by issuing, as a superuser:
+</p>
+<pre class="wiki">INSERT INTO pg_pltemplate VALUES
+('plphp', 't', 'plphp_call_handler', 'plphp_validator', '$libdir/plphp', NULL);
+
+INSERT INTO pg_pltemplate VALUES
+('plphpu', 'f', 'plphp_call_handler', 'plphp_validator', '$libdir/plphp', NULL);
+</pre>
+<p>
+Note you <strong>DON'T</strong> have to edit the <tt>$libdir</tt>.  Leave it alone.  It will be expanded by PostgreSQL automatically.  You don't need to add the <tt>.so</tt> suffix either (or whatever it's called on your platform.)
+</p>
+<p>
+This will create entries for the trusted and untrusted versions of
+PL/php. Note that pg_pltemplate is a shared catalog, which means you
+have to do it only once in any database and it will be available in all
+your databases automatically.
+</p>
+<p>
+In any database where you want to use PL/php you need to issue simply
+</p>
+<pre class="wiki">CREATE LANGUAGE plphp;
+</pre>
+<p>
+or
+</p>
+<pre class="wiki">CREATE LANGUAGE plphpu;
+</pre>
+<p>
+(the latter will create the untrusted version, which by default only superusers can write functions in).
+</p>
+<p>
+Now the language is ready to be used.
+</p>
+<p>
+If you receive an error similar to:
+</p>
+<pre class="wiki">ERROR:  could not load library "/usr/local/lib/postgresql/plphp":
+libphp4.so: cannot open shared object file: No such file or directory
+</pre>
+<p>it means the Postmaster can't find the PHP shared library. The "make
+install" step should have created a symlink from the Apache2 PHP module
+to the <tt>pg_config --libdir</tt>
+directory. If the link is broken, please fix it -- exactly where the
+library is located is left as an exercise to the reader, but the actual
+link creation should be something like
+</p>
+<pre class="wiki">ln -sf /path/to/libphp4.so $(pg_config --libdir)
+</pre>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="https://projects.commandprompt.com/public/plphp/wiki/CreateLang?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+</div>
+
+<div id="footer">
+ <hr>
+ <a id="tracpowered" href="http://trac.edgewall.com/"><img src="plphp_CreateLang_arquivos/trac_logo_mini.png" alt="Trac Powered" height="30" width="107"></a>
+ <p class="left">
+  Powered by <a href="https://projects.commandprompt.com/public/plphp/about"><strong>Trac 0.9.6</strong></a><br>
+  By <a href="http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  
+ </p>
+</div>
+</div>
+
+
+
+ </body></html>

@@ -1,0 +1,88 @@
+EXPRESSÃO CASE
+
+Similar ao comando IF ... THEN
+Pode ser usada sempre que uma expressão for válida.
+Cada condição é uma expressão que retorna um resultado boleano.
+
+Se a condição resultante for true, o valor da expressão CASE é o resultado que 
+segue o THEN e o restante não será processado. Se o resultado da condição for
+false o restante será examinado.
+Se ELSE for omitido e nenhuma condição for true o resultado será null.
+
+Sintaxe:
+
+CASE WHEN condição THEN resultado
+	WHEN ...
+	ELSE resultado2;
+END
+
+Exemplo simples:
+
+select * from teste;
+
+a
+---
+1
+2
+3
+
+select a,
+	case when a = 1 then 'Um'
+	when a = 2 then 'Dois'
+	else 'Outro'
+end
+from teste;
+
+a	case
+1	Um
+2	Dois
+3	Outro
+
+
+Exemplo para substituir a letra do sexo pela descrição:
+
+select nome, (CASE sexo
+				WHEN 'M' THEN 'Masculino'
+				WHEN 'F' THEN 'Feminino'
+				ELSE 'Sexo não informado'
+			END) AS sexo
+from servidores;
+
+Quantos alunos tem conceito Excelente, Bom, Regular e Insuficiente
+
+select (case
+		when nota_final between 9.00 and 10.00 then 'Excelente'
+		when nota_final between 7.00 and 8.99 then 'Bom'
+		when nota_final between 5.00 and 6.99 then 'Regular'
+		when nota_final between 0.00 and 4.99 then 'Insuficiente'
+		else 'Nota não informada'
+		end) as Conceito,
+		count(*) as quantos
+from alunos group by 1;
+
+
+Valores Armazenados
+
+UNION, CASE e Construções Relacionadas
+
+1) Se todas as entradas são do mesmo tipo e são não unknown, será resolvido como
+o tipo. Caso contrário, sobrescreve todos os domínios dos tipos da lista com 
+seus underlying base type.
+
+2) Se todas as entradas são de tipo unknown, resolve como tipo text. Caso contrá-
+rio as entradasunknown serão ignoradas.
+
+3) Se nem todas as entradas non-unknown são do mesmo tipo, falhará.
+
+4) Escolher a primeira entrada non-unknown que é um tipo preferido na categoria,
+se for um.
+
+5) De outra forma, escolha a último entrada unknown que permite todas as en-
+tradas precedentes non-unknown para ser implicitamente convertidas para esta.
+
+6) Converter todas as entradas para o tipo selecionado. Falhará se não for uma 
+conversão de uma dada entrada para o tipo selecionado.
+
+Alguns exemplos
+
+

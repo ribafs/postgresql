@@ -1,0 +1,327 @@
+<html><head><!-- header -->
+
+
+
+<meta name="keywords" content="PostgreSQL"><title>Varlena, LLC | PostgreSQL General Bits Newsletter</title>
+
+<link rel="stylesheet" href="Organizing%20Database%20Schema%20Updates_arquivos/gb.css" type="text/css"></head><body>
+<table summary="page" border="0" cellpadding="1" cellspacing="2" width="800">
+<tbody><tr>
+   <td colspan="3" align="center" valign="bottom">
+<a name="TOP">
+      </a><table summary="byline" border="0" cellspacing="0" width="100%">
+         <tbody><tr> <td class="s" align="center" valign="bottom">
+               <a href="http://www.varlena.com/varlena/index.php">
+               <img src="Organizing%20Database%20Schema%20Updates_arquivos/vlogo2.jpg" alt="varlena" border="0"><br>
+               <img src="Organizing%20Database%20Schema%20Updates_arquivos/varlenatxt10.jpg" alt="varlena" border="0">
+               <br>
+               <em>PostgreSQL Training,<br>Consulting &amp; Support</em>
+               </a>
+            </td>
+            <td align="center" valign="bottom">
+               <a href="http://www.varlena.com/varlena/GeneralBits/">
+               <img src="Organizing%20Database%20Schema%20Updates_arquivos/genbit_title.jpg" alt="General Bits" align="bottom" border="0"></a>
+               <br><a href="http://www.varlena.com/"><em>By A. Elein Mustain</em></a>
+            </td>
+            <!-- ISSUE Number/Date -->
+            <td align="right" valign="bottom">
+               <a href="http://www.pervasivepostgres.com/">
+               <img src="Organizing%20Database%20Schema%20Updates_arquivos/perv_logo.gif" border="0"></a><br>
+               <a href="http://www.postgresql.org/">
+               <img src="Organizing%20Database%20Schema%20Updates_arquivos/pgpowereds.gif" border="0"></a><br>
+            
+            30-Jan-2006 Issue: 127 </td>
+         </tr>
+    </tbody></table>
+<a name="TOP">   </a></td>
+</tr><tr>
+   <td colspan="3"> <hr color="#335533"> </td>
+</tr><tr>
+	<td colspan="3">
+		<table>
+			<tbody><tr>
+			<td class="s"><a href="http://www.varlena.com/varlena/GeneralBits/archive.php">Archives |</a></td>
+         <td class="s"><a href="http://www.varlena.com/varlena/GeneralBits/Tidbits/index.php">General Tidbits |</a></td>
+         <td class="s"><a href="#search">Google General Bits |</a></td>
+         <td class="s"><a href="http://borg.postgresql.org/docs/8.0/static/index.html">Docs: 8.0, </a></td>
+         <td class="s"><a href="http://www.postgresql.org/docs/current/static/index.html">7.4 | </a></td>
+         <td class="s"><a href="http://www.varlena.com/varlena/GeneralBits/es.php">Castellano | </a></td>
+         <td class="s"><a href="http://www.varlena.com/varlena/GeneralBits/pt.php">Português | </a></td>
+         <td class="s"><a href="http://www.varlena.com/varlena/GeneralBits/subs.php">Subscriptions |</a></td>
+         <td class="s"><a href="mailto:generalbits@varlena.com">Notifications</a> 
+	<a href="http://www.varlena.com/varlena/GeneralBits/rss.xml"><img src="Organizing%20Database%20Schema%20Updates_arquivos/rss.gif" align="middle" border="0"> | </a>
+			</td><td class="s"><a href="http://www.varlena.com/varlena/GeneralBits/126.php">Prev</a>
+	</td>
+			</tr>
+		</tbody></table>
+	</td>
+</tr><tr>
+   <td colspan="3"> <hr color="#335533"> </td>
+</tr><tr>
+   <td rowspan="3" bgcolor="#88aa88" width="0"> </td>
+   <td colspan="2" align="center">
+      <table summary="about" bgcolor="#335533" border="0" cellpadding="5" cellspacing="1"><tbody><tr>
+         <td class="s" align="center" bgcolor="#ffffff">
+            <em>General Bits </em> is a column loosely based on the PostgreSQL mailing list
+               <em>pgsql-general</em>.<br>
+               To find out more about the <em>pgsql-general</em> list and PostgreSQL, see
+               <a href="http://www.postgresql.org/">www.PostgreSQL.org</a>.
+   		</td>
+      </tr></tbody></table>
+   </td>
+</tr><tr>
+   <td valign="top">
+<!-- end of header -->
+
+
+<br>
+<table summary="item_frame" bgcolor="#ffffbb" cellspacing="4" width="100%">
+<tbody><tr><td>
+<table summary="item" bgcolor="#ffffff" width="100%">
+<!-- IKEY=" Editorial " -->
+<tbody><tr><td colspan="2">
+<mytitle> Favorite Articles </mytitle>
+</td></tr><tr><td>
+<ititle> Administrivia </ititle>
+</td><td align="right">
+<idate> 29-Jan-2006 </idate>
+</td></tr> </tbody></table> </td></tr> </tbody></table>
+<p>
+First, as you can probably tell, I am not publishing my
+column weekly as I had previously done.  I intend to keep 
+publishing as time and resources permit.  Ideally this
+will be every other week. I appreciate your patience.
+</p><p>
+Next, I would like to hear from people about their favorite
+or most helpful GeneralBit article.  I am creating talks
+and writing containing collections of GeneralBits articles
+and want to use the ones that are really helpful, not the
+ones <em>I</em> think are helpful.  Send me your suggestion
+to <a href="mail:elein@varlena.com">me</a>.  Your feedback
+is always appreciated.
+</p><p>
+Finally, I have converted all of the article files to a php
+format.  You may have to fix your bookmarks. In general you
+can just delete the html suffix.
+</p><p>
+<icont>Editor:
+elein at varlena.com
+</icont>
+<br>
+<table summary="item_frame" bgcolor="#ffffbb" cellspacing="4" width="100%">
+<tbody><tr><td>
+<table summary="item" bgcolor="#ffffff" width="100%">
+<!-- IKEY=" updates, schema, DDL " -->
+<tbody><tr><td colspan="2">
+<mytitle> Organizing Database Schema Updates </mytitle>
+</td></tr><tr><td>
+<ititle> Practical Database Schema Updates </ititle>
+</td><td align="right">
+<idate> 27-jan-2006 </idate>
+</td></tr> </tbody></table> </td></tr> </tbody></table>
+</p><p>
+In a production environment it is critical to maintain control
+over the structure of your databases.  If everyone has the
+ability to alter tables, change keys, add tables willy-nilly
+then the integrity of your data structures will deteriorate.
+If your site involves more than one database with the same
+schema you can easily get the databases schemas out of sync, causing
+both software bugs and data problems.  Just think of the chaos 
+if you had a thousand or more databases with the same schema to 
+maintain (some people do).
+<em>(I use the word <em>schema</em> to mean your database
+structure, not a namespace within your database.)</em>
+</p><p>
+I am going to outline a simple, common sense way to manage
+database updates.  Use it as a template and tune it to the
+needs of your organization or rewrite it using the languages
+of your choice.  I'll use bash along with psql.  Also feel
+free to change the names of objects, but keep in the spirit
+of the suggestions.   
+</p><p>
+<b>Note:</b> This model is not directly 
+applicable to slony clusters.  With slony clusters the DDL
+is executed via a slonik script and only to one node.
+</p><p>
+The first requirement is that all production database schemas must 
+be in sync.  If they are not in sync you need to bring them 
+into sync. Doing that is cruelly difficult most of the time.  
+You want control over your environment so that you never, ever 
+need to diff schemas.  (Bringing your databases into sync is not
+the subject of this article, but may be the subject of a
+future article if there is need and interest.)
+</p><p>
+The first rule is that all schema change statements (DDL)
+must be edited into a file, say updateN.sql and applied as a
+SQL script.  They are never issued via a GUI tool or by typing in 
+psql directly.  Just forget about those methods.  They are not 
+repeatable or scaleable.  The SQL script should be written and tested 
+on a development database before considered for application to 
+production databases, of course.
+</p><p>
+You should have a directory updates in your source tree. 
+Everything should be under source code control.   In that
+directory, you will have a few objects.
+</p><h4> The .../Update Directory</h4>
+<ul>
+<li> update[1..N].sql files
+	<ul>
+	Each file is a separate update.  They are numbered and must
+	be run in order if starting from scratch.
+   </ul>
+</li><li> applyupdate.sh and any helper scripts
+	<ul> Script to apply the update:
+	<ul><li> to a host::database,
+		</li><li>log host/database/update information, 
+		</li><li>verify success of update script on each database.  Raise notice if <em>something went wrong.</em>
+	</li></ul>
+   </ul>
+</li><li> schema checkpoints:
+	<ul>Start with a current schema dump.  Name it baselineschema0.sql.
+	The point of having a baseline is that you have a clear slate to 
+   which to apply all updates in order
+   for testing.  It is important to have a repeatable process so this
+   baseline will enable you to repeat updates and apply new ones.
+   <p>The baselineschema0.sql will be used to create a new database.
+   Updates are applied in order with the last being the current one.
+   If the current fails on that one, you can fix it and redo the
+   process until it works correctly.
+   </p><p>Once the process works correctly, capture the output of the
+   successful psql script. Put it in the /Canon directory named
+   updateN.out. More about that shortly.
+	</p><p>As updates roll around, periodically
+   create new baseline schemas after update 10, for example.
+   Then another one at update 20.  You decide how often it is useful
+   to create baselines.  
+   </p></ul>
+</li><li> /Canon directory
+   <ul>Test output for comparison. For each update, the test run against 
+   a test database should product a clean output of the psql script.
+   When updates are applied to production, their output is diffed against
+   the cannonical output and if there is a different, then there
+   is a problem that will need human intervention.
+   </ul>
+</li><li> update.log
+	<ul>Log of updates on all hosts and machines.</ul>
+</li></ul>
+<p>
+</p><h3>The Update Processes</h3>
+
+<h4>Pre-Requisites:</h4>
+<ul>
+<li> Ensure all production databases are in sync.
+</li><li> Create directories .../Updates and .../Updates/Canon under source
+   code control.
+</li><li> Pick a production database and dump its schema to .../Update/baseschema0.sql
+</li></ul>
+<h4>For each updateN.sql</h4>
+<ul>
+   Test the SQL by hand:
+	<table cellspacing="5">
+	<tbody><tr>
+		<td>1. Create a temporary database.</td><td><code>createdb tmp_db; </code></td></tr>
+   <tr><td>2. Load the schema</td><td> <code>psql tmp_db;</code></td></tr>
+   <tr><td>3. For updates 1 to (n-1) **</td><td><code>psql tmp_db &lt; update_n.sql </code></td></tr>
+   <tr><td>4. Run update_n and save the result:</td>
+      <td><code>psql tmp_db &lt; update_N.sql &gt; update_N.out 2&gt;&amp;1 </code></td></tr>
+   <tr><td>5. Check the output carefully.  </td><td>If it is not perfect, fix it and go back to step 1.</td></tr>
+   <tr><td>6. Save the good output in the Canon directory.</td> <td><code>mv update_N.out Canon/</code></td></tr>
+	</tbody></table>
+** (write yourself a script)
+<br>
+	Apply change N to each host/machine using <a href="http://www.varlena.com/varlena/GeneralBits/Tidbits/applyupdate.sh">applyupdate.sh</a>.
+   Below is the crux of the work by <a href="http://www.varlena.com/varlena/GeneralBits/Tidbits/applyupdate.sh">applyupdate.sh</a>.
+   See <a href="http://www.varlena.com/varlena/GeneralBits/Tidbits/applyupdate.sh">the actual script</a> for details.
+<p>
+   We first apply the change using psql and capture STDIN and STDERR into an output file.
+	Then we diff the output file with the known good output file.
+   If they are different, raise an error.
+   Log the update to the updatelog, successful or not. 
+</p><pre>      psql -h $host $db &lt; update_$N.sql &gt; update_$N.out 2&gt;&amp;1
+      diff update_$N.out Canon/update_$N.out
+      if [ $? != 0 ] ; then
+         ERROR updating this host/machine
+            info available here now: host/machine, update_$N.out, timestamp
+            HANDLE ERROR: log, email, handle store lists
+      fi
+		echo `date` $host $db update_$N &gt;&gt; updatelog.out;
+		cat update_N.out &gt;&gt; updatelog.out;
+		echo &gt;&gt; updatelog.out;
+</pre>
+</ul>
+<p>
+There are many variations and niceties that could be added to this basic and 
+ordinary process.  A script could be written to update the test db to a
+particular update or you can keep the last one around if you are confident
+no one has messed with it.  A change or wrapper script to 
+<a href="http://www.varlena.com/varlena/GeneralBits/Tidbits/applyupdate.sh">applyupdate.sh</a>
+should allow you to run a particular update on all of your production
+databases automatically.  This model assumes a central machine has
+access to all other machines.  You can change the method of connectivity
+to meet your network model.  
+</p><p>
+With regards to update files: Sometimes, in spite of best efforts you will have to
+back out a change.  Do it with a subsequent update script. Don't "fix"
+a script you have already applied.  That is done and you cannot go back.  
+If you find you are having to backout changes, make it a requirement that 
+each update script have a corresponding undo script.  This requirement is 
+a bit excessive, however, it may encourage more care when writing <em>and
+testing</em> the update script in the first place.
+</p><p>
+Logging can be distributed as you see fit.  Perhaps you
+only want to log the update script output if it is bad.  Keep in mind
+that you need one place to look to see the latest update of all machines.
+Really. You will want that.  It is also possible to have a table in each
+database recording the timestamp and update number of each update run
+to validate the update machine by machine.
+</p><p>
+Error handling is important.  If you are watching each update, you can keep
+the exit on error condition.  If you are updating many machines, you may
+want to collect the errors and address them each afterwards.  You can 
+automate the error raising, but you will still have to look at each machine
+with errors.  Luckily you have tested well, so there should be no problems :)
+</p><p>
+Don't forget to check in your changes.
+</p><p>
+<icont>Contributors:
+elein at varlena.com
+</icont>
+
+<!-- end of column -->
+   </p></td>
+</tr><tr>
+   <td>
+      <hr>
+      Comments and Corrections are welcome.  Suggestions and
+      contributions of items are also welcome.  
+      <a href="mailto:elein@varlena.com?Subject=GeneralBits">Send them in!</a>
+      <hr>
+      <a href="http://cookie.varlena.com/varlena/GeneralBits/Web/rerun.php?action=Reports">
+      <img src="Organizing%20Database%20Schema%20Updates_arquivos/vlogo3.jpg" border="0"></a>
+      Copyright <a href="http://www.varlena.com/">A. Elein Mustain </a> 2003, 2004, 2005, 2006
+   </td>
+</tr>
+</tbody></table>
+<!-- Search Google -->
+<a name="search"></a>
+<hr>
+<a href="#TOP">Top </a>
+<center>
+<form method="get" action="http://www.google.com/custom">
+<table summary="google" bgcolor="#ffffdd" border="0" cellspacing="0">
+<tbody><tr valign="top"><td>
+<a href="http://www.google.com/search">
+<img src="Organizing%20Database%20Schema%20Updates_arquivos/Logo_40wht.gif" alt="Google" align="middle" border="0"></a>
+</td>
+<td>
+<input name="q" size="31" maxlength="255" value="" type="text">
+<input name="sa" value="Google Search" type="submit">
+<input name="cof" value="T:#000000;LW:76;ALC:#445500;L:http://www.varlena.com/Images/vlogo3.jpg;LC:#005500;LH:46;BGC:#FFFFDD;AH:left;VLC:#445500;S:http://www.varlena.com;AWFID:ab5bba380ded89ff;" type="hidden">
+<font face="arial,sans-serif" size="-1"><input name="domains" value="varlena.com" type="hidden"><br>
+<input name="sitesearch" value="varlena.com" checked="checked" type="radio"> Search General Bits &amp; varlena.com 
+<input name="sitesearch" value="" type="radio"> Search WWW </font><br>
+</td></tr></tbody></table>
+</form>
+</center>
+<!-- Search Google -->
+</body></html>

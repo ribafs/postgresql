@@ -1,0 +1,69 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2040"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-103_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-102.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-103_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-103_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-104.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-103_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P4978_286323"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.5.5 Pattern Matching Using the LIKE Operator</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> provides pattern matching using the traditional </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LIKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">operator.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The syntax for the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LIKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> operator is as follows.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> LIKE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>pattern</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ ESCAPE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>escape-character</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> NOT LIKE </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">patter</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">n</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ ESCAPE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>escape-character</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Every </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>pattern</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> defines a set of strings.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LIKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> expression returns true if </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>string</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">is contained in the set of strings represented by </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>pattern</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">As expected, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOT LIKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> expression returns false if </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LIKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> returns true, and vice ve</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">rsa.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">An equivalent expression is</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOT (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>string</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> LIKE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>pattern</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>pattern</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> does not contain percent signs or underscore, then the pattern only represents the string itself; in that case </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LIKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> acts like the equals operator. An underscore (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">_</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">) in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>pattern</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> stands for (matches) any single character; a percent sign (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">) matches any string of zero or more characters.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Some examples:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">'abc' LIKE 'abc'    true</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">'abc' LIKE 'a%'     true</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">'abc' LIKE '_b_'    true</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">'abc' LIKE 'c'      false</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LIKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+pattern matches always cover the entire string. To match a pattern
+anywhere within a string, the pattern must therefore start and end with
+a percent sign. </span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">To match a literal underscore or percent sign without matching other characters, the respective character in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>pattern</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+must be preceded by the escape character. The default escape character
+is the backslash but a different one may be selected by using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ESCAPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause. To match the escape character itself, write two escape characters.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note
+that the backslash already has a special meaning in string literals, so
+to write a pattern constant that contains a backslash you must write
+two backslashes in an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+statement. Thus, writing a pattern that actually matches a literal
+backslash means writing four backslashes in the statement. You can
+avoid this by selecting a different escape character with </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ESCAPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">; then a backslash is not special to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LIKE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> anymore. (But it is still special to the string literal parser, so you still need two of them.)</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">It&#8217;s also possible to select no escape character by writing </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ESCAPE ''.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+This effectively disables the escape mechanism, which makes it
+impossible to turn off the special meaning of underscore and percent
+signs in the pattern.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-102.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-103_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-103_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-104.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-103_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-103_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-103_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

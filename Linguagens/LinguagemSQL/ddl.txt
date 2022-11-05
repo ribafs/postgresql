@@ -1,0 +1,22 @@
+DDL - Data Definition Language
+
+Select
+Truncate - excluir todos os registros de uma tabela mais rapidamente que com o 
+delete from tabela;
+
+O truncate é usado somente em tabelas sem relacionamento.
+
+Como receber os dados do banco de dados
+
+Consulta simples
+select * from produtos;
+
+Receberá todos os campos (*) e todos os registros, pois não especificou where.
+
+Podemos usar expressão ou função no select.
+
+select 2+4;
+
+select random();
+
+

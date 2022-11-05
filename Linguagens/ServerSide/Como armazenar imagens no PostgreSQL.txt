@@ -1,0 +1,31 @@
+Como armazenar imagens no PostgreSQL
+
+Para inserir no banco:
+
+$figuracapa_tmp = $_FILES['figuracapa']['tmp_name'];
+$fp = fopen($figuracapa_tmp,"rb");
+$figuracapa_cnt = base64_encode(fread($fp,filesize($figuracapa_tmp)));
+fclose($fp);
+executa("insert into figuras (figura) values ($figuracapa_cnt)");
+
+
+Para recuperar:
+
+$sql = "select figura from figuras where codigo = 1";
+$resultado = $banco->execute($sql);
+$linha = $resultado->fetchnextobject(true);
+$conteudo = base64_decode($linha->FIGURA); 
+
+A variável $conteudo possui a figura, depois é só gravar em um arquivo
+para recuperá-la.
+
+Espero ter ajudado.
+
+Obrigado.
+
+-----------------------------------
+Leonildo Costa e Silva
+Divisão de Redes
+Diretoria de Processamento de Dados
+Universidade Federal de Uberlândia
+ 

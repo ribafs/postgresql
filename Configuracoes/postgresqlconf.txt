@@ -1,0 +1,169 @@
+Configurações do Servidor
+
+https://www.postgresql.org/docs/9.5/static/runtime-config.html
+
+Configuração de Parâmetros
+https://www.postgresql.org/docs/9.5/static/config-setting.html 
+- Nomes e Valores de Parâmetros
+
+Todos os nomes de parâmetros são case-insensitivos.
+
+Cada parâmetro tem um valor de um dos cinco tipos:
+boolean, string, integer, floating point ou enumerado (enum).
+
+listen_addresses (string): IP (IPV4 ou IPV6)
+Porta (5432)
+
+
+Configurar PostgreSQL
+
+Para ser acessado pela rede
+
+sudo nano /etc/postgresql/9.3/main/postgresql.conf
+
+listen_addresses = '*'
+
+
+Configurando o ambiente do PostgreSQL
+
+Através do postgresql.conf e de comandos SQL 'SET'
+Através do postgresql.conf
+Lembrar que as linhas iniciadas com # estão comentadas e que todos os parâmetros comentados são o padrão. Caso queira alterar algum deixe comentado e copie a linha logo abaixo descomentada e com o valor desejado.
+
+Alguns parâmetros importantes
+
+#data_directory = 'ConfigDir'
+
+Caso queira alterar o data_diretory para outro diretório:
+- copie o diretório atual ou mova-o para o novo diretório
+- altere este parâmetro no postgresql.conf
+- recarregue o serviço 
+
+#hba_file = 'ConfigDir/pg_hba.conf'
+
+#listen_addresses = 'localhost'
+Por default o PostgreSQL somente dá acesso para usuários locais, pela console.
+Para dar permissão para acesso pelo PGAdmin, mesmo local e a outros hosts não locais devemos entrar com seu IP ou nome neste parâmetro.
+Entrar com '*' para dar acesso a qualquer host.
+Para uma lista de IPs separar por vírgula, assim: '10.0.0.7,10.0.0.8,10.0.0.9'.
+Obs.: Mudanças requerem restartar serviço.
+
+#port = 5432
+
+#ssl = off 
+Uso de conexões seguras através do openssl. Mudanças requerem restartar serviço.
+Para aumentar a segurança criptografando as comunicações cliente/servidor, o PostgreSQL possui suporte nativo para conexões SSL. É necessário que o OpenSSL esteja instalado tanto no cliente quanto no servidor, e que o suporte no PostgreSQL tenha sido ativado em tempo de instalação.
+Detalhes em: http://pgdocptbr.sourceforge.net/pg80/ssl-tcp.html e
+http://www.postgresql.org/docs/8.3/interactive/ssl-tcp.html 
+
+
+
+#password_encryption = on
+Quando é especificada uma senha em CREATE USER ou ALTER USER , sem que seja escrito ENCRYPTED ou UNENCRYPTED, este parâmetro determina se a senha deve ser criptografada. Altamente recomendado o uso de senhas criptografadas.
+
+max_connections = 100 
+Másimo de conexões simultâneas que serão atendidas pelo servidor. Manter o mais baixo possível, tendo em vista que cada conexão ativa requer recursos do hardware.
+Mudanças requerem restartar serviço
+
+autovacuum = on
+habilita o subprocesso autovacuum
+Para ativar, obrigatoriamente ative também track_counts (na versão 8.3)
+
+#autovacuum_naptime = 1min 
+Tempo entre as execuções do vacuum
+
+#datestyle = 'iso, mdy'
+Formato/estilo da data
+Para ter a data no formato do Brasil (dd/mm/yyyy) altere para: datestyle = 'sql, dmy'
+
+#client_encoding = latin1
+Na verdade, os padrões escolhidos pelo utilitário initdb são escritos no arquivo de configuração postgresql.conf apenas para servirem como padrão quando o servidor é inicializado. Se forem removidas as atribuições presentes no arquivo postgresql.conf, o servidor herdará as definições do ambiente de execução.
+
+#lc_messages = 'C'
+lc_messages = 'pt_BR' # Mensagens de erro em português do Brasil
+Obs.: Alguns parâmetros do postgresql.conf podem ser alterados pelo comando "SET" do SQL  e também pelo comando "ALTER".
+
+Configurações Através do comando 'SET' do SQL
+Através do comando SET podemos alterar as configurações do PostgreSQL.
+O comando SET muda os parâmetros de configuração de tempo de execução. Muitos parâmetros de tempo de execução podem ser mudados dinamicamente pelo comando SET (Mas alguns requerem privilégio de superusuário para serem mudados, e outros não podem ser mudados após o servidor ou a sessão iniciar). O comando SET afeta apenas os valores utilizados na sessão atual. 
+
+
+Para exibir o formato de data atual do PostgreSQL:
+SHOW DATESTYLE;
+
+Execute a consulta:
+SELECT CURRENT_DATE;
+
+Para alterar o estilo da data na seção atual para o formato dd-mm-yyyy:
+SET DATESTYLE TO 'postgresql,dmy';
+
+
+Execute novamente a consulta:
+SELECT CURRENT_DATE;
+
+Para alterar o estilo da data na seção atual para o formato dd/mm/yyyy:
+SET DATESTYLE TO 'sql,dmy';
+
+Execute novamente a consulta:
+SELECT CURRENT_DATE;
+
+SET DATESTYLE TO ISO;
+SELECT CURRENT_TIMESTAMP;
+
+SET DATESTYLE TO PostgreSQL; 
+SELECT CURRENT_DATE;
+
+SET DATESTYLE TO US;
+SELECT CURRENT_DATE;
+
+SET DATESTYLE TO NONEUROPEAN, GERMAN;
+SELECT CURRENT_DATE;
+
+SET DATESTYLE TO EUROPEAN;
+SELECT CURRENT_DATE;
+
+Para exibir todas as configurações:
+SHOW ALL; 
+
+Também podemos Configurar um banco para Aceitar datas no formato praticado no Brasil:
+CREATE DATABASE bancobrasil;
+ALTER DATABASE SET DATESTYLE TO 'SQL,DMY';
+
+Também pode ser atribuído juntamente com o Usuário: 
+ALTER ROLE nomeuser SET DATESTYLE TO SQL, DMY;
+
+Alerta: para bancos que já estejam em uso, geralmente fica inviável uma alteração permanente (postgresql.conf), caso se esteja tratando as datas. Exemplo: ao consultar um campo data, a aplicação espera um formato e vai estar outro. A não ser que se altere consultas SQL existentes nos aplicativos.
+
+ALTER DATABASE cep_brasil SET client_encoding=win1252;
+
+ISO-8859-15 é o Latin9
+
+SHOW ENABLE_SEQSCAN;
+SET ENABLE_SEQSCAN TO OFF;
+
+Mais detalhes em: 
+http://pgdocptbr.sourceforge.net/pg80/sql-set.html e
+http://www.postgresql.org/docs/8.3/interactive/sql-set.html
+
+Configurar estilo de datas para permitir entrada e exibição de datas assim:
+31/12/2016
+
+
+Configurar no script postgresql.conf
+Assim fica configurado para todos os bancos do cluster
+
+datestyle = sql,dmy;
+
+Outros usos para SHOW:
+
+SHOW server_version;
+SHOW server_encoding; -- Idioma para ordenação do texto (definido pelo initdb)
+SHOW lc_collate;	-- Idioma para classificação de caracteres (definido pelo initdb)
+SHOW all;	-- Mostra todos os parâmetros
+
+Também podemos setar o datestyle quando alteramos um banco:
+ALTER DATABASE nomebanco SET DATESTYLE = SQL, DMY;
+
+Também pode ser atribuído juntamente com o Usuário:
+ALTER ROLE nomeuser SET DATESTYLE TO SQL, DMY;
+

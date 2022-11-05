@@ -1,0 +1,122 @@
+												Exercícios sobre Funções SQL
+
+Estes exercícios foram parte do treinamento para a empresa Computex.
+
+Função em SQL
+
+Função para debitar numa conta bancária:
+
+create database banco;
+\c banco
+create temp table conta(
+numero int not null primary key,
+saldo numeric(12,2)
+);
+
+insert into conta values (1, 1000);
+
+$1 - retorno do primeiro parâmetro (integer, numero)
+$2 - retorno do segundo parâmetro (numeric, saldo)
+
+CREATE FUNCTION debitar (integer, numeric) RETURNS integer AS $$
+UPDATE conta
+SET saldo = saldo - $2
+WHERE numero = $1;
+SELECT 1;
+$$ LANGUAGE SQL;
+
+Executando:
+
+SELECT debitar(1, 100.0);
+
+Este exemplo retornará o saldo:
+
+CREATE OR REPLACE FUNCTION debitar (integer, numeric) RETURNS numeric AS $$
+UPDATE conta
+SET saldo = saldo - $2
+WHERE numero = $1;
+SELECT saldo FROM conta WHERE numero = $1;
+$$ LANGUAGE SQL;
+SELECT debitar(1, 100.0) AS saldo;
+
+Mais um exemplo, agora retornando o dobro do salário de um empregado:
+
+CREATE TABLE empregado (
+nome text,
+salario numeric,
+idade integer,
+localizacao point
+);
+
+insert into empregado values ('João Brito', 800.00, 35, '(2,1)');
+
+CREATE FUNCTION dobrar_salario(empregado) RETURNS numeric AS $$
+SELECT $1.salario * 2 AS salario;
+$$ LANGUAGE SQL;
+
+SELECT nome, dobrar_salario(empregado.*) AS pretensao
+FROM empregado
+WHERE empregado.localizacao ~= point '(2,1)'; 
+
+Toda função SQL deve ser usada numa cláusula FROM de uma consulta.
+
+Funções SQL com tabelas:
+
+CREATE TABLE teste (codigo int, sub int, nome text);
+
+INSERT INTO teste VALUES (1, 1, 'João');
+INSERT INTO teste VALUES (1, 2, 'Pedro');
+INSERT INTO teste VALUES (2, 1, 'Maria');
+
+CREATE FUNCTION getteste(int) RETURNS teste AS $$
+SELECT * FROM teste WHERE codigo = $1;
+$$ LANGUAGE SQL;
+
+SELECT *, upper(nome) AS "Maiúsculo" FROM getteste(1) AS retorno;
+
+Funções SQL retornando registros de tabelas
+Para isso usamos a palavra reservada SETOF
+
+CREATE FUNCTION getteste2(int) RETURNS SETOF teste AS $$
+SELECT * FROM teste WHERE codigo = $1;
+$$ LANGUAGE SQL;
+
+SELECT * FROM getteste(1) AS teste2;
+SELECT * FROM getteste(2) AS teste2;
+
+Outros exemplos:
+
+CREATE FUNCTION listchildren(text) RETURNS SETOF text AS $$
+SELECT name FROM nodes WHERE parent = $1
+$$ LANGUAGE SQL;
+
+SELECT * FROM nodes;
+
+name | parent
+-----------+--------
+Top |
+Child1 | Top
+Child2 | Top
+Child3 | Top
+SubChild1 | Child1
+SubChild2 | Child1
+(6 rows)
+
+SELECT listchildren('Top');
+listchildren
+--------------
+Child1
+Child2
+Child3
+(3 rows)
+
+SELECT name, listchildren(name) FROM nodes;
+name | listchildren
+--------+--------------
+Top | Child1
+Top | Child2
+Top | Child3
+Child1 | SubChild1
+Child1 | SubChild2
+(5 rows)
+

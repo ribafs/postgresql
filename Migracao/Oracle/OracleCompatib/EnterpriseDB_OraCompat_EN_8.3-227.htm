@@ -1,0 +1,61 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>UTL_FILE.FOPEN</title>
+
+<meta name="keywords" content="utl_file.fopen, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2164"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-227_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-226.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-227_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-227_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-228.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-227_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P11128_582328"></a><span style="font-family: 'Arial'; font-size: 13pt;">7.4.5 FOPEN</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FOPEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function opens a file for I/O.</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>filetype</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> FILE_TYPE FOPEN(</span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">l</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ocation</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> VARCHAR2, </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">file</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">name</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> VARCHAR2,</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>open_mode</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> VARCHAR2 [, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>max_linesize</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> BINARY_INTEGER ])</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>location</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Directory name, as stored in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">pg_catalog.edb_dir.dirname</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, of the directory containing the file to be opened.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>filename</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Name of the file to be opened.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>open_mode</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Mode in which the file will be opened. Modes are: </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">a</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> - append to file; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">r</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> - read from file; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">w</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> - write to file.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>max_linesize</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Maximum size of a line in characters. In read mode, an exception is thrown if an attempt is made to read a line exceeding </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">max_linesize</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">. In write and append modes, an exception is thrown if an attempt is made to write a line exceeding </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">max_linesize</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">. The end-of-line character(s) are not included in determining if the maximum line size is exceeded. This behavior is not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle c</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ompatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> - </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> does count the end-of-line character(s).</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>filetype</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Variable of type </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FILE_TYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> containing the file handle of the opened file.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-226.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-227_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-227_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-228.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-227_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-227_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-227_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

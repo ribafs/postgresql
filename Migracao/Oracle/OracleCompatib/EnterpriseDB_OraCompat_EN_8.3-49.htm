@@ -1,0 +1,171 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>CREATE DATABASE LINK</title>
+
+<meta name="keywords" content="create database link, dblink, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1986"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-49_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-48.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-49_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-49_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-50.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-49_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P2245_121013"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.11 CREATE DATABASE LINK</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE DATABAS</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">E LINK</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;create a new database link</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE [ PUBLIC ] DATABASE LINK </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  CONNECT TO </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">use</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">rname</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> IDENTIFIED BY &#8216;</span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">password</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">&#8217;</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  USING { libpq &#8216;host=</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>hostname</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> port=</span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">po</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">rt</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">num</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> dbname=</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>database</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">&#8217; |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    [ oci ] &#8216;//</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>hostname</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">[:</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>portnum</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">]/</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>database</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">&#8217; }</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE DATABAS</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">E LINK</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+creates a new database link. A database link is an object that allows a
+reference to a table or view in a remote database within a <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-65.htm#P3271_181322">DELETE</a></u>, <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-80.htm#P3637_204215">INSERT</a></u>, <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-86.htm#P3860_222577">SELECT</a></u>, or <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-91.htm#P4134_246545">UPDATE</a></u> command. A database link is referenced by appending </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">@</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>dblink</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to the table or view name referenced in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command where </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>dblink</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the name of the database link.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Database links can be public or private. A </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>public database link</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is one that can be used by any user. A </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>private database link</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> can be used only by the database link&#8217;s owner. Specification of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUBLIC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> option creates a public database link. If omitted, a private database link is created.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE DATABASE LINK</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command is given, the database link name and the given connection attributes are stored in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> system table named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">pg_catalog.e</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">db_dblink</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. When using a given database link, the database containing the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb_dblink</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> entry defining this database link is called the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>local database</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. The server and database whose connection attributes are defined within the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb_dblink</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> entry is called the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>remote database</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command containing a reference to a database link must be issued while connected to the local database. When the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command is executed, the appropriate authentication and connection is
+made to the remote database to access the table or view to which the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">@</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>dblink</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> reference is appended.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUBLIC</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Create
+a public database link that can be used by any user. If omitted, then
+the database link is private and can only be used by the database
+link&#8217;s owner.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of the database link to be created.</span></p>
+
+</div><p><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">user</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">name</span></i></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The username to be used for connecting to the remote database.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>password</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The password for </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">user</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">name</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">libpq</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Specify connection to a remote </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> database.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">oci</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Specify connection to a remote </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> database. This is the default if omitted.</span></p>
+
+</div><p><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">host</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">name</span></i></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Name or IP address of the server hosting the remote database.</span></p>
+
+</div><p><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">port</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">num</span></i></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Port number accepting connections to the remote database server.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>database</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The remote database name.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Notes</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command is to be executed that references a database link to a remote </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+database, the server needs some way to know where the correct Oracle
+installation resides on disk. There are two ways to point Postgres Plus
+Advanced Server to the correct </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> installation home directory upon start up: </span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The environment variable, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ORACLE_HOME</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, may be set to the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">correct directory</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.  This is the default Oracle configuration.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The postgresql.conf configuration parameter </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">oracle_home</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> will also direct Postgres Plus Advanced Server to the correct Oracle Home directory in the file system.  See Section <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-08.htm#P463_20913"><u>1.3.4</u></a> for information on </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">oracle_home</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following examples assume that a copy of the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> sample application&#8217;s </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table has been created in an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database and a second </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database cluster with the sample application is accepting connections at port 5443.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Create a public database link named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">oralink</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, to an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">xe</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, located at 127.0.0.1 on port 1521. Connect to the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database with username, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and password, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">password</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE PUBLIC DATABASE LINK oralink CONNECT TO edb IDENTIFIED BY 'password' USING '//127.0.0.1:1521/xe';</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Issue a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database using database link, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">oralin</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">k</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">SELECT * FROM emp@oralink;</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">empno | ename  |    job    | mgr  |      hiredate      | sal  | comm | deptno</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">-------+--------+-----------+------+--------------------+------+------+--------</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7369 | SMITH  | CLERK     | 7902 | 17-DEC-80 00:00:00 |  800 |      |     20</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7499 | ALLEN  | SALESMAN  | 7698 | 20-FEB-81 00:00:00 | 1600 |  300 |     30</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7521 | WARD   | SALESMAN  | 7698 | 22-FEB-81 00:00:00 | 1250 |  500 |     30</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7566 | JONES  | MANAGER   | 7839 | 02-APR-81 00:00:00 | 2975 |      |     20</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7654 | MARTIN | SALESMAN  | 7698 | 28-SEP-81 00:00:00 | 1250 | 1400 |     30</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7698 | BLAKE  | MANAGER   | 7839 | 01-MAY-81 00:00:00 | 2850 |      |     30</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7782 | CLARK  | MANAGER   | 7839 | 09-JUN-81 00:00:00 | 2450 |      |     10</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7788 | SCOTT  | ANALYST   | 7566 | 19-APR-87 00:00:00 | 3000 |      |     20</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7839 | KING   | PRESIDENT |      | 17-NOV-81 00:00:00 | 5000 |      |     10</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7844 | TURNER | SALESMAN  | 7698 | 08-SEP-81 00:00:00 | 1500 |    0 |     30</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7876 | ADAMS  | CLERK     | 7788 | 23-MAY-87 00:00:00 | 1100 |      |     20</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7900 | JAMES  | CLERK     | 7698 | 03-DEC-81 00:00:00 |  950 |      |     30</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7902 | FORD   | ANALYST   | 7566 | 03-DEC-81 00:00:00 | 3000 |      |     20</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7934 | MILLER | CLERK     | 7782 | 23-JAN-82 00:00:00 | 1300 |      |     10</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">(14 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Create a private database link named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">link</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, to a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, located on localhost, running on port 5443. Connect to the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database with username, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enterprisedb</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and password, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">password</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE DATABASE LINK edblink CONNECT TO enterprisedb IDENTIFIED BY 'password' USING libpq 'host=localhost port=5443 dbname=edb';</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Display attributes of database links, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">oralink</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edblink</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, from the local </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb_dblink</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> system table:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT lnkname, lnkuser, lnkconnstr FROM pg_catalog.edb_dblink;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> lnkname |   lnkuser    |             lnkconnstr</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">---------+--------------+-------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> oralink | edb          | //127.0.0.1:1521/xe</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> edblink | enterprisedb | host=localhost port=5443 dbname=edb</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(2 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Perform a join of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table from the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">dept</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table from the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT d.deptno, d.dname, e.empno, e.ename, e.job, e.sal, e.comm FROM emp@oralink e, dept@edblink d WHERE e.deptno = d.deptno ORDER BY 1, 3;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">deptno |   dname    | empno | ename  |    job    | sal  | comm</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------+------------+-------+--------+-----------+------+------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     10 | ACCOUNTING |  7782 | CLARK  | MANAGER   | 2450 |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     10 | ACCOUNTING |  7839 | KING   | PRESIDENT | 5000 |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     10 | ACCOUNTING |  7934 | MILLER | CLERK     | 1300 |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     20 | RESEARCH   |  7369 | SMITH  | CLERK     |  800 |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     20 | RESEARCH   |  7566 | JONES  | MANAGER   | 2975 |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     20 | RESEARCH   |  7788 | SCOTT  | ANALYST   | 3000 |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     20 | RESEARCH   |  7876 | ADAMS  | CLERK     | 1100 |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     20 | RESEARCH   |  7902 | FORD   | ANALYST   | 3000 |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     30 | SALES      |  7499 | ALLEN  | SALESMAN  | 1600 |  300</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     30 | SALES      |  7521 | WARD   | SALESMAN  | 1250 |  500</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     30 | SALES      |  7654 | MARTIN | SALESMAN  | 1250 | 1400</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     30 | SALES      |  7698 | BLAKE  | MANAGER   | 2850 |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     30 | SALES      |  7844 | TURNER | SALESMAN  | 1500 |    0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     30 | SALES      |  7900 | JAMES  | CLERK     |  950 |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(14 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-66.htm#P3311_185235"><u>DROP DATABASE LINK</u></a></span></p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-48.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-49_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-49_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-50.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-49_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-49_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-49_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

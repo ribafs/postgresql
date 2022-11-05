@@ -1,0 +1,259 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2076"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-139_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-138.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-139_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-139_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-140.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-139_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P7213_403248"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.5.1 IF Statement</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statements let you execute commands based on certain conditions</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> has four forms of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF ... THEN</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF ... THEN ... ELSE</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF ... THEN ... ELSE IF</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF ... THEN ... ELSIF ... THEN ... ELSE</span></p>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">4.5.1.1 IF-THEN</span></p></div><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>boolean-expression</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> THEN</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">statemen</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ts</span></i>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">END IF;</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF-THEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statements are the simplest form of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The statements between </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">THEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">END IF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> will be executed if the condition is true. Otherwise, they are skipped.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In the following example an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF-THEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement is used to test and display employees who have a commission.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_empno         emp.empno%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_comm          emp.comm%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CURSOR emp_cursor IS SELECT empno, comm FROM emp; </span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    OPEN emp_cursor;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('EMPNO    COMM');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('-----    -------');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FETCH emp_cursor INTO v_empno, v_comm;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        EXIT WHEN emp_cursor%NOTFOUND;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--  Test whether or not the employee gets a commission</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        IF v_comm IS NOT NULL AND v_comm &gt; 0 THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            DBMS_OUTPUT.PUT_LINE(v_empno || '  ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(v_comm,'$99999.99'));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CLOSE emp_cursor;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is the output from this program.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EMPNO    COMM</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----    -------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7499     $300.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7521     $500.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7654    $1400.00</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;"><a name="P7252_404501"></a>4.5.1.2 IF-THEN-ELSE</span></p></div><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>boolean-expression</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> THEN</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ELSE</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">END IF;</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF-THEN-ELSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statements add to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">I</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">F-THEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> by letting you specify an alternative set of statements that should be executed if the condition evaluates to false.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The previous example is modified so an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF-THEN-ELSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement is used to display the text </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">Non-commission</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> if the employee does not get a commission.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_empno         emp.empno%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_comm          emp.comm%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CURSOR emp_cursor IS SELECT empno, comm FROM emp; </span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    OPEN emp_cursor;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('EMPNO    COMM');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('-----    -------');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FETCH emp_cursor INTO v_empno, v_comm;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        EXIT WHEN emp_cursor%NOTFOUND;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--  Test whether or not the employee gets a commission</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        IF v_comm IS NOT NULL AND v_comm &gt; 0 THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            DBMS_OUTPUT.PUT_LINE(v_empno || '  ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            TO_CHAR(v_comm,'$99999.99'));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        ELSE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            DBMS_OUTPUT.PUT_LINE(v_empno || '     ' || 'Non-commission');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CLOSE emp_cursor;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is the output from this program.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EMPNO    COMM</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----    -------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7369     Non-commission</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7499  $   300.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7521  $   500.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7566     Non-commission</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7654  $  1400.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7698     Non-commission</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7782     Non-commission</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7788     Non-commission</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7839     Non-commission</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7844     Non-commission</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7876     Non-commission</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7900     Non-commission</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7902     Non-commission</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7934     Non-commission</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">4.5.1.3 IF-THEN-ELSE IF</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statements can be nested so that alternative </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statements can be invoked once it is determined whether or not the conditional of an outer </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement is true or false.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In the following example the outer </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF-THEN-ELSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement tests whether or not an employee has a commission. The inner </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF-THEN-ELSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statements then test whether the employee&#8217;s total compensation exceeds or is less than the company average.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_empno         emp.empno%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_sal           emp.sal%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_comm          emp.comm%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_avg           NUMBER(7,2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CURSOR emp_cursor IS SELECT empno, sal, comm FROM emp; </span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--  Calculate the average yearly compensation in the company</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    SELECT AVG((sal + NVL(comm,0)) * 24) INTO v_avg FROM emp;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Average Yearly Compensation: ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        TO_CHAR(v_avg,'$999,999.99'));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    OPEN emp_cursor;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('EMPNO    YEARLY COMP');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('-----    -----------');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FETCH emp_cursor INTO v_empno, v_sal, v_comm;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        EXIT WHEN emp_cursor%NOTFOUND;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--  Test whether or not the employee gets a commission</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        IF v_comm IS NOT NULL AND v_comm &gt; 0 THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--  Test if the employee's compensation with commission exceeds the average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            IF (v_sal + v_comm) * 24 &gt; v_avg THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                DBMS_OUTPUT.PUT_LINE(v_empno || '  ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                    TO_CHAR((v_sal + v_comm) * 24,'$999,999.99') ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                    ' Exceeds Average');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            ELSE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                DBMS_OUTPUT.PUT_LINE(v_empno || '  ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                    TO_CHAR((v_sal + v_comm) * 24,'$999,999.99') ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                    ' Below Average');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        ELSE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--  Test if the employee's compensation without commission exceeds the average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            IF v_sal * 24 &gt; v_avg THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                DBMS_OUTPUT.PUT_LINE(v_empno || '  ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                    TO_CHAR(v_sal * 24,'$999,999.99') || ' Exceeds Average');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            ELSE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                DBMS_OUTPUT.PUT_LINE(v_empno || '  ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                    TO_CHAR(v_sal * 24,'$999,999.99') || ' Below Average');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CLOSE emp_cursor;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><b><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note:</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span></b><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The logic in this progra</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">m can be simplified considerably by calculating the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">employee&#8217;s </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">yearly compensation using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NVL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function within the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command of the cursor declaration, however, the purpose of this example is to demonstrate how </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statements can be used.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The following is the output from this program.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Average Yearly Compensation: $  53,528.57</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EMPNO    YEARLY COMP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----    -----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7369  $  19,200.00 Below Average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7499  $  45,600.00 Below Average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7521  $  42,000.00 Below Average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7566  $  71,400.00 Exceeds Average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7654  $  63,600.00 Exceeds Average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7698  $  68,400.00 Exceeds Average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7782  $  58,800.00 Exceeds Average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7788  $  72,000.00 Exceeds Average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7839  $ 120,000.00 Exceeds Average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7844  $  36,000.00 Below Average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7876  $  26,400.00 Below Average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7900  $  22,800.00 Below Average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7902  $  72,000.00 Exceeds Average</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7934  $  31,200.00 Below Average</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When you use this form, you are actually nesting an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement inside the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ELSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> part of an outer </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Thus you need one </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">END IF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement for each nested </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and on</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">e for the parent </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF-ELSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">4.5.1.4 IF-THEN-ELSIF-ELSE</span></p></div><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  IF </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>boolean-expression</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> THEN</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">[ ELSIF </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">boolean-expression</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> THEN</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">[ ELSIF </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">boolean-expression</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> THEN</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">[ ELSE</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statements</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  END IF;</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF-THEN-ELSIF-ELSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> provides a me</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">thod of checking many alternatives in one statement</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Formally it is equivalent to nested </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF-THEN-ELSE-IF-THEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands, but only one </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">END IF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is needed.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example uses an </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IF-THEN-ELSIF-ELSE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement to count the number of employees by compensation ranges of $25,000.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_empno         emp.empno%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_comp          NUMBER(8,2);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_lt_25K        SMALLINT := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_25K_50K       SMALLINT := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_50K_75K       SMALLINT := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_75K_100K      SMALLINT := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_ge_100K       SMALLINT := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CURSOR emp_cursor IS SELECT empno, (sal + NVL(comm,0)) * 24 FROM emp; </span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    OPEN emp_cursor;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FETCH emp_cursor INTO v_empno, v_comp;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        EXIT WHEN emp_cursor%NOTFOUND;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        IF v_comp &lt; 25000 THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            v_lt_25K := v_lt_25K + 1;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        ELSIF v_comp &lt; 50000 THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            v_25K_50K := v_25K_50K + 1;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        ELSIF v_comp &lt; 75000 THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            v_50K_75K := v_50K_75K + 1;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        ELSIF v_comp &lt; 100000 THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            v_75K_100K := v_75K_100K + 1;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        ELSE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            v_ge_100K := v_ge_100K + 1;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CLOSE emp_cursor;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Number of employees by yearly compensation');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Less than 25,000 : ' || v_lt_25K);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('25,000 - 49,9999 : ' || v_25K_50K);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('50,000 - 74,9999 : ' || v_50K_75K);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('75,000 - 99,9999 : ' || v_75K_100K);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('100,000 and over : ' || v_ge_100K);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is the output from this program.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Number of employees by yearly compensation</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Less than 25,000 : 2</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">25,000 - 49,9999 : 5</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">50,000 - 74,9999 : 6</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">75,000 - 99,9999 : 0</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">100,000 and over : 1</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-138.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-139_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-139_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-140.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-139_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-139_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-139_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

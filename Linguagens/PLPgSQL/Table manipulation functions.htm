@@ -1,0 +1,95 @@
+
+
+<html>
+<head>
+
+<title>View Recipes</title>
+</head>
+<body bgcolor=white text=black>
+
+
+
+
+<h2>Recipes in section "Table manipulation functions"</h2>
+<a href='/'>Home</a> -> <a href='/postgres'>Postgres</a> -> <a href='/postgres/cookbook'>CookBook Home</a> -> View Recipes
+<hr>
+
+<hr>
+<a href='view-one-recipe.adp?recipe_id=5555'>View details of this recipe</a>
+<br>
+This is a function that will drop a column of a table. The column must not have any sort of constraint on it (pk, fk, trigger, ecc...). It has to be a plain column. This is not a function meant to replace database functionalities but to help so that a person must not type in al lot of SQL code. Just call the function with SELECT (&#39;table_name&#39;,&#39;column_name&#39;); It is not complete but it works. If you have any suggestions or modifications that you want to make please do not hesitate. My email is veramente@libero.it
+
+</pre>
+<p>
+<pre>
+drop function dropcol(varchar,varchar);
+create function dropcol(varchar,varchar) returns text as '
+declare
+	table alias for $1;
+	column alias for $2;
+	has_fkey bool;
+	table_id int;
+	x record;
+	goout bool := false;
+	sqlstr text := '' ''; -- start with empty otherwise it will always be null ..
+	sqlins text := '' ''; -- here store the columns that will remain ..
+	sqlrename text := '' '';
+	sqldrop text := '' '';
+	names text := ''''; -- only for test purposes 
+begin
+/* ###################################################################################################### */
+-- simplest case .. drop a column that has no contraints on it..
+	-- find the filenode int of the tables (for extracting the column names..)
+	select into table_id relfilenode from pg_class where relname like table;
+	-- start creating the new sqlstr for creating the new table 
+	sqlstr := sqlstr || ''CREATE TABLE '' || table || ''_new ('';
+	-- find all the columns of the table and their datatype and put them in sqlstr
+	for x in select attname, typname, attnotnull from pg_attribute, pg_type where 
+	attrelid = table_id and attname <> ''cmax'' and attname <> ''cmin'' and 
+	attname <> ''ctid'' and attname <> ''tableoid'' and attname <> ''xmax'' and 
+	attname <> ''xmin'' and attname <> ''oid'' and pg_attribute.atttypid=pg_type.oid 
+	order by attrelid desc loop
+
+	if x.attname::varchar = column and x.attnotnull = true then
+		goout := true;
+	end if;	
+	-- include every column except the one we want to delete .. 
+		if x.attname::varchar <> column then -- cast the colname as varchar otherwise the function will not work ..
+			sqlstr := sqlstr ||  x.attname || '' '' || x.typname || '','';
+			-- store also the columns for later insertion of data
+			sqlins := sqlins || x.attname || '','';
+		end if;
+	end loop;
+	if goout = false then
+		sqlstr := left(sqlstr, length(sqlstr)-1);
+		sqlstr := sqlstr || '')'';
+		-- create the new table
+		execute sqlstr;
+		-- drop the data from the old table into the new one but before clean the sql string from extra commas
+		sqlins := left(sqlins,length(sqlins)-1);
+		sqlins := ''INSERT INTO '' || table || ''_new SELECT '' || sqlins || '' FROM '' || table;
+		execute sqlins;
+		-- Now drop the old table ..
+		sqldrop := sqldrop || ''DROP TABLE '' || table;
+		execute sqldrop;
+		-- And rename the new table as the old one ..	
+		sqlrename := ''alter table '' ||  table || ''_new rename to '' || table;
+		execute sqlrename;
+	else
+		raise exception ''Column cannot be dropped'';
+	end if;
+	-- return sqlstr;
+	return ''Column '' || column || '' dropped'';
+/* ####################################################################################################### */
+end; '
+language 'plpgsql';
+</pre>
+
+
+
+
+
+<hr>
+<a href="mailto:rmello@fslc.usu.edu"><address>rmello@fslc.usu.edu</address></a>
+</body>
+</html>

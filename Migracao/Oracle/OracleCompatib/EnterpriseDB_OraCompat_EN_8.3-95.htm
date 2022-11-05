@@ -1,0 +1,177 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2032"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-95_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-94.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-95_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-95_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-96.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-95_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P4418_265667"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.4.3 Joining Relations Hints</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When two tables are to be joined, there are three possible plans that may be used to perform the join.</span></p>
+
+  <div style="margin-left: 36pt;"><p><i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Nested Loop Join</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> &#8211; The right table is scanned once for every row in the left table.</span></p>
+
+  <p><i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Merge Sort Join</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+&#8211; Each table is sorted on the join attributes before the join starts.
+The two tables are then scanned in parallel and the matching rows are
+combined to form the join rows.</span></p>
+
+  <p><i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">H</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ash Join</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+&#8211; The right table is scanned and its join attributes are loaded into a
+hash table using its join attributes as hash keys. The left table is
+then scanned and its join attributes are used as hash keys to locate
+the matching rows from the right table.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+following table lists the optimizer hints that can be used to influence
+the planner to use one type of join plan over another.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;"><a name="P4424_266474"></a>Table 3-12 Join Hints</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="241"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Hint</span></p>
+</td>
+<td valign="top" width="336"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">USE_HASH(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [...])</span></p>
+</td>
+<td valign="top" width="336"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Use a hash joi</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n with a hash table created from the join attributes of </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NO_USE_HASH(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [...])</span></p>
+</td>
+<td valign="top" width="336"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Do not use a hash join created from the join attributes of </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">USE_MERGE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [...])</span></p>
+</td>
+<td valign="top" width="336"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Use a merge sort join for </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NO_USE_MERGE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [...])</span></p>
+</td>
+<td valign="top" width="336"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Do not use a merg</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">e sort join for </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">USE_NL(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [...])</span></p>
+</td>
+<td valign="top" width="336"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Use a nested loop join for </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NO_USE_NL(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [...])</span></p>
+</td>
+<td valign="top" width="336"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Do not use a nested loop join for </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In the following example, a join is performed on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">branches</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">accounts</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> tables. The query plan shows that a hash join is used by creating a hash table from the join attribute of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">branches</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXPLAIN SELECT b.bid, a.aid, abalance FROM branches b, accounts a WHERE b.bid = a.bid;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                                QUERY PLAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------------------------------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> Hash Join  (cost=1.11..20092.70 rows=500488 width=12)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Hash Cond: (a.bid = b.bid)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   -&gt;  Seq Scan on accounts a  (cost=0.00..13209.88 rows=500488 width=12)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   -&gt;  Hash  (cost=1.05..1.05 rows=5 width=4)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         -&gt;  Seq Scan on branches b  (cost=0.00..1.05 rows=5 width=4)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(5 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">By using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">USE_HASH</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">(a</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> hint, the planner is forced to create the hash table from the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">accounts</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> join attribute instead of from the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">branches</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table. Note the use of the alias, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">a</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, for the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">accounts</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">USE_HASH</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> hint.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXPLAIN SELECT /*+ USE_HASH(a) */ b.bid, a.aid, abalance FROM branches b, accounts a WHERE b.bid = a.bid;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                                   QUERY PLAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------------------------------------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> Hash Join  (cost=21909.98..30011.52 rows=500488 width=12)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Hash Cond: (b.bid = a.bid)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   -&gt;  Seq Scan on branches b  (cost=0.00..1.05 rows=5 width=4)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   -&gt;  Hash  (cost=13209.88..13209.88 rows=500488 width=12)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         -&gt;  Seq Scan on accounts a  (cost=0.00..13209.88 rows=500488 width=12)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(5 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Next, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NO_USE_HASH(a b)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> hint forces the planner to use an approach other than hash tables. The result is a nested loop.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXPLAIN SELECT /*+ NO_USE_HASH(a b) */ b.bid, a.aid, abalance FROM branches b, accounts a WHERE b.bid = a.bid;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                                QUERY PLAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------------------------------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> Nested Loop  (cost=1.05..69515.84 rows=500488 width=12)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Join Filter: (b.bid = a.bid)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   -&gt;  Seq Scan on accounts a  (cost=0.00..13209.88 rows=500488 width=12)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   -&gt;  Materialize  (cost=1.05..1.11 rows=5 width=4)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         -&gt;  Seq Scan on branches b  (cost=0.00..1.05 rows=5 width=4)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(5 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Finally, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">USE_MERGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> hint forces the planner to use a merge join.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXPLAIN SELECT /*+ USE_MERGE(a) */ b.bid, a.aid, abalance FROM branches b, accounts a WHERE b.bid = a.bid;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                                   QUERY PLAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------------------------------------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> Merge Join  (cost=69143.62..76650.97 rows=500488 width=12)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Merge Cond: (b.bid = a.bid)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   -&gt;  Sort  (cost=1.11..1.12 rows=5 width=4)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         Sort Key: b.bid</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         -&gt;  Seq Scan on branches b  (cost=0.00..1.05 rows=5 width=4)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   -&gt;  Sort  (cost=69142.52..70393.74 rows=500488 width=12)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         Sort Key: a.bid</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         -&gt;  Seq Scan on accounts a  (cost=0.00..13209.88 rows=500488 width=12)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(8 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In this three-table join example, the planner first performs a hash join on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">branches</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">history</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> tables, then finally performs a nested loop join of the result with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">accounts_pkey</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> index of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">accounts</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXPLAIN SELECT h.mtime, h.delta, b.bid, a.aid FROM history h, branches b, accounts a WHERE h.bid = b.bid AND h.aid = a.aid;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                                      QUERY PLAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------------------------------------------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> Nested Loop  (cost=1.11..207.95 rows=26 width=20)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   -&gt;  Hash Join  (cost=1.11..25.40 rows=26 width=20)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         Hash Cond: (h.bid = b.bid)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         -&gt;  Seq Scan on history h  (cost=0.00..20.20 rows=1020 width=20)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         -&gt;  Hash  (cost=1.05..1.05 rows=5 width=4)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">               -&gt;  Seq Scan on branches b  (cost=0.00..1.05 rows=5 width=4)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   -&gt;  Index Scan using accounts_pkey on accounts a  (cost=0.00..7.01 rows=1</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       width=4)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         Index Cond: (h.aid = a.aid)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(8 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This plan is altered by using hints to force a combination of a merge sort join and a hash join.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXPLAIN SELECT /*+ USE_MERGE(h b) USE_HASH(a) */ h.mtime, h.delta, b.bid, a.aid FROM history h, branches b, accounts a WHERE h.bid = b.bid AND h.aid = a.aid;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                                        QUERY PLAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------------------------------------------------------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> Merge Join  (cost=23480.11..23485.60 rows=26 width=20)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Merge Cond: (h.bid = b.bid)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   -&gt;  Sort  (cost=23479.00..23481.55 rows=1020 width=20)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         Sort Key: h.bid</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         -&gt;  Hash Join  (cost=21421.98..23428.03 rows=1020 width=20)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">               Hash Cond: (h.aid = a.aid)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">               -&gt;  Seq Scan on history h  (cost=0.00..20.20 rows=1020</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                   width=20)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">               -&gt;  Hash  (cost=13209.88..13209.88 rows=500488 width=4)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                     -&gt;  Seq Scan on accounts a  (cost=0.00..13209.88</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                         rows=500488 width=4)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   -&gt;  Sort  (cost=1.11..1.12 rows=5 width=4)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         Sort Key: b.bid</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         -&gt;  Seq Scan on branches b  (cost=0.00..1.05 rows=5 width=4)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(12 rows)</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-94.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-95_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-95_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-96.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-95_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-95_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-95_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

@@ -1,0 +1,5 @@
+DCL - Data Control Language
+
+Constituída pelos comandos responsáveis pela administração dos usuários, grupos e privilégios.
+
+

@@ -1,0 +1,46 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>DBMS_OUTPUT.DISABLE</title>
+
+<meta name="keywords" content="dbms_output.disable, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2139"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-202_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-201.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-202_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-202_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-203.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-202_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P10161_543581"></a><span style="font-family: 'Arial'; font-size: 13pt;">7.2.2 DISABLE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DISABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure clears out the message buffer. Any messages in the buffer at the time the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DISABL</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">E</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure is executed will no longer be accessible. Any messages subsequently sent with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUT_LINE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEW_LINE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedures are discarded. No error is returned to the sender when the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PUT_LINE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEW_LINE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedures are executed and messages have been disabled.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Use the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ENABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SERVEROUTPUT(TRUE)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure to re-enable the sending and receiving of messages.</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DISABLE</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This anonymous block disables the sending and receiving messages in the current session.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.DISABLE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-201.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-202_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-202_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-203.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-202_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-202_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-202_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

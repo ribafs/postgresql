@@ -1,0 +1,21 @@
+Funções de Agregação
+
+Estas funções computam um resultado simples de um conjunto de valores.
+
+avg
+count(campo)
+count(*)
+max
+min
+stdder
+sum
+variance
+
+Todas ignoram campos com valor null, exceto count(*)
+
+select funcao(campo) from tabela where clausula;
+
+SUM
+select salario, sum(salario) over (order by salario) from empregados;
+
+

@@ -1,0 +1,33 @@
+sudo apt-get install build-essential libreadline5-dev zlib1g-dev gettext
+
+sudo ./configure
+sudo make
+sudo make install
+sudo groupadd postgres
+sudo useradd -g postgres -d /usr/local/pgsql postgres
+sudo mkdir /usr/local/pgsql/data
+sudo chown postgres:postgres /usr/local/pgsql/data
+sudo passwd postgres
+su – postgres
+bin/initdb -D /usr/local/pgsql/data
+bin/pg_ctl -D /usr/local/pgsql/data start
+bin/createdb teste
+bin/psql teste
+
+Isso irá criar um clustar com encoding UTF-8 (default do Ubuntu)
+
+Caso prefira iso-8859-1, antes de executar o initdb, exporta a variável LANG:
+export LANG=pt_BR.iso-8859-1
+bin/initdb --encoding latin1 -D /usr/local/pgsql/data
+
+Copiar o script de inicialização "linux" para o /etc/init.d
+sudo cp /usr/local/src/postgresql-8.3.0/contrib/start-script/linux /etc/init.d/postgresql-8.3.0
+
+Dar permissão de execução ao script:
+sudo chmod u+x /etc/init.d/postgresql-8.3.0
+
+Adicionar ao Path
+su - postgres
+gedit /etc/bash.bashrc (e adicione a linha abaixo):
+PATH=/usr/local/pgsql/bin:$PATH
+

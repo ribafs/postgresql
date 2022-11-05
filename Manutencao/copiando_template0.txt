@@ -1,0 +1,40 @@
+Para criar um banco de dados copiando template0 deve ser utilizado:
+
+CREATE DATABASE nome_do_banco_de_dados TEMPLATE template0;
+
+a partir do ambiente SQL, ou
+createdb -T template0 nome_do_banco_de_dados
+
+a partir do interpretador de comandos.
+
+É possível criar bancos de dados modelo adicionais e, na verdade, pode ser copiado qualquer banco de dados do agrupamento especificando seu nome como modelo no comando CREATE DATABASE.
+
+Para recriar o banco de dados template1 é necessário: se conectar a outro banco de dados (teste neste exemplo); atualizar o catálogo pg_database para que o banco de dados template1 não fique marcado como um banco de dados modelo; remover e criar o banco de dados template1; conectar ao banco de dados template1; executar os comandos VACUUM FULL e VACUUM FREEZE; atualizar o catálogo do sistema pg_database para que o banco de dados template1 volte a ficar marcado como um banco de dados modelo.
+
+Abaixo está mostrada a seqüência de comandos utilizada:
+
+template1=#  DROP DATABASE template1;
+ERRO:  não é possível remover o banco de dados aberto atualmente
+template1=#  \c teste
+Conectado ao banco de dados "teste".
+teste=#  DROP DATABASE template1;
+ERRO:  não é possível remover um banco de dados modelo
+teste=#  UPDATE pg_database SET datistemplate=false WHERE datname='template1';
+UPDATE 1
+teste=#  DROP DATABASE template1;
+DROP DATABASE
+teste=#  CREATE DATABASE template1 TEMPLATE template0 ENCODING 'latin1';
+CREATE DATABASE
+teste=#  \c template1
+Conectado ao banco de dados "template1".
+template1=#  VACUUM FULL;
+VACUUM
+template1=#  VACUUM FREEZE;
+VACUUM
+template1=#  UPDATE pg_database SET datistemplate=true WHERE datname='template1';
+UPDATE 1
+
+
+Para criar um banco de dados vazio, sem nenhuma adição local, deve-se fazê-lo a partir de template0, e não de template1 como, por exemplo:
+
+CREATE DATABASE banco WITH TEMPLATE template0;

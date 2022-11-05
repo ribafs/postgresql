@@ -1,0 +1,5 @@
+
+
+UPDATE playground SET color = 'red' WHERE type = 'swing';
+
+

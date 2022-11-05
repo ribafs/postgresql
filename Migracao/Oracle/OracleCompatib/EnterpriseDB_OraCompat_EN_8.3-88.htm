@@ -1,0 +1,70 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>SET ROLE</title>
+
+
+<meta name="keywords" content="set role, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2025"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-88_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-87.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-88_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-88_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-89.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-88_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P4076_242665"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.50 SET ROLE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SET ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;set the current user identifier of the current session</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><a name="P4080_242760"></a>SET ROLE { </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>rolename</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | NONE }</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P4081_242788"></a>Description</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This command sets the current user identifier of the current </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> session context to be </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>rolename</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. After </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SET ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, permissions checking for </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands is carried out as though the named role were the one that had logged in originally.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The specified </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>rolename</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> must be a role that the current session user is a member of. (If the session user is a superuser, any role can be selected.)</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NONE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> resets the current user identifier to be the current session user identifier. These forms may be executed by any user.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Notes</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Using this command, it is possible to either add privileges or restrict one&#8217;s privileges. If the session user role has the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INHERITS</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> attribute, then it automatically has all the privileges of every role that it could </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SET ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to; in this case </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SET ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+effectively drops all the privileges assigned directly to the session
+user and to the other roles it is a member of, leaving only the
+privileges available to the named role. On the other hand, if the
+session user role has the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOINHERITS</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> attribute, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SET ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> drops the privileges assigned directly to the session user and instead acquires the privileges available to the named role.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In particular, when a superuser chooses to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SET ROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to a non-superuser role, she loses her superuser privileges.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P4088_244053"></a>Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">User </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">mary</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> takes on the identify of role </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">admins</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SET ROLE admins;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P4091_244124"></a>User </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">mary</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> reverts back to her own identity:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SET ROLE NONE;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-40.htm#P1990_108090"><u>ALTER ROLE</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-57.htm#P2834_151880"><u>CREATE ROLE</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-72.htm#P3414_188620"><u>DROP ROLE</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-79.htm#P3540_194132"><u>GRANT</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-82.htm#P3719_213724"><u>REVOKE</u></a></span></p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-87.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-88_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-88_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-89.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-88_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-88_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-88_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

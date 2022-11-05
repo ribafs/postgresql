@@ -1,0 +1,60 @@
+SHOW
+
+Diversos comandos e configurações podem ser monitoradas com o comando SHOW.
+É uma extensão do PostgreSQL muito útil ao administrador.
+
+Deve ser executado com um parâmetro de cada vez.
+Não permite o uso combinado com comandos SQL.
+
+Sintaxe:
+
+SHOW nome_parametro;
+
+SHOW ALL;
+
+
+Exemplos:
+
+Exibindo todos os parâmetros de configuração:
+
+SHOW ALL;
+
+
+Exibindo o estilo de datas:
+
+SHOW datestyle;
+
+
+
+RESET
+
+Este comando devolve o valor original para um parâmetro.
+
+Sintaxe:
+
+RESET nome_parametro;
+
+RESET ALL;
+
+Cuidado com o uso do RESET ALL. Só use com extrema segurança do que está fazendo, desde que pode levar o SGBD a um comportamente inexperado.
+
+
+SHOW datestyle;
+SET datestyle to SQL, DMY;
+SHOW datestyle;
+RESET datestyle;
+SHOW datestyle;
+
+
+Criando Variáveis de Ambiente no Windows:
+SET PGDATA=C:/Program Files/PostgreSQL/8.2/data
+
+Chamando:
+echo %PGDATA%
+
+Usando com o comando pg_controldata (devolve diversas informações sobre o PostgreSQL):
+pg_controldata
+
+Chamando sem criar a variável:
+pg_controldata "C:/Program Files/PostgreSQL/8.2/data"
+

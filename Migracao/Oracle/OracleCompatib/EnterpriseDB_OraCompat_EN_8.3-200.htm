@@ -1,0 +1,134 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>DBMS_OUTPUT</title>
+
+<meta name="keywords" content="dbms_output, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2137"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-200_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-199.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-200_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-200_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-201.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-200_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 28pt;"><p><a name="P10113_542207"></a><span style="font-family: 'Arial'; font-size: 14pt;"><i>7.2 DBMS_OUTPUT</i></span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DBMS_</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OUTPUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+package provides the capability to send messages (lines of text) to a
+message buffer, or get messages from the message buffer. A message
+buffer is local to a single session. Use the <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-210.htm#P10429_555720">DBMS_PIPE</a></u> package to send messages between sessions.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The procedures and functions available in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DBMS_</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OUTPUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package are listed in the following table.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 7-2 DBMS_OUTPUT Functions/Procedures</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="241"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function/Procedure</span></p>
+</td>
+<td valign="top" width="72"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Return Type</span></p>
+</td>
+<td valign="top" width="264"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DISABLE</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Disable the capability to send and receive messages.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ENABLE</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>buffer_size</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Enable the </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">capability to send and receive messages.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">GET_LINE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>line</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> OUT, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>status</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> OUT)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get a line from the message buffer.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">GET_LINES(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>lines</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> OUT, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>numlines</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> IN OUT)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get multiple lines from the message buffer.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NEW_LINE</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Puts an end-of-line character sequence.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">P</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">UT(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>item</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Puts a partial line without an end-of-line character sequence.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">PUT_LINE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>item</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Puts a complete line with an end-of-line character sequence.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SERVEROUTPUT(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>stdout</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n/a</span></p>
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Direct messages from </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">PUT</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">PUT_LINE</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, or </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NEW_LINE</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to either standard output</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> or the message buffer.</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following table lists the public variables available in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DBMS_OUTPUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> package.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 7-3 DBMS_OUTPUT Public Variables</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="193"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Public Variables</span></p>
+</td>
+<td valign="top" width="72"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Data Type</span></p>
+</td>
+<td valign="top" width="48"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Value</span></p>
+</td>
+<td valign="top" width="264"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="193"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">chararr</span></p>
+</td>
+<td valign="top" width="72"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TABLE</span></p>
+</td>
+<td valign="top" width="48">&nbsp;
+</td>
+<td valign="top" width="264"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">For message lines.</span></p>
+<p><a name="P10157_543453"></a></p></td></tr></tbody></table>
+
+</p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-199.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-200_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-200_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-201.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-200_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-200_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-200_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

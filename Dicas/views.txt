@@ -1,0 +1,75 @@
+					Criando e Usando uma View
+
+Uma view é uma consulta armazenada no banco.
+
+Criar uma view que trabalhe na tabela clientes do esquema clientea (datas no estilo dmy).
+
+CREATE VIEW v_clientes_aniversariantes AS
+SELECT nome, data_nascimento
+FROM clientea.clientes
+WHERE SUBSTRING(data_nascimento FROM 1 FOR 5) =
+SUBSTRING(CURRENT_DATE FROM 1 FOR 5);
+Executar a view (como se fosse uma tabela):
+SELECT * FROM v_clientes_aniversariantes;
+
+ou
+
+SELECT * FROM v_clientes_aniversariantes
+ORDER BY data_nascimento DESC LIMIT 10;
+
+Caso não tenha nenhum registro retornando, alterar um registro para que sua data_nascimento seja hoje:
+
+update clientea.clientes set data_nascimento=current_date where data_nascimento='12/07/1965';
+Como acidentalmente se pode executar comandos insert, update e delete em views, podemos prevenir isso com uma rule:
+
+CREATE RULE v_clientes_ins_protect AS ON INSERT TO v_clientes_aniversariantes
+DO INSTEAD NOTHING;
+
+CREATE RULE v_clientes_upd_protect AS ON UPDATE TO v_clientes_aniversariantes
+DO INSTEAD NOTHING;
+
+CREATE RULE v_clientes_del_protect AS ON DELETE TO v_clientes_aniversariantes
+DO INSTEAD NOTHING;
+
+CREATE VIEW recent_shipments
+AS SELECT count(*) AS num_shipped, max(ship_date), title
+FROM shipments
+JOIN editions USING (isbn)
+NATURAL JOIN books AS b (book_id)
+GROUP BY b.title
+ORDER BY num_shipped DESC;
+
+Usando Uma View
+
+SELECT * FROM recent_shipments;
+
+SELECT * FROM recent_shipments
+ORDER BY max DESC
+LIMIT 3;
+
+Destruindo Uma View
+
+DROP VIEW nomeview;
+
+Criar as Tabelas que servirão de Base
+
+CREATE TABLE client (
+clientid SERIAL NOT NULL PRIMARY KEY,
+clientname VARCHAR(255)
+);
+
+CREATE TABLE clientcontact (
+contactid SERIAL NOT NULL PRIMARY KEY,
+clientid int CONSTRAINT client_contact_check REFERENCES client(clientid),
+name VARCHAR(255),
+phone VARCHAR(255),
+fax VARCHAR(255),
+emailaddress VARCHAR(255)
+);
+
+CREATE VIEW client_contact_list AS
+SELECT client.clientid, clientname, name, emailaddress FROM client, clientcontact
+WHERE client.clientid = clientcontact.clientid;
+
+Estando no psql e digitando \d podemos visualizar também as views.
+

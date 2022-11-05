@@ -1,0 +1,48 @@
+#!/bin/bash
+# PostgreSQL database backup script - Copyright 2003 Edoceo Systems, Inc.
+#  This script is distributed under the terms of the GNU General Public
+#    License.  A copy is available at http://www.gnu.org/
+
+# Full path to the needed commands, or just name if in path
+pg_dump="/usr/bin/pg_dump"
+psql="/usr/bin/psql"
+# Database user name
+USER=postgres
+# Customise for your needs (note trailing slash)
+BACKUP_DIR="/edoceo/bak/"
+# These are here so you can see them, perhaps tweak your options
+DATA_OPTIONS="--data-only --inserts --column-inserts --format p --no-owner --no-reconnect -U $USER"
+SCHEMA_OPTIONS="--create --schema-only --format p --no-owner -U $USER"
+# zip files when done?
+ZIPIT="gzip -f"
+#Define this necessary function
+function backup_pg_database
+{
+  DATABASE=$1
+  # The output files
+  DATA_FILE="${BACKUP_DIR}${DATABASE}-data.sql"
+  SCHEMA_FILE="${BACKUP_DIR}${DATABASE}-schema.sql"
+  # Dump Data
+  #echo Dumping $DATABASE data to $DATA_FILE
+  $pg_dump $DATA_OPTIONS --file $DATA_FILE $DATABASE
+  # Dump Schema
+  #echo Dumping $DATABASE schema to $SCHEMA_FILE
+  $pg_dump $SCHEMA_OPTIONS --file $SCHEMA_FILE $DATABASE
+  if [ -n "$ZIPIT" ]; then
+    $ZIPIT $DATA_FILE
+    $ZIPIT $SCHEMA_FILE
+  fi
+}
+
+if [ -n "$1" ]; then
+  backup_pg_database $1
+else
+  # Get Database List
+  DB_LIST=`$psql -l -t -U $USER |cut -f1 -d\| |sed -e 's/ //g'`
+  for DB in $DB_LIST
+  do
+    if [ "$DB" != "template0" ] && [ "$DB" != "template1" ]; then
+      backup_pg_database $DB
+    fi
+  done
+fi

@@ -1,0 +1,40 @@
+Uso do iconv
+
+No Windows
+
+iconv -c -s -f iso-8859-1 -t cp1252 cep_brasil_unique.csv > cep_brasil_unique_1252.csv
+
+iconv -c -s -f iso-8859-1 -t utf-8 cep_brasil_unique.csv > cep_brasil_unique_utf8.csv
+
+
+Variáveis de Ambiente no Windows XP
+
+Criando no prompt
+set nome=valor
+
+Exibindo no prompt
+
+echo %nome%
+
+Pelo Painél de Controle
+
+Sistema - Avançado - variáveis de ambiente
+
+
+Converter partição de FAT32 para NTFS
+
+Iniciar - Executar:
+convert d: /fs:ntfs
+
+
+==================
+Serviços
+
+net start postgresql
+
+ sc <server> [command] [service name] <option1> <option2>...
+ 
+ create
+ delete
+ config
+ 

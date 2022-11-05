@@ -1,0 +1,210 @@
+Objetos grandes no banco
+Vamos l·:
+
+… importante vocÍ saber que na verdade sua imagem n„o È armazenada na tabela que vocÍ est· especificando, nesta sua tabela È apenas criado um OID que faz referÍncia a tabela pg_largeobject que È onde verdadeiramente est· armazenada a sua imagem.
+
+Para conseguir retornar a imagem em um select, vocÍ tem que especificar a imagem de retorno, por exemplo:
+
+select lo_export(oid_imagem,'/caminho/da/imagem.jpg')
+from minha_tabela
+where nome_imagem='minha_imagem');
+
+Caso vocÍ venha a fazer um delete da imagem, vocÍ tem que ter o seguinte cuidado:
+Se vocÍ deletar apenas a imagem da sua tabela, o objeto n„o ser· apagado, pois ele est· armazenado na tabela pg_largeobject, ent„o vocÍ precisa remover de l· tambÈm.
+
+Para deletar da pg_largeobject
+select lo_unlink(oid_imagem);
+ou
+select lo_unlink(oid_imagem)
+from minha_tabela where minha_imagem='imagem';
+
+Apagando da sua tabela:
+delete from minha_tabela where minha_imagem='imagem';
+
+Espero ter ajudado.
+
+[]s
+
+2008/5/7 Raphael Teixeira de Carvalho Matos <raphaelstinfler@gmail.com>:
+
+
+
+    2008/5/7 Marcos FabrÌcio Corso <marcoscorso@terra.com.br>:
+
+        ol· pessoal]
+        alguÈm trabalha com php e postgres, inserindo figuras no banco de dados ?
+        tÙ precisando de uma ajuda com isso ...
+         
+        ainda estou testando local, por isso o c:
+        para inserir no banco eu uso :
+        update escol215 set figura = lo_import ('c:/site/images/p2q6t4.jpg') where codigo = 2 and questao = 6 and tipo = 4 ;
+
+
+    Correto
+     
+
+        e para selecionar e mostrar a figura estou usando
+        select lo_export('c:/site/images/p2q6t4.jpg') from escol215 where codigo = 2 and questao = 6 and tipo = 4 ;
+         
+        est· correto ?
+        na parte de inserir/fazer update est· funcionando ...
+        e para selecionar, n„o estou conseguindo, como fazer ??
+
+
+    VocÍ tem q especificar o nome do campo antes de dar o caminho e o nome da imagem .. por exemplo   , pelo que eu vi o campo em que vocÍ armazena as fotos È figura ent„o ficaria da seguinte maneira :
+    select lo_export( figura , 'c:/site/images/p2q6t4.jpg') from escol215 where codigo = 2 and questao = 6 and tipo = 4 ;
+     
+
+        e depois que eu mudar para meu servidor, para o site, tenho que tirar o c:, como deve ficar o caminho ?
+
+------
+Convertendo MDB (Access) para PostgreSQL
+
+1) Instale o mdb-tools
+sudo aptitude install mdb-tools
+
+2) Rode o seguinte comando:
+mdb-schema arquivo.MDB | sed -e "s/Long//" | sed -e "s/Text/Varchar/" | sed -e "s/DateTime/Timestamp/" | sed -e "s/Short/0/" > esquema.sql
+Pode ser necess·rio acrescentar outros SED neste comando se o MDB tiver algum outro tipo de dado n„o suportado.
+
+3) Execute o script em anexo no arquivo MDB redirecionando para um arquivo.
+./dump-mdb.sh arquivo.MDB > dados.sql
+
+4) Pronto! O arquivo "esquema.sql" conter· o esquema e o arquivo "dados.sql" conter· os dados.
+Alexsander Rosa
+----------
+"Luciano Mittmann" <mittmann@gmail.com> escreveu:
+
+> Ol· a todos,
+>
+> Recentemente, aqui na CELEPAR, andaram me perguntado(sondando) sobre
+> alta disponibilidade, balanceamento de carga e replicaÁ„o sÌncrona no
+> postgres utilizando as ferramentas citadas no assunto desta mensagem.
+> Confesso que ainda n„o tive o prazer de test·-las mas j· lÌ uma parte
+> da documentaÁ„o e alguns howtos e fiquei bem curioso em ver a soluÁ„o
+> "como um todo" em funcionamento. Gostaria de saber se alguÈm da lista
+> j· botou o trio pra funcionar e queira compartilhar os resultados.
+
+ Sim, funciona bem, muito bem. O mais chato atÈ entender È o PL/Proxy,
+o resto È de boa.
+
+
+ Eles est„o j· empacotados para o Debian[1][2][3] mas o pgbouncer est·
+com bugs bobos[4] que corrigi mas ainda n„o foram para o repositÛrio
+do Debian[5]. :(
+
+
+
+ReferÍncias:
+
+1 - http://packages.debian.org/sid/skytools
+2 - http://packages.debian.org/plproxy
+3 - http://packages.debian.org/pgbouncer
+4 - http://bugs.debian.org/pgbouncer
+5 - http://www.midstorm.org/~fike/debian
+
+--
+Fernando Ike
+http://www.midstorm.org/~fike/weblog
+-------------
+restauracao de desastre de banco
+
+Fala galera, blz?
+
+Eu estou fazendo alguns testes em meu ambiente, pois caso tenha problemas com um servidor, possa voltar ele
+desde o ultimo backup.
+Para realizar o backup , eu fiz um backup fÌsico do banco de dados utilizando as funcoes pg_start_backup e
+pg_stop_backup. Copiei todos os diretorios de dados do banco, com excessao da pasta pg_xlog, pois queria ver
+como iria se comportar o banco na volta.
+
+Restaurei o banco em um outro servidor de testes, e quando fui iniciar o banco de dados, ele acusou que estava
+precisando de um arquivo que estava dentro da pasta pg_xlog. Ao verificar este arquivo, eu percebi que o
+hor·rio em que ele foi criado era muito depois do hor·rio do backup, e n„o consegui subir sem que fosse feita a
+cÛpia pra ele. Depois que fiz isso, o banco subiu normalmente.
+
+Mas eu fiquei com uma d˙vida:
+
+E se no meu backup, como tenho em outra partic„o, acontece algo e perco a pasta pg_xlog?
+
+Tem algum comando que eu posso executar para que quando ele subir o banco, ignore os arquivos que poderiam
+conter no pg_xlog?
+
+Junior
+----------
+jota. comm 
+Ol·,
+
+Se vocÍ quer restaurar a partir do ˙ltimo backup vocÍ pode usar o pg_dump e um psql (se for dump bin·rio pg_restore) para restaurar os seus dados. Ou vocÍ n„o pode fazer isso? Agora caso queira recuperar informaÁıes posteriores ao ˙ltimo backup, ai vocÍ necessita do mecanismo de PITR, que È um mecenismo baseado nos logs de transaÁ„o.
+
+VocÍ est· usando o mecanismo de PITR ou apenas resolveu fazer um backup fÌsico e tentou restaurar no servidor de testes?
+
+AbraÁos
+--------------
+
+Desempenho
+
+O que ilustra dois pontos interessantes sobre desempenho: bases de
+dados s√£o limitadas por E/S, n√£o CPU; e de nada adianta muita mem√≥ria
+se n√£o se configura o seu uso pelo SGBD.
+Leandro
+
+
+Consulta que ignora acentos
+
+local=# SELECT nome from pessoa where to_ascii(nome) ilike '%jose%';
+        nome
+---------------------
+ Antonia Josefina
+ Jos√© Silveira
+ Jos√© da Silva Sauro
+
+Para bancos em UTF8 use:
+SELECT nome from clientes where to_ascii(nome,'LATIN1') ilike '%fla%';
+Mostra F√°vio.
+
+Marco Aur√©lio C Feitosa
+
+convert('text_in_utf8', 'UTF8', 'LATIN1')
+convert_from('text_in_utf8', 'UTF8')
+convert_to('some text', 'UTF8')
+md5('abc')
+strpos('high', 'ig') -- 2
+
+---------------
+ Corrigindo Estouro do M√°ximo de transa√ß√µes (2 bilh√µes)
+Constatando:
+SELECT datname, age(datfrozenxid) FROM pg_database;
+age acusa mais de 2 bilh√µes
+Tarcizio Meurer
+- Execute um dumpall na base
+- drop a base e o agrupamento de dados
+- recrie o agrupamento
+- recrie a base
+- carrege os dados novemente.
+
+--------------------
+Fun√ß√£o que Remove Acentos
+
+Preven√ß√£o de falhas devido ao rein√≠cio do ID de transa√ß√£o
+SELECT datname, age(datfrozenxid) FROM pg_database;
+
+
+CREATE OR REPLACE FUNCTION sem_acento(text) RETURNS text AS $$
+    SELECT translate($1,
+            '√°√†√¢√£√§√©√®√™√´√≠√¨√Ø√≥√≤√¥√µ√∂√∫√π√ª√º√Å√Ä√Ç√É√Ñ√â√à√ä√ã√ç√å√è√ì√í√î√ï√ñ√ö√ô√õ√ú√ß√á',
+            'aaaaaeeeeiiiooooouuuuAAAAAEEEEIIIOOOOOUUUUcC');
+$$ LANGUAGE SQL  IMMUTABLE  RETURNS NULL ON NULL INPUT;
+
+Repare que n√£o est√£o contemplados todos os caracteres acentuados
+(creio que os do portugu√™s est√£o), mas, a√≠, √© s√≥ uma quest√£o de
+complementar as listas acima (caracteres acentuados e os
+correspondentes n√£o acentuados).
+
+Dependendo do conteudo de seu banco de dados pode ser que voc√™
+necessite tratar, por ex. o n com til, s com cedilha, os com caron (um
+circunflexo invertido), os com barra etc.
+
+Se voc√™ utilizar √°rabe, hangul ou chin√™s (entre outros) n√£o tenho a
+menor id√©ia do comportamento esperado para esta fun√ß√£o.
+
+Osvaldo

@@ -1,0 +1,23 @@
+O SELECT abaixo mostra os objetos que precisam de vacuum.
+(Dica: crie uma view para ele)
+
+SELECT pg_namespace.nspname, pg_class.relname, pg_class.reltuples,
+pg_class.relpages, rowwidths.avgwidth,
+      ceil(pg_class.reltuples * rowwidths.avgwidth::double precision /
+current_setting('block_size'::text)::double precision) AS expectedpages,
+      pg_class.relpages::double precision / ceil(pg_class.reltuples *
+rowwidths.avgwidth::double precision /
+current_setting('block_size'::text)::double precision) AS bloat,
+      ceil((pg_class.relpages::double precision *
+current_setting('block_size'::text)::double precision -
+ceil(pg_class.reltuples * rowwidths.avgwidth::double precision)) /
+1024::double precision) AS wastedspace
+ FROM ( SELECT pg_statistic.starelid, sum(pg_statistic.stawidth) AS
+avgwidth
+          FROM pg_statistic
+         GROUP BY pg_statistic.starelid) rowwidths
+  JOIN pg_class ON rowwidths.starelid = pg_class.oid
+  JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
+ WHERE pg_class.relpages > 1;
+
+Guedes na lista pgbr-geral.

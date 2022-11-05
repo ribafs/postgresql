@@ -1,0 +1,132 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2117"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-180_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-179.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-180_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-180_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-181.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-180_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P9372_507338"></a><span style="font-family: 'Arial'; font-size: 13pt;">5.6.4 After Row-Level Trigger</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The f</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ollowing example is an after row-level trigger</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When a new employee row is inserted, the trigger adds a new row to the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">jobhist</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table for that employee</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When an existing employee is updated, the trigger sets the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enddate</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> column of the latest </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">jobhist</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> row (ass</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">umed to be the one with a null </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enddate</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">) to the current date and inserts a new </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">jobhist</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> row with the employee&#8217;s new information.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Finally, trigger adds a row to the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">empchglog</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table with a description of the action.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE empchglog (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    chg_date        DATE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    chg_desc        VARCHAR2(30)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE TRIGGER emp_chg_trig</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    AFTER INSERT OR UPDATE OR DELETE ON emp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR EACH ROW</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_empno         emp.empno%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_deptno        emp.deptno%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_dname         dept.dname%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_action        VARCHAR2(7);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_chgdesc       jobhist.chgdesc%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF INSERTING THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_action := 'Added';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_empno := :NEW.empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_deptno := :NEW.deptno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        INSERT INTO jobhist VALUES (:NEW.empno, SYSDATE, NULL,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            :NEW.job, :NEW.sal, :NEW.comm, :NEW.deptno, 'New Hire');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    ELSIF UPDATING THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_action := 'Updated';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_empno := :NEW.empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_deptno := :NEW.deptno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_chgdesc := '';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        IF NVL(:OLD.ename, '-null-') != NVL(:NEW.ename, '-null-') THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            v_chgdesc := v_chgdesc || 'name, ';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        IF NVL(:OLD.job, '-null-') != NVL(:NEW.job, '-null-') THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            v_chgdesc := v_chgdesc || 'job, ';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        IF NVL(:OLD.sal, -1) != NVL(:NEW.sal, -1) THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            v_chgdesc := v_chgdesc || 'salary, ';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        IF NVL(:OLD.comm, -1) != NVL(:NEW.comm, -1) THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            v_chgdesc := v_chgdesc || 'commission, ';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        IF NVL(:OLD.deptno, -1) != NVL(:NEW.deptno, -1) THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            v_chgdesc := v_chgdesc || 'department, ';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_chgdesc := 'Changed ' || RTRIM(v_chgdesc, ', ');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        UPDATE jobhist SET enddate = SYSDATE WHERE empno = :OLD.empno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            AND enddate IS NULL;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        INSERT INTO jobhist VALUES (:NEW.empno, SYSDATE, NULL,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            :NEW.job, :NEW.sal, :NEW.comm, :NEW.deptno, v_chgdesc);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    ELSIF DELETING THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_action := 'Deleted';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_empno := :OLD.empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_deptno := :OLD.deptno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    INSERT INTO empchglog VALUES (SYSDATE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_action || ' employee # ' || v_empno);  </span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In the first sequence of commands shown below, two employees are added using two separate </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INSERT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands and then both are updated using a single </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> c</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ommand</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The contents of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">jobhist</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+table shows the action of the trigger for each affected row - two new
+hire entries for the two new employees and two changed commission
+records for the updated commissions on the two employees</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">empchglog</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table also s</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">hows the trigger was fired a total of four times, once f</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">or each action on the two rows.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">INSERT INTO emp VALUES (9003,'PETERS','ANALYST',7782,SYSDATE,5000.00,NULL,40);</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">INSERT INTO emp VALUES (9004,'AIKENS','ANALYST',7782,SYSDATE,4500.00,NULL,40);</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">UPDATE emp SET comm = sal * 1.1 WHERE empno IN (9003, 9004);</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">SELECT * FROM jobhist WHERE empno IN (9003, 9004);</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">     EMPNO STARTDATE ENDDATE   JOB              SAL       COMM     DEPTNO CHGDESC</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">---------- --------- --------- --------- ---------- ---------- ---------- ------------------</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">      9003 31-MAR-05 31-MAR-05 ANALYST         5000                    40 New Hire</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">      9004 31-MAR-05 31-MAR-05 ANALYST         4500                    40 New Hire</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">      9003 31-MAR-05           ANALYST         5000       5500         40 Changed commission</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">      9004 31-MAR-05           ANALYST         4500       4950         40 Changed commission</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">SELECT * FROM empchglog;</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">CHG_DATE  CHG_DESC</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">--------- ------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">31-MAR-05 Added employee # 9003</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">31-MAR-05 Added employee # 9004</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">31-MAR-05 Updated employee # 9003</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">31-MAR-05 Updated employee # 9004</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Finally, both employees are deleted with a single </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">empchglog</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table now shows the trigger was fired twice, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">once for each deleted employee.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DELETE FROM emp WHERE empno IN (9003, 9004);</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT * FROM empchglog;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CHG_DATE  CHG_DESC</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------- ------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">31-MAR-05 Added employee # 9003</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">31-MAR-05 Added employee # 9004</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">31-MAR-05 Updated employee # 9003</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">31-MAR-05 Updated employee # 9004</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">31-MAR-05 Deleted employee # 9003</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">31-MAR-05 Deleted employee # 9004</span>
+
+<a name="P9467_511701"></a></pre></div><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-179.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-180_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-180_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-181.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-180_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-180_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-180_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

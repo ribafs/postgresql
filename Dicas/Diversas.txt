@@ -1,0 +1,60 @@
+
+Pesquisar um mes dentro de uma data.  Exemplo, eu quero pesquisar todos os pessoas
+que fazem anivesario no mes de abril, pesquisando pela data de nascimento
+
+SELECT * FROM pessoas WHERE data_nasc <= 'mm/dd/yyyy' AND data_nasc >=
+'mm/dd/yyyy'
+Emerson - Sena
+
+ou
+
+Use a funÃ§Ã£o:
+EXTRACT(MONTH FROM TIMESTAMP sua_data)
+
+ou
+to_char(sua_datA, 'MM')
+
+Osvaldo
+
+SÃ³ pra complementar ... Normalmente uso o EXTRACT ou DATE_PART, pois
+com o TO_CHAR nÃ£o da pra criar INDICES PARCIAIS, devido ao TO_CHAR
+depender de parÃ¢metros externos como LOCALE para extrair o mÃªs e
+portanto nÃ£o Ã© "IMMUTABLE".!
+
+EX:
+trisso=# create index idx_foo_month on foo (to_char(data, 'MM'));
+ERROR:  functions in index expression must be marked IMMUTABLE
+
+trisso=# create index idx_foo_month on foo (EXTRACT(MONTH FROM data));
+CREATE INDEX
+trisso=#
+
+Thiago Risso
+
+----
+Pode usar o date_part [1]. Sintaxe:
+
+SELECT nome FROM pessoa WHERE date_part('month',data_nascimento) = 4;
+
+[1] http://www.postgresql.org/docs/current/static/functions-datetime.html
+
+-------
+Use o extract(month from campo)
+
+--------------
+Quanto a Primary Keys
+
+O correto é designar chaves primárias (naturais, se possível) e _remover_ os OIDs.
+Leandro
+
+--------------
+Como você comentou que está com muitos erros, você pode fazer o seguinte:
+
+Crie o arquivo chamado .psqlrc dentro do diretório do usuário que está executando o processo de restauração e coloque a seguinte linha:
+
+\set ON_ERROR_STOP on
+
+Assim no primeiro erro o seu script será interrompido e você consegue ver qual foi o erro gerado.
+Outra possibilidade é você configurar os logs do postgres. Os parâmetros estão no arquivo postgresql.conf
+
+Jota

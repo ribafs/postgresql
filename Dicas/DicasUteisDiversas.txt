@@ -1,0 +1,1114 @@
+Estas dicas foram coletadas em sua grande maioria da lista de PostgreSQL https://listas.postgresql.org.br/cgi-bin/mailman/listinfo/pgbr-geral
+
+Dicas Úteis Diversas para uso com qualquer SGBDs em geral e boa parte exclusivas para o PostgreSQL
+
+
+Quase todas estas dicas recebi na lista de postgresql do postgresql.org.br. Boa parte passei os créditos.
+
+1) Criar Tabela tendo outra outra como base e já importando todos os registros dessa outra:
+CREATE TABLE tabelanova AS SELECT * FROM tabealexistente;
+
+
+2) Inserindo com SELECT
+Inserir todos os registros de uma tabela em outra:
+INSERT INTO tabelaqueimporta SELECT * from tabelaqueexporta;
+
+insert into engenharia.insumos (grupo,insumo,descricao,unidade) select grupo,insumo,descricao, CAST(unidade AS int2) AS "unidade" from engenharia.apagar
+
+insert into engenharia.insumos (grupo,insumo,descricao,unidade) select grupo,insumo,descricao, cast(unidade AS INT2) AS unidade from engenharia.apagar
+
+$conn = pg_connect("host=10.40.100.186 dbname=apoena user=_postgresql");
+for($x=10;$x<=87;$x++){
+$sql="update engenharia.precos set custo_produtivo = (select custo_produtivo from engenharia.apagar where insumo='$x') where insumo='00' || '$x'";
+$ret=pg_query($conn,$sql);
+}
+
+
+3) Atualizar um campo em todos os registros de uma tabela recebendo de outra tabela:
+
+Trabalhando com SQL
+
+Atualizar todos os registros (um campo) puxando de outra tabela:
+
+UPDATE servicos s SET custo = total FROM composicoes c
+WHERE s.tabela = c.tabela AND s.servico = c.servico
+
+Uso do Like e de Expressões Regulares
+
+Registros:
+Ribamar Ferreira de Sousa
+João Pereira Brito
+
+Usando LIKE e ILIKE
+
+SELECT * FROM clientes WHERE nome LIKE 'Riba%'; // Retorna Ribamar Ferreira de Sousa
+SELECT * FROM clientes WHERE nome LIKE 'riba%'; // Nada retorna
+SELECT * FROM clientes WHERE nome ILIKE 'riba%'; // Retorna Ribamar Ferreira de Sousa
+SELECT * FROM clientes WHERE nome NOT LIKE 'pedro'; // Retorna ambos os registros
+
+Usando Expressões Regulares
+
+SELECT * FROM clientes WHERE nome ~~ 'Riba%'; // Retorna Ribamar Ferreira de Sousa
+SELECT * FROM clientes WHERE nome ~~ 'riba%'; // Nada retorna
+SELECT * FROM clientes WHERE nome ~~* 'riba%'; // Retorna Ribamar Ferreira de Sousa
+SELECT * FROM clientes WHERE nome !~~ 'pedro'; // Retorna ambos os registros
+SELECT nome FROM clientes WHERE nome ~ 'Ribamar Ferreira de Sousa'; // Retorna Ribamar Ferreira de Sousa
+SELECT * FROM clientes WHERE nome !~ 'jorge'; // Retorna ambos
+
+
+4) Buscar nas tabelas de sistema do postgresql, todos as tabelas de um determinado schema, os campos que sejam do tipo boolean..
+
+SELECT n.nspname AS Schema, c.relname AS Tabela, t.typname AS Tipo
+FROM pg_class c
+LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+LEFT JOIN pg_type t ON t.oid = c.reltype
+WHERE c.relkind = 'r'::"char"
+AND t.typname = 'boolean';
+
+
+5) Exemplos de Joins
+
+Join com 4 tabelas
+
+$w_sql = " TRUE ";
+
+if ( $p_tabela != "") { $w_sql = $w_sql . " AND tabela ~~*'" . $p_tabela . "'"; }
+if ( $p_insumo_grupo != "") { $w_sql = $w_sql . " AND insumo_grupo ~~*'" .$p_insumo_grupo."'"; }
+if ( $p_insumo != "") { $w_sql = $w_sql . " AND insumo ~~*'" . $p_insumo . "'"; }
+if ( $p_fornecedor != "") { $w_sql = $w_sql . " AND fornecedor ~~*'" .$p_fornecedor."'"; }
+
+$w_sql="SELECT distinct on (p.tabela, p.insumo_grupo, p.insumo, p.fornecedor) p.custo_produtivo, p.data_inclusao,
+t.tabela, t.descricao as tabelad,
+ig.grupo, ig.descricao as insumogd,
+i.grupo, i.insumo, i.descricao as insumod,
+f.codigo_fornecedor, f.razao_social as fornecedord
+FROM $m_table as p, $m_table_tab as t, $m_table_ing as ig, $m_table_ins as i, $m_table_for as f
+WHERE p.tabela=t.tabela AND p.insumo_grupo=ig.grupo AND p.insumo=i.insumo AND p.fornecedor=f.codigo_fornecedor
+AND p.insumo_grupo = i.grupo ORDER BY p.tabela DESC, p.insumo_grupo;";
+
+/*
+p - $m_table (engenharia.precos)
+i - $m_table_ins (engenharia.insumos)
+ig - $m_table_ing (engenharia.insumos_grupos)
+t - $m_table_tab (engenharia.tabela)
+*/
+
+
+6) Mudar Tipo de Dados de Campo - CAST (Só >=8.0):
+
+ALTER TABLE tabela ALTER COLUMN campo TYPE tipo;
+ALTER TABLE produtos ALTER COLUMN preco TYPE numeric(10,2);
+ALTER TABLE produtos ALTER COLUMN data TYPE DATE USING CAST (data AS DATE);
+
+
+7) Renomear Tabela
+ALTER TABLE tabela RENAME TO nomenovo;
+ALTER TABLE produtos RENAME TO equipamentos;
+
+
+8) Tamanho de Tabela, Banco ou Todos os Bancos do SGBD:
+
+Tamanho de Banco de Dados (postgresql 8.1 ou superior):
+select pg_database_size('nomebanco');
+
+Tamanho de Tabela
+select pg_tablespace_size('nometabela');
+
+Tamanho de todos os bancos de dados do SGBD:
+select (sum(relpages) * 8) / 1024 || ' MB' as tamanho from pg_class where relowner > 1;
+
+Ou
+
+select (sum(relpages) / 2^7) :: int || ' MB' as tamanho from pg_class where relowner > 1;
+
+
+9) Validação de e-mails
+
+1 - select distinct(campo_email),campo_nome, campos_n from tabela where campo_email like '%@%.%'
+2 - SELECT POSITION('@', 'ribafs@gmail.com') > 0
+3 - select 'coutinho.php@gmail.com' ~ '@'
+4 - select 'coutinho.php@gmail.com' like '%@%'
+5 - select if ('campo_email' like "%@%.%","TRUE","FALSE") as flag, campo_adcional from tabela
+6 - select 'coutinho@gmail.com' similar to '%@%.%';
+
+
+10) Temos um campo (insumo) com valores = 1, 2, 3, ... 87
+Queremos atualizar para 0001, 0002, 0003, ... 0087
+
+UPDATE equipamentos SET insumo = '000' || insumo WHERE LENGTH(insumo) = 1;
+UPDATE equipamentos SET insumo = '00' || insumo WHERE LENGTH(insumo) = 2;
+
+Outra saída mais elegante ainda:
+
+UPDATE equipamentos SET insumo = REPEAT('0', 4-LENGTH(insumo)) || insumo;
+
+
+11) Retornar o número de usuários conectados
+select count(*) from pg_stat_activity
+
+pg_stat_database que apresenta para cada banco de dados o número de conexões.
+Eu particularmente acho que fica mais fácil de visualizar do que o pg_stat_activity quando se tem muitas conexões.
+
+Mostrar uso dos índices dos bancos de dados:
+select * from pg_statio_user_indexes;
+
+select * from pg_stat_user_indexes;
+
+Mostra estatística de uso das tabelas e manutenção:
+select * from pg_stat_all_tables;
+
+Mostra todas as tabelas do atual esquema do atual banco:
+select * from pg_stat_user_tables;
+
+pg_stat_get_tuples_returned(oid) bigint Number of rows read by sequential scans when argument is a table, or number of index entries returned when argument is an index
+pg_stat_get_tuples_fetched(oid) bigint Number of table rows fetched by bitmap scans when argument is a table, or table rows fetched by simple index scans using the index when argument is an index
+pg_stat_get_tuples_inserted(oid) bigint Number of rows inserted into table
+pg_stat_get_tuples_updated(oid) bigint Number of rows updated in table
+pg_stat_get_tuples_deleted(oid) bigint Number of rows deleted from table
+pg_stat_get_blocks_fetched(oid) bigint Number of disk block fetch requests for table or index
+pg_stat_get_blocks_hit(oid) bigint Number of disk block requests found in cache for table or index
+pg_stat_get_last_vacuum_time(oid) timestamptz Time of the last vacuum initiated by the user on this table
+pg_stat_get_last_autovacuum_time(oid) timestamptz Time of the last vacuum initiated by the autovacuum daemon on this table
+pg_stat_get_last_analyze_time(oid) timestamptz Time of the last analyze initiated by the user on this table
+pg_stat_get_last_autoanalyze_time(oid) timestamptz Time of the last analyze initiated by the autovacuum daemon on this table
+
+This is controlled by configuration parameters that are normally set in postgresql.conf
+
+The function pg_stat_get_backend_idset provides a convenient way to generate one row for each active server process. For example, to show the PIDs and current queries of all server processes:
+
+SELECT pg_stat_get_backend_pid(s.backendid) AS procpid,
+pg_stat_get_backend_activity(s.backendid) AS current_query
+FROM (SELECT pg_stat_get_backend_idset() AS backendid) AS s;
+
+Visualizar os processos do portgresql num UNIX:
+
+ps auxww | grep ^postgres
+
+Formato de retorno:
+postgres: user database host activity
+
+
+12) Corrigindo Estouro do Máximo de transações (2 bilhões)
+Constatando:
+
+SELECT datname, age(datfrozenxid) FROM pg_database;
+
+age acusa mais de 2 bilhões
+
+Tarcizio Meurer
+
+- Execute um dumpall na base
+- drop a base e o agrupamento de dados
+- recrie o agrupamento
+- recrie a base
+- carrege os dados novemente.
+
+
+13) Total de Registros de Todos os Bancos do SGBD (PHP):
+
+<?php
+
+$conexao=pg_connect("host=127.0.0.1 user=postgres password=postabir");
+
+$sql="SELECT datname AS banco FROM pg_database ORDER BY datname";
+$consulta=pg_query($conexao,$sql);
+
+$banco = array();
+$c=0;
+while ($data = @pg_fetch_object($consulta,$c)) {
+$cons=$data->banco;
+
+$banco[] .= $cons;
+$c++;
+}
+
+$sql2="SELECT n.nspname as esquema,c.relname as tabela FROM pg_namespace n, pg_class c
+WHERE n.oid = c.relnamespace
+and c.relkind = 'r' -- no indices
+and n.nspname not like 'pg\\_%' -- no catalogs
+and n.nspname != 'information_schema' -- no information_schema
+ORDER BY nspname, relname";
+
+for ($x=0; $x < count($banco);$x++){
+if ($banco[$x] !="template0" && $banco[$x] != "template1" && $banco[$x] !="postgres"){
+$conexao2=pg_connect("host=127.0.0.1 dbname=$banco[$x] user=postgres password=postabir");
+$consulta2=pg_query( $conexao2, $sql2 );
+
+while ($data = pg_fetch_object($consulta2)) {
+$esquematab=$data->esquema.'.'.$data->tabela;
+$sql3="SELECT count(*) FROM $esquematab";
+$consulta3=pg_query($conexao2,$sql3);
+$res=@pg_fetch_array($consulta3);
+
+print 'Banco.Esquema.Tabela -> '.$banco[$x].'.'.$data->esquema.'.'.$data->tabela.' - Registro(s) - '.$res[0].'';
+$total += $res[0];
+}
+
+}
+}
+print "Total de Registro de todas as tabelas de todos os bancos ". $total;
+
+?>
+
+
+14) Uso da Constraint check
+
+CREATE TABLE testes(
+codigo serial primary key,
+idade integer,
+check (idade > 18 AND idade < 70)
+)
+
+Alternativas:
+
+check (preco > desconto)
+
+check (desconto > 0 AND preco > desconto)
+
+-------------
+Somente aceitar c ou e (simulando campo tipo enum do MySQL):
+tipo char(1) check (tipo ='c' OR tipo='e')
+
+Para este cria-se uma combo com values 'c' e 'e'.
+
+
+15) Manutenção do PostgreSQL:
+No CRON:
+
+/home/pgsql/bin/psql -c "vacuum full analyse" -d dadosadv -U postgres
+
+Consultas no Pronpt do SO:
+psql -U postgres -d banco -c "SELECT * FROM clientes"
+
+Manutenção em Tabela
+vacuum analize tabela;
+
+Reindexar Banco, tabela ou índice
+reindex database banco;
+
+Exibir plano de consulta
+explain select * from tabela;
+
+Exibir todos os parâmetros de runtime
+show all;
+
+
+16) Consulta com Dias Úteis
+
+Só para constar aqui vai uma expressão SQL que fornece os
+dias úteis de um período. Considerei que existe uma tabela
+com o registro dos feriados e outros dias que não devem ser
+considerados (emendas, pontos facultativos, etc):
+
+SELECT dia FROM
+(SELECT ('2007-10-01'::date+s.a*'1 day'::interval) AS dia
+FROM generate_series(0, '2007-10-31'::date -
+'2007-10-01'::date, 1) AS s(a)) foo
+WHERE EXTRACT(DOW FROM dia) BETWEEN 1 AND 5
+EXCEPT
+SELECT dia FROM tab_feriado;
+
+Osvaldo (na lista postgresql-br)
+
+
+17) Update em uma chave primária sem causar duplicação de chave
+
+UPDATE teste SET coluna1 = t_aux.coluna1+1
+FROM (
+SELECT coluna1
+FROM teste
+ORDER BY coluna1 DESC
+) t_aux
+WHERE teste.coluna1 = t_aux.coluna1;
+
+Osvaldo (na lista postgresql-br)
+
+
+18) Como saber se existe uma transação ativa
+
+select pg_stat_activity;
+
+Dica do João Paulo.
+
+
+19)Inserir data como valor default:
+
+Pode usar também o current_date ou o localtimestamp.
+
+insert into tabela(data) values ((select current_date));
+
+ou
+
+insert into tabela(data) values ((select localtimestampo));
+
+
+20) Ler último saldo de tabela
+
+Tenho o seguinte conteudo numa tabela de contas:
+
+Lancto--CCorrente--Banco--OP--DataLan-------Valor---------Saldo--
+1 12345-6 002 C 19/11/2007 1000.00 1000.00
+2 12345-6 002 C 19/11/2007 2000.00 3000.00
+3 12345-6 002 D 19/11/2007 100.00 2900.00
+4 23450-6 001 C 19/11/2007 2000.00 3000.00
+5 23450-6 001 D 19/11/2007 100.00 2900.00
+
+Preciso retornar sempre o último SALDO registrado.
+Como nunca vou saber a data exata da periodo de consulta.
+
+Estou executando:
+
+SELECT saldoatual FROM lanban WHERE contacorrente = '12345-6' and datalan <= '2007/12/01' ORDER BY datalan DESC LIMIT 1
+
+Retona o Saldo: 1000.00, preciso pegar o ultimo saldo da conta 12345-6: que é 2900.00.
+
+Isso porque tabelas são conjuntos de dados. O padrão SQL *não* garante a
+ordem dos dados. Mesmo se ele garantisse, um simples UPDATE podia mudar
+o ordem dos dados e o seu SELECT não retornaria o valor desejado.
+
+> Alguem tem alguma dica?
+>
+O campo 'Lancto' é do tipo serial? Se for poderias utilizar:
+SELECT saldoatual FROM lanban WHERE contacorrente = '12345-6' ORDER BY
+"Lancto" DESC LIMIT 1.
+
+Dica do Euler Taveira de Oliveira
+
+
+21) Formato de moeda
+
+O correto seria:
+to_char(1030.52,'9G999D99')
+mas o resultado é: 1,030,52
+como você pode observar existe um problema no
+separador de milhar (indicado pelo G) que é
+considerado como , e não como . que seria o esperado.
+
+Uma maneira de contornar (não muito elegante) é:
+to_char(1030.52,'9"."999D99')
+
+Corrigido na versão 8.3
+
+
+22) Saber o Tamanho de Tabela e de Índices
+
+pg_relation_size()
+pg_total_relation_size()
+
+-Leo
+--
+Leonardo Cezar
+
+
+23) Último Saldo
+Fernando Brombatti
+
+A situação é a seguinte. Não se sabe se o serial citado (por N razões) vai ser o último valor existente. Nada me garante que estes dados não sofreram algum UPDATE. Sendo assim, recomendo:
+1) alterar o campo DATE para TIMESTAMP
+2) alterar o query:
+SELECT lan.saldoatual
+FROM lanban lan
+WHERE lan.contacorrente = '12345-6' AND lan.datalan = (SELECT MAX(maxlan.datalan)
+FROM lanban maxlan
+WHERE maxlan.contacorrente = lan.contacorrente)
+Isso faz com que no primeiro SQL eu traga os lancamentos da conta e no segundo eu trago a máxima data de lançamento para a mesma conta. Como as contas são iguais, trago a máxima data da conta atual, logo tenho o saldo atual.
+É confuso, mas é o mais seguro (podem haver UPDATES neste caso também, mas aí não se depende de um serial).
+Para este query funcionar bem necessita mais um índice em datalan ao menos.
+Nos nossos sistemas da prefeitura nunca usamos saldos desta forma, pois aí se é removido algum registro a informação não fica correta.
+
+Espero não ter confundido tanto.
+
+
+24) Encontrando tanela de sistema
+
+Para localizar informações desse tipo existe o information_schema
+(conforme citado pelo Leandro). Utilizando o catalogo poupa voce de
+futuras dores de cabeça quando por exemplo houver alguma alteração
+estrutural em tabelas do sistema em versõs futuras. As views do
+catalogo deverão permanecer com o máximo de compatibilidade entre
+versões (segundo padrão SQL).
+
+Além de ser mais simples:
+
+SELECT *
+FROM information_schema.tables
+WHERE table_name = 'foobar';
+
+Infelizmente não possuimos referencias a outros banco de dados
+(banco.schema.tabela), portanto o comando deverá ser executado em
+todos seus bancos para localizar a tabela ou um programeta bash
+parecido com isso:
+
+$ ARG=$1 || "foo" && for DATABASE in `psql -U postgres -c "\l" \
+| cut -d"|" -f1 | egrep '^(\ [a-z])'`
+do
+psql -U postgres -d $DATABASE -Atc \
+"SELECT 'O banco de dados $DATABASE possui a tabela: $RG'
+FROM information_schema.tables
+WHERE table_name = '$ARG'";
+done;
+
+Abraço!
+
+-Leo
+
+
+25) Como Localizar e Deletar registros duplicados
+
+1.Select para localizar duplicados
+select campo,campo1,count(*)
+from tabela having count(*) > 1
+group by campo,campo1
+
+2.Deletar duplicados:
+delete from tab p1
+where rowid < (select max(rowid)
+from tab1 p2
+where p1.primary_key = p2.primary_key);
+
+
+26) Inserir registros em uma específica posição
+> Hi, how are you? maybe you know how SQL insert data
+> bellow or above in database tabe? example insert
+> data from position table 5 thanks
+>
+
+No, I don't known.
+But if you make a copy from table,
+create a new table with same structure,
+insert a new register,
+import register from old table, then first register
+are this last register inserted.
+
+
+27) Timezones do PostgreSQL (lista pgbr-geral)
+
+No POSTGRESQL.CONF tem o timezone onde você pode colocar algo do tipo:
+
+TIMEZONE=BRAZIL/EAST esta é minha configuração, ou seja, de minha região.
+
+Analise.
+Wandrey
+
+Outra -----------
+Na maioria dos casos é criado um link do diretório de timezones do
+S.O. (/usr/share/zoneinfo//usr/share/zoneinfo/) para o diretório de
+Timezones do Postgres ($PGDIR/share/timezone )Que possui seu próprio
+sistema de controle de timezone, se não me engano a partir d versão 8)
+
+--
+Att:
+Thiago Risso
+
+
+28) Inserir Número Aleatório em Tabela
+
+CREATE TABLE page (
+id SERIAL PRIMARY KEY,
+about TEXT NULL,
+);
+
+ALTER TABLE page ADD myrand NUMERIC NOT NULL DEFAULT RANDOM();
+
+UPDATE page SET myrand = DEFAULT;
+
+SELECT id FROM page WHERE myrand >= RANDOM() ORDER BY myrand LIMIT 1;
+
+This approach has some problems:
+
+* If the number you pick is greater than the largest number in the myrand column, you will not find any matching rows.
+* The gaps between the random values in the myrand column are not uniform, and thus the rows selected are not random. Imagine a table with two rows and myrand values of 0.8 and 0.9. If the random number compared to myrand is .8 or less, the first row is chosen. But the second row is only chosen if the value picked is between .8 and .9
+* If more than one row has the exact same number, it is likely that one of them will never get picked.
+
+Mais detalhes em: http://people.planetpostgresql.org/greg/index.php?/archives/118-guid.htm...
+
+
+29) Desabilitar Triggers
+Vinicius Santos - MSI escreveu:
+Thiago Boufleuhr escreveu:
+
+Como faço para desabilitar as triggers em uma sessão no PLSQL ?
+
+Thiago Boufleuhr
+
+ALTER TABLE [NOME DA TABELA]
+DISABLE TRIGGER [NOME DA TRIGGER]
+Ou
+ALTER TABLE [NOME DA TABELA]
+DISABLE TRIGGER ALL
+
+ALERTA:
+William Leite Araújo: MUITO CUIDADO AO USAR "DISABLE TRIGGER ALL"
+
+As constraints de chave estrangeira são controladas via TRIGGER. Caso desabilite todos os gatilhos, a checagem da integridade referencial (chaves estrangeiras) serão desabilitadas!
+
+
+30) Codificação de Caracteres
+Euler Taveira de Oliveira
+>Evandro Ricardo Silvestre wrote: Codificação de caracteres do cliente e
+do servidor podem ser diferentes. Se a codificação do cliente é diferente da codificação do servidor, o servidor PostgreSQL tenta fazer uma conversão antes de armazenar/retornar os dados. Um problema que existia é que a aplicação cliente (no caso abaixo o psql) não avisava se a codificação informada ao servidor (client_encoding) era a mesma do ambiente (terminal).
+Bem vindo ao psql 8.3.0, o terminal iterativo do PostgreSQL.
+Digite: \copyright para mostrar termos de distribuição
+\h para ajuda com comandos SQL
+\? para ajuda com comandos do psql
+\g ou terminar com ponto-e-vírgula para executar a consulta
+\q para sair
+template1=# show client_encoding;
+client_encoding
+-----------------
+LATIN1
+(1 registro)
+template1=# show server_encoding;
+server_encoding
+-----------------
+LATIN1
+(1 registro)
+template1=# select upper('áéíóú');
+upper
+-------
+ÁÉÍÓÚ
+(1 registro)
+template1=# set client_encoding to 'utf-8';
+SET
+
+template1=# show client_encoding;
+client_encoding
+-----------------
+utf-8
+(1 registro)
+template1=# select upper('áéíóú');
+ERRO: sequência de bytes é inválida para codificação "UTF8": 0xe1e9ed
+DICA: Este erro pode acontecer também se a sequência de bytes nãocorresponde a codificação esperado pelo servidor, que é controlada por "client_encoding".
+ERRO: sequÃªncia de bytes Ã© invÃ¡lida para codificaÃ§Ã£o "UTF8": 0xe1e9ed
+DICA: Este erro pode acontecer tambÃ©m se a sequÃªncia de bytes nÃ£o corresponde a codificaÃ§Ã£o esperado pelo servidor, que Ã© controlada por "client_encoding".
+[trocando a codificação de caracteres do terminal e digitando novamente]
+template1=# select upper('áéí');
+upper
+-------
+ÁÉÍ
+(1 registro)
+
+
+31) Como visualizar as consultas correntes no Postgres
+
+Colaboração: Frederico Palma
+
+Data de Publicação: 16 de fevereiro de 2008
+
+É necessário habilitar o stats_command_string no postgresql.conf:
+
+stats_command_string = true
+
+Essa configuração pode ser alterada em um banco que está ativo sem a necessidade de reiniciá-lo e sem afetar as conexões abertas para recarregar as configurações. Envie um SIGHUP ou use o comando:
+
+pg_ctl reload
+
+Quando stats_command_string está ativo a tabela pg_stat_activity armazena todas consultas correntes.
+
+Realizando a consulta:
+
+SELECT datname,procpid,current_query FROM pg_stat_activity
+
+Teremos a lista dos bancos de dados utilizados com seus respectivos processos (PID) referente às consultas.
+
+SELECT datname,procpid,current_query FROM pg_stat_activity ORDER BY procpid;
+
+datname | procpid | current_query
+------------+---------+-----------------
+mydatabase1 | 2587 | < IDLE>
+mydatabase2 | 15726 | SELECT * FROM users WHERE id=123 ;
+mydatabase3 | 15851 | < IDLE>
+
+Publicado originalmente na Dicas-L - http://www.dicas-l.com.br/dicas-l/20080216.php
+
+
+32) Receber o retorno de duas consultas com Subselects
+
+select (a.x + b.y) as total from
+	(select sum(valor_empenho)as x from planejamento.empenho
+		where codigo_acao = '2272') a,
+	(select sum(valor_empenho_reforco)as y from planejamento.empenho_reforco
+		where numero_empenho in (select numero_empenho from planejamento.empenho where codigo_acao = '2272' )) b
+
+Dica da colega Fátima Ramalho do DNOCS
+
+
+33) Operando com Data e Hora
+
+SELECT '10/01/2005'::DATE - '01/01/2000'::DATE
+SELECT NOW() - '2001/1/1'
+SELECT (current_date - '1956-08-03')/365
+SELECT 'today'::date;
+SELECT '12:16'::time;
+SELECT '12:16:32.43'::time with time zone;
+SELECT 'now'::time with time zone;
+SELECT '2001-01-12'::timestamp;
+
+
+34) Calculando com o PostgreSQL
+
+Truncando casas depois da vírgula (4) 
+
+SELECT trunc ( ( 1550.99 * 6 ) / 100 , 4); 
+
+ trunc
+ - - - - -
+ 93.0594
+(1 row) 
+
+
+Truncando casas depois da vírgula (2) 
+
+SELECT trunc ( ( 1550.99 * 6 ) / 100 , 2); 
+
+ trunc
+ - - - - -
+ 93.05
+(1 row) 
+
+
+Arredondando casas depois da vírgula (4) 
+
+SELECT round ( ( 1550.99 * 6 ) / 100 , 4); 
+
+ round
+ - - - - -
+ 93.0594
+(1 row) 
+
+
+Arredondando casas depois da vírgula (2) 
+
+SELECT round ( ( 1550.99 * 6 ) / 100 , 2); 
+
+ round
+ - - - - -
+ 93.06
+(1 row) 
+
+
+35) Quando precisamos alterar uma tabela, por exemplo, removendo um campo podemos usar:
+
+SELECT ... -- select todos os campos, menos o que deseja remover
+INTO TABLE nova
+FROM antiga;
+DROP TABLE antiga;
+ALTER TABLE nova RENAME TO antiga;
+
+Autor: Melanie Nelson
+
+
+36) Backup e restore
+
+pg_dumpall -o > dumpfile
+The -o option causes the unique object identifiers to be dumped as well as the user-defined database objects.
+
+If you have issued GRANT and REVOKE privileges commands, you must include the -z flag in the dump command to have these stored:
+
+pg_dumpall -oz > dumpfile
+
+The command to reload the database is:
+
+psql -e database < dumpfile
+
+Inserindo valor NULL em tabela
+
+INSERT INTO table VALUES ('xxx', 'yyy', NULL, 'zzz')
+
+If the NULL is to go into the last field, it can be omitted, and will be inserted by default (unless you specified otherwise at the time you created the table)
+
+note:The single quotes around non-null values are only required for character type fields
+
+If you are using the COPY command, NULL fields should be indicated by \N in the file from which the data is being copied.
+
+Autor: Melanie Nelson
+
+
+37) E-books online sobre PostgreSQL
+
+Practical PostgreSQL
+http://www.commandprompt.com/ppbook/?lxpwrap=x5802%2ehtm ou
+http://www.faqs.org/docs/ppbook/book1.htm
+
+PostgreSQL: Introduction and Concepts
+http://www.postgresql.org/files/documentation/books/aw_pgsql/index.html ou
+http://zid-luxinst.uibk.ac.at/postgresql/aw_pgsql_book.pdf
+
+http://etutorials.org/SQL/Postgresql/Part+I+General+PostgreSQL+Use/
+
+Sams - PHP and PostgreSQL Advanced Web Programming
+http://jlbtc.eduunix.cn/index/html/php/Sams%20-%20PHP%20and%20PostgreSQL%20Advanced%20Web%20Programming/
+
+PostgreSQL Prático:
+http://www.ribafs.net/down/1PostgreSQL_Pratico.pdf ou
+
+http://pt.wikibooks.org/wiki/PostgreSQL_Prático
+
+PostgreSQL - A Comprehensive Guide:
+http://www.conjectrix.com/pgbook/index.html 
+Arquivos de exemplo: http://www.conjectrix.com/pgbook/source2/bookdata.tar.gz
+
+Livros
+
+Teoria de Bancos de Dados  
+Sistema de Banco de Dados - Abraham Silberschatz e outros (Pearson/Makron Books)
+Introdução a Sistemas de Bancos de Dados (Introduction to Database Systems) - DATE, Chris(topher) J.
+
+PostgreSQL
+
+- PostgreSQL 8 For Windows - voltado para Windows (Access, .Net e Visual C++), mas com muitas e detalhadas informações
+- Beginning PHP and PostgreSQL 8 From Novice to Professional - Mais voltado para PHP
+- Dominando o PHP - De Jorge Luiz Gonzaga. Bom, leve e didático
+
+- Grande relação de livros sobre PostgreSQL em Inglês: http://www.postgresql.org/docs/books/ 
+- PostgreSQL - A Comprehensive Guide - vários capítulos online em: http://www.conjectrix.com/pgbook/
+
+
+38) Cursos
+
+CDTC (PostgreSQL, PostGIS, PHP, Joomla e muitos outros)
+Funcionários públicos - http://cursos.cdtc.org.br (emite certificados por curso)
+Comunidade em geral - http://comunidade.cdtc.org.br (não emite por curso)
+
+Dextra (SP e Campinas)
+http://www.dextra.com.br/
+
+OpenDB 
+http://opendb.com.br/v1/index.php
+
+Evolução (Fortaleza)
+http://www.evolucao.com.br
+
+dbExperts (SP)
+http://www.dbexperts.com.br
+
+Virgos
+http://www.virgos.com.br/portal/treinamento/ementa.php?curso=32
+
+Sisnema
+http://www.sisnema.com.br/Materias/idmat013773.htm
+
+Vídeo Aulas para Iniciantes (3 vídeos)
+http://postgresql.org.br/VideoAulas
+
+TargetTrus (Porto Alegre)
+http://www.targettrust.com/pls/portal/page0030.CURSOS?p_tecnologia=5
+
+
+Cursos Gratuitos em Grandes Universidades pela Internet
+
+http://open.yale.edu/courses/
+http://ocw.mit.edu/OcwWeb/web/home/home/index.htm
+http://webcast.berkeley.edu/
+http://stanfordocw.org/
+
+
+39) Banco corrompido
+
+Muito bem. Caso ainda esteja com o problema, converta o arquivo de backup para o modo texto, usando o pg_restore sem especificar o banco de dados, mas um arquivo, por exemplo :
+
+ pg_restpres -F c [arquivo de backup] > novo_arquivo.sql
+
+40) ENCONTRAR REGISTROS DUPLICADOS
+
+SELECT DISTINCT cep FROM cep_tabela
+WHERE cep IN (SELECT cep FROM cep_tabela AS Tmp GROUP BY cep,tipo,logradouro, bairro, municipio,uf HAVING Count(*) >1 ) ORDER BY cep;
+(Adaptação de consulta gerada pelo assistente Encontrar duplicadas do Access).
+
+Ou:
+select count(*) as quantos, cep from cep_tabela group by cep having count(*) > 1;
+
+REMOVER DUPLICADOS
+Para tabelas criadas WITH OIDS:
+DELETE FROM cep_tabela2 WHERE oid NOT IN
+(SELECT min(oid) FROM cep_tabela2 GROUP BY cep, tipo, logradouro, bairro, municipio, uf);
+
+Do exemplo 8.10 do manual em português do Brasil.
+
+Ou:
+
+Criando uma segunda tabela que conterá somente os registros exclusivos e ainda guarda uma cópia da tabela original:
+
+CREATE TABLE cep_tabela2 AS SELECT cep, tipo, logradouro, bairro, municipio, uf FROM cep_tabela GROUP BY cep, tipo, logradouro, bairro, municipio, uf ORDER BY cep;
+
+Caso não importe qual das duplicatas irá permanecer:
+CREATE TABLE tab_temp AS SELECT DISTINCT * FROM tabela;
+DROP tabela;
+ALTER TABLE tab_temp RENAME TO tabela;
+(Dica de Osvaldo Rosario Kussama na lista de PostgreSQL Brasil)
+
+
+41) Retornar Registro Aleatório
+
+    SELECT col
+    FROM tab
+    ORDER BY random()
+    LIMIT 1;
+
+
+42) Alterar o Tipo de Dados de um Campo
+
+    BEGIN;
+    ALTER TABLE tab ADD COLUMN new_col new_data_type;
+    UPDATE tab SET new_col = CAST(old_col AS new_data_type);
+    ALTER TABLE tab DROP COLUMN old_col;
+    COMMIT;
+
+
+43) Limites do PostgreSQL
+
+What is the maximum size for a row, a table, and a database?
+
+These are the limits:
+
+    Maximum size for a database?	unlimited (32 TB databases exist)
+    Maximum size for a table?	32 TB
+    Maximum size for a row?	400 GB
+    Maximum size for a field?	1 GB
+    Maximum number of rows in a table?	unlimited
+    Maximum number of columns in a table?	250-1600 depending on column types
+    Maximum number of indexes on a table?	unlimited
+
+Fonte da 41, 42 e 43: FAQs do PostgreSQL: http://www.postgresql.org/docs/faqs.FAQ.html
+
+
+44) Qual o espaço em disco necessário para armazenar arquivos textos
+
+A PostgreSQL database may require up to five times the disk space to store data from a text file.
+
+As an example, consider a file of 100,000 lines with an integer and text description on each line. Suppose the text string avergages twenty bytes in length. The flat file would be 2.8 MB. The size of the PostgreSQL database file containing this data can be estimated as 5.2 MB:
+
+    24 bytes: each row header (approximate)
+    24 bytes: one int field and one text field
+   + 4 bytes: pointer on page to tuple
+   ----------------------------------------
+    52 bytes per row
+
+   The data page size in PostgreSQL is 8192 bytes (8 KB), so:
+
+   8192 bytes per page
+   -------------------   =  158 rows per database page (rounded down)
+     52 bytes per row
+
+   100000 data rows
+   --------------------  =  633 database pages (rounded up)
+      158 rows per page
+
+633 database pages * 8192 bytes per page  =  5,185,536 bytes (5.2 MB)
+
+Indexes do not require as much overhead, but do contain the data that is being indexed, so they can be large also.
+
+NULLs are stored as bitmaps, so they use very little space.
+
+
+45) Como saber se o conteúdo de um campo é NULL?
+
+   SELECT *
+   FROM tab
+   WHERE col IS NULL;
+
+To concatentate with possible NULLs, use COALESCE(), like this:
+
+   SELECT COALESCE(col1, '') || COALESCE(col2, '')
+   FROM tab
+
+To sort by the NULL status, use the IS NULL  and IS NOT NULL modifiers in your ORDER BY clause. Things that are true will sort higher than things that are false, so the following will put NULL entries at the top of the resulting list:
+
+   SELECT *
+   FROM tab
+   ORDER BY (col IS NOT NULL)
+
+
+46) Saber a versão atual do PostgreSQL
+
+SELECT version();
+
+
+47) Criar campo com time como valor default:
+
+CREATE TABLE test (x int, modtime TIMESTAMP DEFAULT CURRENT_TIMESTAMP );
+
+
+48) Retornando Números para Like
+
+select cont_codi, cont_desc
+ from conta
+ where cont_codi like '%1%'
+
+Converte o campo para string. Isso ocorre porque não é feito o cast
+automatico.
+select cont_codi, cont_desc
+from conta
+where CAST(cont_codi as STRING) like '%1%'
+
+Evandro
+
+ou
+
+Utilize cast explícito.
+cont_codi::text like '%1%'
+
+Osvaldo
+
+O Operador LIKE é utilizado para STRINGS [1]!
+Faça um CAST para TEXT;
+
+SELECT  '1%' like 123456::text
+
+[1]
+trisso-> \do ~~
+ pg_catalog | ~~   | bytea                        | bytea
+        | boolean         | matches LIKE expression
+ pg_catalog | ~~   | character                    | text
+        | boolean         | matches LIKE expression
+ pg_catalog | ~~   | name                         | text
+        | boolean         | matches LIKE expression
+ pg_catalog | ~~   | text                         | text
+        | boolean         | matches LIKE expression
+
+Thiago Risso
+
+
+49) Encontrar Tabela em Banco, retornando esquema e tabela
+
+select schemaname, tablename from pg_tables 
+	where schemaname not like 'pg_%' 
+	and schemaname not like 'information_schema' 
+	and tablename='estados';
+
+
+50) Servidor lento
+
+1900MiB, imagino.
+
+As razões mais comuns para tal comportamento na minha experiência são
+programas PL/SQL trabalhando registro-a-registro em vez de usarem
+operadores de conjunto; uso de espaço de troca de memória virtual;
+fragmentação de objetos em disco; mau uso dos caches.  Há outras,
+essas são as mais comuns.
+
+Sem mais informações, impossível ajudar.  Parece o tipo de situação
+que requereria um consultor, se o objetivo for a solução mais rápida
+possível.	
+Leandro
+
+
+51) Como posso fazer par limitar um espaço de utilização do banco de
+> dados? Por exemplo, quero dar para cada usuário o tamanho de 3MB de
+> banco de dados, como é que faço este tipo de limitação?
+
+Só conheço um jeito efetivo para isso: Criar TABLESPACES em partições
+específicas para cada usuário. Se você tiver muitos usuários, melhor
+usar LVM. Cada usuário só poderá criar objetos no tablespace que ele
+tem permissão. A tablespace terá o espaço equivalente ao da partição
+onde ela se encontra. Se você utilizar XFS, poderá esticar o tamanho
+das partições on-the-fly, mas não poderá diminuir as partições. Se
+criar com EXT3 poderá aumentar e diminuir a partição, mas terá de
+desmontar ela para realizar a operação.
+Fábio Telles
+
+
+52) Gostaria que retornassem TODAS as datas, e nas que não teve saída, retornasse 0 no valor
+
+select * from tabela where data between 2008-06-01 and 2008-06-05
+
+Eu estou fazendo um SELECT das minhas saídas, por exemplo: SELECT data,
+sum(valor) FROM saidas GROUP BY data....
+Porém nas datas que não teve saída, ele não me retorna nada, eu gostaria que
+retornassem TODAS as datas, e nas que não teve saída, retornasse 0 no
+valor....
+
+SELECT (inicio + i)::date   FROM generate_series(0, fim - inicio) i;
+
+Onde início e fim são suas datas. Se desejar uma função tente esta:
+
+CREATE OR REPLACE FUNCTION gen_datas(inicio date, fim date)
+RETURNS SETOF date AS $$
+ SELECT $1 + i
+   FROM generate_series(0, $2 - $1) i;
+$$ LANGUAGE SQL IMMUTABLE;
+
+Osvaldo
+
+Usei esta consulta para um problema semelhante:
+
+SELECT s."Data", sum(coalesce(tab_data.valor,0)) AS "Valor"
+FROM gen_datas(('2003-12-10'::date - '1
+month'::interval)::date,'2003-12-10'::date) AS s("Data")
+     LEFT OUTER JOIN tab_data
+                  ON s."Data" = tab_data.data
+GROUP BY s."Data"
+ORDER BY s."Data" ASC;
+
+A função gen_datas é a da outra mensagem enviada anteriormente.
+
+Osvaldo
+
+
+53) Verificar se Campo Existe (Catálogo)
+
+Você pode acessar as tabelas do catalogo e verificar se o campo existe.
+Por exemplo:
+
+ SELECT a.relname AS Tabela, b.attname AS Campo
+ FROM pg_class a
+ JOIN pg_attribute b ON (b.attrelid = a.relfilenode)
+ WHERE  b.attstattarget = -1 AND
+        a.relname = <TABELA> AND  b.attname = <CAMPO>;
+ IF NOT FOUND THEN
+   **** existe o campo
+ ELSE
+   **** não existe o campo
+ END IF;
+
+
+54) Eu gostaria de fazer um select que entre os campos especificados tenha
+outro select. Até ai tudo bem, mas preciso filtar esse select no campo
+com um valor do outro select.
+Exemplo:
+
+SELECT campo1, (SELECT campoX FROM tb WHERE campo = campo1 LIMIT 1) as campo2
+FROM tb2
+
+O problema é que esse campo1 do WHERE do segundo select é o mesmo
+campo1 da lista do primeiro select. Como especifico isso?
+
+SELECT campo1, x.campox as campo2
+FROM tb2 as a
+LEFT JOIN (SELECT campoX FROM tb WHERE campo = campo1 LIMIT 1) as x on (a.campo1 = x.campo1)
+Rúben Lício
+
+SELECT tb2.campo1,
+       (SELECT campoX FROM tb
+         WHERE tb.campo = tb2.campo1 LIMIT 1) as campo2
+FROM tb2;
+Osvaldo
+
+Você pode usar a seguinte sintaxe:
+
+SELECT a.Campo1, (SELECT CampoX FROM tb WHERE campo = a.Campo1 LIMIT 1) as Campo2 FROM tb2 a;
+Willian Jhonnes L. dos Santos
+
+
+55) Saber a consulta em execução de um PID
+
+select procpid,
+      usename,
+      datname,
+      current_query,
+      client_addr || ':' || client_port
+from   pg_stat_activity
+where  procpid = 23160;
+
+
+56) Select em campo
+
+SELECT a.idfunc,a.nome,a.cpf,a.rg,b.setor,c.nome,c.cidade,
+(select f.descricao from funcao f join atividades g on (f.idfuncao = g.idatividade) where g.idfunc = a.idfunc order by g.datainicial desc limit 1)
+FROM....
+ 
+Esta sentença retorna a ultima funcao registrada do funcionario, entre outras informacoes.
+--Paulo
+
+
+57) 

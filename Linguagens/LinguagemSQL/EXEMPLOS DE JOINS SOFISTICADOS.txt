@@ -1,0 +1,22 @@
+EXEMPLOS DE JOINS SOFISTICADOS
+
+CREATE TABLE logtable(id serial, tstamp timestamp, message text,mestype int4);
+
+SELECT event.name, comment.comment FROM event, comment
+        WHERE event.id=comment.event_id;
+
+SELECT event.name, comment.comment FROM event INNER JOIN comment
+                ON event.id=comment.event_id;
+
+
+SELECT event.name, comment.comment FROM event LEFT JOIN comment ON
+                event.id=comment.event_id;
+
+
+SELECT event.name, comment.comment FROM event RIGHT JOIN comment
+                ON event.id=comment.event_id;
+
+
+SELECT event.name, comment.comment FROM comment RIGHT JOIN event
+                ON event.id=comment.event_id;
+

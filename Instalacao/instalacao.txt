@@ -1,0 +1,33 @@
+Instalação do PostgreSQL no Linux Ubuntu 17.04
+
+sudo apt install postgresql postgresql-doc postgresql-contrib
+
+Acessando via console sem senha nem precisar atribuir senha ao postgres
+
+sudo -u postgres psql
+
+
+Temos a versão 9.6.3
+
+Visitando o site http://packages.ubuntu.com
+e pesquisando sobre a versão do PostgreSQL no Ubuntu 17.04, vi que é a 9.6.3
+
+Onde ficam os arquivos:
+
+Diretório de dados 								- /var/lib/postgresql/9.6/main/base
+pg_indent.conf, pg_hba.conf e do postgresql.conf - /etc/postgresql/9.6/main
+pg_dump, pg_dumpall, psql e outros binários 	- /usr/bin
+createcluster.conf, user_clusters				- /etc/postgresql-common
+
+postgres=# \l
+                                  List of databases
+   Name    |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges   
+-----------+----------+----------+-------------+-------------+-----------------------
+ postgres  | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ template0 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+           |          |          |             |             | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+           |          |          |             |             | postgres=CTc/postgres
+(3 rows)
+
+

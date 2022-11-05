@@ -1,0 +1,6 @@
+Cursor
+
+É uma variável usada para armazenar resultados de um select, permitindo assim o processamento individual de cada registro retornado pelo select de vários registros.
+
+Em vez de executar toda a consulta de uma vez, é possível definir um cursor encapsulando a consulta e, depois, ler umas poucas linhas do resultado da consulta de cada vez. Um dos motivos de se fazer desta maneira, é para evitar o uso excessivo de memória quando o resultado contém muitas linhas (Entretanto, normalmente não há necessidade dos usuários da linguagem PL/pgSQL se preocuparem com isto, uma vez que os laços FOR utilizam internamente um cursor para evitar problemas de memória, automaticamente). Uma utilização mais interessante é retornar a referência a um cursor criado pela função, permitindo a quem chamou ler as linhas. Esta forma proporciona uma maneira eficiente para a função retornar conjuntos grandes de linhas.
+

@@ -1,0 +1,33 @@
+Logo após a instalação no Ubuntu:
+sudo su
+su - postgre
+psql
+ALTER ROLE postgres WITH PASSWORD 'postgres';
+\q
+
+Adicionar Usuário
+
+CREATE ROLE usuario NOLOGIN PASSWORD 'senha'
+
+Remover todos os privilégios públicos em uma tabela:
+REVOKE ALL ON tabela FROM PUBLIC
+
+grant all on database money to cashier;
+GRANT ALL ON customers, books, editions, publishers TO manager;
+GRANT SELECT ON customers TO GROUP sales;
+
+
+Adicionar acesso apenas para SELECT, INSERT e UPDATE (Não tem acesso para DELETE):
+GRANT SELECT,INSERT,UPDATE ON tabela TO usuario_ou_grupo;
+
+Exemplo:
+
+CREATE ROLE user_clientes NOLOGIN PASSWORD 'clientes1234';
+
+REVOKE ALL ON clientes FROM PUBLIC;
+GRANT SELECT,INSERT,UPDATE ON clientes TO user_clientes;
+
+CREATE ROLE user_clientes LOGIN
+  ENCRYPTED PASSWORD 'clientes1234'
+  NOINHERIT;
+

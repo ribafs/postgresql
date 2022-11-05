@@ -1,0 +1,61 @@
+SELECT ordinal_position,
+column_name,
+data_type,
+column_default,
+is_nullable,
+character_maximum_length,
+numeric_precision
+FROM information_schema.columns
+WHERE table_name = 'clientes' and column_name='nome'
+ORDER BY ordinal_position;
+
+RECEBER PRIMARY KEY
+
+   SELECT kcu.column_name AS pk
+     FROM information_schema.table_constraints tc
+LEFT JOIN information_schema.key_column_usage kcu        
+      ON tc.constraint_name = kcu.constraint_name
+    WHERE tc.table_name = 'clientes'
+    AND constraint_type = 'PRIMARY KEY';
+
+RECEBER MAIS INFOS
+
+   SELECT tc.constraint_name,
+          tc.constraint_type,
+          tc.table_name,
+          kcu.column_name,
+	  tc.is_deferrable,
+          tc.initially_deferred,
+          rc.match_option AS match_type,
+          rc.update_rule AS on_update,
+          rc.delete_rule AS on_delete,
+          ccu.table_name AS references_table,
+          ccu.column_name AS references_field
+     FROM information_schema.table_constraints tc
+LEFT JOIN information_schema.key_column_usage kcu
+       ON tc.constraint_catalog = kcu.constraint_catalog
+      AND tc.constraint_schema = kcu.constraint_schema
+      AND tc.constraint_name = kcu.constraint_name
+LEFT JOIN information_schema.referential_constraints rc
+       ON tc.constraint_catalog = rc.constraint_catalog
+      AND tc.constraint_schema = rc.constraint_schema
+      AND tc.constraint_name = rc.constraint_name
+LEFT JOIN information_schema.constraint_column_usage ccu
+       ON rc.unique_constraint_catalog = ccu.constraint_catalog
+      AND rc.unique_constraint_schema = ccu.constraint_schema
+      AND rc.unique_constraint_name = ccu.constraint_name
+    WHERE tc.table_name = 'clientes';
+
+select column_name from information_schema.constraint_column_usage where table_name = '$table' and constraint_name = '{$table}_pkey';
+
+MOSTRAR FOREIGN KEY
+
+SELECT
+    kcu.column_name
+FROM 
+    information_schema.table_constraints AS tc 
+    JOIN information_schema.key_column_usage AS kcu ON tc.constraint_name = kcu.constraint_name
+    JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name
+WHERE constraint_type = 'FOREIGN KEY' AND tc.table_name='pedidos';
+
+

@@ -1,0 +1,11 @@
+- Segurança
+	- Atualização da distribuição (automática para os pacotes de segurança)
+	- Firewall, fail2ban e denyhosts
+	- Usuários, grupos e privilégios
+	- Enxugar usuários
+	- Enxugar pacotes, processos e serviços
+	- Monitorar serviços, recursos, processos, logs, arquivos, etc
+	- Backup frequente do SO
+	- Backup frequente e confiável dos bancos de dados
+	- Política de senhas fortes
+

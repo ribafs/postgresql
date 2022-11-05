@@ -1,0 +1,242 @@
+Modelagem de um Banco de Dados pessoa no PostgreSQL
+
+
+Observações úteis sobre esta modelagem:
+
+Até o últmo banco de dados que criei, o cadastro de pessoas era geralmente algo como:
+
+pessoa(codigo, nome, rua, numero, bairro, cidade, uf, cep)
+
+Ou seja, desnormalizado, quese todos os campos permitindo valores duplicados. 
+
+Para min foi muito proveitosa a discussão na lista de postgresql, como também algumas leituras sobre o assunto, que 
+me fizeram perceber sua grande importância.
+
+Inclusive comparando este modelo com os dois anteriores (controle de estoque e vídeo locadoras), a diferença é grande:
+
+- O CPF permitia nulos no controle de estoque
+- Agora ele tem um domínio que valida seus dados e um índice parcial que permite a entrada "informal" e entradas válidas 
+para CPF (sendo que para estas últimas é aplicado o índice único).
+
+- As tabelas clientes, fornecedores e ceps foram normalizadas.
+
+
+As três Primeiras Formas Normais (aplicadas neste modelo):
+
+1FN - todos os atributos possuem valores simples (nenhum é composto)
+2FN - deve estari na 1FN e não possuir dependência funcional parcial (todos os atributos dependem integralmente da chave primária)
+2FN - deve estar na 2FN e não possuir nenhuma dependência funcional transitiva (nenhum atributo pode depender de outro atributo que não seja PK)
+Quando existem dependências cíclicas ou multivaloradas devemos aplicar a 4FN e a 5FN.
+
+
+Após a divulgação do modelo controle de estoque, tivemos um longo debate na lista de PostgreSQL, o que melhorou meus 
+conhecimentos sobre o modelo relacional, modelagem, normalização e cia.
+
+Agora trago mais um modelo, mais simples mas acredito que mais coerente e mais robusto, mas mesmo assim deve ter itens a melhorar. 
+
+Algo muito importante é a implementação de chaves naturais (pelo que vejo um dos maiores responsáveis por garantir a unicidade dos registros). 
+Veja que as relações pessoas, municipios, ceps, enderecos e juridicas estão com vhaves naturais, mas o mais importante aqui é a idéia, 
+o conceito, que devemos ter na chave primária, campo(s) que sejam realmente representativos da relação. Fechando, a chave deve impedir totalmente duplicações.
+
+Só para exemplificar, veja as duas tabelas abaixo:
+
+create table juridicas
+(
+	cnpj dom_cnpj primary key,
+	inscricao_estadual dom_ie_ce,
+	site dom_url
+);
+
+create table juridicas2
+(
+	id int primary key,
+	cnpj char(20),
+	inscricao_estadual char(10),
+	site char50)
+);
+
+Na tabela juridicas2, podemos inserir registros com nomes duplicados com grande facilidade, já que não existe nenhum controle sobre isso pelo SGBD.
+Para o SGBD apenas será fiscalizado se o campo juridica (um ID) não será duplicado.
+Já na tabela juridicas é praticamente impossível duplicar um registro, pois a chave é um CNPJ, o SGBD não deixa duplicar.
+
+No modelo original (do Ary Júnior) o endereço guarda pessoa, assim como o telefone também guarda pessoa.
+
+Então fui refletir um pouco e encontrei pelo menos um bom motivo para fazer diferente, adicionar o
+endereço em pessoas:
+
+Sabemos que existem mais pessoas que endereços.
+Para cada nova pessoa cadastrada teremos que cadastrar também um novo endereço. E o mais grave é que, em sendo pessoas físicas,
+haverá duplicação de endereços para as pessoas de um mesmo endereço.
+
+Colaboracão de Ribamar FS (http://pg.ribafs.net.
+Artigo fonte de inspiração: Estudo de Caso de Projeto de Bancos de Dados para Contas a Pagar e Receber, 
+de Ary Júnior na SQL Magazine 52.
+
+
+-- Domínios
+-- SELECT * FROM information_schema.domains WHERE domain_schema='public';
+
+Domínios
+
+Um domínio se baseia em um determinado tipo base e, para muitas finalidades, é intercambiável com o seu tipo base. Entretanto, o domínio pode ter restrições limitando os valores válidos a um subconjunto dos valores permitidos pelo tipo base subjacente.
+
+Se a coluna for baseada em um domínio, esta coluna se refere ao tipo subjacente do domínio (e o domínio é identificado em domain_name e nas colunas associadas).
+
+CREATE DOMAIN nome [AS] tipo_de_dado
+    [ DEFAULT expressão ]
+    [ restrição [ ... ] ]
+
+onde restrição é:
+
+[ CONSTRAINT nome_da_restrição ]
+{ NOT NULL | NULL | CHECK (expressão) }
+
+O comando CREATE DOMAIN cria um domínio. O domínio é, essencialmente, um tipo de dado com restrições opcionais (restrições no conjunto de valores permitidos). O usuário que cria o domínio se torna o seu dono.
+
+Se for fornecido o nome do esquema (por exemplo, CREATE DOMAIN meu_esquema.meu_dominio ...), então o domínio será criado no esquema especificado, senão será criado no esquema corrente. O nome do domínio deve ser único entre os tipos e domínios existentes no esquema do domínio.
+
+Domínios são úteis para reunir restrições comuns em campos em um único local para manutenção. Por exemplo, várias tabelas podem conter colunas de endereço de correio eletrônico, todas requerendo a mesma restrição de verificação (CHECK). Em vez de definir as restrições em cada tabela individualmente, pode ser definido um domínio.
+
+ALTER DOMAIN nome
+    { SET DEFAULT expressão | DROP DEFAULT }
+ALTER DOMAIN nome
+    { SET | DROP } NOT NULL
+ALTER DOMAIN nome
+    ADD restrição_de_domínio
+ALTER DOMAIN nome
+    DROP CONSTRAINT nome_da_restrição [ RESTRICT | CASCADE ]
+ALTER DOMAIN nome
+    OWNER TO novo_dono
+
+Exemplos:
+ALTER DOMAIN cep SET NOT NULL;
+
+ALTER DOMAIN cep ADD CONSTRAINT chk_cep CHECK (char_length(VALUE) = 8);
+
+
+Criando:
+
+CREATE DOMAIN dom_cep AS text
+    CONSTRAINT chk_cep CHECK (VALUE ~ '^\\d{8}$') NOT NULL;
+
+
+Exemplos de funções que adicionam e tiram máscaras:
+
+-- Recebe assim: 60420440 e exibe assim: 60420-440
+CREATE FUNCTION f_cep_tela(cep dom_cep) RETURNS TEXT AS $$
+BEGIN
+    RETURN substr(cep,1,5) || '-' || substr(cep,6,3);
+END;
+$$ LANGUAGE plpgsql;
+CREATE TABLE tbl_cep (cep dom_cep);
+
+-- Recebe assim: 60420-440 e insere assim: 60420440
+CREATE FUNCTION f_cep_banco(cep dom_cep) RETURNS TEXT AS $$
+BEGIN
+    RETURN substr(cep,1,5) || substr(cep,7,3);
+END;
+$$ LANGUAGE plpgsql;
+CREATE TABLE tbl_cep (cep dom_cep);
+
+Estas funções acima são uma pequena variação da função encotnrada na documentação
+oficial em português do comando CREATE DOMAIN:
+http://pgdocptbr.sourceforge.net/pg80/sql-createdomain.html
+
+Usando:
+
+Para exibir:
+select cep_tela('60420440');
+
+Para inserir no banco, mas usando num insert, ao invés:
+select cep_banco('60420-440');
+
+
+Obs.: Ao implementar validação através de domínio isso fica transparente para o usuário que geralmente tem que implementar 
+a validação, tornando a programação no aplicativo algo mais leve.
+
+
+Expressões regulares:
+
+Página da documentação oficial do PostgreSQL: 
+http://pgdocptbr.sourceforge.net/pg80/functions-matching.html
+
+Testador online para expressões POSIX:
+http://www.spaweditor.com/scripts/regex/index.php
+
+Data (Formato dd/mm/aaaa) -	^([0-9]|[0,1,2][0-9]|3[0,1])/([\d]|1[0,1,2])/\d{4}$
+Data (Formato aaaa-mm-dd) -	^\d{4}-(0[0-9]|1[0,1,2])-([0,1,2][0-9]|3[0,1])$
+Hora (HH:MM) -	^([0-1][0-9]|[2][0-3])(:([0-5][0-9])){1,2}$
+
+Nome completo - ^[a-zA-Z][a-zA-Z][a-zA-Z]* [a-zA-Z ]*$
+Numero Decimal -	^\d*[0-9](\.\d*[0-9])?$
+
+Arquivos	- ^[a-zA-Z0-9-_\.]+\.(pdf|txt|doc|csv)$
+Codigo Cor HTML -	^#?([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$	(exemplo: #00ccff
+Imagem	- ^[a-zA-Z0-9-_\.]+\.(jpg|gif|png)$
+IP	- ^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})$
+Arquivos Multimedia -	^[a-zA-Z0-9-_\.]+\.(swf|mov|wma|mpg|mp3|wav)$	(Exemplo: company-presentation.swf)
+
+CNPJ (com máscara) - ^[0-9]{2}.[0-9]{3}.[0-9]{3}/[0-9]{4}-[0-9]{2}$ (Exemplo: 00.043.711/0001-43)
+CNPJ (sem máscara) - ^[0-9]{2}[0-9]{3}[0-9]{3}[0-9]{4}[0-9]{2}$ (Exemplo: 00043711000143)
+CPF (com máscara) - ^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2} (Exemplo: 123.456.789-22)
+CPF (sem máscara) - ^[0-9]{3}[0-9]{3}[0-9]{3}[0-9]{2} (Exemplo: 12345678922)
+Inscrição Estadual (SP, com máscara) - 	^[0-9]{3}.[0-9]{3}.[0-9]{3}.[0-9]{3} (Exemplo: 110.042.490.114)
+Inscrição Estadual (SP, com máscara) - 	^[0-9]{3}[0-9]{3}[0-9]{3}[0-9]{3} (Exemplo: 110042490114)
+	Exemplo Ceará: ^[0-9]{3}[0-9]{3}[0-9]{3} (Exemplo: 060000015 )
+	Exemplo Ceará: ^[0-9]{2}.[0-9]{6}-[0-9]{1} (Exemplo: 06.000001-5 )
+
+Telefone (Brasil com DDD) - ^\([0-9]\d{2}\)-\d{4}-\d{4}$	(085)-3423-4542
+Telefone (Brasil sem DDD) - ^\d{4}-\d{4}$  (2634-3454)
+Telefone (US) - ^[2-9]\d{2}-\d{3}-\d{4}$	250-555-4542
+Telefone Internacional	^(([0-9]{1})*[- .(]*([0-9a-zA-Z]{3})*[- .)]*[0-9a-zA-Z]{3}[- .]*[0-9a-zA-Z]{4})+$	(Exemplo: 1.245.532.3422)
+
+Codigo Postal (Brasil, sem máscara) - ^[[:digit:]]{8}$	60420440
+Codigo Postal (Brasil, com máscara)	^[0-9]{5}-[0-9]{3}$	60420-440
+Codigo Postal (EUA)	^([A-Z][0-9]){3}$	V2B2S3	Testar
+
+uf CHAR(2)          -- unidade da federação
+ CONSTRAINT chk_uf
+    CHECK (uf ~ '^A(C|L|M|P)|BA|CE|DF|ES|GO|M(A|G|S|T)|P(A|B|E|I|R)|R(J|N|O|R|S)|S(C|E|P)|TO$')
+
+E-mail	- ^[a-zA-Z][\\w.-]*@[a-zA-Z][\\w.-]*[.][a-zA-Z]+$
+
+URL	- ^(http[s]?://|ftp://)?(www\.)?[a-zA-Z0-9-\.]+\.(com|org|net|mil|edu|ca|co.uk|com.au|gov|br)$
+
+
+====================
+Informações Fiscais Úteis:
+
+Consulta de CNPJ online - http://www.receita.fazenda.gov.br/PessoaJuridica/CNPJ/cnpjreva/Cnpjreva_Solicitacao.asp
+
+Gerador/Validador de CNPJ e CPF online:
+http://highportal.no.sapo.pt/geradorcpf.html
+Obs.: Como é javascript dentro do próprio arquivo HTML, pode ser baixado para uso off line. 
+
+SINTEGRA (IE) - http://www.sintegra.gov.br/
+Exemplo: Ceará - http://www.sefaz.ce.gov.br/Sintegra/Sintegra.Asp?estado=CE (Consulta do CNPJ e da IE. Consulte sem máscara)
+
+Busca de CEP:
+http://www.correios.com.br/servicos/cep/cep_default.cfm
+
+CNPJ - é único (até as filiais também têm o seu). Órgãos públicos são assim, a sede administrativa tem um CNPJ e suas unidades têm um CNPJ
+semelhante
+
+IE (Inscrição Estadual) - único, sem nulo, mas quando não existir informar ISENTO (recomendação do SINTEGRA). A formação é própria de cada estado.
+
+IM (Inscrição Municipal) - único, mas é exigido somente para empresas de prestação de serviço e outros específicos.
+
+A máscara do CNPJ é 99.999.999/9999-99. O número do CNPJ mesmo são os 8 digitos antes da barra e os 4 digitos seguintes a barra são o numero da empresa e os 2 ultimos são digitos verificadores.
+Logo em caso de matriz e filiais os 8 primeiros são iguais já que são da mesma empresa e os 4 digitos seguintes são 0001 para matriz e a sequência são filiais.
+
+Empresas com filiais, usam o mesmo CNPJ, com a diferença de os 4 dígitos finais:
+Se a matriz for 00.000.000/0001-00 
+A filia será 00.000.000/0002-00
+
+
+Exemplos de CNPJ:
+00043711000143 - DNOCS - Fortaleza
+00043711001115 - DNOCS - Montes Claros
+
+Exemplo de IE:
+060000015
+

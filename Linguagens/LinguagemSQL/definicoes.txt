@@ -1,0 +1,46 @@
+Comandos DDL, DQL, DML, DCL, DTL, TCL?
+Os comandos SQL são agrupados em cinco categorias. Segue abaixo suas definições e utilizações.
+
+DDL – Data Definition Language - Linguagem de Definição de Dados.
+Estes comandos são utilizados para definir a estrutura de banco de dados, criando ou removendo objetos.
+CREATE- criar banco de dados, tabelas, colunas.
+DROP - remover um objeto no banco de dados.
+ALTER – altera a estrutura da base de dados
+TRUNCATE – remover todos os registros de uma tabela, incluindo todos os espaços alocados para os registros são removidos. Limpa a tabela por completo. Semelhante ao parâmetro Purge de remoção de programas no Linux.
+COMMENT – adicionar comentários ao dicionário de dados
+RENAME – para renomear um objeto
+
+DQL – Data Query Language - Linguagem de Consulta de Dados.
+
+Utilizado para consultas dos dados.
+SELECT- recuperar dados do banco de dados
+
+DML – Data Manipulation Language - Linguagem de Manipulação de Dados.
+
+Utilizados para o gerenciamento de dados dentro de objetos do banco. 
+INSERT – inserir dados em uma tabela
+UPDATE – atualiza os dados existentes em uma tabela
+DELETE – exclui registros de uma tabela,
+CALL – chamar um subprograma PL / SQL
+EXPLAIN PLAN – explicar o caminho de acesso aos dados
+LOCK TABLE – controle de concorrência
+
+DCL – Data Control Language - Linguagem de Controle de Dados
+
+Conjunto de comandos utilizados para controlar o nível de acesso de usuários.
+GRANT – atribui privilégios de acesso do usuário a objetos do banco de dados
+REVOKE – remove os privilégios de acesso aos objetos obtidos com o comando GRANT
+
+DTL OU TCL – Transaction Control Language - Linguagem de Transação de Dados
+
+São usados ​​para gerenciar as mudanças feitas por instruções DML . Ele permite que as declarações sejam agrupadas em transações lógicas .
+COMMIT – salvar o trabalho feito
+SAVEPOINT – identificar um ponto em uma transação para que mais tarde você pode efetuar um ROLLBACK.
+ROLLBACK – restaurar banco de dados ao original desde o último COMMIT
+
+Estes comandos são os principais usados no gerenciamento, manutenção e consulta de um banco de dados relacional.
+
+Fonte:
+http://www.vivaolinux.com.br/dica/Conhecendo-a-linguagem-SQL/
+http://www.dellanio.com/diferenca-entre-comandos-ddl-dml-dcl-e-tcl/
+

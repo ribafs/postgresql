@@ -1,0 +1,83 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>DBMS_PIPE.SEND_MESSAGE</title>
+
+<meta name="keywords" content="dbms_pipe.send_message, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2155"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-218_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-217.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-218_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-218_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-219.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-218_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P10783_569246"></a><span style="font-family: 'Arial'; font-size: 13pt;">7.3.8 SEND_MESSAGE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SEND_MESSAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function sends a message from the session&#8217;s local message buffer to the specified pipe.</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>status</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> SEND_MESSAGE(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>pipename</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> VARCHAR2 [, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>timeout</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> INTEGER ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>maxpipesize</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> INTEGER ])</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>pipename</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Name of the pipe.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>timeout</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Wait time (seconds). Default is 86400000 (1000 days).</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>maxpipesize</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Maximum capacity of the pipe in bytes. Default is 8192 bytes.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>status</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Status code returned by the operation.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The possible status codes are:</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 7-7 SEND_MESSAGE Status Codes</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="97"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Status Code</span></p>
+</td>
+<td valign="top" width="240"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="97"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">0</span></p>
+</td>
+<td valign="top" width="240"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Success</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="97"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">1</span></p>
+</td>
+<td valign="top" width="240"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Time out</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="97"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">3</span></p>
+</td>
+<td valign="top" width="240"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function interrupted</span></p>
+<p><a name="P10807_569791"></a></p></td></tr></tbody></table>
+
+</p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-217.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-218_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-218_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-219.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-218_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-218_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-218_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

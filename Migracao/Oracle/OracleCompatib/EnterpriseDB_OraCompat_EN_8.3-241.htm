@@ -1,0 +1,124 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>ALL_TAB_COLUMNS</title>
+
+<meta name="keywords" content="all_tab_columns, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2178"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-241_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-240.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-241_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-241_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-242.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-241_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 28pt;"><p><a name="P12011_608800"></a><span style="font-family: 'Arial'; font-size: 14pt;"><i>9.4 ALL_TAB_COLUMNS</i></span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALL_TAB_COLUMNS</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> view provides information on all columns in all user-defined tables.</span></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="133"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name</span></p>
+</td>
+<td valign="top" width="108"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Type</span></p>
+</td>
+<td valign="top" width="335"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">owner</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">User name of the </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">table</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">&#8217;s owner.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">schemaname</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Na</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">me of the schema in which the </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">table</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> belongs.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">table</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">_name</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name of the table</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">column_name</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name of the column.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">data_type</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Data type of the column.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">data_length</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Length of </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">text</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> columns.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">data_precision</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Precision</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> of nu</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">meric columns &#8211; number of digits for </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> columns; number of bits for binary numeric columns (</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REAL</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, etc.).</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">data_scale</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Scale of </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> columns.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">column_id</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Relative position of the column within the table.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">nulla</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ble</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CHARACTER</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Whether or not the column is nullable &#8211; possible values are: </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Y</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> &#8211; column </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">is nullable;</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">N</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> &#8211; column does not allow null.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="133"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">data_default</span></p>
+</td>
+<td valign="top" width="108"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span></p>
+</td>
+<td valign="top" width="335"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Default value assigned to the column.</span></p>
+<p><a name="P12050_609667"></a></p></td></tr></tbody></table>
+
+</p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-240.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-241_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-241_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-242.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-241_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-241_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-241_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

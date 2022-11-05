@@ -1,0 +1,9 @@
+Nano
+
+Busca - Ctrl+F6
+Colar na busca - Shift+Insert
+
+Mostrar número de linha ao abrir arquivo:
+nano -c arquivo.txt
+
+

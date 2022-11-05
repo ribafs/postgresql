@@ -1,0 +1,61 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>EnterpriseDB Oracle Compatibility Developer's Guide: Creating a New Table</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1950"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-13_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-12.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-13_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-13_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-14.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-13_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P1054_44037"></a><span style="font-family: 'Arial'; font-size: 13pt;">2.1.2 Creating a New Table</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A
+new table is created by specifying the table name, along with all
+column names and their types. The following is a simplified version of
+the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> sample table with just the minimal information needed to define a table.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE TABLE emp (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    empno           NUMBER(4),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    ename           VARCHAR2(10),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    job             VARCHAR2(9),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    mgr             NUMBER(4),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    hiredate        DATE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    sal             NUMBER(7,2),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    comm            NUMBER(7,2),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    deptno          NUMBER(2)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">);</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">You can enter this into </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">PSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> with line breaks. </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">PSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> will recognize that the command is not terminated until the semicolon.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">White space (i.e., spaces, tabs, and newlines) may be used freely in </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands. That means you can type the command aligned differently than the above, or even all on one line. Two dashes (</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">"</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">--</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">"</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">) introduce comments. Whatever follows them is ignored up to the end of the line. </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+is case insensitive about key words and identifiers, except when
+identifiers are double-quoted to preserve the case (not done above).</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">VARCHAR2(10)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> specifies a data type that can store arbitrary character strings up to 10 characters in length. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUMBER(7,2)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a fixed point number with precision 7 and scale 2. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUMBER(4)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is an integer number with precision 4 and scale 0.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> supports the usual </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> data types </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INTEGER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SMALLINT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CHAR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">VARCHAR2</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TIMESTAMP</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> as well as various synonyms for these types.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If you don&#8217;t need a table any longer or want to recreate it differently you can remove it using the following command: </span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DROP TABLE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>tablename</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">;</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-12.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-13_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-13_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-14.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-13_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-13_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-13_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

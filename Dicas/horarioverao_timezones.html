@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "/_dtd/xhtml1-transitional.dtd">
+<html xml:lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" lang="pt-br"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Alterações de configuração necessárias para o Horário de Verão 2007/2008</title><link rel="stylesheet" href="horarioverao_timezones_arquivos/site_rnp.css" type="text/css"><script type="text/javascript" src="horarioverao_timezones_arquivos/rnp.js" charset="iso-8859-1"></script><link rel="shortcut icon" href="http://www.rnp.br/favicon.ico"><link rel="alternate" type="application/rss+xml" title="Alertas do Cais" href="http://www.rnp.br/cais/alertas/rss.xml"><meta name="publisher" content="CAIS"><meta name="subject" content="segurança, "><meta name="type" content="text"><meta name="format" content="text/html"><meta name="identifier" content="/cais/alertas/2007/cais-alr-20071005.html"><meta name="language" content="pt-br"><meta name="date" scheme="W3CDTF" content="2007-10-05T14:59"><meta name="description" content="Alerta do CAIS 20071005"><meta name="rights" content="Copyright RNP ©2007"></head><body><!--htdig_noindex--><!--noindex--><div><table class="bkg-cinzaclaro" summary="esta tabela apresenta visualmente o cabeçalho do documento, juntamente com as barras de navegação" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td valign="top" width="10%">&nbsp;</td><td valign="top" width="45%"><div><a href="http://www.rnp.br/index.php" name="topo"><img src="horarioverao_timezones_arquivos/rnpmission.gif" class="margin_iv" alt="RNP - Rede Nacional de Ensino e Pesquisa" border="0"></a></div></td><td valign="top" width="15%"><p class="lang_opt"><a href="http://www.rnp.br/en/">english</a>&nbsp;|&nbsp;<a href="http://www.rnp.br/es/">español</a></p></td><td valign="top" width="30%"><form name="consulta" action="/consulta/" method="get"><p class="header_adm"><label for="words">buscar no site:</label><br><input name="words" id="words" size="8" class="inputform" value="" type="text"><span>&nbsp;</span><input class="submitform" value="ok" type="submit"></p></form></td></tr></tbody></table><table class="bkg-cinzaclaro" summary="esta tabela apresenta visualmente o cabeçalho do documento, juntamente com as barras de navegação" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="navpassive-i" width="70%"><p>&nbsp;</p></td><td class="navpassive-i" width="30%"><p><a href="http://www.rnp.br/rnp/">Sobre a RNP</a> | <a href="http://www.rnp.br/parcerias/">Parcerias</a> | <a href="http://www.rnp.br/contato/">Contato</a></p></td></tr></tbody></table><table class="bkg-cinzaclaro" summary="esta tabela apresenta visualmente o cabeçalho do documento, juntamente com as barras de navegação" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="navactive" width="10%">&nbsp;</td><td class="navactive"><p><a href="http://www.rnp.br/ipe/">Rede RNP</a> | <a href="http://www.rnp.br/servicos/">Serviços</a> | <a href="http://www.rnp.br/ceo/">Operação</a> | <a href="http://www.rnp.br/cais/">Segurança</a> | <a href="http://www.rnp.br/pd/">P&amp;D</a> | <a href="http://www.rnp.br/capacitacao/index.html">Capacitação</a> | <a href="http://www.rnp.br/eventos/">Eventos</a></p></td></tr></tbody></table><table summary="esta tabela apresenta visualmente o cabeçalho do documento, juntamente com as barras de navegação" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="10%">&nbsp;</td><td width="90%"><p class="navparent"><a href="http://www.rnp.br/index.php">RNP</a> &gt; <a href="http://www.rnp.br/servicos/">Serviços</a> &gt; <a href="http://www.rnp.br/cais/">Segurança em redes</a> &gt; <a href="http://www.rnp.br/cais/alertas/">Alertas do CAIS</a></p></td></tr></tbody></table></div><!--index--><!--/htdig_noindex--><div><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td valign="top" width="10%"><img name="title" src="horarioverao_timezones_arquivos/tp_seguranca_28v.gif" alt="Segurança de redes" height="155" width="35">&nbsp;<br>&nbsp;</td><td valign="top" width="60%"><h2 class="t_margin0">Alterações de configuração necessárias para o Horário de Verão 2007/2008</h2><p class="t_margin0">Alerta do CAIS 20071005</p><p class="data">[CAIS, 05.10.2007-14:59]</p><br><p>Como
+foi devidamente anunciado pelo CAIS, o horário de verão 2007/2008 terá
+início em 14 de Outubro de 2007 e terminará em 17 de Fevereiro de 2008.
+Com isto, algumas configurações nos sistemas são necessárias.</p>
+<p>O horário de verão está relacionado ao TIMEZONE adotado no sistema.
+Ou seja, o timezone funciona como uma "máscara" sobre o relógio do
+sistema, adequando o horário mostrado ao usuário e utilizado pelos
+programas (localtime) à localidade em que o sistema se encontra, mas
+deixando intacto o relógio do sistema (horário absoluto), sempre em UTC
+(GMT 0).</p>
+<p>Se o relógio do sistema (horário absoluto) marca 16:00 UTC (GMT 0), ajustado sempre por NTP, então temos que:</p>
+<ul>
+<li>Para o timezone do Brasil (GMT-3), o horário mostrado ao usuário será 13:00h - GMT-3 (localtime)</li>
+<li>Para o timezone de Paris (França - GMT+1), por exemplo, o horário mostrado ao usuário seria 17:00h - GMT+1 (localtime)</li>
+</ul>
+<br>
+<p>Assim, nenhuma modificação nas configurações do serviço de NTP deve
+ser feita nos sistemas. Entretanto, deve-se tomar um cuidado especial
+com os *servidores* NTP (Stratum 1, Stratum 2 e outros) quando das
+modificações de configuração para o Horário de Verão. Caso o servidor
+NTP detecte uma diferença maior que 20 minutos entre o horário do
+sistema (horário absoluto) e o horário registrado pelo servidor NTP
+(ntpd, OpenNTPD), o serviço NTPD poderá parar. Assim, deve-se redobrar
+a atenção durante o processo de configuração do Horário de Verão em
+hosts que provêem este serviço.</p>
+<p>Lembramos também que para algumas versões de Linux/Unix poderá ser
+necessário reiniciar o daemon "cron" após o início do horário de verão,
+de forma que as tarefas agendadas através do Cron possam continuar a
+ser executadas no horário correto. Para mais informações, verifique o
+manual do "cron" e "crontab" do seu sistema.</p>
+<p>A seguir são descritos os procedimentos de atualização do localtime
+em sistemas OpenBSD, FreeBSD, GNU/Linux, Solaris, AIX e Windows, bem
+como em alguns equipamentos Cisco que usam o IOS. Antes de prosseguir
+com estes procedimentos é preciso que se saiba de antemão o timezone da
+sua região.</p>
+<p>DICA: Consulte o site do <a href="http://www.aneel.gov.br/65.htm">Agência Nacional de Energia Elétrica</a> para saber qual timezone se aplica à região do Brasil na qual seus sistemas estão.</p>
+<ol>
+<li><a href="http://www.rnp.br/cais/alertas/2007/cais-alr-20071005.html#CISCO">CISCO IOS</a></li>
+<li><a href="http://www.rnp.br/cais/alertas/2007/cais-alr-20071005.html#LINUX">GNU/Linux</a></li>
+<li><a href="http://www.rnp.br/cais/alertas/2007/cais-alr-20071005.html#FREE">FreeBSD</a></li>
+<li><a href="http://www.rnp.br/cais/alertas/2007/cais-alr-20071005.html#OPEN">OpenBSD</a></li>
+<li><a href="http://www.rnp.br/cais/alertas/2007/cais-alr-20071005.html#SOLARIS">Solaris</a></li>
+<li><a href="http://www.rnp.br/cais/alertas/2007/cais-alr-20071005.html#AIX">AIX</a></li>
+<li><a href="http://www.rnp.br/cais/alertas/2007/cais-alr-20071005.html#MS">MS Windows</a></li>
+</ol>
+<br>
+<!--==========================================================================-->
+<h2><a name="CISCO" id="CISCO">1. Cisco IOS</a></h2>
+<p>Nos arquivos de configuração dos roteadores Cisco será preciso incluir (ou atualizar) as seguintes linhas:<br>
+<br>
+clock timezone GMT-3 -3<br>
+clock summer-time GMT-2 date Oct 14 2007 0:00 Feb 17 2008 0:00<br></p>
+<p>*OBS: Os logs gerados pelo Cisco passarão a informar a hora como GMT-2, que é a nova configuração do timezone.</p>
+<br>
+<!--==========================================================================-->
+<h2><a name="LINUX" id="LINUX">2. GNU/Linux</a></h2>
+<p>Usuários de sistemas baseados em GNU/Linux devem seguir o procedimento abaixo:</p>
+<br>
+1. Verificar a existência do arquivo '/etc/localtime' e se este arquivo é um link simbólico ou não.<br>
+<br>
+Não é recomendado possuir o arquivo /etc/localtime como link simbólico,
+pois em sistemas em que o diretório /usr nao estiver acessivel (nao
+tiver sido montado, por exemplo) no momento da inicialização da
+máquina, as informações contidas no arquivo localtime não serão
+carregadas.<br>
+<br>
+2. Verificar se existe no diretório /usr/share/zoneinfo/Brazil algum
+arquivo que contenha informações relativas a outros horários de verão
+(DICA: geralmente um arquivo com extensão .zic).<br>
+<!--==========================================================================-->
+<blockquote>a) Se não existir nenhum arquivo com tais informações então
+crie um novo, de nome 'verao.2007.zic' por exemplo, no diretório
+/usr/share/zoneinfo/Brazil/. Este arquivo deverá conter as seguintes
+linhas:<br>
+<br>
+Rule Brazil 2007 only - Oct 14 00:00 1 S<br>
+Rule Brazil 2008 only - Feb 17 00:00 0 -<br>
+<br>
+Zone Brazil/East -3:00 Brazil BR%sT<br>
+<br>
+<br>
+b) Se existir algum arquivo com informações de Horário de Verão de outros anos basta inserir as linhas mencionadas.<br>
+<br>
+As duas primeiras linhas de configuração acima informam quando se
+inicia o Horário de Verão, quando termina, e qual a ação a ser tomada.
+Lembre-se de que no início do Horário de Verão deve ser adicionada uma
+hora ao horário mostrado ao usuário (localtime).<br>
+<br>
+A última linha diz qual arquivo será modificado pelo comando 'zic'. No
+exemplo acima, será o arquivo 'East' (dentro do diretório Brazil). Esta
+linha também informa qual o timezone original da região - no caso de
+São Paulo (East) temos UTC-3. Caso você esteja utilizando um timezone
+diferente do adotado em São Paulo (East), modifique estes parâmetros
+para o timezone que afeta sua região.<br>
+<br>
+#Cidades que seguem o timezone definido para Fernando de Noronha:<br>
+Zone Brazil/DeNoronha -2:00 Brazil FN%sT<br>
+<br>
+#Cidades que seguem o timezone definido para Brasília:<br>
+Zone Brazil/East -3:00 Brazil BR%sT<br>
+<br>
+#Cidades que seguem o timezone definido para o Amazonas:<br>
+Zone Brazil/West -4:00 Brazil AM%sT<br>
+<br>
+#Cidades que seguem o timezone definido para o Acre:<br>
+Zone Brazil/Acre -5:00 Brazil AC%sT<br>
+<br>
+* Parâmetros definidos pela glibc presente em sistemas Linux, disponível para download em <a href="http://www.gnu.org/">http://www.gnu.org/</a></blockquote>
+<br>
+<p>3. Uma vez feitos os devidos ajustes no arquivo 'verao.2007.zic' execute o comando 'zic':<br>
+<br>
+# zic verao.2007.zic</p>
+<br>
+<p>4. Neste caso em particular o comando atualizará o arquivo East.<br>
+<br>
+Para verificar se as configurações corretas foram feitas, execute o
+comando 'zdump', conforme segue abaixo (troque East pelo timezone de
+sua região):<br>
+<br>
+# zdump -v Brazil/East |grep 200[78]<br>
+<br>
+Você deverá obter uma resposta como a que segue abaixo:<br>
+<br>
+Brazil/East Sun Oct 14 02:59:59 2007 UTC = Sat Oct 13 23:59:59 2007 BRT isdst=0 gmtoff=-10800<br>
+Brazil/East Sun Oct 14 03:00:00 2007 UTC = Sun Oct 14 01:00:00 2007 BRST isdst=1 gmtoff=-7200<br>
+Brazil/East Sun Feb 17 01:59:59 2008 UTC = Sat Feb 16 23:59:59 2008 BRST isdst=1 gmtoff=-7200<br>
+Brazil/East Sun Feb 17 02:00:00 2008 UTC = Sat Feb 16 23:00:00 2008 BRT isdst=0 gmtoff=-10800<br>
+<br>
+Note que em "Sat Oct 13 23:59:59 2007" o sistema ainda não está no
+Horário de Verão (indicação 'BRT'). No segundo seguinte as modificações
+do Horário de Verão entram em vigor, adiantando o localtime em uma
+hora: "Sun Oct 14 01:00:00 2007 BRST" (O horário mostrado ao usuário
+passará para 1 da manhã, e não para meia-noite, mostrando o
+adiantamento do horário).<br>
+<br>
+Em "Sat Feb 16 23:59:59 2008 BRST", o Horário de Verão terminará no
+segundo seguinte, com o localtime sendo então atrasado em 1 hora: "Sat
+Feb 16 23:00:00 2008 BRT" (o horário mostrado ao usuário voltará para
+às 23:00).</p>
+<!--==========================================================================-->
+<p>5. Por último, se o arquivo /etc/localtime NÃO for um link para o
+arquivo /usr/share/zoneinfo/Brazil/East, deve-se copiar o arquivo East
+para /etc/localtime<br>
+# cp East /etc/localtime<br>
+<br></p>
+<p>Caso o arquivo /etc/localtime seja um link, sugerimos que o link
+seja removido e a cópia descrita acima seja executada. Lembre-se sempre
+de fazer cópias de segurança antes de modificar seu sistema.</p>
+<br>
+<!--==========================================================================-->
+<h2><a name="FREE" id="FREE">3. FreeBSD</a></h2>
+<p>Usuários do sistema FreeBSD devem proceder da mesma forma que
+usuários GNU/Linux. A única diferença está no diretório onde deverá ser
+criado o arquivo 'verao.2007.zic' - /usr/share/zoneinfo. As linhas a
+serem incluidas neste arquivo, assim como em sistemas GNU/Linux, são:<br>
+<br>
+Rule Brazil 2007 only - Oct 14 00:00 1 S<br>
+Rule Brazil 2008 only - Feb 17 00:00 0 -<br>
+<br>
+Zone hv2007 -3:00 Brazil BR%sT<br>
+<br></p>
+<p>No exemplo acima, o nome 'hv2007' representa o arquivo que será
+criado ao executar o comando 'zic verao.2007.zic', o qual conterá as
+informações do Horário de Verão. Este novo arquivo deverá ser copiado
+sobre /etc/localtime, lembrando que será preciso fazer uma cópia de
+segurança do arquivo /etc/localtime antes de sobrescrevê-lo.</p>
+<br>
+<!--==========================================================================-->
+<h2><a name="OPEN" id="OPEN">4. OpenBSD</a></h2>
+<p>Usuários do sistema OpenBSD devem proceder da mesma forma que usuários GNU/Linux.</p>
+<br>
+<!--==========================================================================-->
+<h2><a name="SOLARIS" id="SOLARIS">5. Solaris</a></h2>
+<p>Usuários de Solaris devem seguir o procedimento abaixo:</p>
+<p>1. Verificar o zoneinfo respectivo. O arquivo /etc/TIMEZONE contém
+as informações relativas a qual arquivo será consultado para verificar
+o zoneinfo.<br>
+<br>
+# more /etc/TIMEZONE<br>
+<br>
+TZ=Brazil/East<br>
+<br>
+No exemplo acima, deverá ser consultado o arquivo East, no diretório
+Brazil. Por padrão, este diretório deve estar em
+/usr/share/lib/zoneinfo.</p>
+<br>
+<p>2. Verificar se existe no diretório /usr/share/lib/zoneinfo algum
+arquivo em formato texto que contenha informações relativas a outros
+horários de verão (DICA: geralmente um arquivo com extensão .zic)<br>
+<br></p>
+<blockquote>a) Se não existir nenhum arquivo com tais informações,
+deverá ser criado um novo arquivo, de nome 'brazil.zic' por exemplo, e
+inserir as seguintes linhas.<br>
+<br>
+Rule Brazil 2007 only - Oct 14 00:00 1 S<br>
+Rule Brazil 2008 only - Feb 17 00:00 0 -<br>
+<br>
+Zone Brazil/East -3:00 Brazil BR%sT<br>
+<br>
+b) Se existir um arquivo com informações de Horário de Verão de outros anos basta inserir as linhas acima.<br>
+<br>
+As duas primeiras linhas informam quando inicia o Horário de Verão,
+quando termina e qual a ação a ser tomada. Lembre-se de que no início
+do Horário de Verão deve ser adicionada uma hora.<br>
+<br>
+A última linha diz qual arquivo será gerado pelo comando 'zic' - no
+exemplo será o arquivo 'East' (dentro do diretorio Brazil). Esta linha
+também informa o timezone da região, no caso o de São Paulo, UTC-3.<br>
+<br>
+No exemplo que se segue existe um diretório 'Brazil' dentro de
+/usr/share/lib/zoneinfo que contém um arquivo brazil.zic, que deve ser
+atualizado com as linhas mencionadas acima.<br></blockquote>
+<p>3. Deve-se então gerar o novo arquivo (em formato binário) como segue:<br>
+<br>
+# zic brazil.zic</p>
+<br>
+<p>4. Para verificar se as configurações foram feitas corretamente,
+execute o comando 'zdump' conforme segue abaixo (troque East pelo
+timezone de sua região):</p>
+<br>
+# zdump -v Brazil/East |grep 200[78]<br>
+<br>
+Você deverá obter uma resposta como a que segue abaixo:<br>
+<br>
+Brazil/East Sun Oct 14 02:59:59 2007 UTC = Sat Oct 13 23:59:59 2007 BRT isdst=0<br>
+Brazil/East Sun Oct 14 03:00:00 2007 UTC = Sun Oct 14 01:00:00 2007 BRST isdst=1<br>
+Brazil/East Sun Feb 17 01:59:59 2008 UTC = Sat Feb 16 23:59:59 2008 BRST isdst=1<br>
+Brazil/East Sun Feb 17 02:00:00 2008 UTC = Sat Feb 16 23:00:00 2008 BRT isdst=0<br>
+<br>
+<br>
+<!--==========================================================================-->
+<h2><a name="AIX" id="AIX">6. AIX</a></h2>
+<p>Usuários de AIX devem alterar o arquivo /etc/environment colocando a diretiva:</p>
+<p>2007: TZ=GRNLNDST3GRNLNDDT,M10.2.0/00:00:00,M2.3.0/00:00:00</p>
+<p>Isto indica que o horário de verão se inicia às 00:00 do segundo
+domingo do mês 10 (14 de Outubro) e finaliza às 00:00 do terceiro
+domingo do mês 2 (17 de Fevereiro) , seguindo a seguinte sintaxe:</p>
+<p>2007: TZ=GRNLNDST3GRNLNDDT,Mm.w.wd/00:00:00,Mm.w.wd/00:00:00</p>
+<p>* m - mês ( 1 &lt; m &lt; 12 )<br>
+* w - ocorrencia do dia da semana no mês contados a partir do dia 1o. (1 &lt; d &lt; 5)<br>
+* wd - dia da semana ( 0 &lt; n &lt; 5 : Domingo corresponde a 0)<br>
+* hh:mm - horário</p>
+<br>
+<br>
+<h2><a name="MS" id="MS">7. Windows</a></h2>
+<p>Para sistemas Windows 9*/NT/2000/XP recomenda-se o uso do utilitário
+TZEDIT (tzedit.exe), incluido no CD do Resource Kit que acompanha a
+distribuição do sistema. Não existe URL oficial para fazer download
+deste programa no site da Microsoft, mas ele pode ser facilmente
+encontrado na Internet, lembrando que neste último caso *não* se
+garante a integridade do programa.</p>
+<p>Uma segunda opção para modificação do timezone em WindowsXP é a
+utilização do utilitário 'timezone.exe', disponível para download em:</p>
+<p><a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=49ae8576-9bb9-4126-9761-ba8011fabf38&amp;displaylang=en">Microsoft Download Center - Windows XP Service Pack 2 Support Tools</a></p>
+<br>
+<p>OBS: O download é precedido de um processo de validação, que verifica se sua cópia de Microsoft Windows é genuína.</p>
+<p>Administradores que queiram automatizar a atualização do Horário de
+Verão em redes com elevado número de máquinas Windows podem encontrar
+mais informações em:</p>
+<p><a href="http://support.microsoft.com/?kbid=317211">Microsoft Support Knowledge Base How to configure daylight saving time dates for Brazilhttp://support.microsoft.com/?kbid=317211</a></p>
+<p>Para a configuração de timezone do seu sistema utilizando o comando 'timezone.exe' siga os seguintes passos:</p>
+<br>
+<p>1. Faça o download do "Windows XP Service Pack 2 Support Tools" e
+instale-o no seu sistema, caso você não possua o utilitário
+'timezone.exe'.</p>
+<p>2. Em um prompt de comando (cmd.exe) execute, a partir do diretório
+"Program Files\Support Tools" se foi utilizada a instalação padrão, o
+seguinte comando:</p>
+<br>
+C:\Program Files\Support Tools&gt;timezone.exe /s 00:0:2:10 00:0:3:02<br>
+<br>
+As configurações acima seguem o formato:<br>
+<br>
+Hora:DiaDaSemana:Dia:Mes - (Início Horário de Verão)<br>
+Hora:DiaDaSemana:Dia:Mês - (Fim Horário de Verão)<br>
+<br>
+<p>Hora: Hora (00 ate 23)<br>
+DiaDaSemana: Dia da semana (0 - 6 : 0 = Domingo, 1 = Segunda, etc)<br>
+Dia: Ocorrência do dia da semana no mês ( 1 - 5 : Exemplo -&gt; no caso
+do dia da semana ser Terça-Feira: 1 - primeira terça do mês, 2 -
+segunda terca do mês, etc)<br>
+Mês: Mês do ano (01 - 12)</p>
+<p>3. Execute o seguinte comando para verificar se as modificações foram corretamente executadas:</p>
+C:\Program Files\Support Tools&gt;timezone.exe /g<br>
+<br>
+Current Timezone is :<br>
+<br>
+Daylight Saving Time begins at 00:0:2:10<br>
+Daylight Saving Time ends at 00:0:3:02<br>
+<br>
+<p>4. Configure o sistema para utilizar automaticamente as configurações do Horário de Verão:</p>
+<p>5. Vá em Start -&gt; Settings -&gt; Control Panel -&gt; Date and Time -&gt; Timezone;</p>
+<p>6. Certifique-se que você está utilizando o timezone de Brasilia (UTC-0300) Brasília;</p>
+<p>7. Certifique-se que a caixa "Automaticamente ajuste o relógio para o horário de verão" está marcada.</p>
+<br>
+<p>Mais informações:</p>
+<ul>
+<li><a href="http://www.rnp.br/cais/alertas/2007/cais-alr-20070927.html">CAIS-Alerta: Início do Horário de Verão 2007/2008</a></li>
+</ul>
+<br>
+<p>O CAIS Alerta também é oferecido no formato RSS/RDF:<br>
+<a href="http://www.rnp.br/cais/alertas/rss.xml">http://www.rnp.br/cais/alertas/rss.xml</a><br>
+<br></p>
+<p>O CAIS está à disposição para mais esclarecimentos.</p><br><br></td><td valign="top" width="30%"><div><img src="horarioverao_timezones_arquivos/cais_logo.gif" alt="Centro de Atendimento a Incidentes de Segurança"></div><br><div class="navcontextlight"><p class="rotulo">Listas de alertas publicados:<br><a href="http://www.rnp.br/cais/alertas/2007/">2007</a> | <a href="http://www.rnp.br/cais/alertas/2006/">2006</a> | <a href="http://www.rnp.br/cais/alertas/2005/">2005</a> | <a href="http://www.rnp.br/cais/alertas/2004/">2004</a> | <a href="http://www.rnp.br/cais/alertas/2003/">2003</a> | <a href="http://www.rnp.br/cais/alertas/2002/">2002</a> | <a href="http://www.rnp.br/cais/alertas/2001/">2001</a> | <a href="http://www.rnp.br/cais/alertas/2000/">2000</a> | <a href="http://www.rnp.br/cais/alertas/1999/">1999</a> | <a href="http://www.rnp.br/cais/alertas/1998/">1998</a></p></div><div><form name="consulta" action="/cais/alertas/consulta/" method="get"><p class="rotulo">Consulta em alertas<br><label for="words">buscar por:</label><br><input name="words" id="words" size="8" class="inputform" value="" type="text"><span>&nbsp;</span><input class="submitform" value="ok" type="submit"></p></form></div><div class="navcontextblue"><hr noshade="noshade" size="1" width="95%"><p class="rotulo">Assinatura dos Alertas do CAIS</p><p>Assine
+a lista de alertas do CAIS e receba antecipadamente, por correio
+eletrônico, as mais recentes notificações sobre segurança em redes e
+sistemas.</p><p><a href="http://www.rnp.br/cais/listas.php">Formulário de assinatura dos Alertas do CAIS</a></p><p><img src="horarioverao_timezones_arquivos/ic_form.gif" alt="Formulário de assinatura" border="0"></p></div><div class="bloco"><hr noshade="noshade" size="1" width="95%"><p class="newsnav"><a href="http://www.rnp.br/noticias/">Notícias RNP</a></p><p class="newsnav"><a href="http://www.rnp.br/noticias/imprensa/">RNP na mídia</a></p><p class="newsnav"><a href="http://www.rnp.br/imprensa/">Sala de imprensa</a></p><p class="newsnav"><a href="http://www.rnp.br/pub/">Publicações</a></p><p class="newsnav"><a href="http://www.rnp.br/documentos/">Documentos</a></p><p class="newsnav"><a href="http://www.rnp.br/rss/">RSS da RNP</a></p></div><hr align="left" noshade="noshade" size="1" width="95%"><p class="rotulo">Contato com o Cais:</p><p class="newscontext"><span>+55 (19) 3787-3300<br>+55 (19) 3787-3301<br><br>cais@cais.rnp.br</span><br><br><a href="http://www.rnp.br/_arquivo/chaves/cais-pgp.key">Chave PGP pública do Cais</a></p></td></tr></tbody></table></div><div class="rodape"><table class="bkg-cinzaclaro" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td valign="top" width="10%"><p class="footer" style="margin-top: 10px; margin-bottom: 0pt;"><span>13.10.2007</span></p></td><td valign="top" width="30%"><p class="footer" style="margin-top: 10px; margin-bottom: 0pt;"><a href="http://www.rnp.br/guia/" class="link-blue">Guia RNP</a></p></td><td valign="top" width="60%"><p class="footer" style="margin-top: 10px; margin-bottom: 0pt; color: rgb(102, 102, 102);">Rede Nacional de Ensino e Pesquisa</p><p class="footer">Rua Lauro Müller, 116  sala 3902</p><p class="footer">22290-906 Rio de Janeiro RJ</p><p class="footer">tel: 55 21 2102-9660</p><p class="footer">fax: 55 21 2279-3731</p><br></td></tr></tbody></table></div></body></html>

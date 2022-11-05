@@ -1,0 +1,55 @@
+DML - Data Manipulation Language
+
+Insert
+Update
+Delete
+Select for Update
+
+INSERT - registros são inseridos um de cada vez. Podemos inserir mais de um 
+registro mas nunca menos de um.
+
+insert into produtos values (1, 'Goiana', 3.55);
+
+Os valores dentro do values, devem ser listados na mesma ordem que aparecem na 
+tabela.
+
+Os valores geralmente são constantes, mas podem ser expressões.
+
+Podemos listar os nomes dos campos explicitamente. Neste caso podemos mudar a 
+ordem, mas os valores devem estar na mesma ordem dos campos.
+
+insert into produtos (id, nome, preco) values (1, 'Goiana', 3.55);
+
+Requerendo o valor default de um campo:
+INSERT INTO films VALUES
+    ('UA502', 'Bananas', 105, DEFAULT, 'Comedy', '82 minutes');
+    
+Podemos inserir vários registros com apenas um comando:
+
+insert into produtos (id, nome, preco) values
+	(1, 'Bananas', 2.65),
+	(2, 'Goiaba', 3.25),
+	(3, 'Mamão', 3.80);
+
+Para inserir muitos registros de uma vez o comando COPY é menos flaxível mas mais
+eficiente.
+
+UPDATE
+Podemos atualizar um único registro, todos ou uma parte de um. Podemos alterar
+apenas um único campo.
+
+Atualizar todos os produtos com preço = 5 para preco = 10:
+update produtos set preco = 10 where preco = 5;
+
+Atualizará zero, um ou mais registros.
+
+Podemos atualizar mais de um campo de cada vez:
+update table set a=5, b=3, c=1;
+
+DELETE
+delete from produtos where preco = 10;
+
+Apagar todos os registros da tabela:
+delete from produtos;
+
+

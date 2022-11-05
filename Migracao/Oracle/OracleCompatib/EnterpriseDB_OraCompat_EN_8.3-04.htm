@@ -1,0 +1,51 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>EnterpriseDB Oracle Compatibility Developer's Guide: Oracle Compatible Configuration Parameters</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1941"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-04_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-03.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-04_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-04_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-05.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-04_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 28pt;"><p><a name="P366_12748"></a><span style="font-family: 'Arial'; font-size: 14pt;"><i>1.3 Oracle Compatible Configuration Parameters</i></span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">As was stated in the introduction, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> supports the development and execution of </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">PostgreSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> applications. There are a number of system behaviors that can be altered to act in a more </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">PostgreSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or in a more </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Or</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">acle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> compliant manner. These are controlled by configuration parameters that can be found in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">postgresql.conf</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> file in the database cluster data directory. Changing the parameters in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">postgresql.conf</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+file changes the behavior over all databases in the cluster. More
+fine-grained adjustment of these parameters can be done by database, by
+user or group, or by session. These parameters are the following:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb_redwood_date</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> &#8211; Controls whether or not a time component is stored in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> columns. For </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> compatible behavior, set </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb_redwood_date</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to &#8220;true&#8221;.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb_redwood_strings</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> &#8211; Equates null to an empty string for purposes of string concatenation operations. For </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> compatible behavior, set </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb_redwood_strings</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to &#8220;true&#8221;.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb_stmt_level_tx</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> &#8211; Isolates automatic rollback of an aborted </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command to statement level rollback only &#8211; the entire, current
+transaction is not automatically rolled back as is the case for default
+</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">PostgreSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> behavior. For </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> compatible behavior, set </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb_stmt_level_tx</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to &#8220;true&#8221;; however, use only when absolutely necessary. See Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-07.htm#P424_17635">1.3.3</a></u>.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">o</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">racle_home</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> &#8211; Point Postgres Plus Advanced Server to the correct Oracle installation directory. See Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-08.htm#P463_20913">1.3.4</a></u>.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-03.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-04_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-04_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-05.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-04_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-04_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-04_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

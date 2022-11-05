@@ -1,0 +1,270 @@
+<html>
+	<head>
+		<title>
+			Tutorials on using PostgreSQL		</title>
+		<META NAME="DESCRIPTION" CONTENT="PostgreSQL, PHP, Perl tutorials, an introduction to the world of server-side languages">
+		<META NAME="KEYWORDS" CONTENT="postgresql, php, perl, tutorial, introduction, basic, help, pgsql, postgres, howto">
+		<LINK REL="stylesheet" HREF="pgsql.css" TYPE="text/css">
+	</head>
+	<body background="" bgcolor="#FFFFFF">
+		<input type="hidden" name="action">
+		<table border="0" width="100%" bgcolor="#E3E4FF" cellspacing="0" cellpadding="0">
+			<tr>
+				<td valign="top" rowspan="3" width="140">
+					<a href="/"><img src="images/slonik.png" alt="Home" border="0"></a>
+				</td>
+				<td>
+					<table border="1" cellspacing="0" cellpadding="5" width="100%" align="center">
+						<tr>
+																<td align="center" width="25">
+										<nobr> 
+			<script language="JavaScript1.2" type="text/javascript">
+			<!--
+
+			
+HM_PG_ItemPadding = 3;
+HM_PG_BorderWidth = 0;
+HM_PG_BorderStyle = 'solid';
+HM_PG_SeparatorSize = 1;
+HM_PG_ImageSrc = './include/dhtml_menu/images/HM_More_black_right.gif';
+HM_PG_ImageSrcOver = './include/dhtml_menu/images/HM_More_white_right.gif';
+HM_PG_ImageSrcLeft = './include/dhtml_menu/images/HM_More_black_left.gif';
+HM_PG_ImageSrcLeftOver = './include/dhtml_menu/images/HM_More_white_left.gif';
+HM_PG_ImageSize = 5;
+HM_PG_ImageHorizSpace = 0;
+HM_PG_ImageVertSpace = 2;
+HM_PG_KeepHilite = true;
+HM_PG_ClickKill = false;
+HM_PG_ChildOverlap = 20;
+HM_PG_ChildOffset = 10;
+HM_PG_ChildPerCentOver = null;
+HM_PG_TopSecondsVisible = 0.5;
+HM_PG_StatusDisplayBuild = false;
+HM_PG_StatusDisplayLink = false;
+HM_PG_ShowLinkCursor = true; 
+
+				HM_PG_NSFontOver = true;
+
+			//-->
+			</script>
+
+		 
+		<script language="JavaScript1.2" type="text/javascript">
+		 
+			if (!window.HM_a_TreesToBuild) window.HM_a_TreesToBuild = [];
+			window.HM_a_TreesToBuild[HM_a_TreesToBuild.length] = 1;
+		</script>
+		<a href="news.php" NAME='menu_anchor_1' ID='menu_anchor_1' onMouseOver="javascript: HM_f_PopUp('elMenu1',event); return true;" onMouseOut="javascript: HM_f_PopDown('elMenu1'); return true;">News Items</a> 
+									</td>
+																	<td align="center" width="25">
+										<nobr> 
+		<script language="JavaScript1.2" type="text/javascript">
+		
+HM_Array2 = [
+	[
+		300,		// menu_width
+		'HM_f_PlaceAtElement(\'menu_anchor_2\',\'left\') +3',		// left_position
+		'HM_f_PlaceAtElement(\'menu_anchor_2\',\'top\') +20',		// top_position
+		'#E3E4FF',		// font_color
+		'#4e53ba',		// mouseover_font_color
+		'#4e53ba',		// background_color
+		'#E3E4FF',		// mouseover_background_color
+		'',		// border_color
+		'#a0a1a5',		// separator_color
+		false,		// top_is_permanent
+		false,		// top_is_horizontal
+		false,		// tree_is_horizontal
+		true,		// position_under
+		true,		// top_more_images_visible
+		true,		// tree_more_images_visible
+		'null',		// evaluate_upon_tree_show
+		'null',		// evaluate_upon_tree_hide
+		false,		// right_to_left
+		false,		// display_on_click
+		true,		// top_is_variable_width
+		false,		// tree_is_variable_width
+
+	],
+	['Introduction to PHP','tutorial.php?id=4',1,0,0],
+	['Installation of PostgreSQL, Apache and PHP','tutorial.php?id=3',1,0,0],
+	['Installation on FreeBSD','tutorial.php?id=14',1,0,0],
+	['Data Retrieval with PostgreSQL','tutorial.php?id=6',1,0,0],
+	['Adding Data to your database','tutorial.php?id=7',1,0,0],
+	['Updating the data already in your database','tutorial.php?id=8',1,0,0],
+	['Deleting the data in your database','tutorial.php?id=9',1,0,0],
+	['Checking your data for errors','tutorial.php?id=10',1,0,0],
+	['Simplifying your scripts by including files','tutorial.php?id=11',1,0,0],
+	['Introduction to Functions','tutorial.php?id=12',1,0,0],
+	['Introduction to Switches','tutorial.php?id=13',1,0,0],
+	['Importing Files in PostgreSQL','tutorial.php?id=15',1,0,0],
+	['Referential Integrity','tutorial.php?id=17',1,0,0],
+	['Creating and Using Views','tutorial.php?id=16',1,0,0],
+	['Introduction to Indexes','tutorial.php?id=18',1,0,0],
+	['Indexes Part 2 - When to use them','tutorial.php?id=19',1,0,0],
+	['Indexes Part 3 - Types of Indexes','tutorial.php?id=20',1,0,0],
+	['Using Explain','tutorial.php?id=21',1,0,0],
+	['Introduction to Object Oriented Programming','tutorial.php?id=22',1,0,0],
+	['<center>-- Full Listing --</center>','tutorial.php?listing=f',1,0,0]
+];
+ 
+			if (!window.HM_a_TreesToBuild) window.HM_a_TreesToBuild = [];
+			window.HM_a_TreesToBuild[HM_a_TreesToBuild.length] = 2;
+		</script>
+		<a href="tutorial.php" NAME='menu_anchor_2' ID='menu_anchor_2' onMouseOver="javascript: HM_f_PopUp('elMenu2',event); return true;" onMouseOut="javascript: HM_f_PopDown('elMenu2'); return true;">List Tutorials</a> 
+									</td>
+																	<td align="center" width="25">
+										<nobr> 
+		<script language="JavaScript1.2" type="text/javascript">
+		 
+			if (!window.HM_a_TreesToBuild) window.HM_a_TreesToBuild = [];
+			window.HM_a_TreesToBuild[HM_a_TreesToBuild.length] = 3;
+		</script>
+		<a href="affiliate.php" NAME='menu_anchor_3' ID='menu_anchor_3' onMouseOver="javascript: HM_f_PopUp('elMenu3',event); return true;" onMouseOut="javascript: HM_f_PopDown('elMenu3'); return true;">Affiliates</a> 
+									</td>
+																	<td align="center" width="25">
+										<nobr> 
+		<script language="JavaScript1.2" type="text/javascript">
+		 
+			if (!window.HM_a_TreesToBuild) window.HM_a_TreesToBuild = [];
+			window.HM_a_TreesToBuild[HM_a_TreesToBuild.length] = 4;
+		</script>
+		<a href="contactus.php" NAME='menu_anchor_4' ID='menu_anchor_4' onMouseOver="javascript: HM_f_PopUp('elMenu4',event); return true;" onMouseOut="javascript: HM_f_PopDown('elMenu4'); return true;">Contact Us</a> 
+									</td>
+																	<td align="center" width="25">
+										<nobr> 
+		<script language="JavaScript1.2" type="text/javascript">
+		 
+			if (!window.HM_a_TreesToBuild) window.HM_a_TreesToBuild = [];
+			window.HM_a_TreesToBuild[HM_a_TreesToBuild.length] = 5;
+		</script>
+		<a href="login.php" NAME='menu_anchor_5' ID='menu_anchor_5' onMouseOver="javascript: HM_f_PopUp('elMenu5',event); return true;" onMouseOut="javascript: HM_f_PopDown('elMenu5'); return true;">Member Area</a> 
+									</td>
+											<script language="JavaScript1.2" type='text/javascript'>
+				DHTML_MENU_rel_path = './include/dhtml_menu/images/';
+			</script>
+			<script language="JavaScript1.2" src="./include/dhtml_menu/images/HM_Loader.js" type='text/javascript'></script>
+								</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td valign="bottom" align="right">
+					<table border="0" cellspacing="0" cellpadding="3" width="100%">
+						<tr>
+							<td align="center">
+								<hr width="95%" size="1" noshade>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<table border="0" cellspacing="0" cellpadding="0" width="100%">
+			<tr>
+				<td valign="top">
+									</td>
+				<td align="center">
+	<table border="1" cellspacing="0" cellpadding="10" align="center">
+		<tr>
+			<td align="center" class="large">
+				Tutorial - Introduction to Indexes			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<pre><p>To create an index, the syntax is similar to creating a table:
+
+indextest=# h CREATE INDEX
+Command:     CREATE INDEX
+Description: define a new index
+Syntax:
+CREATE [ UNIQUE ] INDEX index_name ON table
+    [ USING acc_method ] ( column [ ops_name ] [, ...] )
+    [ WHERE predicate ]
+CREATE [ UNIQUE ] INDEX index_name ON table
+    [ USING acc_method ] ( func_name( column [, ... ]) [ ops_name ] )
+    [ WHERE predicate ]
+
+Let's create an index on the id column:
+
+pgsql@elrond ~$ time echo &quot;CREATE INDEX id_index ON indextest(id)&quot; | psql -d indextest
+CREATE INDEX
+
+real    2m31.495s
+user    0m0.030s
+sys     0m0.030s
+
+It took us around two and one half minutes to create the index.
+
+When we create an index, it must be given a name. This is mainly so we can see at a glance with the di command in psql what
+indexes we have on what particular tables:
+
+indextest=# di
+               List of relations
+ Schema |   Name   | Type  | Owner |   Table
+--------+----------+-------+-------+-----------
+ public | id_index | index | pgsql | indextest
+(1 row)
+
+To display what columns the index was created on, use the d &lt;tablename&gt; command:
+
+indextest=# d indextest
+     Table &quot;public.indextest&quot;
+ Column |     Type     | Modifiers
+--------+--------------+-----------
+ id     | integer      |
+ name   | text         |
+ number | integer      |
+ letter | character(1) |
+Indexes: id_index btree (id)
+
+As we can see, the index is called id_index and it was created on the id column.
+
+Let's check the speed again:
+
+pgsql@elrond ~$ time echo &quot;SELECT * FROM indextest WHERE id='50000'&quot; | psql -d indextest
+
+  id   |   name   |  number  | letter
+-------+----------+----------+--------
+ 50000 | WvMw5oZN | 53641070 | d
+(1 row)
+
+real    0m0.344s
+user    0m0.030s
+sys     0m0.020s
+
+It has gone from 30 seconds to around a third of a second! That's a great performance improvement just by creating a single
+index.
+
+
+<b>Removing Indexes</b>
+
+Removing indexes can speed up updating or adding data to tables. Since an index can't be altered (you can't add another column to
+or remove a column from an index), to change an index it has to be removed then re-added. Dropping an index is quite easy:
+
+indextest=# DROP INDEX id_index;
+</p></pre>
+			</td>
+		</tr>
+	</table>
+	<p align="center">
+<a href="/tutorial.php?id=18&pid=25">Page 1</a>&nbsp;&nbsp;Page 2&nbsp;&nbsp;		<br><a href="#" onclick="window.open('print.php?type=t&id=18','pgsqlprintwindow','location=no,status=no,scrollbars=yes,height=600,width=850'); return false;">Printable Version</a><br><br>
+
+		<a href="#" onclick="window.open('genpdf.php?type=t&id=18','pgsqlpdfwindow','location=no,menubar=yes,status=yes,scrollbars=yes,height=600,width=850'); return false;">PDF Version</a><br><br>
+
+		<a href="#top">Top of Page</a>
+	</p>
+	<p align="center">
+		<a href="/tutorial.php">Back to tutorials list</a>
+	</p>
+	<center>
+	<p>
+	<hr width="85%" size="1" noshade>
+		<a href="#" onclick="javascript:window.open('feedback.php?type=t&id=18','feedback_form', 'toolbar=no,width=700,height=450,titlebar=false,status=no,scrollbars=yes,resizeable=no'); return false">Look at Feedback</a> (0 previous comment(s))<br><br>
+	<hr width="85%" size="1" noshade>
+	</p>
+	</center>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

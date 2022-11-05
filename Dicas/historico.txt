@@ -1,0 +1,155 @@
+Geração de Histórico Automático em Bancos de Dados PostgreSQL
+Por Mauro Henrique Costa Matos
+
+Esse texto foi escrito utilizando codificação UNICODE (UTF-8).
+
+SUMÁRIO
+-------
+
+1 - Introdução
+2 - Histórico
+3 - Conteúdo dos Arquivos
+4 - Instalação
+5 - Uso
+6 - Considerações Finais
+
+
+1 - Introdução
+
+O texto destina-se a pessoas que desejam implantar mecanismos de geração de histórico com registro em tabelas de um banco de dados PostgreSQL. Com objetivos de investiga-las ou mesmo para simples recuperação de valores anteriores.
+
+
+2 - Histórico
+
+Versão:    1
+Data:      21/09/2002
+Descrição: Versão inicial, para uso particular.
+
+Versão:    2
+Data:      24/02/2004
+Descrição: Primeira liberação na lista postgresql-br;
+           Geração de histórico com uso de esquemas.
+
+Versão:    3
+Data:      05/10/2004
+Descrição: Primeira liberação de documentação;
+           Alteração na instrução para criação dos gatilhos na função
+           fun_criar_trigger;
+           Alterações para suportar que as infra-estruturas do histórico fiquem
+           armazenadas em esquemas diferentes da(s) tabela(s) auditada(s).
+
+Versão:    4
+Data:      25/04/2005
+Descrição: Inclusão de numeração das mensagens nas rotinas;
+           Unificação dos scripts de criação das tabelas, vistas e funções em um
+           arquivo, visando facilitar a criação da infra-estrutura necessária;
+           Modificações nas nomenclaturas das vistas, funções e dos gatilhos;
+           Inclusão de mais um parâmetro na função que cria os gatilhos e as
+           novas funções, para uma maior flexibilidade;
+           Alterações no conteúdo desse arquivo.
+
+
+Versão:    5
+Data:      08/11/2005
+Descrição: Muitas mudanças foram implementadas em relação às versões anteriores.
+           Formam empregados conceitos diferentes nos modelos das tabelas de
+           históricos, objetivando melhoria na performance e uma simplificação
+           das implementações.
+
+Versão:    5.1
+Data:      08/02/2006
+Descrição: Correção na função get_fields
+           Ocorria erro quando não se especificava o esquema da tabela na 
+           passagem do parêmtro da função.
+
+3 - Conteúdo dos Arquivos
+
+plpgsql.sql        - "Script" que instala a linguagem PL/pgSQL (plpgsql) em
+                     seu banco de dados PostgreSQL.
+historico.sql      - "Script" que cria a infra-estrutura necessária para
+                     geração de histórico.
+leiame.txt         - Este arquivo.
+
+
+4 - Instalação
+
+Use o programa "psql", o terminal interativo do PostgreSQL, como administrador ou proprietário do banco de dados que queira gerar histórico. Para isso digite na linha de comando, como mostrado abaixo:
+
+$ psql <nome_do_banco> [-h <host>] [-U <usuário do banco>]
+
+Para maiores informações digite:
+
+$ psql --help
+
+Lembre-se de rodar os "scripts" no esquema que deseje que as rotinas sejam armazenadas. Todos os comando a seguir serão digitados na linha de comando do psql.
+
+Para ver o nome do esquema corrente digite:
+
+=# SELECT current_schema();
+
+A instrução acima retorna o nome do esquema que está à frente do caminho de procura.
+
+É possível criar um esquema específico para conter a infra-estrutura e as tabelas com informações de histórico, para tanta digite o comando:
+
+=# CREATE SCHEMA historico;
+
+Onde 'historico' é o nome do esquema a ser criado.
+
+Para mostrar a seqüência de busca dos esquemas digite o comando:
+
+=# SHOW search_path;
+
+Para alterar o caminho de procura digite o comando:
+
+=# SET search_path = historico, public;
+
+Utilize a opção "\i" para rodar os "scripts" listados no item anterior.
+
+=# \i plpgsql.sql
+=# \i historico.sql
+
+Se for a primeira vez que for executado o comando, aparecera a mensagem (psql:historico.sql:101: ERRO:  tabela "history_template" não existe), ignore-a.
+
+Os usuários do banco devem ter direitos de acessos funções recém-criadas, como também direito de inserir nas tabelas. Eventualmente, usuários com autorização para recuperação de dados devem ter direito de consulta ("select").
+
+Ao final digite o comando para retornar o caminho de procura padrão dos esquemas.
+
+=# RESET search_path;
+
+
+5 - Uso
+
+Os históricos das tabelas são feitos pelas execuções dos gatilhos e funções disparadas pelos mesmos. Para cria-los, utilize a função  CREATE_TRIGGER. Como mostrado abaixo:
+
+Os comandos a seguir, são executados no psql.
+
+=# SET search_path TO historico, public;
+
+O esquema 'historico' já deve ter sido criado, como mostrado no item anterior.
+
+=# SELECT create_trigger('sg.t05cadpf','historico.t05cadpf_h');
+
+A instrução SQL anterior, cria a estrutura necessária para geração do histórico da tabela sg.t05cadpf. Em uma operação de atualização ('update' ou 'delete'), os dados contidos anteriormente nos campos da tabela, serão armazenadas em historico.t05cadpf_h. Uma função de nome historico.t05cadpf_audit() será criada, bem como o gatilho chamado t05cadpf_h_audit que a ativará.
+
+Se tudo ocorrer bem, será listada a função e o gatilho criado para gerar o histórico da tabela 'sg.t05cadpf'.
+
+Não esqueça de digitar o comando para retornar a seqüência de procura nos esquemas definida como padrão.
+
+=# RESET search_path;
+
+
+6 - Considerações Finais
+
+Os scripts foram testados no Linux Fedora Core 3 (2.6.12-1.1381_FC3), e com PostgreSQL 8.0.3. Todavia devem funcionar em outros sistemas operacionais, visto que, o único pré-requisito é ter o SGDB PostgreSQL instalado.
+
+As datas de atualizações registradas nas tabelas dos históricos são baseadas na função 'now()', os endereços IP dos clientes em 'inet_client_addr()' e as identificações dos usuários em 'current_user'.
+
+Aparentemente a função inet_client_addr(), não retorna valor quando se usa o psql sem passar o parâmetro -h (host), o que parece representar uma falha na mesma. Isso não se repetiu em outras situações, mesmo em testes feitos com JDBC utilizando o OpenOffice 2.
+
+É importante notar que após qualquer modificação na estrutura de uma tabela auditada, ou no esquema da mesma, a função 'CREATE_TRIGGER' deve ser rodada novamente, para que seja construída uma nova tabela de histórico, uma função e um gatilho, que reflita à nova estrutura.
+
+O conteúdo de imagens armazenadas em tabelas com campos do tipo oid ou lo (identificador de objetos ou objetos longos), não são armazenados nas tabelas do histórico, apenas o número do oid é armazenado. Lembre-se que os objetos longos são armazenados em uma tabela especial do banco de dados, no esquema pg_catalog, denominada pg_largeobject.
+
+Sugestões ou críticas "construtivas", poderão ser enviadas pelo e-mail mauromatos@ig.com.br.
+
+

@@ -1,0 +1,676 @@
+{\rtf1\ansi\deff3\adeflang1025
+{\fonttbl{\f0\froman\fprq2\fcharset0 Times New Roman;}{\f1\froman\fprq2\fcharset2 Symbol;}{\f2\fswiss\fprq2\fcharset0 Arial;}{\f3\froman\fprq2\fcharset0 Liberation Serif{\*\falt Times New Roman};}{\f4\fswiss\fprq2\fcharset0 Liberation Sans{\*\falt Arial};}{\f5\froman\fprq2\fcharset0 Times{\*\falt Times New Roman};}{\f6\froman\fprq2\fcharset0 Times New Roman;}{\f7\fnil\fprq2\fcharset0 WenQuanYi Micro Hei;}{\f8\fnil\fprq2\fcharset0 Lohit Devanagari;}{\f9\fnil\fprq0\fcharset128 Lohit Devanagari;}}
+{\colortbl;\red0\green0\blue0;\red128\green128\blue128;}
+{\stylesheet{\s0\snext0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046 Normal;}
+{\*\cs15\snext15 Default Paragraph Font;}
+{\s16\sbasedon0\snext17\ql\widctlpar\sb240\sa120\keepn\ltrpar\dbch\af7\dbch\af8\afs28\loch\f4\fs28 T\u237\'edtulo;}
+{\s17\sbasedon0\snext17\sl288\slmult1\ql\widctlpar\sb0\sa140\ltrpar\loch\f5\fs20 Corpo do texto;}
+{\s18\sbasedon17\snext18\sl288\slmult1\ql\widctlpar\sb0\sa140\ltrpar\dbch\af9\loch\f5\fs20 Lista;}
+{\s19\sbasedon0\snext19\ql\widctlpar\sb120\sa120\noline\ltrpar\i\dbch\af9\afs24\ai\loch\f5\fs24 Legenda;}
+{\s20\sbasedon0\snext20\ql\widctlpar\noline\ltrpar\dbch\af9\loch\f5\fs20 \u205\'cdndice;}
+}{\info{\title As INFORMA\u199\'c7\u213\'d5ES CONTIDAS INESTE TEXTO, S\u195\'c3O V\u193\'c1LIDAS PARA BANCO DE DADOS ORACLE}{\author eliane}{\creatim\yr1998\mo7\dy7\hr14\min31}{\author Ribamar }{\revtim\yr2016\mo7\dy18\hr9\min53}{\printim\yr0\mo0\dy0\hr0\min0}{\comment LibreOffice}{\vern67306242}}\deftab720
+\viewscale85
+{\*\pgdsctbl
+{\pgdsc0\pgdscuse451\pgwsxn11906\pghsxn16838\marglsxn1440\margrsxn1106\margtsxn1440\margbsxn1440\pgdscnxt0 Estilo padr\u227\'e3o;}}
+\formshade\paperh16838\paperw11906\margl1440\margr1106\margt1440\margb1440\sectd\sbknone\sectunlocked1\pgndec\pgwsxn11906\pghsxn16838\marglsxn1440\margrsxn1106\margtsxn1440\margbsxn1440\ftnbj\ftnstart1\ftnrstcont\ftnnar\aenddoc\aftnrstcont\aftnstart1\aftnnrlc
+{\*\ftnsep}\pgndec\sect\sectd\sectunlocked1\pgwsxn11906\pghsxn16838\marglsxn1440\margrsxn1106\margtsxn1440\margbsxn1440\ltrsect\sbknone\pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\sl480\slmult0\qc\widctlpar{\i\b\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+Constru\u231\'e7\u227\'e3o de Comandos SQL com boa performance}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\sl480\slmult0\qc\widctlpar\i\b\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\sl480\slmult0\qc\widctlpar\i\b\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+\tab Em }{\b\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+bancos de dados relacionais}{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+ as informa\u231\'e7\u245\'f5es s\u227\'e3o guardadas em }{\b\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+tabelas.}{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+  Para recuperar uma informa\u231\'e7\u227\'e3o necessaria ao usu\u225\'e1rio, deve-se busc\u225\'e1-la em v\u225\'e1rias tabelas diferentes, estabelecendo-se um }{\i\b\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+relacionamento}{\i\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+ }{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+entre elas.  Esta \u233\'e9 a origem do nome deste paradigma de banco de dados.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+Tabelas s\u227\'e3o na verdade conjuntos.  Por exemplo, quando em um sistema existe uma tabela de vendas, esta tabela corresponde ao conjunto de todas as vendas feitas por uma empresa.  A tabela de vendedores corresponde ao conjunto de vendedores que trabalham em uma empresa.  }{\b\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+Cada }{\i\b\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+linha ou registro }{\b\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+da tabela corresponde a um elemento do conjunto.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+Consultas e altera\u231\'e7\u245\'f5es na base de dados correspondem a opera\u231\'e7\u245\'f5es realizadas sobre conjuntos.  Estas opera\u231\'e7\u245\'f5es s\u227\'e3o definidas pela \u225\'e1lgebra relacional. }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+\tab Por exemplo, }{\b\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+determinar quais os vendedores com tempo de casa maior que um}{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+ }{\b\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+determinado patamar,}{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+ significa determinar um subconjunto do conjunto de vendedores, onde todos os elementos possuam uma determinada propriedade.  Para determinar as vendas destes vendedores, \u233\'e9 necess\u225\'e1rio realizar a opera\u231\'e7\u227\'e3o j\u225\'e1 citada e depois, para cada elemento do subconjunto "vendedores veteranos" \u233\'e9 necess\u225\'e1rio determinar o subconjunto do conjunto de vendas, contendo a propriedade de ter sido realizada pelo vendedor em quest\u227\'e3o.  O resultado final da consulta ser\u225\'e1 a uni\u227\'e3o de todos estes subconjuntos.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+O problema apresentado possu\u237\'ed tamb\u233\'e9m outra forma de solu\u231\'e7\u227\'e3o.  Podemos, em um primeiro momento, determinar para cada vendedor, quais as suas vendas.  Ter\u237\'edamos ent\u227\'e3o v\u225\'e1rios subconjuntos, cada um contendo as vendas de um vendedor.  Feito isto,}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+podemos verficar quais os vendedores s\u227\'e3o veteranos, formando o resultado final a partir da uni\u227\'e3o dos subconjuntos associados a cada um.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Consultas em banco de dados n\u227\'e3o passam de problemas de \u225\'e1lgebra relacional}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+.  Assim como acontece com a \u225\'e1lgebra "tradicional", os operadores possuem  algumas propriedades.  Sabemos que 2 x 3 = 3 x 2. Isto significa que, quando precisamos contar uma express\u227\'e3o de \u225\'e1lgebra relacional para chegar a um determinado resultado,podemos faze-lo de mais de uma forma, pois v\u225\'e1rias express\u245\'f5es levam ao mesmo resultado.  Em outras palavras, quando o banco de dados precisa montar uma express\u227\'e3o alg\u233\'e9brica para encontrar um resultado, ele deve escolher uma entre v\u225\'e1rias.  Apesar de apresentarem o mesmo resultado, as express\u245\'f5es s\u227\'e3o diferentes, }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+e a diferen\u231\'e7a far\u225\'e1 com que o banco de dados adote um diferente caminho para resolver cada  uma.}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Escolher o caminho mais curto \u233\'e9 uma das grandes atribui\u231\'e7\u245\'f5es do banco de dados.}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ Est\u225\'e1 \u233\'e9 a miss\u227\'e3o do }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+otimizador, }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+um subsistema do banco da dados, respons\u225\'e1vel  por determinar o }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+plano de execu\u231\'e7\u227\'e3o }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+para uma consulta.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+A linguagem SQL (Search and Query Language) \u233\'e9 um grande padr\u227\'e3o de banco de dados}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+.  Isto decorre da sua simplicidade e facilidade de uso.  Ela se  op\u245\'f5e a outras linguagens no sentido em que uma consulta SQL especifica a forma do  resultado e n\u227\'e3o o caminho para chegar a ele.  Ela \u233\'e9 um linguagem }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+declarativa }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+em oposi\u231\'e7\u227\'e3o a outras linguagens }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+procedurais.  }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Isto reduz o ciclo de aprendizado daqueles que se iniciam na linguagem.  }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Vamos comparar:}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1728\li864\ri0\lin864\rin0\fi0{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+descri\u231\'e7\u227\'e3o declarativa:}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx3168\li1584\ri0\lin1584\rin0\fi0{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+"quero saber todas as vendas feitas por vendedores com mais de 10 anos de casa."}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1584\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1584\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1440\li720\ri0\lin720\rin0\fi0{\b\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+descri\u231\'e7\u227\'e3o procedural:}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2880\li1440\ri0\lin1440\rin0\fi0{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+"Para cada um dos vendedores, da tabela }{\i\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+vendedores, }{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+com mais de 10 anos de casa, determine na tabela de vendas todas as v @ destes vendedores.  A uni\u227\'e3o de todas estas vendas ser\u225\'e1 o resultado final do problema."}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2880\li1440\ri0\lin1440\rin0\fi0\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+Na verdade, fui bem pouco honesto na compara\u231\'e7\u227\'e3o. Minha  declara\u231\'e7\u227\'e3o procedural tem muito de declarativa, o que a torna mais simples.  Se ela fosse realmente}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+procedural, seria ainda mais complicada.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+O fato \u233\'e9 que, ter que informar o como fazer, torna as coisas mais dif\u237\'edceis.  Neste}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+sentido, SQL facilitou muito as coisas.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+Por\u233\'e9m, a partir do nosso "o que queremos", o banco de dados vai determinar o "como fazer".  No problema das "vendas dos veteranos", descrevi duas formas de solucionar o problema, a primeira certamente melhor que a segunda.  O objetivo deste texto \u233\'e9 apresentar formas de dizer para o banco de dados o que queremos, ajudando-o  a determinar uma forma de fazer que tenha esfor\u231\'e7o m\u237\'ednimo.  Para chegarmos a este objetivo, lamentavelmente, teremos que nos preocupar com o "como fazer\u8221\'94. \u201\'c9 fato que parte da necessidade da nossa preocupa\u231\'e7\u227\'e3o com o "como fazer" \u233\'e9 decorr\u234\'eancia do est\u225\'e1gio atual da tecnologia, que ainda pode evoluir.  Por\u233\'e9m, por melhor que seja o otimizador de um banco de dados, ele poder\u225\'e1 trocar a consulta fornecida pelo usu\u225\'e1rio por outra equivalente segundo a \u225\'e1lgebra relacional.  Em algumas situa\u231\'e7\u245\'f5es uma consulta \u233\'e9 equivalente \u224\'e0 outra apenas considerando-se a }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+sem\u226\'e2ntica dos dados.  Neste caso, se n\u243\'f3s n\u227\'e3o nos preocuparmos com o "como fazer \u8220\'93, teremos uma performance pior.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx288\li144\ri0\lin144\rin0\fi0{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Uso de \u237\'edndices}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx144\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Quando fazemos consultas em uma tabela  estamos selecionando registros com determinadas propriedades.  Dentro do conceito de \u225\'e1lgebra relacional, estamos fazendo uma simples opera\u231\'e7\u227\'e3o de determinar um subconjunto de um conjunto.  A forma trivial de realizar esta opera\u231\'e7\u227\'e3o \u233\'e9 avaliar cada um dos elementos do conjunto para determinar se ele possui ou n\u227\'e3o as propriedades desejadas.  Ou seja, avaliar, um a um, todos os seus registros.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab Em tabelas grandes, a opera\u231\'e7\u227\'e3o descrita acima pode ser muito custosa.  Imaginemos que se deseje relacionar todas as ap\u243\'f3lices vendidas para um determinado cliente, para saber seu hist\u243\'f3rico.  Se for necess\u225\'e1rio varrer toda a tabela de ap\u243\'f3lices para responder esta quest\u227\'e3o o processo certamente levar\u225\'e1 muito tempo.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+A forma de resolver este problema \u233\'e9 o uso de \u237\'edndices}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+. \u205\'cdndices possibilitam ao banco de dados o acesso direto \u224\'e0s informa\u231\'e7\u245\'f5es desejadas.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab Fisicamente, a tabela n\u227\'e3o est\u225\'e1 organizada em nenhuma ordem.  Os registros s\u227\'e3o colocados na tabela na ordem cronol\u243\'f3gica de inser\u231\'e7\u227\'e3o.  Dele\u231\'e7\u245\'f5es ainda causam mudan\u231\'e7as nesta ordem.  }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Um \u237\'edndice \u233\'e9 uma estrutura onde todos os elementos de uma tabela est\u227\'e3o organizados, em uma estrutura de dados eficiente, ordenados segundo algum crit\u233\'e9rio}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+.  Um registro no \u237\'edndice \u233\'e9 composto pelo conjunto de valores dos campos que comp\u245\'f5em o \u237\'edndice e pelo endere\u231\'e7o fisico do registro na tabela.  Ao escrever uma consulta SQL, n\u227\'e3o informamos especificamente qual \u237\'edndice ser\u225\'e1 usado pela consulta.  }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Esta decis\u227\'e3o \u233\'e9 tomada pelo banco de dados.}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+  Cabe a n\u243\'f3s escrever a consulta de forma que o uso do \u237\'edndice seja poss\u237\'edvel. \u201\'c9 preciso que nossa consulta }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+disponibilize }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+o \u237\'edndice.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Possibilitando uso de colunas para acesso indexado}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab Na verdade, a consulta disponibiliza colunas que podem ser usadas em acesso \u224\'e0 \u237\'edndices.  O banco de dados, a partir das colunas dispon\u237\'edveis e dos \u237\'edndices existentes, determina a conveni\u234\'eancia de se usar determinado \u237\'edndice.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Para permitir que uma coluna seja usada em acesso \u224\'e0 \u237\'edndice, }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ela deve aparecer na cl\u225\'e1usula }{\i\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+where }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+de um }{\i\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+select}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab   Por exemplo, a consulta:}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs28\lang1046\loch\f6
+select campol}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs28\lang1046\loch\f6
+from tabela}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs28\lang1046\loch\f6
+where campol = 3}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2880\tx3456\li1728\ri0\lin1728\rin0\fi-576{\rtlch \ltrch\loch\fs28\lang1046\loch\f6
+and\tab campo2 > 4}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2880\tx3456\li1728\ri0\lin1728\rin0\fi-576{\rtlch \ltrch\loch\fs28\lang1046\loch\f6
+and\tab campo3 <> 7}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2880\tx3456\li1728\ri0\lin1728\rin0\fi-576{\rtlch \ltrch\loch\fs28\lang1046\loch\f6
+and\tab campo4 between 10 and 20}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2880\tx3456\li1728\ri0\lin1728\rin0\fi-576{\rtlch \ltrch\loch\fs28\lang1046\loch\f6
+and\tab campo5 + 10 = 15}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2880\tx3456\li1728\ri0\lin1728\rin0\fi-576{\rtlch \ltrch\loch\fs28\lang1046\loch\f6
+and\tab to - number (campo6) = O}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2880\tx3456\li1728\ri0\lin1728\rin0\fi-576{\rtlch \ltrch\loch\fs28\lang1046\loch\f6
+and\tab nvl (campo7, 2) = 2}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2880\tx3456\li1728\ri0\lin1728\rin0\fi-576{\rtlch \ltrch\loch\fs28\lang1046\loch\f6
+and\tab campo8 like 'GENERAL%'}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2880\tx3456\li1728\ri0\lin1728\rin0\fi-576{\rtlch \ltrch\loch\fs28\lang1046\loch\f6
+and\tab campo9 like '%ACCIDENT'}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1152\tx1728\rtlch \ltrch\loch\fs18\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1152\tx1728\rtlch \ltrch\loch\fs18\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1152\tx1728\rtlch \ltrch\loch\fs18\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Disponibiliza o uso de \u237\'edndices nos campos campo 1, campo2 e campo4.  Nos casos dos campos campo2 e carnpo4, o acesso a \u237\'edndice ser\u225\'e1 para buscar registros que possuam valor numa determinada faixa.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+A condi\u231\'e7\u227\'e3o }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo3 <> }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+7 n\u227\'e3o dispor\u250\'fabieza \u237\'edndice por ser uma rela\u231\'e7\u227\'e3o de}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+desigualdade. }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab  De fato, se a tabela possuir n registros, um dos quais com }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo3  =  }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+7, n\u227\'e3o parece razo\u225\'e1vel um \u237\'edndice para recuperar N }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+- 1}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ elementos.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+A condi\u231\'e7\u227\'e3o }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo.5 + }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+10 }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+= 15 }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+n\u227\'e3o permite uso de \u237\'edndice pela coluna }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo5 por }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+igualar ao valor 15 }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+uma express\u227\'e3o envolvendo a coluna, e n\u227\'e3o a coluna isolada.  }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+De fato, uma t\u233\'e9cnica para se inibir o uso de \u237\'edndice em uma coluna, quando desejado, \u233\'e9 usar express\u245\'f5es tais como:}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2736\tx3168\li1584\ri0\lin1584\rin0\fi-432{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\u183\'b7\tab nome-coluna + O }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+= }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+15, para campos }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+number ou date, }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ou}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2736\tx3168\li1584\ri0\lin1584\rin0\fi-432\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2736\tx3168\li1584\ri0\lin1584\rin0\fi-432{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\u183\'b7\tab nome-coluna  ||  \u8216\'91 }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+= 'ABCD', }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+para campos }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+char.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1152\tx1584\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1152\tx1584\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1152\tx1584\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+As express\u245\'f5es envolvendo as colunas }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo6 e campo 7 }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+tamb\u233\'e9m n\u227\'e3o disponibilizam \u237\'edndice pelo mesmo motivo.  Foram inclu\u237\'eddas aqui por se tratarem de casos em que, freq\u252\'fcentemente, as pessoas acham que o uso de \u237\'edndice seria poss\u237\'edvel.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+A express\u227\'e3o envolvendo campo8 disponibiliza \u237\'edndice, pois ela \u233\'e9 na verdade como se escrev\u234\'eassemos:}{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ }{\i\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo8 >= 'GE}{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ }{\i\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+cccc... 'and campo8 < = 'GEddd...\u8217\'92}{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+onde }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+c }{\i\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\u233\'e9 }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+o menor caracter}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ na ordem da tabela ASCIII, dentro do dom\u237\'ednio poss\u237\'edvel de valores para o campo }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\u233\'e9 }{\i\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+d }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+o maior.}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+  J\u225\'e1 a express\u227\'e3o envolvendo }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo9 }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+n\u227\'e3o permite uso de \u237\'edndice.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Se houver um \u237\'edndice \u250\'fanico na tabela pelo campo 1, o acesso disponibilizado por este \u237\'edndice \u233\'e9 um }{\i\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+unique scan:}{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+o banco de dados faz um acesso ao \u237\'edndice para buscar um \u250\'fanico registro.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Mesmo que haja um \u237\'edndice \u250\'fanico pelo }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo2, }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ser\u225\'e1 feito um }{\i\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+range scan}{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+na tabela, ou seja, uma busca para recuperar v\u225\'e1rios registros.  O mesmo ocorre para o }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo4.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx864\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx864\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\b\rtlch \ltrch\fs10\lang1046\loch\f6
+ }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Escolhendo um \u237\'edndice}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Dadas as colunas que podem ser usadas para acesso indexado, o banco de dados passa a decis\u227\'e3o sobre qual \u237\'edndice ser\u225\'e1 usado.  Para isto, ele determinar\u225\'e1 os \u237\'edndices dispon\u237\'edveis para ent\u227\'e3o escolher um.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Um \u237\'edndice estar\u225\'e1 dispon\u237\'edvel se um }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+prefixo }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+dos campos que o comp\u245\'f5em estiver dispon\u237\'edvel.  Por exemplo, se o \u237\'edndice for composto pelas colunas }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo1, campo2, campo3 e campo4, }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+o \u237\'edndice estar\u225\'e1 dispon\u237\'edvel se estiverem dispon\u237\'edveis as colunas:}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1440\li720\ri0\lin720\rin0\fi0{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo1  }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ou}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx720\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1440\li720\ri0\lin720\rin0\fi0{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo1 e campo2 ou}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx720\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1440\li720\ri0\lin720\rin0\fi0{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo], campo2, e campo3 ou}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx720\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1440\li720\ri0\lin720\rin0\fi0{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo1, campo2, campo3 e campo4.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1440\li720\ri0\lin720\rin0\fi0\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Neste \u250\'faltimo caso, o uso do \u237\'edndice ser\u225\'e1 completo, se ele for usado.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+A sele\u231\'e7\u227\'e3o entre os \u237\'edndices para determinar qual ser\u225\'e1 realmente usado \u233\'e9 feita a partir de heur\u237\'edsticas, como por exemplo, }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\u233\'e9 }{\i\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+melhor usar um \u237\'edndice \u250\'fanico que um \u237\'edndice n\u227\'e3o \u250\'fanico}{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+.  }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Esta sele\u231\'e7\u227\'e3o pode considerar tamb\u233\'e9m informa\u231\'e7\u245\'f5es sobre os dados armazenadas na tabela, dependendo da configura\u231\'e7\u227\'e3o do servidor de banco de dados.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Qual o melhor \u237\'edndice?}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+O crit\u233\'e9rio b\u225\'e1sico para escolha de \u237\'edndices \u233\'e9 a}{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ seletividade}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+.  Quando o banco de dados resolve uma consulta, freq\u252\'fcentemente, ele precisa percorrer mais registros do que aqueles realmente retomados pela consulta.  Os registros percorridos que forem rejeitados representarn o trabalho perdido.  Quanto menor for o trabalho perdido, mais perto estaremos da performance \u243\'f3tima para resolver a consulta.  Portanto, o melhor \u237\'edndice para uma consulta \u233\'e9 aquele que apresenta a maior seletividade.  Vejamos a consulta abaixo:}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+select campol}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+from tabela}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1728\li864\ri0\lin864\rin0\fi-864{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+where campo2 = 2 and campo3 = l and campo4 = 3;}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1728\li864\ri0\lin864\rin0\fi-864\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+tabela possui os \u237\'edndices:}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx864\tx2304\tx3312{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab \u237\'edndice 1:\tab campo2,\tab campo5}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx864\tx2304\tx3312{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab \u237\'edndice 2:\tab campol}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx864\tx2304\tx3312{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab \u237\'edndice 3:\tab campo3,\tab campol}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx864\tx2304\tx3312{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab \u237\'edndice 4:\tab campo4}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx864\tx2304\tx3312{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab \u237\'edndice 5:\tab campo5,\tab campo4}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs18\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs18\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Neste caso, est\u227\'e3o dispon\u237\'edveis para consultas indexadas os campos }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo2, campo3 e campo4 }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+o que permite o uso dos \u237\'edndices 1, 3 e 4. O \u237\'edndice mais seletivo ser\u225\'e1 aquele que recuperar o m\u237\'ednimo n\u250\'famero de registros. }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab  Se houver 10 registros com }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo2 =  2,  }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+2000 registros com }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo3 =  1 }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ e 50 registros com }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo4 = 3, }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+o \u237\'edndice 1 ser\u225\'e1 o mais seletivo.  Nossa melhor alternativa \u233\'e9 portanto um }{\i\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+range scan}{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+no \u237\'edndice l . Vale a pena ressaltar que o fato do \u237\'edndice  1 possuir tamb\u233\'e9m a coluna }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo5 }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+prejudica.um pouco a consulta.  Ou seja, seria melhor, para esta consulta, que o \u237\'edndice 1 possu\u237\'edsse apenas o }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo2.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx576\li288\ri0\lin288\rin0\fi0{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Para resolver a consulta, o banco de dados far\u225\'e1 o acesso ao \u237\'edndice, onde ir\u225\'e1 recuperar o endere\u231\'e7o fisico, na tabela, dos registros candidatos a compor o resultado.  Com este endere\u231\'e7o, }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ele }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+verifica }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+cada }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+registro quanto }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\u224\'e0s outras condi\u231\'e7\u245\'f5es.  }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Os que}{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+  }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+satisfizerem as outras condi\u231\'e7\u245\'f5es compor\u227\'e3o o resultado.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx576\li288\ri0\lin288\rin0\fi0\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx288{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Em alguns casos, este cantinho pode ser mais simples.  Veja o exemplo abaixo:}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx288\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx288\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \sect\sectd\sectunlocked1\pgwsxn11906\pghsxn16838\marglsxn1440\margrsxn1106\margtsxn1440\margbsxn1440\ltrsect\sbknone\pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\qc\widctlpar\tx144{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Select campo1   }{\ul\ulc0\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+from}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ tabela   where   campo2 = 2;}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx144{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab \tab \tab \tab }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx144{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab \tab \tab \tab Tabela possui os \u237\'edndices:}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx144\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx144{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab \tab \tab \tab \u237\'edndice 1:  campo1 , campo3}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx144\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx144{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab \tab \tab \tab \u237\'edndice2:   campo2, campo1, campo3}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx144\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx144{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab \tab \tab \tab \u237\'edndice3:   campo1, campo2}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\qc\widctlpar\tx144\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab      }{\rtlch \ltrch\loch\fs18\lang1046\loch\f6
+ }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Neste caso, o banco de dados apenas pode usar o \u237\'edndice 2. A consulta pode ser resolvida sem acesso \u224\'e0 tabela, usando apenas o \u237\'edndice.  Uma vez que o \u237\'edndice tamb\u233\'e9m possui os valores para }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+campo1  }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+de cada registro, n\u227\'e3o h\u225\'e1 necessidade de se recuperar este valor da tabela.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\b\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+Campos nulos n\u227\'e3o entram}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs26\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Toda vez que um registro possuir valores nulos para todos os campos que comp\u245\'f5em um \u237\'edndice, este registro n\u227\'e3o ser\u225\'e1 colocado no \u237\'edndice.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Isto causa problemas de performance em sistemas mau projetados.  Suponha que a modelagem de dados de um sistema de contas a pagar tenha resultado em um projeto onde existe uma tabela de contas (ou compromissos, ou t\u237\'edtulos) a pagar, contendo, entre outros, dois campos: }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+data de vencimento e data de pagamento.  }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+A primeira seria a data em que o t\u237\'edtulo deve ser pago.  A segunda a data em que o t\u237\'edtulo foi efetivamente pago.  Suponha ainda que a din\u226\'e2mica do sistema determine que todo t\u237\'edtulo, ao ser inserido no sistema, tenha valor nulo para o campo }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+data de vencimento.  }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Quando o pagamento vier a ser efetuado, o campo ser\u225\'e1 atualizado. \u201\'c9 bastante poss\u237\'edvel que seja constru\u237\'edda uma consulta para recuperar todos os t\u237\'edtulos n\u227\'e3o pagos.  Neste caso, n\u227\'e3o ser\u225\'e1 poss\u237\'edvel o uso de \u237\'edndices, pois estamos procurando campos com valor nulo.  Se tivermos, nesta tabela, 200000 t\u237\'edtulos, dos quais 500 n\u227\'e3o pagos, esta consulta ter\u225\'e1 desempenho bastante aqu\u233\'e9m do poss\u237\'edvel.  Uma solu\u231\'e7\u227\'e3o melhor, seria inicia\u252\'fczar o campo }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+data de vencimento }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+com o valor 01/01/1998, significando conta n\u227\'e3o paga.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Tabelas pequenas }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Como \u250\'faltima considera\u231\'e7\u227\'e3o sobre consultas em uma tabela, vale lembrar que quando fazemos uma consulta a uma tabela bastante pequena, n\u227\'e3o compensa usar \u237\'edndices. o trabalho envolvido em acessar o \u237\'edndice pegar o endere\u231\'e7o e, depois, acessar a tabela \u233\'e9 maior que o esfor\u231\'e7o de ler a tabela inteira.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Consultas em v\u225\'e1rias Tabelas}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Consultas envolvendo v\u225\'e1rias tabelas s\u227\'e3o feitas atrav\u233\'e9s }{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+de}{\i\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ joins}{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+.  }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Na teoria da \u225\'e1lgebra relacional, estas consultas s\u227\'e3o produtos cartesianos entre os conjuntos (tabelas) envolvidos.  Para cada elemento do conjunto resultado do produto cartesiano, ser\u225\'e1 verificado se ele possui ou n\u227\'e3o um determinado conjunto de condi\u231\'e7\u245\'f5es, imposto ao resultado da consulta.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+O banco de dados ir\u225\'e1 tirar proveito de propriedades matem\u225\'e1ticas para otimizar estas consultas.  Imagine que tenhamos dois conjuntos, um de ret\u226\'e2ngulos e um de c\u237\'edrculos.  Tome como objetivo obter o subconjunto do produto cartesiano destes dois conjuntos que apenas contenham c\u237\'edrculos amarelos e ret\u226\'e2ngulos azuis.  H\u225\'e1 duas formas de resolver isto.  Uma \u233\'e9 fazer o produto cartesiano, e, a partir do resultado, excluir os elementos que n\u227\'e3o atendem a premissa.  Outra \u233\'e9 determinar o subconj\u250\'fanto dos c\u237\'edrculos amarelos e o subconjunto dos ret\u226\'e2ngulos azuis, fazendo um produto cartesiano dos dois subconjuntos.  Apesar de equivalentes quanto ao resultado, o segundo m\u233\'e9todo \u233\'e9 bastante mais eficiente em termos de performance.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Normalmente, quando se faz uma consulta em duas ou mais tabelas, existe alguma informa\u231\'e7\u227\'e3o que as une.  Por exemplo, voc\u234\'ea quer relacionar registros de um determinado empregado apenas ao registro do departamento onde este empregado trabalha.  Esta condi\u231\'e7\u227\'e3o \u233\'e9 chamada de }{\i\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+condi\u231\'e7\u227\'e3o de join.}{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+  }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Normalmente, esta condi\u231\'e7\u227\'e3o evita que seja necess\u225\'e1ria a realiza\u231\'e7\u227\'e3o de um produto cartesiano de fato.  Vejamos o exemplo:}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx3828\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx3828{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+select depto.nome, emp.nome}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1728\tx4692\li864\ri0\lin864\rin0\fi-864{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+from\tab empregados emp, departamentos depto}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1728\tx4692\li864\ri0\lin864\rin0\fi-864{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+where\tab emp.data_admissao < 'Ol-jan-92\u8217\'92}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx864\tx3828{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+and depto.id - departamento = emp.departamento and depto.area-de~negocio = 'FAST~FOOD\u8217\'92;}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx864\tx3828\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx864\rtlch \ltrch\loch\fs18\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx864\rtlch \ltrch\loch\fs18\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Neste caso, estamos trabalhando sobre dois conjuntos: }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+empregados e departamentos}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+.  Possu\u237\'edmos restri\u231\'e7\u245\'f5es sobre estes dois conjuntos e uma restri\u231\'e7\u227\'e3o que serve para  j}{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+unt\u225\'e1-}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+/os.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx576\tx4752\li288\ri0\lin288\rin0\fi4176{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+O banco de dados pode resolver a consulta acima de duas formas.  A primeira envolve determinar o subconjunto dos empregados e departamentos que obedecem as restri\u231\'e7\u245\'f5es nestes conjuntos.  Posteriormente, geramos o resultado a partir dos dois subconjuntos, respeitando a }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+condi\u231\'e7\u227\'e3o de join.}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+  A segunda forma envolve escolher um conjunto para iniciar a solu\u231\'e7\u227\'e3o, por exemplo o de departamentos.  Deterrminamos o subconjunto deste que possua a propriedade apresentada (determinada \u225\'e1rea de neg\u243\'f3cio).  Para cada elemento deste subconjunto, faremos sua associa\u231\'e7\u227\'e3o ao elemento correspondente no outro conjunto, segundo a condi\u231\'e7\u227\'e3o de join.  Finalmente, verificamos se o registro formado possui a restri\u231\'e7\u227\'e3o no outro conjunto.  A primeira forma de solu\u231\'e7\u227\'e3o \u233\'e9 chamada de}{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ }{\i\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+sort-merge join}{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+.  }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+A segunda \u233\'e9 chamada de }{\i\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+nested-loops}{\i\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+..  O }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+banco de dados sempre usa uma destas duas t\u233\'e9cnicas para resolver consultas em m\u250\'faltiplas tabelas. Ele pode mesmo, combinar as duas.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx288{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab Na maioria dos casos, o m\u233\'e9todo de }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+nested-loops}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ apresenta melhores resultados.  Ern  alguns casos complexos, o }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+sort-merge}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ \u233\'e9 indicado. }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx288\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\b\rtlch \ltrch\fs24\lang1046\loch\f6
+ }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Outer join}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+O.outer join(ou jun\u231\'e7\u227\'e3o extema) \u233\'e9 um caso particular do join.}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ Quando se faz um join simples, a impossibilidade de se encontrar em alguma tabela um registro associado ao resultado intermedi\u225\'e1rio anterior, determina que o join n\u227\'e3o retomar\u225\'e1 nenhuma informa\u231\'e7\u227\'e3o.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Quando uma tabela entra no }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+join}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ atrav\u233\'e9s de um }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+outer join}{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+, quando n\u227\'e3o houver registros na tabela associados ao resultado intermedi\u225\'e1rio, urna linha imagin\u225\'e1ria ser\u225\'e1 adicionada \u224\'e0 tabela em quest\u227\'e3o, contendo valor nulo para todos os seus campos.  Esta linha ser\u225\'e1 juntada aos registros de resultado intermedi\u225\'e1rio, compondo o novo resultado intermedi\u225\'e1rio.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx288\rtlch \ltrch\loch\fs18\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Um Outer join  n\u227\'e3o causa   uma lentid\u227\'e3o de processamento muito maior que a de um}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+join.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx288\li144\ri0\lin144\rin0\fi0{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Sub Select}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx144\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1728\tx3168\li1584\ri0\lin1584\rin0\fi-1440{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Outro mito que ronda a constru\u231\'e7\u227\'e3o de SQL diz que \u233\'e9 melhor usar  Sub Select do que}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx288\li144\ri0\lin144\rin0\fi0{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+usar  um join. Dependendo   de quem reproduz o mito, a situa\u231\'e7ao se  inverte, e o join passa}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx288\li144\ri0\lin144\rin0\fi0{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+a ser melhor que  o Sub Select.  Na verdade, deve-se fazer uma an\u225\'e1lise caso a caso.  As}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx288\li144\ri0\lin144\rin0\fi0{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+duas t\u233\'e9cnicas podem  inclusive, serem equivalentes.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx144\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\pagebb\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Vejamos o      exemplo:}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx144\rtlch \ltrch\loch\fs18\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx288\li144\ri0\lin144\rin0\fi0{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+select   campo1}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx144{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+from  tabela1  }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx288\li144\ri0\lin144\rin0\fi0{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+where  campo2   in (Select  campo2}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2736{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+\tab from   tabela2   where   campo4 = constante)}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+e}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2016\li1008\ri0\lin1008\rin0\fi-1008{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+select\tab campol}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2016\li1008\ri0\lin1008\rin0\fi-1008{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+from\tab tabelal, tabela2 }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2016\li1008\ri0\lin1008\rin0\fi-1008{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+where\tab campo4 = constante  and}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2016\li1008\ri0\lin1008\rin0\fi-1008{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+tabela1.campo2}{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+ =   }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+tabela2.campo2}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1008\rtlch \ltrch\loch\fs18\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Neste caso, primeiro devemos notar que as duas consultas s\u243\'f3 s\u227\'e3o equivalentes se houver unlc\u237\'eddade nos valores do carnpo3.  Caso contr\u225\'e1rio, pode haver diferen\u231\'e7a de resultados, quanto ao n\u250\'famero de registros retornados.  Imagine que as duas tabelas tenham tr\u234\'eas registros cada uma, todos com o mesmo valor para carnpo2 (na tabelal) e o mesmo valor para campo3 (na tabela2).  Imagine tamb\u233\'e9m que todas as linhas da tabelal tenham o mesmo valor para campo 1. No caso da sub select, a consulta retorna tr\u234\'eas linhas como resultado.  No caso do join, retorna 9 linhas.  Portanto, para serem equivalentes  de fato, \u233\'e9 necess\u225\'e1rio que exista unicidade nos valores de campo3 ).}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Se houver a un\u237\'edcidade, o uso do sub select . ou  join (com rela\u231\'e7\u227\'e3o \u224\'e0 perforrnance) \u233\'e9 absolutamente equivalente.  De fato, para resolver esta consulta, em qualquer  dos dois casos, o banco de dados ir\u225\'e1 determinar os registros da tabela2 que possuem "campo4 = constante'.  Ir\u225\'e1 recuperar ent\u227\'e3o o valor de campo3 para estes registros.  Para cada valor, obter\u225\'e1 os registros da tabelal com campo2 igual  a este valor. Os valores de campo1  nestes registros compor\u227\'e3o os conjuntos resultados.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Vejamos unia situa\u231\'e7\u227\'e3o onde precisamos saber todas as notas fiscais que contenham}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+itens fabricados por um determinado fornecedor, em um determinado dia.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Sub Select:}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+select  num nota}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1728\li864\ri0\lin864\rin0\fi-864{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+from\tab notas Fiscais }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1728\li864\ri0\lin864\rin0\fi-864{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+where\tab data-emissao = constante and exists (select 'x'}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2880\li1440\ri0\lin1440\rin0\fi0{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+from produtos , itens-nota }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2880\li1440\ri0\lin1440\rin0\fi0{\rtlch \ltrch\fs24\lang1046\loch\f6
+ }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+where  produtos.num-nota =  itens-nota.num- nota and }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2880\li1440\ri0\lin1440\rin0\fi0{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+produtos.produto = itens-nota.produto and}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx2880\li1440\ri0\lin1440\rin0\fi0{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+fornecedor = constante)}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1440\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1440\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1440\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Join:}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+select distinct num - nota}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1728\li864\ri0\lin864\rin0\fi-864{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+from\tab produtos , itens - nota , notas-fiscais }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1728\li864\ri0\lin864\rin0\fi-864{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+where\tab notas-fiscais.data-emissao = constante and }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1728\li864\ri0\lin864\rin0\fi-864{\rtlch \ltrch\fs24\lang1046\loch\f6
+ }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+itens-notas.num-nota = notas-fiscais.num-nota and }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1728\li864\ri0\lin864\rin0\fi-864{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+produtos.produto = itens-nota.produto and }
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx1728\li864\ri0\lin864\rin0\fi-864{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+produto.fornecedor = constante}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx864\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx864\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\tx864\rtlch \ltrch\loch\fs20\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+Existe uma diferen\u231\'e7a apreci\u225\'e1vel de performance entre as duas consultas.  Note que, o importante \u233\'e9 saber se existe pelo menos um item de uma nota fiscal associado a um determinado fornecedor.  N\u227\'e3o \u233\'e9 necess\u225\'e1rio determinar }{\b\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+todos }{\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+os itens deste fornecedor.  Este \u233\'e9 o ponto onde a consulta com join torna-se pior, em termos de performance que a consulta com sub select.  Note que a data da nota foi inclu\u237\'edda para ser um fato seletivo e justificar o exemplo.  Se n\u227\'e3o houvesse tal restri\u231\'e7\u227\'e3o, o jeito certo de construir a consulta seria determinar todos os produtos do fornecedor, depois os itens de nota com este produto e finalmente as notas correspondentes.  Desde, \u233\'e9 claro, que um fornecedor seja razoavelmente seletivo.  Neste caso, ter\u237\'edamos um exemplo onde join \u233\'e9 melhor do que sub select.  Apenas por uma diferen\u231\'e7a sutil de exist\u234\'eancia de um crit\u233\'e9rio de data.}
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch\fs24\lang1046\loch\f6
+
+\par \pard\plain \s0\ql\widctlpar\ltrpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\dbch\af7\langfe2052\dbch\af8\afs24\alang1081\loch\f5\fs20\lang1046\widctlpar\rtlch \ltrch\loch
+
+\par \sect\sectd\sectunlocked1\pgwsxn11906\pghsxn16838\marglsxn1440\margrsxn1106\margtsxn1440\margbsxn1440\pgndec\sbknone}

@@ -1,0 +1,73 @@
+/* 
+ * General Bits Documentation Style Sheet
+ */
+BODY  {
+	background:	#FFFFEE;
+	color:		#000000;
+	font-family: sans-serif, Times, serif, Helvetica, Arial;
+		}
+A:link {	
+	color:		#005500;
+	}
+A:visited {
+	color:	 #775500;
+	 }
+<STYLE type="text/css">
+BR { clear: left }
+</STYLE>
+.green {
+   display: inline;
+	color:	#00cc00;
+	}
+MYTITLE	{
+	display:	block;
+	font-size: 1.3em;
+}
+MYTITLE.S
+{
+	font-size: 0.8em;
+}
+ITITLE	{
+	display:	block;
+}
+ITITLE.S	{
+	display:	block;
+	font-size: 0.8em;
+}
+IDATE	{
+	display:	block;
+	font-style:	italic;
+}
+IDATE.S	{
+	display:	block;
+	font-style:	italic;
+	font-size: 0.8em;
+}
+ICONT	{
+	display: block;
+	font-style:	italic;
+	font-size: 0.8em;
+}
+E {
+   display: inline;
+   font-style: italic;
+   font-family: serif, Helvetica, Arial;
+   font-size: 1.5em;
+   line-height: 80%
+}
+EF {
+   display: inline;
+   font-family: sans-serif, Times, serif, Helvetica, Arial;
+   font-size: 1.0em;
+  }
+
+TD.F, TH.f {
+   font-family: Courier
+   font-size: 0.8em;
+}
+TD.s, TH.s {
+   font-size: 0.8em;
+}
+TD.b, TH.b {
+   font-size: 1.5em;
+}

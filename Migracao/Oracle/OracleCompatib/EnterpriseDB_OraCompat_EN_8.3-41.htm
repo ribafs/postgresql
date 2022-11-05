@@ -1,0 +1,95 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>ALTER SEQUENCE</title>
+
+
+<meta name="keywords" content="alter sequence, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1978"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-41_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-40.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-41_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-41_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-42.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-41_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P2010_108802"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.3 ALTER SEQUENCE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2011_108822"></a>Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER SEQUENCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> &nbsp;--&nbsp; change the definition of a sequence generator</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2013_108893"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> SEQUENCE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ INCREMENT BY </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>increment</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ MINVALUE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>minvalue</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] [ MAXVALUE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>maxvalue</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ CACHE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>cache</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | NOCACHE ] [ CYCLE ]</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2017_109029"></a>Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER SEQUENCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> changes the parameters of an existing sequence generator. Any parameter not specifically set in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER SEQUENCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command retains its prior setting.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2019_109204"></a>Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name (optionally schema-qualified) of a sequence to be altered.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>increment</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The clause </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INCREMENT BY </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">increment</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+is optional. A positive value will make an ascending sequence, a
+negative one a descending sequence. If unspecified, the old increment
+value will be maintained.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>minvalue</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The optional clause </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">MINVALUE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>minvalue</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> determines the minimum value a sequence can generate.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If not specified, the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">current minimum value will be main</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">tain</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ed.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note that the key words, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NO MINVALUE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, may be used to set this behavior back to the defaults of </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">1 and -2</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><sup>63</sup></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">-1 for ascending and descending sequences, respectively</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, however, this term is not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>maxvalue</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The optional clause </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">MAXVALUE </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">maxvalu</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">e</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> determines the maximum value for the sequence.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If not specified, the current maximum value will be maintained.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note that the key words, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NO MAXVALUE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, may be used to set this behavior back to the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">defaults </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">of</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> 2</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><sup>63</sup></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">-1 and -1 for ascending and descending sequen</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ces, respectively</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, however, this term is not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>cache</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The optional clause </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CACHE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>cache</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> specifies how many sequence numbers are to be preallocated and stored in memory for faster access.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The minimum value is 1 (only one value can be generated at a time, i.e., </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOCACHE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">).</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If unspecified, the old cache value </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">will be maintained.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CYCLE</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CYCLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> option allows the sequence to wrap around when the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>maxvalue</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>minvalue</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> has been reached by an ascending or descending sequence respectively.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the limit is reached, the next number generated will be the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>minvalue</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">max</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">value</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">, respectively. If not specified, the old cycle behavior will be maintained. Note that the key words, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NO CYCLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, may be used to alter the sequence so that it does not recycle, however, this term is not </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle compatible</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2032_110954"></a>Notes</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">To avoid blocking of concurrent transactions that obtain numbers from the same sequence, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER SEQUENCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is never rolled back; the changes take effect immediately and are not reversible.</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER SEQUENCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> will not immediately affect </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXTVAL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+results in backends, other than the current one, that have
+pre-allocated (cached) sequence values. They will use up all cached
+values prior to noticing the changed sequence parameters. The current
+backend will be affected immediately.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Change the increment and cache value of sequence, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">serial</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">ALTER SEQUENCE serial INCREMENT BY 2 CACHE 5;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-59.htm#P2881_155983"><u>CREATE SEQUENCE</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-73.htm#P3435_190074"><u>DROP SEQUENCE</u></a></span></p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-40.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-41_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-41_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-42.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-41_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-41_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-41_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

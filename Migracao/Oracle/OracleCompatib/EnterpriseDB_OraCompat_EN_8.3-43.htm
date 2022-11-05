@@ -1,0 +1,163 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>ALTER TABLE</title>
+
+<meta name="keywords" content="alter table, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1980"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-43_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-42.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-43_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-43_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-44.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-43_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P2073_114016"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.5 ALTER TABLE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2074_114033"></a>Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;change the definition of a table</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2076_114086"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER TABLE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">action</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER TABLE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  RENAME COLUMN </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">column</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> TO </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">new_column</span></i>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER TABLE </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">name</span></i>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  RENAME TO </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">new_name</span></i></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">where </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">action</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is one of:</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ADD </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>type</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column_constraint</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ ... ] ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  DROP COLUMN </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ADD </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">table_constraint</span></i>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  DROP CONSTRAINT </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">constraint_name</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ CASCADE ]</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2088_114371"></a>Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> changes the definition of an existing table. There are several subforms:</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ADD </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>type</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">This form adds a new column to the table using the same syntax as <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-60.htm#P2939_161008"><u>CREATE TABLE</u></a>.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DROP COLUMN</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">This form drops a column from a table. Indexes and table constraints involving the column will be automatically dropped as well.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ADD </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table_constraint</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">This form adds a new constraint to a table using the same syntax as <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-60.htm#P2939_161008"><u>CREATE TABLE</u></a>.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DROP CONSTRAINT</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">This
+form drops constraints on a table. Currently, constraints on tables are
+not required to have unique names, so there may be more than one
+constraint matching the specified name. All matching constraints will
+be dropped.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RENAME</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RENAME</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+forms change the name of a table (or an index, sequence, or view) or
+the name of an individual column in a table. There is no effect on the
+stored data.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">You must own the table to use </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALTER TABLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2101_115249"></a>Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name (possibly schema-qualified) of an existing table to alter.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Name of a new or existing column.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>new_column</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">New name for an existing column.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>new_name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">New name for the table.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>type</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Data type of the new column.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table_constraint</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">New table constraint for the table.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>constraint_name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Name of an existing constraint to drop.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASCADE</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Automatically drop objects that depend on the dropped constraint.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2118_115651"></a>Notes</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When a column is added with </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ADD COLUMN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, all existing rows in the table are initialized with the column&#8217;s default value (null if no </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFAULT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause is specified).</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Adding
+a column with a non-null default will require the entire table to be
+rewritten. This may take a significant amount of time for a large
+table; and it will temporarily require double the disk space.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Adding a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CHECK</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOT NULL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> constraint requires scanning the table to verify that existing rows meet the constraint.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DROP COLUMN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> form does not physically remove the column, but simply makes it invisible to </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+operations. Subsequent insert and update operations in the table will
+store a null value for the column. Thus, dropping a column is quick but
+it will not immediately reduce the on-disk size of your table, as the
+space occupied by the dropped column is not reclaimed. The space will
+be reclaimed over time as existing rows are updated.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Changing any part of a system catalog table is not permitted.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Refer to <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-60.htm#P2939_161008"><u>CREATE TABLE</u></a> for a further description of valid parameters.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2125_116696"></a>Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">To add a column of type </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">VARCHAR2</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to a table:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">ALTER TABLE emp ADD address VARCHAR2(30);</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">To drop a column from a table:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">ALTER TABLE emp DROP COLUMN address;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">To rename an existing column:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">ALTER TABLE emp RENAME COLUMN address TO city;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">To rename an existing table:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">ALTER TABLE emp RENAME TO employee;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">To add a check constraint to a table:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">ALTER TABLE emp ADD CONSTRAINT sal_chk CHECK (sal &gt; 500);</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">To remove a check constraint from a table:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">ALTER TABLE emp DROP CONSTRAINT sal_chk;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-60.htm#P2939_161008"><u>CREATE TABLE</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-74.htm#P3451_190472"><u>DROP TABLE</u></a></span></p>
+
+<p><a name="P2140_117201"></a></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-42.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-43_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-43_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-44.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-43_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-43_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-43_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

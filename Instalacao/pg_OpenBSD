@@ -1,0 +1,20 @@
+OpenBSD
+
+The postgresql package is available from ftp.openbsd.org or on CD's that came with your distribution. You can install it using pkg_add. Once the package is installed, you should run the following commands:
+
+    useradd -m postgres
+    passwd postgres (assign the new user a password)
+    mkdir /usr/local/pgsql /usr/local/pgsql/var
+    chown -R postgres:users /usr/local/pgsql
+    su postgres
+    initdb -D /usr/local/pgsql/var
+    exit 
+
+
+/var/lib/pgsql
+
+/usr/local/pgsql
+
+/usr/local/etc/rc.d/010.pgsql.sh start
+
+/usr/local/pgsql/bin/postmaster -D /usr/local/pgsql/data >logfile 2>&1 &

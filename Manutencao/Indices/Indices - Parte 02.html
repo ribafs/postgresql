@@ -1,0 +1,198 @@
+<html><head><link href="Indices%20-%20Parte%2002_files/padrao.css" rel="stylesheet" type="text/css"><meta name="description" content="Comunidade de profissionais, estudantes e mestres em tecnlogias e ferramentas voltadas para o desenvolvimento web. Microsoft, linux, programação asp, php, css, javascript, delphi, sql, oracle, interbase, dreamweaver, photoshop, fireworks e flash.">
+<meta name="keywords" content="programação, microsoft, asp, php, internet, linux, curso online, webmaster, java, flash, delphi, sql, oracle, cursos online, javascript, css, photoshop, interbase, fireworks, dreamweaver">
+<meta name="url" content="http://www.imasters.com.br">
+<meta name="Language" content="PT-BR">
+<meta name="robots" content="INDEX,FOLLOW"><link rel="shortcut icon" href="http://www.imasters.com.br/favicon.ico" type="image/x-icon"><script src="Indices%20-%20Parte%2002_files/jscolab.js"></script><script src="Indices%20-%20Parte%2002_files/selects.js"></script><script src="Indices%20-%20Parte%2002_files/padrao.js"></script><script src="Indices%20-%20Parte%2002_files/padrao_ie.js"></script></head><body><table class="texto" width="487"><tbody><tr><td><img src="Indices%20-%20Parte%2002_files/marca.gif" border="0"><br>Daniel Oslei<br><span class="c333333">Quarta-feira, 31 de março de 2004 </span><br>
+		<span class="size16 bold c000000">Indices - Parte 02</span><br>
+		<br><p class="texto">Como visto na coluna passada os índices são objetos
+  de vital importância para o bom desempenho do banco de dados. Também
+  foi visto que o PostgreSQL usa índices para melhor responder as requisições
+  solicitadas a ele. Mas tem um porém, o PostgreSQL não cria por
+  conta própria os índices, quem
+  deve criar os índices é o usuário proprietário
+  da tabela, exceto quando é criada uma chave primária, na qual
+  toda chave primária
+  é um índice. E para isso ele já
+  deve ter em mente qual das colunas será mais usada em cláusulas
+  WHERE durante a existência da tabela. Índices são criados
+  usando o comando <font color="#669900">CREATE INDEX</font>, veja o exemplo:</p>
+<p class="texto"><font color="#0066cc">CREATE INDEX nome_indice ON tabela_nome (coluna_nome);</font></p>
+<p class="texto">No exemplo citado acima, foi criado um índice <em>nome_indice</em> na
+  coluna <em>coluna_nome</em> da tabela <em>tabela_nome</em>. Quando o índice é criado
+  com sucesso,
+  é retornado para o prompt a palavra <font color="#669900">CREATE</font> (é aconselhável
+  utilizar nomes significativos para os índices).</p>
+<p class="texto">Quando se cria um índice,
+  este índice está relacionado a uma
+  determinada coluna, portanto, não pode auxiliar no acesso de informações
+  em outras colunas porque os índices são classificados de acordo
+  com a coluna correspondente, eis o motivo para qual deve-se saber muito bem
+  a conceituação do assunto para criar índices que
+  tragam realmente melhora de desempenho. É claro que você pode
+  criar vários índices
+  dentro de uma mesma tabela, mas um índice que seja raramente usado é um
+  desperdício
+  de espaço em disco e também vários índices requerem
+  que para cada atualização
+  num registro seja também feito uma atualização em cada índice. </p>
+<p class="texto">Por padrão quando criamos um índice e não
+  especificamos qual o tipo que queremos usar, o PostgreSQL utiliza o B-Tree,
+  ou seja, nas situações
+  mais comuns. Mas podem ocorrer vezes em que o PostgreSQL escolha outro tipo,
+  para isso, ele analisa o caso e leva em consideração se a coluna
+  indexada está
+  envolvida numa comparação envolvendo determinados operadores:</p>
+    <table class="texto" border="0" cellpadding="1" cellspacing="2" width="200">
+  <tbody><tr align="center" bgcolor="#0066cc">
+    <td class="texto"><font color="#ffffff"><strong>Tipo</strong></font></td>
+    <td class="texto"><font color="#ffffff"><strong>Operadores</strong></font></td>
+  </tr>
+  <tr class="tabela2" bgcolor="#f3f3f3">
+    <td><div class="texto" align="center">B-Tree</div></td>
+    <td><div class="texto" align="center"><var class="LITERAL">&lt;</var>, <var class="LITERAL">&lt;=</var>, <var class="LITERAL">=</var>, <var class="LITERAL">&gt;=</var>, <var class="LITERAL">&gt;</var></div></td>
+  </tr>
+  <tr class="tabela2" bgcolor="#f3f3f3">
+    <td><div class="texto" align="center">R-Tree</div></td>
+    <td><div class="texto" align="center"><var class="LITERAL">&lt;&lt;</var>, <var class="LITERAL">&amp;&lt;</var>, <var class="LITERAL">&amp;&gt;</var>, <var class="LITERAL">&gt;&gt;</var>, <var class="LITERAL">@</var>, <var class="LITERAL">~=</var>, <var class="LITERAL">&amp;&amp;</var></div></td>
+  </tr>
+  <tr class="tabela2" bgcolor="#f3f3f3">
+    <td><div class="texto" align="center">Hash</div></td>
+    <td bgcolor="#f3f3f3"><div class="texto" align="center"><var class="LITERAL">=</var></div></td>
+  </tr>
+</tbody></table>
+<p class="texto">No momento esta definição pode ser que fique um pouco obscura,
+  mas por enquanto não vamos se preocupar com isso. Em artigo próximo veremos
+  com mais detalhes para o que são e como são utilizados os operadores e classes
+  de operadores, vamos concentrar nossos raciocínios apenas em índices.</p>
+<p class="texto">Mas se desejarmos escolher o tipo de índice, devemos acrescentar
+  ao final o comando USING, logo após especificando o tipo desejado:</p>
+<p class="texto"><font color="#0066cc">CREATE INDEX <var class="REPLACEABLE">nome</var> ON <var class="REPLACEABLE">tabela</var> USING
+HASH (<var class="REPLACEABLE">coluna</var>);<br>
+CREATE INDEX <var class="REPLACEABLE">nome</var> ON <var class="REPLACEABLE">tabela</var> USING
+BTREE (<var class="REPLACEABLE">coluna</var>);<br>
+CREATE INDEX <var class="REPLACEABLE">nome</var> ON <var class="REPLACEABLE">tabela</var> USING
+RTREE (<var class="REPLACEABLE">coluna</var>);<br>
+CREATE INDEX <var class="REPLACEABLE">nome</var> ON <var class="REPLACEABLE">tabela</var> USING
+GIST (<var class="REPLACEABLE">coluna</var>);</font></p>
+<p class="texto">Normalmente gera-se muita confusão no momento de escolher
+  que
+  índice utilizar, já que cada um tem uma finalidade. Na tabela
+  seguinte há uma
+  tentativa de conceituar brevemente cada um dos quatro índices:</p>
+
+<p class="texto">É  comum precisarmos utilizar consultas que usam
+  na cláusula
+  WHERE condições de pesquisas que dependem muito de duas colunas,
+  então é necessário
+  faz
+<table class="texto" border="0" cellpadding="1" cellspacing="2" width="450">
+  <tbody><tr class="tabela1" align="center" bgcolor="#0066cc">
+    <th class="texto" scope="col" width="20%"><font color="#ffffff">Índice</font></th>
+    <th class="texto" scope="col"><font color="#ffffff">Definição</font></th>
+  </tr>
+  <tr class="tabela2" bgcolor="#f3f3f3">
+    <td class="texto" align="center">B-Tree</td>
+    <td class="texto">São árvores de pesquisa balanceadas
+        desenvolvidas para trabalharem em discos magnéticos ou qualquer
+        outro dispositivo de armazenamento de acesso direto em memória
+        secundária. O índice <var class="LITERAL">B-tree</var> é uma
+        implementação
+    das árvores B de alta concorrência propostas por Lehman e Yao.</td>
+  </tr>
+  <tr class="tabela2" bgcolor="#f3f3f3">
+    <td class="texto" align="center">R-Tree</td>
+    <td class="texto">Também conhecido como árvores R, utiliza o algoritmo
+      de partição
+    quadrática de Guttman, sendo utilizada para indexar estrutura de dados
+    multidimensionais, cuja implementação
+    está limitada
+    a dados
+    com até 8Kbytes, sendo bastante limitada para dados geográficos
+    reais. Utilizado normalmente com dados do tipo box, circle, point e outros. </td>
+  </tr>
+  <tr bgcolor="#f3f3f3">
+    <td class="texto" align="center">Hash</td>
+    <td class="texto">O índice <var class="LITERAL">hash</var> é uma implementação
+    das dispersões lineares de Litwin. Na própria documentação do PostgreSQL
+    está presente a seguinte nota: "Os testes mostram que os índices <var class="LITERAL">hash</var> do PostgreSQL têm desempenho semelhante ou mais lento
+    que os índices <var class="LITERAL">B-tree</var>, e que o tamanho e
+    o tempo de construção dos índices <var class="LITERAL">hash</var> são
+    muito piores. Os índices <var class="LITERAL">hash</var> também
+    possuem um fraco desempenho sob alta concorrência. Por estas razões,
+    a utilização dos índices <var class="LITERAL">hash</var> é desestimulada"** . </td>
+  </tr>
+  <tr class="tabela2" bgcolor="#f3f3f3">
+    <td class="texto" align="center">GiST</td>
+    <td class="texto">Generalized Index Search Trees (Árvores de Procura de Índice
+    Generalizadas), para mais informações visite http://www.sai.msu.su/~megera/postgres/gist/doc/intro.shtml</td>
+  </tr>
+</tbody></table>  </p><p class="texto">r com que o índice utilize duas colunas. Isso é totalmente
+    possível no
+    PostgreSQL, desde que os índices sejam do tipo B-tree ou GiST e não
+    ultrapassem o limite de 32 colunas (o valor
+    de 32 colunas pode ser alterado apenas durante a geração do PostgreSQL,
+    alterando o arquivo pg_config.h em versões 7.3 ou pg_config_manual.h
+    em versões 7.4). Quando se utiliza mais de uma coluna, o índice é organizado
+    de acordo com a primeira coluna especificada na declaração, sendo
+    o segundo utilizado quando a primeira coluna possuir vários valores
+    iguais, portanto a segunda coluna surgiria como uma segunda opção
+    de classificação.
+    </p>
+<p></p><p class="texto"><font color="#0066cc">CREATE INDEX coluna1_coluna2_tabela_idx ON tabela (coluna1,coluna2); </font></p>
+<p class="texto">Também é importante salientar que quando utilizado
+  várias colunas
+  num índice, o otimizador de consultas pode utilizar todas as colunas
+  especificadas ou apenas uma ou algumas, de acordo como ele decidir. Isto vai
+  depender se as colunas são consecutivas.  Por exemplo, um índice
+  incluindo <var class="LITERAL">(col_1,
+  col_2, col_3)</var> pode ser utilizado em consultas envolvendo <var class="LITERAL">col_1</var>, <var class="LITERAL">col_2</var> e <var class="LITERAL">col_3</var>,
+  ou em consultas envolvendo <var class="LITERAL">col_1</var> e <var class="LITERAL">col_2</var>,
+  ou em consultas envolvendo apenas <var class="LITERAL">col_1</var>, mas não
+  em outras combinações.
+  (Em uma consulta envolvendo <var class="LITERAL">col_1</var> e <var class="LITERAL">col_3</var>,
+  o otimizador pode decidir utilizar um índice para <var class="LITERAL">col_1</var> apenas,
+tratando <var class="LITERAL">col_3</var> como uma coluna comum não indexada). </p>
+<p class="texto"><font color="#0066cc">CREATE TABLE clientes (id serial, nome varchar(50), ano_nasc
+int, valor_devido float)<br>
+CREATE INDEX ano_valor_clientes_idx ON clientes USING BTREE
+  (ano_nasc, valor_devido);<br>
+  SELECT nome FROM clientes WHERE ano_nasc &gt; 1970 AND valor_devido
+  &lt; 2000;<br>
+  SELECT nome FROM clientes WHERE ano_nasc &gt; 1970 OR valor_devido &lt; 2000;</font></p>
+<p class="texto">No exemplo acima é criada uma tabela de importância
+  desprezível,
+  na qual é criado índices para as duas últimas colunas.
+  Supondo que as tabelas já estão povoadas,  são feitas
+  duas consultas, ambas utilizando os mesmos critérios
+  de consultas, exceto por uma utilizar o AND e outra o OR. No entanto apenas
+  a primeira consulta utiliza o índice. Por definição, o
+  PostgreSQL utiliza apenas o índice com mais de uma coluna quando as
+  colunas estão unidas numa cláusula
+  WHERE por AND, em outros casos o índice vai ser utilizado apenas na
+  coluna que foi definida por primeiro na criação do índice.
+  No exemplo anterior, na segunda consulta o índice <em>ano_valor_clientes_idx </em>só
+  será usado na procura dos clientes nascidos após 1970, pelo fato
+  de <em>ano_nasc</em> ser a coluna principal do índice. </p>
+<p class="texto">Os índices com mais de uma coluna devem ser evitados.
+  Dependendo da analise há casos em que é melhor haver duas colunas
+  do que uma. No entanto os especialistas afirmam que o uso de três ou
+  mais colunas é praticamente
+  inviável.</p>
+<p class="texto">Neste artigo foi apenas frisado a criação de índices no PostgreSQL,
+  o que na realidade é muito pouco para a sua compreensão. No próximo artigo
+  continuaremos a falar do assunto, mostrando mais detalhes para que se possa
+  tirar o melhor proveito do uso da indexação.</p>
+<p class="texto">* Para se visualizar os índices criados na base de dados utilize
+  o comando 'di' sem as aspas. </p>
+<p class="texto">** Hashing: valor de identificação produzido através
+  da execução de uma operação numérica, denominada
+  função de hashing, em um item de dado. O valor identifica de
+  forma exclusiva o item de dado, mas exige
+  um espaço de armazenamento bem menor. Por isso, o computador pode localizar
+  mais rapidamente os
+  valores de hashing do que os itens de dado, que são mais extensos. Uma
+  tabela de hashing associa cada
+  valor a um item de dado exclusivo. Webster's New World Dicionário de
+  Informática, Brian Pfaffenberger,
+Editora Campus, 1999.</p>
+<p class="texto">Por hoje é só! Até a proxima! </p></td></tr></tbody></table></body></html>

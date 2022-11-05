@@ -1,0 +1,12 @@
+Por padrão, ao executar o initdb, se a
+opção "-U foo" é informada, o usuário foo (do SGBD) será o superusuário
+do PostgreSQL; caso não tenha opção -U, ele definirá o $USER (do SO)
+como superusuário do PostgreSQL, ou seja, o nome do superusuário do
+PostgreSQL será o mesmo do nome do usuário do SO que executou o initdb.
+E mais, ao inicializar um agrupamento (aka cluster) (com initdb), você é
+obrigado a criar um superusuário como também é o caso ao instalar um SO
+(que por padrão é o usuário root). No PostgreSQL, o nome do superusuário
+é definido no momento do initdb; ele não é fixo.
+Os usuários comuns do SGBD podem ser criados após a inicialização do
+agrupamento.
+Euler

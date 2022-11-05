@@ -1,0 +1,5 @@
+
+
+DELETE FROM playground WHERE type = 'slide';
+
+

@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>iMasters - Por uma Internet mais criativa e din&acirc;mica</title>
+	<meta name="resource-types" content="document" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta name="revisit-after" content="1" />
+	<meta name="classification" content="Internet" />
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="Description" content="Comunidade de profissionais, estudantes e mestres em tecnlogias e ferramentas voltadas para o desenvolvimento web." />
+
+	<meta name="Keywords" content="programa&ccedil;&atilde;o, microsoft, asp, php, internet, linux, curso online, webmaster, java, flash, delphi, sql, oracle, cursos online, javascript, css, XHTML, HTML,  photoshop, semantica, web standards,  interbase, fireworks, dreamweaver, tableless, standards, browsers, compatibilidade, XML, usabilidade, acessibilidade, web, internet" />
+	<meta name="robots" content="ALL" />
+	<meta name="distribution" content="Global" />
+	<meta name="rating" content="General" />
+	<meta name="author" content="WebStudio iMasters" />
+	<meta name="language" content="pt-br" />
+	<meta name="doc-class" content="Completed" />
+	<meta name="doc-rights" content="Public" />
+	<link rel="shortcut icon" href="http://www.imasters.com.br/favicon.ico" />
+
+	<base href="http://www.imasters.com.br/" />
+	<style type="text/css" media="screen">
+		
+		#imprimir { width:487px; }
+		body { font-family:Arial; font-size: 12px; }
+		span { float:left font-size:11px; padding:2px; }
+		h1 { font-size:16px; padding: 3px; }
+		h2 { font-size:14px; }
+		h3 { font-size:13px; }
+		h3 { font-size:12px; }
+		
+	</style>
+</head>
+<body>
+<div id="imprimir">
+	<img src="http://static.imasters.uol.com.br/img/conteudo/topo_imprimir.gif" />
+	<br />
+	<span>Juliano Ign&aacute;cio</span>
+	<span>Quinta-feira, 06 de mar&ccedil;o de 2003</span>
+	<h1>Formata&ccedil;&atilde;o</h1>
+	Bom,...  época de carnaval é assim, todos usam máscaras! 
+                - então, vamos nos aproveitar da analogia. As saídas de dados 
+                limpos, ou seja, o valor diretamente armazenado, às vezes, não 
+                é interessante. Não só pela questão da aparência em si, mas da 
+                visualização correta da informação. O PostgreSQL contém diversas 
+                funções para formatação dos dados.
+              <p class="texto">Por exemplo, para visualizar a formatação de um 
+                valor monetário, inserido no valor de venda em nossa tabela de 
+                exercício, definido como sendo do tipo numeric(15,2), primeiro 
+                vamos inserir dois itens:
+              <p class="texto"><font color="#0000FF">INSERT INTO</font> <font color="#008000">venda 
+                (cliente_id, data, valor,produto)</font> <font color="#0000FF">VALUES</font> 
+                (1, <font color="#008000">CURRENT_DATE</font>, 1325.50, 'Mini 
+                System');<br />
+                <font color="#0000FF">INSERT INTO</font> <font color="#008000">venda 
+                (cliente_id, data, valor,produto)</font> <font color="#0000FF">VALUES</font> 
+                (1, <font color="#008000">CURRENT_DATE</font>, 12422.03, 'Kart');
+              <p class="texto">Agora sim, vamos à formatação de saída: 
+              <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-width: 0" bordercolor="#111111" width="100%">
+                <tr> 
+                  <td width="50%" style="border-style: none; border-width: medium" valign="top"> 
+                    <font face="Verdana, Arial, Helvetica, sans-serif" size="1"><font color="#0000FF"> 
+                    <span style="text-transform: uppercase">select</span></font> 
+                    produto, valor <font color="#0000FF"><span style="text-transform: uppercase"><br />
+                    from</span></font> venda <font color="#0000FF"> <span style="text-transform: uppercase">where</span></font> 
+                    cliente_id = 1;<br />
+                     </font></td>
+                  <td width="50%" style="border-style: none; border-width: medium" valign="top"> 
+                    <font face="Verdana, Arial, Helvetica, sans-serif" size="1"><font color="#0000FF"> 
+                    <span style="text-transform: uppercase">select</span></font> 
+                    produto, to_char(valor,'999G999D99') <span style="text-transform: uppercase"> 
+                    <font color="#0000FF">as</font></span> valor_fmt<span style="text-transform: uppercase"><font color="#0000FF"><br />
+                    from</font></span> venda <font color="#0000FF"> <span style="text-transform: uppercase">where</span></font> 
+                    cliente_id = 1;<br />
+                     </font></td>
+                </tr>
+                <tr> 
+                  <td width="50%" style="border-style: none; border-width: medium" valign="top"> 
+                    <font face="Verdana, Arial, Helvetica, sans-serif" size="1" color="#008000">produto      
+                    | valor<br />
+                    -------------+----------<br />
+                    Kart         | 12422.03<br />
+                    Mini System  |  1325.50<br />
+                    Fichário     |    32.00<br />
+                    Mala Viagem  |   110.00<br />
+                    Saca-rolha   |    10.00<br />
+                    Relógio      |    
+                    16.00<br />
+                    (6 rows)</font></td>
+                  <td width="50%" style="border-style: none; border-width: medium" valign="top"> 
+                    <font face="Verdana, Arial, Helvetica, sans-serif" size="1" color="#008000"> produto     
+                    | valor_fmt<br />
+                    -------------+-------------<br />
+                    Kart         | 12,422.03<br />
+                    Mini System  |  1,325.50<br />
+                    Fichário     |     
+                    32.00<br />
+                    Mala Viagem  |    110.00<br />
+                    Saca-rolha   |     10.00<br />
+                    Relógio      |     
+                    16.00<br />
+                    (6 rows)</font></td>
+                </tr>
+              </table>
+<p class="texto">Como pode-se perceber, para valores maiores, a 
+visualização oferece o entendimento mais fácil e mais rápido. <br />
+                Vamos ver outros casos:</p>
+
+              <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-width: 0" bordercolor="#111111" width="100%">
+                <tr> 
+                  <td width="50%" style="border-style: none; border-width: medium" valign="top"> 
+                    <font face="Verdana, Arial, Helvetica, sans-serif" size="1"><font color="#0000FF"> 
+                    <span style="text-transform: uppercase">select</span></font> 
+                    produto, to_char(valor,'999D99') <span style="text-transform: uppercase"> 
+                    <font color="#0000FF">as</font></span> valor_fmt<span style="text-transform: uppercase"><font color="#0000FF"><br />
+                    from</font></span> venda <font color="#0000FF"> <span style="text-transform: uppercase">where</span></font> 
+                    cliente_id = 1;<br />
+                     </font></td>
+                  <td width="50%" style="border-style: none; border-width: medium" valign="top"> 
+                    <font face="Verdana, Arial, Helvetica, sans-serif" size="1"><font color="#0000FF"> 
+                    <span style="text-transform: uppercase">select</span></font> 
+                    produto, to_char(valor,'"R$"999G990D00') <span style="text-transform: uppercase"> 
+                    <font color="#0000FF">as</font></span> valor_fmt<span style="text-transform: uppercase"><font color="#0000FF"><br />
+                    from</font></span> venda <font color="#0000FF"> <span style="text-transform: uppercase">where</span></font> 
+                    cliente_id = 1;<br />
+                     </font></td>
+                </tr>
+                <tr> 
+                  <td width="50%" style="border-style: none; border-width: medium" valign="top"> 
+                    <font face="Verdana, Arial, Helvetica, sans-serif" size="1" color="#008000">produto      
+                    | valor<br />
+                    -------------+----------<br />
+                    Kart         | ###.##<br />
+                    Mini System  | ###.##<br />
+                    Fichário     |  32.00<br />
+                    Mala Viagem  | 110.00<br />
+                    Saca-rolha   |  10.00<br />
+                    Relógio      |  16.00<br />
+                    (6 rows)</font></td>
+                  <td width="50%" style="border-style: none; border-width: medium" valign="top"> 
+                    <font face="Verdana, Arial, Helvetica, sans-serif" size="1" color="#008000"> produto     
+                    | valor_fmt<br />
+                    -------------+-------------<br />
+                    Kart         | R$ 
+                    12,422.03<br />
+                    Mini System  | R$  1,325.50<br />
+                    Fichário     | R$     
+                    32.00<br />
+                    Mala Viagem  | R$    110.00<br />
+                    Saca-rolha   | R$     10.00<br />
+                    Relógio      | R$     
+                    16.00<br />
+                    (6 rows)</font></td>
+                </tr>
+              </table>
+              <p class="texto">Aqui temos no primeiro caso, um cuidado que se 
+                deve ter, a máscara sempre deve possuir uma tamanho que trate 
+                o maior valor provável que será tratado, pois, caso contrário, 
+                somente os caracteres # (sustenido ou jogo-da-velha) serão mostrados. 
+                No segundo exemplo, foi inserido um texto ("R$") para 
+                mostrar a flexibilidade da formatação.</p>
+              <p class="texto">A formatação não é exclusiva para tratamento e 
+                conversão de números, pode-se trabalhar com data e hora também, 
+                o que ajuda muito em diversas situações, por exemplo, uma das 
+                maneiras de se extrair dos dados de venda, quais foras os produtos 
+                vendidos em fevereiro de 2003, pode ser executado como:</p>
+
+              <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-width: 0" bordercolor="#111111" width="100%">
+                <tr> 
+                  <td width="50%" style="border-style: none; border-width: medium" valign="top"> 
+                    <font face="Verdana, Arial, Helvetica, sans-serif" size="1"><font color="#0000FF"> 
+                    <span style="text-transform: uppercase">select</span></font> 
+                    produto <span style="text-transform: uppercase"><font color="#0000FF">from</font></span> 
+                    venda <font color="#0000FF"><span style="text-transform: uppercase"><br />
+                    where</span></font> to_char(data,'MMYYYY') = '022003';<br />
+                     </font></td>
+                </tr>
+                <tr> 
+                  <td width="50%" style="border-style: none; border-width: medium" valign="top"> 
+                    <font size="1" color="#008000"><font face="Verdana, Arial, Helvetica, sans-serif"> produto<br />
+                    -------------<br />
+                    Relógio<br />
+                    Mala Viagem<br />
+                    Saca-rolha<br />
+                    Fichário<br />
+                    Mini System<br />
+                    Kart<br />
+                    (6 rows)</font></font></td>
+                </tr>
+              </table>
+              <p class="texto">Veja mais em <a href="http://www.ca.postgresql.org/users-lounge/docs/7.3/postgres/functions-formatting.html"target="_blank"> 
+                http://www.ca.postgresql.org/users-lounge/docs/7.3/postgres/functions-formatting.html</a> 
+                - em inglês</p>
+<hr>
+              <p class="texto">Semana que vem tem mais. Um ótimo carnaval a todos!!! - e lembrem-se: 
+              se beber não dirija, se dirigir, não beba. <br />
+Dúvidas, críticas e sugestões podem ser enviadas diretamente para
+meu 
+e-mail, colocando no assunto (<i>subject</i>) "iMasters-PSQL". <br />
+
+Um abraço a todos. </p>
+</div>
+</body>
+</html>

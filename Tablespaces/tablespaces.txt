@@ -1,0 +1,249 @@
+Trabalhando com Tablespace no PostgreSQL
+
+Na criação do cluster inicial são criados dois tablespaces, um para p catálogo
+(pg_global) e outro para os bancos de dados e demais objetos (pg_default).
+
+Os tablespaces são muito usados para balancear cargas, separando objetos em
+unidades de discos diferentes.
+
+Tablespaces no PostgreSQL permitem aos administrador definir locações no sistema
+de arquivos para armazenar os objetos de bancos de dados.
+O administrador pode controlar o layout do disco. Um tablespace pode ser criado
+em uma partição diferente e em um disco diferente. Prmitem ao administrador
+otimizar a performance. Um índice que é usado de forma pesada pode ser alocado
+em um disco mais rápido ou com alta disponibilidade. Já tabelas com pouco uso
+e relevância pode ficar em disco mais barato.
+
+Vale lembrar que se perder o tablespace perderá o acesso a todos os dados dos
+bancos dele.
+
+CREATE TABLESPACE nome_do_espaço_de_tabelas [ OWNER nome_do_usuário ] LOCATION 'diretório';
+
+CREATE TABLESPACE indexspace OWNER genevieve LOCATION '/data/indexes';
+
+A locação indicada na criação do tablespace precisa existir, precisamos criar
+o respectivo diretório antes e ainda precisa também ter o super usuário que a
+criou como seu dono. Todos os objetos criados no tablespace devem ser armazenados
+em diretórios dentro do diretório indicado no location.
+
+A locação não pode ser em discos removíveis nem em storages transitórios.
+
+Somente super usuários do postgresql podem criar tablespaces. Para que usuários
+possam acesar precisarão do privilégio CREATE.
+
+Idealmente devemos ter um disco apenas para dados e um disco apenas para índices
+para evitar concorrência.
+
+Criar tabespace
+CREATE TABLESPACE ts_tables location '/usr/local/postgresql/ts_tables';
+
+Criar Banco em Tablespace
+CREATE DATABASE intranet TEMPLATE=template0 TABLESPACE=ts_tables;
+
+Criar tabela em certo tablespace:
+CREATE TABLE lotes (id serial) TABLESPACE ts_tables;
+
+
+
+Setar ts como default
+SET default_tablespace = space1;
+
+Criar tabela no ts default
+CREATE TABLE foo(i int);
+
+1 - Recuperação do identificador de objeto e dos dados dos tablespaces do servidor.
+
+SELECT oid, * FROM pg_tablespace;
+
+2 - Recuperando o Tablespace e o usuário que tem permissão de owner do tablespace
+
+SELECT T.oid, T.spcname, T.spcowner, U.usename
+FROM pg_tablespace T, pg_user U
+WHERE T.spcowner = U.usesysid; 
+
+
+-------------
+— verifica se as tablespaces foram criadas
+SELECT spcname AS “Tablespace”,
+pg_size_pretty(pg_tablespace_size (spcname)) AS “Tamanho”,
+spclocation as “Caminho”
+FROM pg_tableSpace; 
+
+— Gera Script para alterar tabelas
+SELECT 'ALTER TABLE' ,n.nspname AS schemaname,'.', c.relname AS tablename, 'SET TABLESPACE banco_data;'
+FROM pg_class c
+LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+LEFT JOIN pg_tablespace t ON t.oid = c.reltablespace
+WHERE c.relkind = 'r'::”char”
+AND nspname NOT IN
+('dbateste','information_schema','pg_catalog','pg_temp_1','pg_toast','postgres','publico','public')
+ORDER BY n.nspname 
+
+— Confere alteracao das tabelas
+SELECT n.nspname AS schemaname, c.relname AS tablename, t.spcname AS “Tablespace”
+FROM pg_class c
+LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+LEFT JOIN pg_tablespace t ON t.oid = c.reltablespace
+WHERE c.relkind = 'r'::”char”
+AND nspname NOT IN
+('dbateste','information_schema','pg_catalog','pg_temp_1','pg_toast','postgres','publico','public')
+ORDER BY n.nspname, c.relname
+
+— Verifica tabelas sem tablespace
+SELECT n.nspname AS schemaname, c.relname AS tablename, t.spcname AS “Tablespace”
+FROM pg_class c
+LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+LEFT JOIN pg_tablespace t ON t.oid = c.reltablespace
+WHERE c.relkind = 'r'::”char”
+AND nspname NOT IN
+('dbateste','information_schema','pg_catalog','pg_temp_1','pg_toast','postgres','publico','public')
+AND t.spcname IS NULL
+ORDER BY t.spcname DESC
+
+— Verifica tamanho da tablespace
+SELECT spcname AS “Tablespace”,
+pg_size_pretty(pg_tablespace_size (spcname)) AS “Tamanho”,
+spclocation as “Caminho”
+FROM pg_tableSpace; 
+ALTERANDO OS INDICES 
+
+— Cria TableSpace
+CREATE TABLESPACE “banco_idx” OWNER postgres LOCATION '/postgres/pg825/dados/pg_tblspc/banco_idx'; 
+
+— verifica se as tablespaces foram criadas 
+SELECT spcname AS “Tablespace”,
+pg_size_pretty(pg_tablespace_size (spcname)) AS “Tamanho”,
+spclocation as “Caminho”
+FROM pg_tableSpace; 
+
+— Verifica quais sao os indices ( Nao primarios) e o tamanho 
+SELECT n.nspname AS schemaname,c.relname AS tablename,
+c.relpages::numeric * 4.096 / 1024::numeric AS espaco_mb
+FROM pg_class c
+LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+LEFT JOIN pg_tablespace t ON t.oid = c.reltablespace
+LEFT JOIN pg_index x ON x.indexrelid = c.oid
+WHERE c.relkind = 'i'::”char”
+AND x.indisprimary != 't'
+AND x.indisunique != 't'
+AND nspname NOT IN
+('dbateste','information_schema','pg_catalog','pg_temp_1','pg_toast','postgres','publico','public')
+ORDER BY n.nspname 
+
+— Gera Script para alterar indices
+SELECT 'ALTER INDEX', n.nspname AS schemaname , '.' ,c.relname AS tablename, 'SET TABLESPACE banco_idx;'
+FROM pg_class c
+LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+LEFT JOIN pg_tablespace t ON t.oid = c.reltablespace
+LEFT JOIN pg_index x ON x.indexrelid = c.oid
+WHERE c.relkind = 'i'::”char”
+AND x.indisprimary != 't'
+AND x.indisunique != 't'
+AND nspname NOT IN
+('dbateste','information_schema','pg_catalog','pg_temp_1','pg_toast','postgres','publico','public')
+ORDER BY n.nspname 
+
+— Confere alteracao dos indices 
+SELECT n.nspname AS schemaname ,c.relname AS tablename,t.spcname AS “Tablespace”
+FROM pg_class c
+LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+LEFT JOIN pg_tablespace t ON t.oid = c.reltablespace
+LEFT JOIN pg_index x ON x.indexrelid = c.oid
+WHERE c.relkind = 'i'::”char”
+AND x.indisprimary != 't'
+AND x.indisunique != 't'
+AND nspname NOT IN
+('dbateste','information_schema','pg_catalog','pg_temp_1','pg_toast','postgres','publico','public')
+ORDER BY n.nspname 
+
+— Verifica indice sem tablespace
+SELECT n.nspname AS schemaname ,c.relname AS tablename,t.spcname AS “Tablespace”
+FROM pg_class c
+LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+LEFT JOIN pg_tablespace t ON t.oid = c.reltablespace
+LEFT JOIN pg_index x ON x.indexrelid = c.oid
+WHERE c.relkind = 'i'::”char”
+AND x.indisprimary != 't'
+AND x.indisunique != 't'
+AND nspname NOT IN
+('dbateste','information_schema','pg_catalog','pg_temp_1','pg_toast','postgres','publico','public')
+AND t.spcname IS NULL
+ORDER BY t.spcname DESC
+
+— Verifica tamanho da tablespace 
+SELECT spcname AS “Tablespace”,
+pg_size_pretty(pg_tablespace_size (spcname)) AS “Tamanho”,
+spclocation as “Caminho”
+FROM pg_tableSpace; 
+
+Espero que tenha ajudado
+Kenia Milene
+
+
+Verificação das tablespaces existentes:
+
+SELECT spcname AS Tablespace, pg_size_pretty(pg_tablespace_size (spcname)) AS Tamanho, spclocation AS Caminho
+FROM pg_tableSpace;
+
+— Criando Banco de dados vinculando os tablespace de armazenamento do usuário —
+— criando banco de dados com collate 'UTF8'
+CREATE DATABASE zeus
+WITH OWNER = zeus
+ENCODING = 'UTF8'
+TABLESPACE = tbs_zeustab
+CONNECTION LIMIT = -1;
+
+— Criando Schemas no PostgreSQL —
+— Schema: sisimobiliaria
+— DROP SCHEMA sisimobiliaria;
+CREATE SCHEMA sisimobiliaria
+AUTHORIZATION zeus;
+GRANT ALL ON SCHEMA sisimobiliaria TO zeus;
+
+— Schema: public
+— DROP SCHEMA public;
+CREATE SCHEMA public
+AUTHORIZATION zeus;
+GRANT ALL ON SCHEMA public TO zeus;
+GRANT ALL ON SCHEMA public TO public;
+COMMENT ON SCHEMA public
+IS 'standard public schema';
+
+— Definido os tablespaces:
+— Para definir o tablespace, você deve procurar dois pontos importantes no seu dump ou criação: o ponto imediatamente anterior antes de criar as tabelas e o ponto imediatamente anterior a criação dos índices e constraints.
+Antes da criação das tabelas coloque a seguinte linha:
+
+SET default_tablespace = 'tbs_zeustab';
+Antes da criação de índices e constraints, coloque a seguinte linha:
+
+SET default_tablespace = 'tbs_zeusindx';
+
+==========
+Listar os tablespaces do cluster
+
+select spcname from pg_tablespace;
+
+O PostgreSQL faz uso dos links simbólicos para para simplificar a implementação
+dos tablespaces. Isso implica que tablespaces somente podem ser implementados 
+em SO com suporte a links simbólicos.
+
+O diretório $PGDATA/pg_tblspc contém links simbólicos que apontam para cada um
+dos tablespaces não nativos definidos no cluster. Não é recomendado mas é 
+possível ajustar manualmente esses links em caso de alterações em diretórios. 
+No PostgreSQL 9.1 e anteriores devemos também necessitar de atualizar o catálogo
+pg_tablespaces com as novas locações.
+
+Criar banco de dados anexado a tablespace:
+
+create database banco with owner usuario tablespace = tbs_dados
+connection limit = -1;
+
+Criar esquema definindo outro dono:
+
+create schema nomeesquema authorization usuario;
+
+Conceder privilégios:
+
+grant all on schema nomeesquema to usuario;
+
+

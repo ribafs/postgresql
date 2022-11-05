@@ -1,0 +1,52 @@
+Using PostgreSQL
+pg_dump: dumps your database into a file
+check out 'pg_dump --help' for more info.
+THis command will back-up schema and data for a specific table
+
+% pg_dump -D -f /menu_items.sql -F p -N -t menu_items -U postgres domus
+; Another example
+% pg_dump -D -f /content_items.sql -F p -N -t content_items -U postgres domus
+
+; -D = to dump data as INSERT not COPY
+; -f [file] = output file name
+; -F p = output in plain text
+; -N = something neat
+; -t [table] = table name
+; -U [user] the person I connect as
+; [database] = database you want to access
+
+Here's how you would put the data back in the database
+% psql < ./menu_items.sql -U postgres domus   
+% psql < ./content_items.sql -U postgres domus   
+
+----------
+
+Backup com Crontab
+
+>I use PostgreSQL version 7.0.2 for Linux Conectiva 5.1 Server, and I
+> would like to know how do I do to configure and start the PostgreSQL's backup
+> and restore 
+>using crontab?
+
+restore with crontab???
+
+Anyway.
+Put a line in crontab like:
+3  5 * * * /script/backdb.sh
+
+and the script  /script/backdb.sh
+could then look like:
+
+#!/bin/bash
+DATE=`date +%Y%m%d`
+/usr/pgsql/bin/pg_dump databas > /tmp/dump.$DATE
+
+then you have a file in /tmp/dump.$DATE that you could put on tape or whatever
+you use. Use pg_dumpall if you want all databases.
+You might want to consider making a  backup of the files  (for example
+pg_hba.conf) in  PGDATA directory. Read the man page for details about OID's.
+
+Good luck.
+Gunnar.
+-------------
+

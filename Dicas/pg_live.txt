@@ -1,0 +1,8 @@
+pg_live
+
+Live CD com XUbuntu contendo o PostgreSQL 8.3, PGAdmin 1.82, phpPgAdmin 1.4.3 e mutias outras ferramentas
+pré-instaladas.
+
+Muito útil para o DBA que trabalha com o PostgreSQL ou está aprendendo.
+
+Site - http://205.237.195.102/

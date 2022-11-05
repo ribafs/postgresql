@@ -1,0 +1,72 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2071"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-134_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-133.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-134_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-134_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-135.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-134_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P7024_394030"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.4.5 UPDATE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command available in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> language can also be used in </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> programs.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">An expression in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> language can be used wherever an expression is allowed in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command. Thus, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SPL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> variables and parameters can be used to supply values to the update operation.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE PROCEDURE emp_comp_update (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_empno         IN emp.empno%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_sal           IN emp.sal%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_comm          IN emp.comm%TYPE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">IS</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    UPDATE emp SET sal = p_sal, comm = p_comm WHERE empno = p_empno;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF SQL%FOUND THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('Updated Employee # : ' || p_empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('New Salary         : ' || p_sal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('New Commission     : ' || p_comm);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    ELSE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('Employee # ' || p_empno || ' not found');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SQL%FOUND</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> conditional expression returns</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> &#8220;true&#8221; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">if a row is updated</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, &#8220;false&#8221; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">otherwise</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See Section </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-137.htm#P7183_401833">4.4.8</a></u></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> for </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">a discussion of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SQL%FOUND</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and other similar expressions.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following shows the update on the employee using this procedure.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">EXEC emp_comp_update(9503, 6540, 1200);</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">Updated Employee # : 9503</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">New Salary         : 6540</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">New Commission     : 1200</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">SELECT * FROM emp WHERE empno = 9503;</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);"> empno |  ename   |   job   | mgr  |      hiredate      |   sal   |  comm   | deptno</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">-------+----------+---------+------+--------------------+---------+---------+--------</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  9503 | PETERSON | ANALYST | 7902 | 31-MAR-05 00:00:00 | 6540.00 | 1200.00 |     40</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><b>Note:</b></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDA</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">T</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">E</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command can be included in a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORALL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement. A </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORALL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement allows a single </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDA</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">T</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">E</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command to update multiple rows from values supplied in one or more collections. See Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-167.htm#P8894_476608">4.9.3</a></u> for more information on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORALL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-133.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-134_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-134_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-135.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-134_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-134_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-134_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

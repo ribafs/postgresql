@@ -1,0 +1,249 @@
+------------------------------------------------------------------------------
+--                     Controle de Usuários Versão 1.1                      --
+------------------------------------------------------------------------------
+-- Versão: 1.1 (Março/2005)                                                 --
+-- Autor : Márcio Gil Maldonado                                             --
+-- E-mail: marciomgil@bol.com.br / marciomgil@yahoo.com.br                 --
+------------------------------------------------------------------------------
+-- Este código pode ser utilizado livremente sem autorização prévia.        --
+-- Qualquer correção ou melhoria deve ser informada ao autor, objetivando   --
+-- com isso a contínua melhoria deste. Se houver alguma crítica, comentário --
+-- ou dúvida a respeito, favor entrar em contato.                           --
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+Introdução
+
+Este conjunto de tabelas e funções foi inicialmente criado para o gerenciador
+de banco de dados PostgreSQL versão 7.2. Atualmente ele vem sendo portado para
+a versão 8.0. O principal objetivo deste é o gerenciamento de contas de
+usuários por meio de cadastros simples. Dessa forma, o gerente poderá
+cadastrar usuários, definir permissões, bloquear ou desativar usuários, tudo
+isso por meio de simples inclusão, alteração ou exclusão de registros em
+tabelas comuns.
+
+------------------------------------------------------------------------------
+Principais Recursos
+
+Os principais recursos presentes neste código são:
+
+        *  Cadastro de usuários
+        *  Bloqueio ou desativação de usuário
+        *  Definição de senha de acesso
+        *  Controle de grupos de usuários
+        *  Definição de permissões de acesso
+
+------------------------------------------------------------------------------
+Cadastro de usuários
+
+Por meio de uma inclusão na tabela "usuario", o gerente poderá cadastrar novos
+usuários guardando muito mais informações do que o gerenciador de banco de
+dados permite. Ao inserir um novo usuário, no entanto, este ainda não é
+incluído no sistema (por meio do comando CREATE USER), apenas quando é
+definido sua senha, este será realmente incluído, de forma a ativar seu acesso
+ao sistema. A exclusão do registro referente a um usuário implica no
+cancelamento de sua conta no banco de dados se este estiver habilitado.
+
+A alteração do login de um usuário ativo e com senha implica na exclusão e
+reinclusão da conta deste usuário. Isso se dá por motivo de compatibilidade
+com a versão 7.2 do postgreSQL que não suporta o comando "ALTER USER RENAME".
+
+A tabela de cadastro de usuários (tabela "usuario") é composta pelos seguintes
+campos:
+
+  usu_cod       Código do usuário, chave primária preenchido automaticamente
+                pelo valor da seqüência "usuario_usu_cod_seq"
+  usu_login     Login de acesso, campo obrigatório e único.
+  usu_nome      Nome, campo obrigatório e único.
+  usu_tel       Telefone
+  usu_rua       Endereço (rua e número)
+  usu_bai       Bairro
+  usu_cid       Cidade
+  usu_uf        Unidade federativa
+  usu_cep       Código de endereçamento postal
+  usu_doc       Número do cadastro de pessoa física (CPF)
+  usu_reg       Número de identidade
+  usu_dtreg     Data de registro da identidade
+  usu_dtnasc    Data de nascimento
+  usu_dtinic    Data de início (admissão)
+  usu_dtsaid    Data de saída (demissão)
+  usu_com       Percentual de comissão
+  usu_usucx     Código do caixa responsável, chave estrangeira para a própria
+                tabela "usuario"
+  usu_estado    Estado atual do usuário. Pode ser: ativo (A), inativo (I) ou
+                bloqueado (B). Ao se passar de ativo para inativo ou
+                bloqueado, a senha deste usuário é automaticamente cancelada
+  usu_dtestado  Data de mudança de estado. Campo preenchido automaticamente ao
+                modificar o campo "usu_estado"
+  usu_dtcad     Data de cadastro. Campo preenchido automaticamente ao inserir
+                o usuário
+  usu_dtatual   Data atualização. Campo preenchido automaticamente ao inserir
+                ou alterar o cadastro do usuário
+  usu_obs       Observações diversas a respeito do usuário. Campo memo
+
+A view "usuario_view" permite a consulta dos principais campos do cadastro de
+usuários e exclui da visualização o usuário com o código 1 que se pressupõe ser
+o supervisor do sistema (DBA).
+
+------------------------------------------------------------------------------
+Bloqueio ou desativação de usuário
+
+Quando o estado (campo "usu_estado") de um usuário ativo e com senha
+habilitada é alterado para bloqueado ou inativo, sua senha e,
+conseqüentemente, sua conta no banco de dados é excluída automaticamente.
+Usuários inativos ou bloqueados também não poderão ter sua senha habilitada.
+
+------------------------------------------------------------------------------
+Definição de senha de acesso
+
+A tabela "usu_shadow" permite a definição da senha de acesso de um usuário e
+efetua o cadastro de sua conta de acesso (comando CREATE USER). A alteração do
+campo "pwr_shadow", por sua vez, efetua a alteração da senha deste (comando
+ALTER USER). Se for excluído o registro referente à senha de um usuário, sua
+conta no banco é cancelada, mesmo se este estiver ativo (comando DROP USER).
+
+Um campo adicional (o campo "pwr_serial") está incluído na tabela para
+permitir o controle do programa cliente contra alterações não autorizadas.
+Pode ser utilizado algum cálculo envolvendo código, senha e prazo que poderão
+ser conferidas ao se efetuar o login na interface.
+
+A tabela de cadastro de senhas de usuários (tabela "usuario") é composta pelos
+seguintes campos:
+
+  pwr_usucod    Código do usuário, chave primária e estrangeira para a tabela
+                "usuario"
+  pwr_shadow    Senha não codificada
+  pwr_prazo     Prazo de validade da senha
+  pwr_dtatual   Data atualização. Campo preenchido automaticamente ao inserir
+                ou alterar a senha do usuário
+  pwr_serial    Número de controle do sistema
+
+------------------------------------------------------------------------------
+Controle de grupos de usuários
+
+O controle de acesso sugerido pelo presente controle é baseado em grupos de
+usuários. Qualquer inclusão nesta tabela implica no cadastramento do grupo no
+gerenciador de banco de dados (comando CREATE GROUP). A exclusão do registro
+referente a um grupo implica na exclusão deste no banco (comando DROP GROUP).
+
+A alteração do nome de um grupo implica na exclusão e reinclusão deste no
+banco. Isso se dá por motivo de compatibilidade com a versão 7.2 do postgreSQL
+que não suporta o comando "ALTER GROUP RENAME".
+
+Dois campos adicionais (os campos "grp_prazo" "grp_serial") estão incluídos na
+tabela para permitir a definição do prazo de validade para um grupo e o
+controle do programa cliente contra alterações não autorizadas. Pode ser
+utilizado algum cálculo envolvendo código, nome e prazo que poderão ser
+conferidas ao se efetuar o login na interface.
+
+A tabela de cadastro de grupos de usuários (tabela "grupo") é composta pelos
+seguintes campos:
+
+  grp_cod       Código do grupo, chave primária preenchido automaticamente
+                pelo valor da seqüência "grupo_grp_cod_seq"
+  grp_nome      Nome do grupo
+  grp_prazo     Prazo de validade do grupo, a ser controlado pelo programa
+                cliente
+  grp_dtatual   Data atualização. Campo preenchido automaticamente ao inserir
+                ou alterar o grupo
+  grp_serial    Número de controle do sistema
+
+Alguns grupos básicos são pressupostos pelo controle, são estes:
+
+  "supervisor"  Usuário ou usuários responsáveis pela manutenção do banco de
+                dados (DBA). O primeiro usuário (código 1) deve ser o
+                supervisor principal
+  "gerente"     Gerente da empresa, autorizado para cadastrar usuários, senhas
+                e atribuir permissões (exceto a de supervisor)
+  "usuario"     Usuário comum do sistema
+  "caixa"       Usuário responsável pelo controle do caixa
+
+Obs: somente os grupos "supervisor" e "gerente" são obrigatórios. O grupo
+     "usuario" é recomendado e a não inclusão do grupo "caixa" implica a
+     inutilização do campo "usu_usucx". Porém, estes podem ser excluídos sem
+     preocupação, contanto que se elimine os comandos "GRANT" e "REVOKE"
+     referentes a estes grupos.
+
+A view "grupo_view" permite a consulta dos principais campos do cadastro de
+grupos e exclui da visualização o grupo de código 1 que se pressupõe ser o
+grupo "supervisor".
+
+------------------------------------------------------------------------------
+Definição de permissões de acesso
+
+O controle de permissões de acesso é feito por meio da inclusão ou exclusão do
+usuário em um ou outro grupo. Isso pode ser feito por meio do relacionamento
+mestre-detalhe existente entre as tabelas "usuario" e "grupo_usuario".
+
+A inclusão de um registro neste último implica na inserção do usuário no grupo
+(comando ALTER GROUP ADD USER). A exclusão ou desativação (campo "gru_ativo")
+do registro implica na exclusão do usuário do grupo (comando ALTER USER DROP
+USER).
+
+O campo "gru_usulogin" é necessário para impedir o erro gerado pela exclusão
+do grupo de um usuário que não pertence ao grupo. Embora na versão 8.0 isso
+gere apenas um aviso (WARNING), na versão 7.2 isso gera um erro.
+
+A tabela de controle de permissões (tabela "grupo_usuario") é composta pelos
+seguintes campos:
+
+  gru_usucod    Código do usuário, chave primária e estrangeira para a tabela
+                "usuario"
+  gru_grpnome   Nome do grupo, chave primária com o campo "gru_usucod" e
+                estrangeira para a tabela "grupo"
+  gru_usulogin  Login do usuário, utilizado para controle
+  gru_ativo     Permissão ativa ou inativa
+
+Esta tabela pode ser utilizada para um controle de acesso mais complexo, o que
+é difícil de se fazer só com os recursos do PostgreSQL 7.2. Por exemplo, em
+qualquer função escrita em PLPGSQL você poderá fazer o seguinte teste:
+
+DECLARE
+  usucod usuario.usu_cod%TYPE;
+BEGIN
+
+  ...
+
+  usucod := (
+    SELECT usu_cod FROM usuario
+      WHERE usu_login = cast( CURRENT_USER AS VARCHAR )
+  );
+
+  IF (SELECT TRUE FROM grupo_usuario
+        WHERE gru_usucod = usucod AND gru_ativo
+          AND gru_grpnome IN (''grupo1'',''grupo2'')
+        LIMIT 1) THEN
+
+    -- Comandos se o usuário atual pertence aos grupos "grupo1" ou "grupo2"
+    ...
+
+  END IF;
+
+  ...
+
+  IF (SELECT count(*) FROM grupo_usuario
+        WHERE gru_usucod = usucod AND gru_ativo
+          AND gru_grpnome IN (''grupo1'',''grupo2'')) = 2 THEN
+
+    -- Comandos se o usuário atual pertence aos grupos "grupo1" E "grupo2"
+    ...
+
+  END IF;
+
+  ...
+
+END;
+
+Na versão 8.0, no entanto, o PostgreSQL permite a seguinte verificação:
+
+  IF (SELECT TRUE FROM pg_user
+        INNER JOIN pg_group ON usesysid = ANY (grolist)
+        WHERE usename = CURRENT_USER
+          AND groname IN (''grupo1'',''grupo2'')
+        LIMIT 1) THEN
+    -- Comandos se o usuário atual pertence aos grupos "grupo1" ou "grupo2"
+    ...
+  END IF;
+
+------------------------------------------------------------------------------

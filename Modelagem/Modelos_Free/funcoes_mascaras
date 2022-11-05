@@ -1,0 +1,31 @@
+Exemplos de funções que adicionam e tiram máscaras:
+
+-- Recebe assim: 60420440 e exibe assim: 60420-440
+CREATE FUNCTION cep_tela(cep dom_cep) RETURNS TEXT AS $$
+BEGIN
+    RETURN substr(cep,1,5) || '-' || substr(cep,6,3);
+END;
+$$ LANGUAGE plpgsql;
+CREATE TABLE tbl_cep (cep dom_cep);
+
+-- Recebe assim: 60420-440 e insere assim: 60420440
+CREATE FUNCTION cep_banco(cep dom_cep) RETURNS TEXT AS $$
+BEGIN
+    RETURN substr(cep,1,5) || substr(cep,7,3);
+END;
+$$ LANGUAGE plpgsql;
+CREATE TABLE tbl_cep (cep dom_cep);
+
+Estas funções acima são uma pequena variação da função encotnrada na documentação
+oficial em português do comando CREATE DOMAIN:
+http://pgdocptbr.sourceforge.net/pg80/sql-createdomain.html
+
+Usando:
+
+Para exibir:
+select cep_tela('60420440');
+
+Para inserir no banco, mas usando num insert, ao invés:
+select cep_banco('60420-440');
+
+

@@ -1,0 +1,34 @@
+Instalando PostgreSQL em outras Distribuições e Sistemas
+
+Slackware
+Existe pacote em http://linuxpackages.net
+
+FreeBSD
+pkg_add -r postgresql
+
+OpenBSD
+Disponível em ftp.openbsd.org
+Podemos instalar do CD ou da internet com pkg_add.
+Após instalar executar:
+    useradd -m postgres
+    passwd postgres (assign the new user a password)
+    mkdir /usr/local/pgsql /usr/local/pgsql/var
+    chown -R postgres:users /usr/local/pgsql
+    su postgres
+    initdb -D /usr/local/pgsql/var
+    exit 
+Mais detalhes em: http://64.85.161.47:8081/OpenBSD_Install.html
+
+
+NetBSD
+postgresql-clients em ftp.netbsd.org ou nos CD's 
+Pode ser instalado com pkg_add
+Após instalado rodar os comandos:
+    useradd -m postgres
+    passwd postgres (assign the new user a password)
+    mkdir /usr/local/pgsql /usr/local/pgsql/var
+    chown -R postgres:users /usr/local/pgsql
+    su postgres
+    initdb -D /usr/local/pgsql/var
+    exit 
+

@@ -1,0 +1,3 @@
+create function GetAlunos() returns setof identificacao 
+as 'select nome from identificacao;
+' language 'sql';

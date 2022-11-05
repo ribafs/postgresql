@@ -1,0 +1,11 @@
+tablespace_pg
+
+link útil - http://pgbr-geral.listas.postgresql.org.narkive.com/kWtTW7ki/postgresql-brasil-res-res-dividir-bd-em-discos-diferentes 
+
+- Criar dois tablespaces, um para cada disco, sendo o mais rápido para os índices.
+	- ts_dados		/opt/ts_dados
+	- ts_indices	/opt/ts_indices
+SET default_tablespace = 'ts_indices';
+
+Criar índices críticos neste tablespace.
+

@@ -1,0 +1,27 @@
+Uso do iconv
+
+iconv -f iso-8859-1 cep_brasil_unique.csv -t cp1252 -s -o cep_brasil_unique_1252.csv
+
+iconv -f iso-8859-1 cep_brasil_unique.csv -t utf8 -s -o cep_brasil_unique_utf8.csv
+
+No Windows
+
+iconv -c -s -f iso-8859-1 -t cp1252 cep_brasil_unique.csv > cep_brasil_unique_1252.csv
+
+iconv -c -s -f iso-8859-1 -t utf-8 cep_brasil_unique.csv > cep_brasil_unique_utf8.csv
+
+
+Na instalação em notebooks com câmera (como alguns Acer), que não reconhece a câmera e
+fica gerando mensagens de erro, executar:
+
+sudo gedit /etc/modprobe.d/blacklist
+
+E digitar as duas linhas abaixo:
+
+# Disable auto-loading of gspca module
+blacklist gspca
+
+
+Teclas de Atalho
+
+gconf-editor

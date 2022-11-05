@@ -1,0 +1,88 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>DROP USER</title>
+
+
+<meta name="keywords" content="drop user, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2014"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-77_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-76.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-77_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-77_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-78.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-77_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P3501_191963"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.39 DROP USER</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3502_191979"></a>Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DROP USER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;remove a database user account</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3504_192028"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DROP USER </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ CASCADE ]</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3506_192062"></a>Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><a name="P3507_192073"></a>DROP USER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> removes the specified user. To drop a superuser, you must be a superuser yourself; to drop non-superusers, you must have </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATEROLE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> privilege.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A
+user cannot be removed if it is still referenced in any database of the
+cluster; an error will be raised if so. Before dropping the user, you
+must drop all the objects it owns (or reassign their ownership) and
+revoke any privileges the user has been granted.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">However, it is not necessary to remove role memberships involving the user; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DROP USER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+automatically revokes any memberships of the target user in other
+roles, and of other roles in the target user. The other roles are not
+dropped nor otherwise affected.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Alternatively,
+if the only objects owned by the user belong within a schema that is
+owned by the user and has the same name as the user, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CA</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SCADE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> option can be specified. In this case the issuer of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DROP U</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SER </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> CASCADE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command must be a superuser and the named user, the schema, and all objects within the schema will be deleted.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of the user to remove.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CASCADE</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If
+specified, also drops the schema owned by, and with the same name as
+the user (and all objects owned by the user belonging to the schema) as
+long as no other dependencies on the user or the schema exist.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3516_193334"></a>Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">To drop a user account who owns no objects nor has been granted any privileges on other objects:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DROP USER john;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P3519_193453"></a>To drop user account, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">john</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, who has not been granted any privileges on any objects, and does not own any objects outside of a schema named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">john</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, that is owned by user, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">john</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DROP USER john CASCADE;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-45.htm#P2159_117702"><u>ALTER USER</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-63.htm#P3223_178751"><u>CREATE USER</u></a></span></p>
+
+<p><a name="P3523_193681"></a></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-76.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-77_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-77_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-78.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-77_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-77_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-77_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

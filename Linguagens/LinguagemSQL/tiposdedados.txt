@@ -1,0 +1,506 @@
+Tipos de Dados no PostgreSQL
+
+O PostgreSQL suporta os tipos de dados padrões do SQL ANSI:
+
+Numéricos
+	integer
+	arbitrária precisão
+	ponto fluruante
+	serial
+Monetário
+Character
+Binário
+	byea hex
+	bytea escape
+Data/Hora
+	data/hora input
+	data/hora output
+	time zones
+	interval input
+	interval output				
+Boolean
+Enumerated
+Geométricos
+	pontos
+	linha
+	boxes
+	path
+	polígonos
+	círculos
+Redes
+	inet
+	cidr
+	inet vycidr
+	macadd
+Bit string
+Text search
+UUID
+XML
+JSON
+Array
+Compostos
+Range
+Object Identifier
+Pseudo		
+
+E um rico conjunto de tipos de dados geométricos.
+Além de poder ter novos tipos de dados criados pelo usuário com create type....
+
+Os tipos especificados pelo SQL são:
+
+bigint
+bit
+bit variyng
+boolean
+char
+character variyng
+character
+varchar
+date
+double precision
+integer
+interval
+numeric
+decimal
+real
+smallint
+time (wirh ou without time zone)
+timestamp (wirh ou without time zone)
+xml
+
+Boleano/boolean
+
+TRUE/FALSE
+
+Valores possíveis
+t/f
+...
+
+
+Dados do tipo Array
+
+-- Quero poder entrar com mais de um telefone no campo telefone
+create table servidores(
+	id int primary key,
+	nome varchar(50) not null,
+	telefone varchar(10)[]
+);
+
+\d servidores
+
+insert into servidores values (
+1, 'Ribamar FS', '{{"988884444"},{"999994444"}}'
+);
+
+select * from servidores;
+
+postgres=# select * from servidores;
+ id |    nome    |         telefone          
+----+------------+---------------------------
+  1 | Ribamar FS | {{988884444},{999994444}}
+
+
+CASTING - conversão de tipos de dados explicitamente
+
+CAST ('string' as type)
+
+
+Tipos Numéricos têm 2, 4 ou 8 bytes
+
+Números com Precisão Arbitrária
+
+Valores numéricos podem armazenar números com muitos dígitos e executar cálculos
+exatos. É especialmente indicado para armazenar valores monetários e outras 
+quantidades onde a exatidão é requerida. A aritmética com valores numéricos
+é bem mais lenta que com tipos inteiros ou mesmo de ponto flutuante.
+
+numeric (p,e)
+
+p - precisão é o total de dígitos (a parte antes do ponto). > 0
+e - escala, é a quantidade de decimais do número, depois do ponto. >= 0
+
+Exemplo:
+
+numeric(8,2)
+
+precisão - 8
+escala - 2
+
+O tipo decimal é equivalente à numérico.
+
+
+NaN - Not a Number
+
+
+Tipos de Dados de Ponto Flutuante
+
+Os tipos de dados real e double são inexatos e de variável precisão numérica.
+- Quando for requerida exatidão (como dinheiro) use o tipo numeric.
+- Comparando dois valores iguais de ponto flutuante nem sempre o resultado 
+funciona como esperado.
+
+
+Tipo de Dados Serial
+
+Smallserial, serial e bigserial não são tipos reais de dados. São inteiros com
+uma sequência automática.
+
+Tipo Money
+
+'R$1.200,00'
+
+Tipo Character
+
+varchar(n)
+char(n) - este é mais lento
+
+
+Tipos Binários
+bytea
+
+Tipos Data/Hora
+
+As datas seguem o calendário Gregoriano.
+
+
+Datas até 4713 dc.
+
+epoch
+infinity
+-infinity
+now
+today
+tomorrow
+yesterday
+
+
+Tipo Boleano
+
+TRUE	FALSE	(preferidos)
+'t'		'f'
+'true'	'false'
+'y'		'n'
+'yes'	'no'
+'on'	'off'
+'1'		'0'
+
+
+Tipos de Dados Enum
+
+É um conjunto de valores ordenados.
+
+Exemplo:
+Os dias da semana
+
+São criados usando
+
+create type semana as enum ('seg','ter','qua','qui',sex','sab','dom');
+
+Usando
+
+create table pessoa(
+	nome text,
+	dia semana
+);
+
+insert into pessoa values ('João', 'ter');
+
+select * from pessoa shere semana = 'ter';
+
+
+Tipos Geométricos
+
+Representam objetos em 2 dimensões.
+
+Ponto é a base dos demais tipos.
+
+Pontos são especificados usando 
+
+(x,y)
+ x,y
+ 
+ Onde x e y são as coordenadas, como números em ponto flutuante.
+ Pontos são marcados usando a primeira sintaxe.
+ 
+ 
+ Segmento de Reta
+ 
+ Segmentos de reta são representados por pares de pontos.
+ São especificados usando uma das sintaxes:
+ 
+[(x1,y1),(x2,y2)]
+((x1,y1),(x2,y2))
+(x1,y1),(x2,y2)
+x1,y1, x2,y2
+
+Onde x1,y1 é o ponto inicial e x2,y2 é o ponto final do segmento.
+Segmentos são mostrados usando a primeira sintaxe.
+
+
+Boxes / Caixas - são representados por pares de pontos dos cantos opostos do box.
+
+Os pontos são especificados assim:
+
+((x1,y1),(x2,y2))
+(x1,y1),(x2,y2)
+x1,y1, x2,y2
+
+Onde (x1,y1) e (x2,y2) são os cantos opostos do box.
+Boxes são exibidos usando a primeira sintaxe.
+
+Os pontos devem ser
+
+(x1,y1) - acima e à esquerda
+(x2,y2) - abaixo e à direita
+
+Não obrigatoriamente na ordem.
+
+
+PATH/Caminho - são representados por uma lista de pontos conectados. Os paths
+podem ser abertos ou fechados. Abertos quando o primeiro e o último pontos não 
+se conectam. Fechados quando o primeiro e o último ponto se conectam.
+
+Paths são especificados usando:
+
+[(x1,y1),...(xn,yn)]
+((x1,y1),...(xn,yn))
+ (x1,y1),...(xn,yn)
+ x1,y1,...xn,yn
+ 
+Onde (x1,y1) é o ponto inicial do primeiro segmento e (xn,yn) é o ponto final
+do último segmento que forma o path.
+
+[] indicam um path aberto
+() indicam um path fechado
+
+Quando a última sintaxe é usada presume-se um path fechado.
+A primeira sintaxe é a mais apropriada para mostrar paths.
+
+
+Polígonos - são representados por uma lista dos pontos dos seus vértices. São
+similares a paths fechados, mas são armazenados de forma diferente e contam com
+rotinas próprias.
+
+São especificados usando:
+
+[(x1,y1),...(xn,yn)]
+(x1,y1),...(xn,yn)
+(x1,y1,...xn,yn)
+x1,y1,...xn,yn
+
+São mostrados usando a primeira sintaxe.
+
+
+Círculos - São representados por um ponto no centro e por um raio.
+
+São especificados assim:
+
+<(x,y), r>
+((x,y), r)
+x,y, r
+
+Onde (x,y) é o centro e r é o raio.
+
+Círculos são mostrados usando a primeira sintaxe.
+
+
+Tipos de Dados Endereço de Rede
+
+É melhor usar um tipo de dados do PostgreSQL do que o formato texto, pois o 
+postgresql critica seus tipos e têm funções específicas para eles.
+
+INET/inet - manipula endereços IPv4 e IPv6
+Se a máscara é 32 em IPv4 então não indica uma subrede mas apenas um host.
+
+Formato
+
+endereço/y
+
+Se apenas y estiver ausente então 32 para IPv4 e 128 para IPv6. O valor repre-
+senta apenas um único host.
+
+CIDR/cidr - Lida com especificação de rede IPv4 ou IPv6. O formato segue cidr.
+
+cidr input			cidr output				abrev
+192.168.100.128/25	192.168.100.128/25
+
+inet x cidr
+
+A diferença é que inet aceita valores com bit não zero para a direita da máscara,
+já cidr não aceita.
+
+macaddr - armazena endereços de MAC de placas de rede.
+
+Inputs aceitam os seguintes formatos:
+
+'08:00:2b:01:02:03'
+'08-00-2b-01-02-03'
+'08002b-010203'
+'0800.2b01.0203'
+'08002b010203'
+
+Todos os exemplos acima especificam o mesmo MAC. Maiúsculas e minúsculas são 
+aceitas.
+
+Como é composto de hexadecimais, então são válidos:
+
+0-9
+A-F
+
+A primeira forma é a mais usada.
+
+
+BIT Strints - são strings de 1 e 0.
+
+bit(n) ou b'101 ou b'100 ou
+
+variyng(n)
+
+Exemplo:
+
+create table ...
+
+insert into
+
+select...
+
+
+Tipo de Busta de Texto
+
+O PostgreSQL tem dois tipos de dados que suportam full text search.
+
+tsvector - representa um documento em uma forma otimizada pera busca
+
+tsquery - representa uma consulta de texto.
+
+tsvector - é uma lista ordenada de distintos texemes. A ordenação e a eliminação
+de duplicados é feita automaticamente no input.
+
+select 'a fat cat sat on a mat and ate a fat rat'::tsvector;
+
+Opcionalmente inteiro para as posições podem ser anexados as lexemes.
+
+Exemplos
+
+
+Tipo UUID - Armazena UUID como definido pela RFC 4122.
+
+128 bit
+
+Hexadecimais minúsculas em vários grupos separados por hífens. 
+Um grupo de 8 dígitos seguido por 3 grupos de 4 dígitos, seguidos por um grupo
+de 12 dígitos, perfazendo um total de 32 dígitos representando 128 bit.
+
+Exemplo:
+a0eebc99-9c0b-4ef8-bbbd-bbb9bd380a11
+
+
+Tipo de Dados XML - pode ser usado para armazenar dados no formato XML. O uso
+deste tipo de dados requer que na instalação se tenha usado:
+
+configure --with-libxml
+
+Funções
+
+xmlparse - para produzir um valor de tipo xml
+
+xmlserialize - produz um valor de caracteres string de xml
+
+
+Dados tipo JSON - pode ser usado para armazenar dados do tipo JSON.
+
+Tipo Array - o PostgreSQL suporta campos do tipo array de comprimento variável
+e multidimensional.
+
+create table salarios(
+	pagamento int[],
+	telefone text[2][9]
+);
+
+Acessando
+select * from salarios where
+	telefone[0][0] = '{85}{934912786}';
+
+'{{1,2,3},{4,5,6},{7,8,9}}'
+
+Comparação de Registro com Array
+
+Todas as expressões retornam true/false:
+
+in(expr)
+not in(expr)
+any/some(array)
+all(array)
+
+Exemplos
+
+
+Concatenação
+
+---- || --------
+
+
+Tipos Compostos - Criação de um tipo composto por vários tipos existentes.
+
+create type composto as(
+	i int,
+	nome text,
+	preco numeric
+);
+
+create type tpreco as(
+	produto text,
+	quantidade int,
+	preco numeric(6,2)
+);
+
+create table produtos(
+	id int primary key,
+	preco tpreco
+);
+
+insert into produtos values(
+	(1, ROW('Banana', 100, 2.75));
+	
+Podemos usar em tabelas e em funções
+
+update produtos set tpreco = ROW('Goiaba', 20, 3.85) where ...
+
+
+Range Types - representa uma faixa de valores de algum tipo.
+
+Chamado faixa de subtipo.
+
+Alguns ranges nativos:
+
+int2range - range de smallint
+int4range - range de int
+int8range - range de bigint
+numrange - range de numeric
+
+Podemos criar novos ranges usando create type ...
+
+Exemplos
+
+
+OID - Object ID - são usados internamente pelo PostgreSQL como chave primária 
+para várias tabelas de sistema.
+
+O tipo OID representa um identificador de objeto.
+
+É atualmente implementado como um inteiro de 4 bytes não sinalizado.
+
+
+PSEUDO TIPOS - Não podem ser usados como nomes de campos nas nossas tabelas.
+
+Exemplos:
+
+any
+anyenum
+internal
+record
+void
+opaque
+
+
+

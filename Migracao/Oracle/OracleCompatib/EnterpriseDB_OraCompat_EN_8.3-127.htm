@@ -1,0 +1,83 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2064"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-127_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-126.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-127_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-127_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-128.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-127_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P6754_379537"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.3.3 Using %ROWTYPE in Record Declarations</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%TYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> attribute provides an easy way to create a variable dependent upon a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">column&#8217;s </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">data type</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%ROWTYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+attribute, a record can be defined that contains fields corresponding
+to all columns of a given table. Each field takes on the data type of
+its corresponding column.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><b>Note:</b></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> The fields in the record do not inherit any of the columns&#8217; other attributes such as might be specified with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOT NULL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause or the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFAULT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>record</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a named, ordered collection of fields. A </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>field</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+is similar to a variable - it has an identifier and data type, but also
+has the property that it belongs to a record and must be referenced
+using dot notation with the record name as its qualifier.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A record can be declared using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%ROWTYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> attribute. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%ROWTYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+attribute is prefixed by a table name. Each column in the named table
+defines an identically named field in the record with the same data
+type as the column.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>record</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%ROWTYPE</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">;</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>record</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> i</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">s an identifier assigned to the record</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+is the name of a table whose columns are to define the fields in the
+record. A view may be used as well to define a record.The following
+example shows how the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_sal_query</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure from the prior section can be modified to use </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp%ROWTYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to create a record named </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">r_emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> instead of declaring individual variables for the columns in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE PROCEDURE emp_sal_query (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_empno         IN emp.empno%TYPE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">IS</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    r_emp           emp%ROWTYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_avgsal        emp.sal%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    SELECT ename, job, hiredate, sal, deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        INTO r_emp.ename, r_emp.job, r_emp.hiredate, r_emp.sal, r_emp.deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FROM emp WHERE empno = p_empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Employee # : ' || p_empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Name       : ' || r_emp.ename);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Job        : ' || r_emp.job);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Hire Date  : ' || r_emp.hiredate);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Salary     : ' || r_emp.sal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Dept #     : ' || r_emp.deptno);</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    SELECT AVG(sal) INTO v_avgsal</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FROM emp WHERE deptno = r_emp.deptno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF r_emp.sal &gt; v_avgsal THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('Employee''s salary is more than the '</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            || 'department average of ' || v_avgsal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    ELSE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('Employee''s salary does not exceed the '</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            || 'department average of ' || v_avgsal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-126.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-127_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-127_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-128.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-127_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-127_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-127_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

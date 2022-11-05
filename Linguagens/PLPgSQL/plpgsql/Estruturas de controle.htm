@@ -1,0 +1,508 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<meta http-equiv="Content-Language" content="pt-br">
+<meta name="author" content="Traduzido por Halley Pacheco de Oliveira - Câmara Municipal do Rio de Janeiro">
+<meta name="keywords" content="postgresql manual documentação sql comandos tradução português brasil banco dados sgbd sgbdr sgbdor">
+<meta name="description" content="Tradução da Documentação do PostgreSQL 8.0.0 para o Português do Brasil">
+<title>Estruturas de controle</title>
+<meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7">
+<link rev="MADE" href="mailto:pgsql-docs@postgresql.org">
+<link rel="HOME" title="Documentação do PostgreSQL 8.0.0" href="index.html">
+<link rel="UP" title="PL/pgSQL - Linguagem procedural SQL" href="plpgsql.html">
+<link rel="PREVIOUS" title="Instruções básicas" href="plpgsql-statements.html">
+<link rel="NEXT" title="Cursores" href="plpgsql-cursors.html">
+<link rel="STYLESHEET" type="text/css" href="stylesheet.css">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="creation" content="2006-02-18T12:06:06">
+</head>
+<body class="SECT1">
+<div class="NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="5" align="center" valign="bottom">Documentação do PostgreSQL 8.0.0</th>
+</tr>
+
+<tr>
+<td width="10%" align="left" valign="top">
+<a href="plpgsql-statements.html" accesskey="P">Anterior</a>
+</td>
+<td width="10%" align="left" valign="top">
+<a href="plpgsql.html">Início</a>
+</td>
+<td width="60%" align="center" valign="bottom">Capítulo 35. PL/pgSQL - Linguagem procedural SQL</td>
+<td width="10%" align="right" valign="top">
+<a href="plpgsql.html">Fim</a>
+</td>
+<td width="10%" align="right" valign="top">
+<a href="plpgsql-cursors.html" accesskey="N">Próxima</a>
+</td>
+</tr>
+</table>
+
+<hr align="LEFT" width="100%">
+</div>
+
+<div class="SECT1">
+<h1 class="SECT1"><a name="PLPGSQL-CONTROL-STRUCTURES">35.7. Estruturas de controle</a></h1>
+
+<p>As estruturas de controle provavelmente são a parte mais útil (e mais importante) da linguagem <span class="APPLICATION">PL/pgSQL</span>. Com as estruturas de controle do <span class="APPLICATION">PL/pgSQL</span> os dados do <span class="PRODUCTNAME">PostgreSQL</span> podem ser manipulados de uma forma muita flexível e poderosa.</p>
+
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-STATEMENTS-RETURNING">35.7.1. Retorno de uma função</a></h2>
+
+<p>Estão disponíveis dois comandos que permitem retornar dados de uma função: <tt class="COMMAND">RETURN</tt> e <tt class="COMMAND">RETURN NEXT</tt>.</p>
+
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN38743">35.7.1.1. RETURN</a></h3>
+
+<pre class="SYNOPSIS">
+RETURN <var class="REPLACEABLE">expressão</var>;
+</pre>
+
+<p>O comando <tt class="COMMAND">RETURN</tt> com uma expressão termina a função e retorna o valor da <var class="REPLACEABLE">expressão</var> para quem chama. Esta forma é utilizada pelas funções do <span class="APPLICATION">PL/pgSQL</span> que não retornam conjunto.</p>
+
+<p>Qualquer expressão pode ser utilizada para retornar um tipo escalar. O resultado da expressão é automaticamente convertido no tipo de retorno da função conforme descrito nas atribuições. Para retornar um valor composto (linha), deve ser escrita uma variável registro ou linha como a <var class="REPLACEABLE">expressão</var>.</p>
+
+<p>O valor retornado pela função não pode ser deixado indefinido. Se o controle atingir o final do bloco de nível mais alto da função sem atingir uma instrução <tt class="COMMAND">RETURN</tt>, ocorrerá um erro em tempo de execução.</p>
+
+<p>Se a função for declarada como retornando <tt class="TYPE">void</tt>, ainda assim deve ser especificada uma instrução <tt class="COMMAND">RETURN</tt>; mas neste caso a expressão após o comando <tt class="COMMAND">RETURN</tt> é opcional, sendo ignorada caso esteja presente.</p>
+</div>
+
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN38759">35.7.1.2. RETURN NEXT</a></h3>
+
+<pre class="SYNOPSIS">
+RETURN NEXT <var class="REPLACEABLE">expressão</var>;
+</pre>
+
+<p>Quando uma função <span class="APPLICATION">PL/pgSQL</span> é declarada como retornando <tt class="LITERAL">SETOF <var class="REPLACEABLE">algum_tipo</var></tt>, o procedimento a ser seguido é um pouco diferente. Neste caso, os itens individuais a serem retornados são especificados em comandos <tt class="COMMAND">RETURN NEXT</tt>, e um comando <tt class="COMMAND">RETURN</tt> final, sem nenhum argumento, é utilizado para indicar que a função chegou ao fim de sua execução. O comando <tt class="COMMAND">RETURN NEXT</tt> pode ser utilizado tanto com tipos de dado escalares quanto compostos; no último caso toda uma <span class="QUOTE">"tabela"</span> de resultados é retornada.</p>
+
+<p>As funções que utilizam <tt class="COMMAND">RETURN NEXT</tt> devem ser chamadas da seguinte maneira:</p>
+
+<pre class="PROGRAMLISTING">
+SELECT * FROM alguma_função();
+</pre>
+
+<p>Ou seja, a função deve ser utilizada como uma fonte de tabela na cláusula <tt class="LITERAL">FROM</tt>.</p>
+
+<p>Na verdade, o comando <tt class="COMMAND">RETURN NEXT</tt> não faz o controle sair da função: simplesmente salva o valor da expressão. Em seguida, a execução continua na próxima instrução da função <span class="APPLICATION">PL/pgSQL</span>. O conjunto de resultados é construído se executando comandos <tt class="COMMAND">RETURN NEXT</tt> sucessivos. O <tt class="COMMAND">RETURN</tt> final, que não deve possuir argumentos, faz o controle sair da função.</p>
+
+<div class="NOTE">
+<blockquote class="NOTE">
+<p><b>Nota:</b> A implementação atual de <tt class="COMMAND">RETURN NEXT</tt> para o <span class="APPLICATION">PL/pgSQL</span> armazena todo o conjunto de resultados antes de retornar da função, conforme foi mostrado acima. Isto significa que, se a função <span class="APPLICATION">PL/pgSQL</span> produzir um conjunto de resultados muito grande, o desempenho será ruim: os dados serão escritos em disco para evitar exaurir a memória, mas a função não retornará antes que todo o conjunto de resultados tenha sido gerado. Uma versão futura do <span class="APPLICATION">PL/pgSQL</span> deverá permitir aos usuários definirem funções que retornam conjuntos que não tenham esta limitação. Atualmente, o ponto onde os dados começam a ser escritos em disco é controlado pela variável de configuração <tt class="VARNAME">work_mem</tt>. Os administradores que possuem memória suficiente para armazenar conjuntos de resultados maiores, devem considerar o aumento deste parâmetro.</p>
+</blockquote>
+</div>
+</div>
+</div>
+
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-CONDITIONALS">35.7.2. Condicionais</a></h2>
+
+<p>As instruções <tt class="LITERAL">IF</tt> permitem executar os comandos com base em certas condições. A linguagem <span class="APPLICATION">PL/pgSQL</span> possui cinco formas de <tt class="LITERAL">IF</tt>:</p>
+
+<ul>
+<li>
+<tt class="LITERAL">IF ... THEN</tt>
+</li>
+
+<li>
+<tt class="LITERAL">IF ... THEN ... ELSE</tt>
+</li>
+
+<li>
+<tt class="LITERAL">IF ... THEN ... ELSE IF</tt>
+</li>
+
+<li>
+<tt class="LITERAL">IF ... THEN ... ELSIF ... THEN ... ELSE</tt>
+</li>
+
+<li>
+<tt class="LITERAL">IF ... THEN ... ELSEIF ... THEN ... ELSE</tt>
+</li>
+</ul>
+
+<p></p>
+
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN38809">35.7.2.1. IF-THEN</a></h3>
+
+<pre class="SYNOPSIS">
+IF <var class="REPLACEABLE">expressão_booleana</var> THEN
+    <var class="REPLACEABLE">instruções</var>
+END IF;
+</pre>
+
+<p>As instruções <tt class="LITERAL">IF-THEN</tt> são a forma mais simples de <tt class="LITERAL">IF</tt>. As instruções entre o <tt class="LITERAL">THEN</tt> e o <tt class="LITERAL">END IF</tt> são executadas se a condição for verdade. Senão, são saltadas.</p>
+
+<p>Exemplo:</p>
+
+<pre class="PROGRAMLISTING">
+IF v_id_usuario &lt;&gt; 0 THEN
+    UPDATE usuarios SET email = v_email WHERE id_usuario = v_id_usuario;
+END IF;
+</pre>
+
+<p></p>
+</div>
+
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN38821">35.7.2.2. IF-THEN-ELSE</a></h3>
+
+<pre class="SYNOPSIS">
+IF <var class="REPLACEABLE">expressão_booleana</var> THEN
+    <var class="REPLACEABLE">instruções</var>
+ELSE
+    <var class="REPLACEABLE">instruções</var>
+END IF;
+</pre>
+
+<p>As instruções <tt class="LITERAL">IF-THEN-ELSE</tt> ampliam o <tt class="LITERAL">IF-THEN</tt> permitindo especificar um conjunto alternativo de instruções a serem executadas se a condição for avaliada como falsa.</p>
+
+<p>Exemplos:</p>
+
+<pre class="PROGRAMLISTING">
+IF id_pais IS NULL OR id_pais = ''
+THEN
+    RETURN nome_completo;
+ELSE
+    RETURN hp_true_filename(id_pais) || '/' || nome_completo;
+END IF;
+</pre>
+
+<p></p>
+
+<pre class="PROGRAMLISTING">
+IF v_contador &gt; 0 THEN
+    INSERT INTO contador_de_usuários (contador) VALUES (v_contador);
+    RETURN 't';
+ELSE
+    RETURN 'f';
+END IF;
+</pre>
+
+<p></p>
+</div>
+
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN38833">35.7.2.3. IF-THEN-ELSE IF</a></h3>
+
+<p>As instruções <tt class="LITERAL">IF</tt> podem ser aninhadas, como no seguinte exemplo:</p>
+
+<pre class="PROGRAMLISTING">
+IF linha_demo.sexo = 'm' THEN
+    sexo_extenso := 'masculino';
+ELSE
+    IF linha_demo.sexo = 'f' THEN
+        sexo_extenso := 'feminino';
+    END IF;
+END IF;
+</pre>
+
+<p></p>
+
+<p>Na verdade, quando esta forma é utilizada uma instrução <tt class="LITERAL">IF</tt> está sendo aninhada dentro da parte <tt class="LITERAL">ELSE</tt> da instrução <tt class="LITERAL">IF</tt> externa. Portanto, há necessidade de uma instrução <tt class="LITERAL">END IF</tt> para cada <tt class="LITERAL">IF</tt> aninhado, mais um para o <tt class="LITERAL">IF-ELSE</tt> pai. Embora funcione, cresce de forma tediosa quando existem muitas alternativas a serem verificadas. Por isso existe a próxima forma.</p>
+</div>
+
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN38845">35.7.2.4. IF-THEN-ELSIF-ELSE</a></h3>
+
+<pre class="SYNOPSIS">
+IF <var class="REPLACEABLE">expressão_booleana</var> THEN
+    <var class="REPLACEABLE">instruções</var>
+[ <span class="OPTIONAL">ELSIF <var class="REPLACEABLE">expressão_booleana</var> THEN
+    <var class="REPLACEABLE">instruções</var>
+[ <span class="OPTIONAL">ELSIF <var class="REPLACEABLE">expressão_booleana</var> THEN
+    <var class="REPLACEABLE">instruções</var>
+    ...</span>]</span>]
+[ <span class="OPTIONAL">ELSE
+    <var class="REPLACEABLE">instruções</var></span> ]
+END IF;
+</pre>
+
+<p>A instrução <tt class="LITERAL">IF-THEN-ELSIF-ELSE</tt> fornece um método mais conveniente para verificar muitas alternativas em uma instrução. Formalmente equivale aos comandos <tt class="LITERAL">IF-THEN-ELSE-IF-THEN</tt> aninhados, mas somente necessita de um <tt class="LITERAL">END IF</tt>.</p>
+
+<p>Abaixo segue um exemplo:</p>
+
+<pre class="PROGRAMLISTING">
+IF numero = 0 THEN
+    resultado := 'zero';
+ELSIF numero &gt; 0 THEN
+    resultado := 'positivo';
+ELSIF numero &lt; 0 THEN
+    resultado := 'negativo';
+ELSE
+    -- hmm, a única outra possibilidade é que o número seja nulo
+    resultado := 'NULL';
+END IF;
+</pre>
+
+<p></p>
+</div>
+
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN38864">35.7.2.5. IF-THEN-ELSEIF-ELSE</a></h3>
+
+<p><tt class="LITERAL">ELSEIF</tt> é um aliás para <tt class="LITERAL">ELSIF</tt>.</p>
+</div>
+</div>
+
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-CONTROL-STRUCTURES-LOOPS">35.7.3. Laços simples</a></h2>
+
+
+<a name="AEN38871"></a>
+
+<p>Com as instruções <tt class="COMMAND">LOOP</tt>, <tt class="COMMAND">EXIT</tt>, <tt class="COMMAND">WHILE</tt> e <tt class="COMMAND">FOR</tt> pode-se fazer uma função <span class="APPLICATION">PL/pgSQL</span> repetir uma série de comandos.</p>
+
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN38880">35.7.3.1. LOOP</a></h3>
+
+<pre class="SYNOPSIS">
+[<span class="OPTIONAL">&lt;&lt;<var class="REPLACEABLE">rótulo</var>&gt;&gt;</span>]
+LOOP
+    <var class="REPLACEABLE">instruções</var>
+END LOOP;
+</pre>
+
+<p>A instrução <tt class="COMMAND">LOOP</tt> define um laço incondicional, repetido indefinidamente até ser terminado por uma instrução <tt class="COMMAND">EXIT</tt> ou <tt class="COMMAND">RETURN</tt>. Nos laços aninhados pode ser utilizado um rótulo opcional na instrução <tt class="COMMAND">EXIT</tt> para especificar o nível de aninhamento que deve ser terminado.</p>
+</div>
+
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN38891">35.7.3.2. EXIT</a></h3>
+
+<pre class="SYNOPSIS">
+EXIT [ <span class="OPTIONAL"><var class="REPLACEABLE">rótulo</var></span> ] [ <span class="OPTIONAL">WHEN <var class="REPLACEABLE">expressão</var></span> ];
+</pre>
+
+<p>Se não for especificado nenhum <var class="REPLACEABLE">rótulo</var>, o laço mais interno é terminado, e a instrução após o <tt class="LITERAL">END LOOP</tt> é executada a seguir. Se o <var class="REPLACEABLE">rótulo</var> for especificado, este deve ser o rótulo do nível corrente ou de algum nível externo do laço ou bloco aninhado. Neste caso o laço ou bloco é terminado, e o controle continua na instrução após o <tt class="LITERAL">END</tt> do laço ou do bloco.</p>
+
+<p>Quando <tt class="LITERAL">WHEN</tt> está presente, a saída do laço ocorre somente se a condição especificada for verdadeira, senão o controle passa para a instrução após o <tt class="COMMAND">EXIT</tt>.</p>
+
+<p>Pode ser utilizado <tt class="LITERAL">EXIT</tt> para causar uma saída prematura de qualquer tipo de laço; não está limitado aos laços incondicionais.</p>
+
+<p>Exemplos:</p>
+
+<pre class="PROGRAMLISTING">
+LOOP
+    -- algum processamento
+    IF contador &gt; 0 THEN
+        EXIT;  -- sair do laço
+    END IF;
+END LOOP;
+
+LOOP
+    -- algum processamento
+    EXIT WHEN contador &gt; 0;  -- mesmo resultado do exemplo acima
+END LOOP;
+
+BEGIN
+    -- algum processamento
+    IF estoque &gt; 100000 THEN
+        EXIT;  -- causa a saída do bloco BEGIN
+    END IF;
+END;
+</pre>
+
+<p></p>
+</div>
+
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN38910">35.7.3.3. WHILE</a></h3>
+
+<pre class="SYNOPSIS">
+[<span class="OPTIONAL">&lt;&lt;<var class="REPLACEABLE">rótulo</var>&gt;&gt;</span>]
+WHILE <var class="REPLACEABLE">expressão</var> LOOP
+    <var class="REPLACEABLE">instruções</var>
+END LOOP;
+</pre>
+
+<p>A instrução <tt class="COMMAND">WHILE</tt> repete uma seqüência de instruções enquanto a expressão de condição for avaliada como verdade. A condição é verificada logo antes de cada entrada no corpo do laço.</p>
+
+<p>Por exemplo:</p>
+
+<pre class="PROGRAMLISTING">
+WHILE quantia_devida &gt; 0 AND saldo_do_certificado_de_bonus &gt; 0 LOOP
+    -- algum processamento
+END LOOP;
+
+WHILE NOT expressão_booleana LOOP
+    -- algum processamento
+END LOOP;
+</pre>
+
+<p></p>
+</div>
+
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN38921">35.7.3.4. FOR (variação inteira)</a></h3>
+
+<pre class="SYNOPSIS">
+[<span class="OPTIONAL">&lt;&lt;<var class="REPLACEABLE">rótulo</var>&gt;&gt;</span>]
+FOR <var class="REPLACEABLE">nome</var> IN [ <span class="OPTIONAL">REVERSE</span> ] <var class="REPLACEABLE">expressão</var> .. <var class="REPLACEABLE">expressão</var> LOOP
+    <var class="REPLACEABLE">instruções</var>
+END LOOP;
+</pre>
+
+<p>Esta forma do <tt class="COMMAND">FOR</tt> cria um laço que interage num intervalo de valores inteiros. A variável <var class="REPLACEABLE">nome</var> é definida automaticamente como sendo do tipo <tt class="TYPE">integer</tt>, e somente existe dentro do laço. As duas expressões que fornecem o limite inferior e superior do intervalo são avaliadas somente uma vez, ao entrar no laço. Normalmente o passo da interação é 1, mas quando <tt class="LITERAL">REVERSE</tt> é especificado se torna -1.</p>
+
+<p>Alguns exemplos de laços <tt class="COMMAND">FOR</tt> inteiros:</p>
+
+<pre class="PROGRAMLISTING">
+FOR i IN 1..10 LOOP
+    -- algum processamento
+    RAISE NOTICE 'i é %', i;
+END LOOP;
+
+FOR i IN REVERSE 10..1 LOOP
+    -- algum processamento
+END LOOP;
+</pre>
+
+<p></p>
+
+<p>Se o limite inferior for maior do que o limite superior (ou menor, no caso do <tt class="LITERAL">REVERSE</tt>), o corpo do laço não é executado nenhuma vez. Nenhum erro é gerado.</p>
+</div>
+</div>
+
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-RECORDS-ITERATING">35.7.4. Laço através do resultado da consulta</a></h2>
+
+<p>Utilizando um tipo diferente de laço <tt class="COMMAND">FOR</tt>, é possível interagir através do resultado de uma consulta e manipular os dados. A sintaxe é:</p>
+
+<pre class="SYNOPSIS">
+[<span class="OPTIONAL">&lt;&lt;<var class="REPLACEABLE">rótulo</var>&gt;&gt;</span>]
+FOR <var class="REPLACEABLE">registro_ou_linha</var> IN <var class="REPLACEABLE">comando</var> LOOP
+    <var class="REPLACEABLE">instruções</var>
+END LOOP;
+</pre>
+
+<p>Cada linha de resultado do <var class="REPLACEABLE">comando</var> (que deve ser um <tt class="COMMAND">SELECT</tt>) é atribuída, sucessivamente, à variável registro ou linha, e o corpo do laço é executado uma vez para cada linha. Abaixo segue um exemplo:</p>
+
+<pre class="PROGRAMLISTING">
+CREATE FUNCTION cs_refresh_mviews() RETURNS integer AS $$
+DECLARE
+    mviews RECORD;
+BEGIN
+    PERFORM cs_log('Atualização das visões materializadas...');
+
+    FOR mviews IN SELECT * FROM cs_materialized_views ORDER BY sort_key LOOP
+
+        -- Agora "mviews" possui um registro de cs_materialized_views
+
+        PERFORM cs_log('Atualizando a visão materializada ' || quote_ident(mviews.mv_name) || ' ...');
+        EXECUTE 'TRUNCATE TABLE ' || quote_ident(mviews.mv_name);
+        EXECUTE 'INSERT INTO ' || quote_ident(mviews.mv_name) || ' ' || mviews.mv_query;
+    END LOOP;
+
+    PERFORM cs_log('Fim da atualização das visões materializadas.');
+    RETURN 1;
+END;
+$$ LANGUAGE plpgsql;
+</pre>
+
+<p>Se o laço for terminado por uma instrução <tt class="COMMAND">EXIT</tt>, o último valor de linha atribuído ainda é acessível após o laço.</p>
+
+<p>A instrução <tt class="LITERAL">FOR-IN-EXECUTE</tt> é outra forma de interagir sobre linhas:</p>
+
+<pre class="SYNOPSIS">
+[<span class="OPTIONAL">&lt;&lt;<var class="REPLACEABLE">rótulo</var>&gt;&gt;</span>]
+FOR <var class="REPLACEABLE">registro_ou_linha</var> IN EXECUTE <var class="REPLACEABLE">texto_da_expressão</var> LOOP
+    <var class="REPLACEABLE">instruções</var>
+END LOOP;
+</pre>
+
+<p>Esta forma é semelhante à anterior, exceto que o código fonte da instrução <tt class="COMMAND">SELECT</tt> é especificado como uma expressão cadeia de caracteres, que é avaliada e replanejada a cada entrada no laço <tt class="COMMAND">FOR</tt>. Isto permite ao programador escolher entre a velocidade da consulta pré-planejada e a flexibilidade da consulta dinâmica, da mesma maneira que na instrução <tt class="COMMAND">EXECUTE</tt> pura.</p>
+
+<div class="NOTE">
+<blockquote class="NOTE">
+<p><b>Nota:</b> Atualmente o analisador da linguagem <span class="APPLICATION">PL/pgSQL</span> faz distinção entre os dois tipos de laços <tt class="COMMAND">FOR</tt> (inteiro e resultado de consulta), verificando se aparece <tt class="LITERAL">..</tt> fora de parênteses entre <tt class="LITERAL">IN</tt> e <tt class="LITERAL">LOOP</tt>. Se não for encontrado <tt class="LITERAL">..</tt>, então o laço é assumido como sendo um laço sobre linhas. Se <tt class="LITERAL">..</tt> for escrito de forma errada, pode causar uma reclamação informando que <span class="QUOTE">"a variável do laço, para laço sobre linhas, deve ser uma variável registro ou linha"</span>, em vez de um simples erro de sintaxe como poderia se esperar.</p>
+</blockquote>
+</div>
+</div>
+
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-ERROR-TRAPPING">35.7.5. Captura de erros</a></h2>
+
+<p>Por padrão, qualquer erro que ocorra em uma função <span class="APPLICATION">PL/pgSQL</span> interrompe a execução da função, e também da transação envoltória. É possível capturar e se recuperar de erros utilizando um bloco <tt class="COMMAND">BEGIN</tt> com a cláusula <tt class="COMMAND">EXCEPTION</tt>. A sintaxe é uma extensão da sintaxe normal do bloco <tt class="COMMAND">BEGIN</tt>:</p>
+
+<pre class="SYNOPSIS">
+[ <span class="OPTIONAL">&lt;&lt;<var class="REPLACEABLE">rótulo</var>&gt;&gt;</span> ]
+[ <span class="OPTIONAL">DECLARE
+    <var class="REPLACEABLE">declarações</var></span> ]
+BEGIN
+    <var class="REPLACEABLE">instruções</var>
+EXCEPTION
+    WHEN <var class="REPLACEABLE">condição</var> [ <span class="OPTIONAL">OR <var class="REPLACEABLE">condição</var> ...</span> ] THEN
+        <var class="REPLACEABLE">instruções_do_tratador</var>
+    [ <span class="OPTIONAL">WHEN <var class="REPLACEABLE">condição</var> [ <span class="OPTIONAL">OR <var class="REPLACEABLE">condição</var> ...</span> ] THEN
+          <var class="REPLACEABLE">instruções_do_tratador</var>
+      ...</span> ]
+END;
+</pre>
+
+<p></p>
+
+<p>Caso não ocorra nenhum erro, esta forma do bloco simplesmente executa todas as <var class="REPLACEABLE">instruções</var>, e depois o controle passa para a instrução seguinte ao <tt class="COMMAND">END</tt>. Mas se acontecer algum erro dentro de <var class="REPLACEABLE">instruções</var>, o processamento das <var class="REPLACEABLE">instruções</var> é abandonado e o controle passa para a lista de <tt class="COMMAND">EXCEPTION</tt>. É feita a procura na lista da primeira <var class="REPLACEABLE">condição</var> correspondendo ao erro encontrado. Se for encontrada uma correspondência, as <var class="REPLACEABLE">instruções_do_tratador</var> correspondentes são executadas, e o controle passa para a instrução seguinte ao <tt class="COMMAND">END</tt>. Se não for encontrada nenhuma correspondência, o erro se propaga para fora como se a cláusula <tt class="COMMAND">EXCEPTION</tt> não existisse: o erro pode ser capturado por um bloco envoltório contendo <tt class="COMMAND">EXCEPTION</tt> e, se não houver nenhum, o processamento da função é interrompido.</p>
+
+<p>O nome da <var class="REPLACEABLE">condição</var> pode ser qualquer um dos mostrados no 
+<a href="errcodes-appendix.html">Apêndice A</a>
+. Um nome de categoria corresponde a qualquer erro desta categoria. O nome de condição especial <tt class="LITERAL">OTHERS</tt> corresponde a qualquer erro, exceto <tt class="LITERAL">QUERY_CANCELED</tt> (É possível, mas geralmente não aconselhável, capturar <tt class="LITERAL">QUERY_CANCELED</tt> por nome). Não há diferença entre letras maiúsculas e minúsculas nos nomes das condições.</p>
+
+<p>Caso ocorra um novo erro dentro das <var class="REPLACEABLE">instruções_do_tratador</var> selecionadas, este não poderá ser capturado por esta cláusula <tt class="COMMAND">EXCEPTION</tt>, mas é propagado para fora. Uma cláusula <tt class="COMMAND">EXCEPTION</tt> envoltória pode capturá-lo.</p>
+
+<p>Quando um erro é capturado pela cláusula <tt class="COMMAND">EXCEPTION</tt>, as variáveis locais da função <span class="APPLICATION">PL/pgSQL</span> permanecem como estavam quando o erro ocorreu, mas todas as modificações no estado persistente do banco de dados dentro do bloco são desfeitas. Como exemplo, consideremos este fragmento de código:</p>
+
+<pre class="PROGRAMLISTING">
+    INSERT INTO minha_tabela(nome, sobrenome) VALUES('Tom', 'Jones');
+    BEGIN
+        UPDATE minha_tabela SET nome = 'Joe' WHERE sobrenome = 'Jones';
+        x := x + 1;
+        y := x / 0;
+    EXCEPTION
+        WHEN division_by_zero THEN
+            RAISE NOTICE 'capturado division_by_zero';
+            RETURN x;
+    END;
+</pre>
+
+<p>Quando o controle chegar à atribuição de <tt class="LITERAL">y</tt>, vai falhar com um erro de <tt class="LITERAL">division_by_zero</tt>. Este erro será capturado pela cláusula <tt class="COMMAND">EXCEPTION</tt>. O valor retornado na instrução <tt class="COMMAND">RETURN</tt> será o valor de <tt class="LITERAL">x</tt> incrementado, mas os efeitos do comando <tt class="COMMAND">UPDATE</tt> foram desfeitos. Entretanto, o comando <tt class="COMMAND">INSERT</tt> que precede o bloco não é desfeito e, portanto, o resultado final no banco de dados é <tt class="LITERAL">Tom Jones</tt> e não <tt class="LITERAL">Joe Jones</tt>.</p>
+
+<div class="TIP">
+<blockquote class="TIP">
+<p><b>Dica:</b> Custa significativamente mais entrar e sair de um bloco que contém a cláusula <tt class="COMMAND">EXCEPTION</tt> que de um bloco que não contém esta cláusula. Portanto, a cláusula <tt class="COMMAND">EXCEPTION</tt> só deve ser utilizada quando for necessária.</p>
+</blockquote>
+</div>
+</div>
+</div>
+
+<div class="NAVFOOTER">
+<hr align="LEFT" width="100%">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="plpgsql-statements.html" accesskey="P">Anterior</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Principal</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="plpgsql-cursors.html" accesskey="N">Próxima</a>
+</td>
+</tr>
+
+<tr>
+<td width="33%" align="left" valign="top">Instruções básicas</td>
+<td width="34%" align="center" valign="top">
+<a href="plpgsql.html" accesskey="U">Acima</a>
+</td>
+<td width="33%" align="right" valign="top">Cursores</td>
+</tr>
+</table>
+</div>
+<div align="left"><a href="http://sourceforge.net"><img src="http://sourceforge.net/sflogo.php?group_id=130426&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" style="margin-top:0.5em"/></a></div>
+</body>
+</html>
+

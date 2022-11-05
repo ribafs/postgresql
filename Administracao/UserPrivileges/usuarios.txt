@@ -1,0 +1,102 @@
+A Conta do Usuário do PostgreSQL
+
+Tal como acontece com qualquer daemon de servidor que é acessível para o mundo exterior, é aconselhável executar PostgreSQL em uma conta de usuário separado. Essa conta de usuário deve possuir apenas os dados gerenciados pelo servidor e não deve ser compartilhada com outros daemons. (Por exemplo, usar o usuário nobody é uma má ideia.) Não é aconselhável instalar executáveis de propriedade deste usuário porque sistemas comprometidos poderiam então modificar seus próprios binários.
+
+Para adicionar uma conta de usuário Unix ao seu sistema, procure um comando useradd ou adduser. O nome de usuário postgres é frequentemente usado, e é assumido ao longo deste livro, mas você pode usar outro nome, se quiser.
+
+Criar usuários com direitos somente ao banco que irá usar
+Cada site/aplicativo deve ter um usuário exclusivo e um banco ou esquema onde tem plenos poderes.
+
+
+Para maior controle de usuários (CentOS)
+
+sudo su
+yum update
+yum install postgresql postgresql-server postgresql-contrib
+
+su - postgres
+psql
+
+Listar roles
+\du
+
+Criando Roles (users ou groups)
+
+Criar role:
+CREATE ROLE teste;
+
+Criando uma role assim ela não poderá efetuar login pela console.
+\du
+
+Caso criemos de fora da console do psql, pela linha de comando do SO, precisamos fazer isso:
+
+create user teste2
+
+Com isso seremos perguntado:
+Se será um super usuário
+Se poderá criar banco
+Se poderá criar outras roles
+
+psql
+\du
+
+Este usuário teste2 tem direito a login.
+
+Excluir Roles
+
+drop role teste2;
+\du
+
+Ou
+DROP ROLE IF EXISTS teste;
+
+Definindo Privilégios na criação de Roles
+CREATE ROLE role_name WITH optional_permissions;
+
+Parareceber ajuda sobre o comando:
+\h CREATE ROLE
+
+Criar role com direito a login:
+CREATE ROLE teste2 WITH LOGIN;
+\du
+
+Este comando é equivalente a create role teste2 with login:
+CREATE USER teste2;
+
+Alterando os Privilégios de Roles
+
+ALTER ROLE role_name WITH attribute_options;
+
+Removendo o direito de login:
+ALTER ROLE teste2 WITH NOLOGIN;
+\du
+
+Alterando para conceder privilégio de login:
+ALTER ROLE teste2 WITH LOGIN;
+
+Como efetuar login com usuário diferente do postgres
+
+Atribuir senha para o usuário teste:
+psql
+\password teste
+
+Entre com a senha teste também e repita.
+
+Agora saia do psql
+\q
+
+O postgresql assume que quando você efetua login está usando um nome de usuário igual ao de um usuário do sistema operacional. Portanto se tentarmos conectar com teste:
+psql -U teste
+
+Receberemos um erro informando isso.
+
+Então precisamos usar o comando explicitando:
+psql -U teste -d template1 -h 127.0.0.1 -W
+
+Ainda assim não poderá logar. Mesmo que concedamos direito de login:
+
+psql
+alter role teste with login;
+\q
+
+Não conseguirá.

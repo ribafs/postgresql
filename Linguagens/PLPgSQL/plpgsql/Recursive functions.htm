@@ -1,0 +1,84 @@
+
+
+<html>
+<head>
+
+<title>View Recipes</title>
+</head>
+<body bgcolor=white text=black>
+
+
+
+
+<h2>Recipes in section "Recursive functions"</h2>
+<a href='/'>Home</a> -> <a href='/postgres'>Postgres</a> -> <a href='/postgres/cookbook'>CookBook Home</a> -> View Recipes
+<hr>
+
+<hr>
+<a href='view-one-recipe.adp?recipe_id=11855'>View details of this recipe</a>
+<br>
+WARNING
+
+</pre>
+<p>
+<pre>
+Don't try to do recursive functions in pgplsql.  Doesn't work yet (as of 7.2).
+</pre>
+<hr>
+<a href='view-one-recipe.adp?recipe_id=13239'>View details of this recipe</a>
+<br>
+Factorial sample (PostgreSQL 7.3.x)
+
+</pre>
+<p>
+<pre>
+In 7.3, recursion works fine. This is just a sample for 
+beginner programmers. Note that any recursive function must 
+check loop termination condition, or it will run forever 
+(actually, until the process stack is full, but this is 
+another story...).
+
+
+
+create or replace function factorial(int) returns int as '
+declare
+        a int;
+        ret int;
+begin
+        a := $1 - 1;
+
+        if a = 0 then
+                ret := $1;
+        else
+                ret := $1 * factorial(a);
+        end if;
+
+        return ret;
+end;
+' language 'plpgsql' immutable strict;
+
+
+--
+
+Nick Gazaloff
+nick@sbin.org
+</pre>
+<hr>
+<a href='view-one-recipe.adp?recipe_id=16379'>View details of this recipe</a>
+<br>
+dfgdfgd fdg dfgdf
+
+</pre>
+<p>
+<pre>
+fdgdfgfd
+</pre>
+
+
+
+
+
+<hr>
+<a href="mailto:rmello@fslc.usu.edu"><address>rmello@fslc.usu.edu</address></a>
+</body>
+</html>

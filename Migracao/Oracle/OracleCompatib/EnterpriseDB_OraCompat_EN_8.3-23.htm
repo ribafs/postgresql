@@ -1,0 +1,89 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>EnterpriseDB Oracle Compatibility Developer's Guide: The ROWNUM Pseudo-Column</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1960"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-23_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-22.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-23_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-23_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-24.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-23_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P1455_67741"></a><span style="font-family: 'Arial'; font-size: 13pt;">2.2.3 The ROWNUM Pseudo-Column</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROWNUM</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+is a pseudo-column that is assigned an incremental, unique integer
+value for each row based on the order the rows were retrieved from a
+query. Therefore, the first row retrieved will have </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROWNUM</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> of 1; the second row will have </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROWNUM</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> of 2 and so on.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This feature can be used to limit the number of rows retrieved by a query. This is demonstrated in the following example:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT empno, ename, job FROM emp WHERE ROWNUM &lt; 5;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> empno | ename |   job</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------+-------+----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7369 | SMITH | CLERK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7499 | ALLEN | SALESMAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7521 | WARD  | SALESMAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7566 | JONES | MANAGER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(4 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROWNUM</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+value is assigned to each row before any sorting of the result set
+takes place. Thus, the result set is returned in the order given by the
+</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ORDER BY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause, but the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROWNUM</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> values may not necessarily be in ascending order as shown in the following example:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROWNUM, empno, ename, job FROM emp WHERE ROWNUM &lt; 5 ORDER BY ename;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> rownum | empno | ename |   job</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------+-------+-------+----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      2 |  7499 | ALLEN | SALESMAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      4 |  7566 | JONES | MANAGER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      1 |  7369 | SMITH | CLERK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      3 |  7521 | WARD  | SALESMAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(4 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example shows how a sequence number can be added to every row in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">jobhist</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table. First a new column named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">seq</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">no</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, is added to the table and then </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">seqno</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is set to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROWNUM</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">ALTER TABLE jobhist ADD seqno NUMBER(3);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">UPDATE jobhist SET seqno = ROWNUM;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command shows the new </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">seqno</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> values.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT seqno, empno, TO_CHAR(startdate,'DD-MON-YY') AS start, job FROM jobhist;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> seqno | empno |   start   |    job</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------+-------+-----------+-----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     1 |  7369 | 17-DEC-80 | CLERK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     2 |  7499 | 20-FEB-81 | SALESMAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     3 |  7521 | 22-FEB-81 | SALESMAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     4 |  7566 | 02-APR-81 | MANAGER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     5 |  7654 | 28-SEP-81 | SALESMAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     6 |  7698 | 01-MAY-81 | MANAGER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     7 |  7782 | 09-JUN-81 | MANAGER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     8 |  7788 | 19-APR-87 | CLERK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     9 |  7788 | 13-APR-88 | CLERK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    10 |  7788 | 05-MAY-90 | ANALYST</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    11 |  7839 | 17-NOV-81 | PRESIDENT</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    12 |  7844 | 08-SEP-81 | SALESMAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    13 |  7876 | 23-MAY-87 | CLERK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    14 |  7900 | 03-DEC-81 | CLERK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    15 |  7900 | 15-JAN-83 | CLERK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    16 |  7902 | 03-DEC-81 | ANALYST</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    17 |  7934 | 23-JAN-82 | CLERK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(17 rows)</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-22.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-23_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-23_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-24.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-23_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-23_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-23_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

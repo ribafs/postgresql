@@ -1,0 +1,7 @@
+Instalar Módulos do PERL
+
+ perl -MCPAN -e shell
+
+Una vez en el shell de CPAN solo tenes que decirle que instale el DBI
+
+CPAN> install DBI 

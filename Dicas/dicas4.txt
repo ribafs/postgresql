@@ -1,0 +1,3 @@
+Quando Servidor não sobe dando falha e não starta:
+
+Remover o postmaster.pid da pasta data.

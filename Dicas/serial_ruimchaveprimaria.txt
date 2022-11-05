@@ -1,0 +1,23 @@
+Veja, usar id aqui em vez do nome da outra equipe vai obrigar a fazer
+muitas junções.
+
+ O que importa é ter uma ou mais
+chaves.  Um campo seqüencial por definição é uma má chave, porque
+permite duplicados; embora possa ser necessário em várias
+circunstâncias, em se tratando de SQL.
+
+Imagine que você tenha uma chave primária campo serial (que na verdade
+é um campo numérico inteiro definido com DEFAULT buscando de uma
+seqüência automaticamente).
+
+Você pode incluir o mesmo jogo quantas vezes quiser, e o sistema vai
+aceitar — simplesmente vai dar um identificador diferente para a mesmo
+jogo a cada inclusão.
+
+Por isso a regra é: só use uma chave artificial se realmente
+necessário, e mesmo assim declare pelo menos uma outra chave natural.
+
+-----------
+ Estamos discutindo o
+modelo lógico aqui, que lida com chaves; índices são meramente
+físicos, não mudam nada no modelo lógico.

@@ -1,0 +1,88 @@
+Instalar o certificado do SSL do Apache
+
+https://www.digitalocean.com/community/tutorials/how-to-create-a-ssl-certificate-on-apache-for-ubuntu-14-04
+
+Depois de instalado o Apache
+
+sudo su
+
+a2enmod ssl
+
+service apache2 restart
+
+mkdir /etc/apache2/ssl
+
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt
+
+Responder:
+BR
+Ceara
+Fortaleza
+DNOCS
+CGEIN
+Ribamar FS
+ribafs@gmail.com
+
+Gerou a chave e o certificado no diretório:
+/etc/apache2/ssl
+
+nano /etc/apache2/sites-available/default-ssl.conf
+
+Adicione as linhas abaixo que não existirem:
+
+<IfModule mod_ssl.c>
+    <VirtualHost _default_:443>
+...
+        SSLEngine on
+        SSLCertificateFile /etc/apache2/ssl/apache.crt
+        SSLCertificateKeyFile /etc/apache2/ssl/apache.key
+...
+        BrowserMatch "MSIE [2-6]" \
+                        nokeepalive ssl-unclean-shutdown \
+                        downgrade-1.0 force-response-1.0
+        BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+    </VirtualHost>
+</IfModule>
+
+a2ensite default-ssl.conf
+
+Acesse seu site com:
+
+https://IP
+ou
+https://dominio.com
+
+
+Desabilitar o módulo SSL
+a2dismod ssl
+service apache2 restart
+
+
+Forçar SSL
+
+Instalar o apache
+a2enmod rewrite
+
+nano /etc/apache2/apache2.conf
+
+Alterar o document root a adicionar as linhas mostradas:
+
+<Directory /var/www/html/>
+        # adicionei
+        RewriteEngine On
+        RewriteCond %{HTTPS} off
+        RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+        #/adicionei
+
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+</Directory>
+
+service apache2 restart
+
+Ou
+service apache2 stop
+service apache2 start
+
+

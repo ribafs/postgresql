@@ -1,0 +1,110 @@
+																		Usando CASE WHEN
+
+   * SELECT CASE WHEN [teste] THEN ... ELSE [saida] END;
+ou
+    * SELECT CASE [coluna]
+          o WHEN [valor1] THEN
+          o WHEN [valor2] THEN
+          o ...
+          o ELSE [saida] END
+
+   Quando o teste é entre 2 valores (caso do Sergio), a primeira forma é a mais aplicável. Quando quer se diferenciar mais de um valor de uma mesma coluna, a segunda é a mais apropriada. 
+
+Por exemplo:
+SELECT CASE tipo_credido WHEN 'S' THEN 'Salário' WHEN 'P' THEN 'Pró-labore' WHEN 'D' THEN 'Depósito' ELSE 'Outros' END as tipo_credito;
+
+(William Leite Araújo, na lista pgbr-geral).
+
+Outro Exemplo:
+
+SELECT nome, CASE WHEN EXISTS (SELECT nome FROM frutas WHERE nome=a.nome)
+THEN 'sim'
+ELSE 'não'
+END AS fruta
+FROM alimentos a;
+IN
+SELECT nome, CASE WHEN nome IN (SELECT nome FROM frutas)
+THEN 'sim'
+ELSE 'não'
+END AS fruta
+FROM alimentos;
+NOT IN
+ANY/SOME
+SELECT nome, CASE WHEN nome = ANY (SELECT nome FROM frutas)
+THEN 'sim'
+ELSE 'não'
+END AS fruta
+FROM alimentos;
+CASE WHEN
+
+EXEMPLO1
+
+create table amigos(
+codigo serial primary key,
+nome char(45),
+idade int
+);
+
+insert into amigos (nome, idade) values ('João Brito', 25);
+insert into amigos (nome, idade) values ('Roberto', 35);
+insert into amigos (nome, idade) values ('Antônio', 15);
+insert into amigos (nome, idade) values ('Francisco Queiroz', 23);
+insert into amigos (nome, idade) values ('Bernardo dos Santos', 21);
+insert into amigos (nome, idade) values ('Francisca Pinto', 22);
+insert into amigos (nome, idade) values ('Natanael', 55);
+
+select nome,
+idade,
+case
+when idade >= 21 then 'Adulto'
+else 'Menor'
+end as status
+from amigos order by nome;
+
+-- CASE WHEN cria uma coluna apenas para exibição
+
+EXEMPLO2
+
+create table amigos(
+codigo serial primary key,
+nome char(45),
+estado char(2)
+);
+
+insert into amigos (nome, estado) values ('João Brito', 'CE');
+insert into amigos (nome, estado) values ('Roberto', 'MA');
+insert into amigos (nome, estado) values ('Antônio', 'CE');
+insert into amigos (nome, estado) values ('Francisco Queiroz', 'PB');
+insert into amigos (nome, estado) values ('Bernardo dos Santos', 'MA');
+insert into amigos (nome, estado) values ('Francisca Pinto', 'SP');
+insert into amigos (nome, estado) values ('Natanael', 'SP');
+
+select nome,
+estado,
+case
+when estado = 'PB' then 'Fechado'
+when estado = 'CE' or estado = 'SP' then 'Funcionando'
+when estado = 'MA' then 'Funcionando a todo vapor'
+else 'Menor'
+end as status
+from amigos order by nome;
+
+Mostrar cada nota junto com a menor nota, a maior nota, e a média de todas as notas.
+SELECT nota,
+(SELECT MIN(nota) FROM notas) AS menor,
+(SELECT MAX(nota) FROM notas) AS maior,
+(ROUND(SELECT AVG(nota) FROM notas)) AS media
+FROM notas;
+
+Exemplo do colega Henrique (DNOCS)
+
+$w_sql = "select sum(a.qtde_total)
+                  from (SELECT CASE WHEN i.unidade='UN'
+                                    THEN round((i.quantidade/1000),2)
+                                    ELSE i.quantidade
+                                END as qtde_total 
+                          FROM $m_table_itens_de_peixamento i
+                          WHERE lotacao_piscicultura='$w_lotacao_piscicultura' AND
+                              num_comprovante='$f_num_comprovante' AND
+                              item_peixamento<>'$f_item_peixamento') as a";
+

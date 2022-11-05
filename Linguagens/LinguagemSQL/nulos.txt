@@ -1,0 +1,41 @@
+Valores Nulos
+
+Nulo interagindo com qualquer valor usando qualquer operação resulta nulo.
+
+
+NULL não é = NULL
+
+
+COALESCE - função que retorna o primeiro de seus argumentos que não é nulo.
+Será retornado NULL somente se todos os argumentos forem nulos.
+
+select coalesce (nome, descricao, '(nenhum)'...
+
+descricao somente será avaliada se nome for null.
+
+Caso nome não seja null ele será retornado e os demais ignorados.
+
+- Testa nome, se <> null o retorna e para
+- Se nome for NULL testa descricao. Se descricao <> null retorna descricao e para
+- Se descricao for NULL retorna nenhum.
+
+
+NULLIF - retorna NULL se valor1 for igual a valor2, caso contrário retorna valor1
+
+Pode ser usado para executar a operação inversa da COALESCE.
+
+Exemplo
+
+select nullif (valor1, '(nada)'...
+
+Se valor1 = nada retorna NULL
+Se <> retorna valor1
+
+
+GREATEST e LEAST - funções que selecionam o maior e o menor valor de uma lista
+de qualquer quantidade de expressões.
+
+Valores nulos nas listas serão ignorados. O resultado será nulo somente se todas
+as expressões forem nulas.
+
+

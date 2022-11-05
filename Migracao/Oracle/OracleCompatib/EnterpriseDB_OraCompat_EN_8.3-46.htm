@@ -1,0 +1,88 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>COMMENT</title>
+
+
+<meta name="keywords" content="comment, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1983"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-46_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-45.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-46_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-46_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-47.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-46_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P2177_118287"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.8 COMMENT</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2178_118300"></a>Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COMMENT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&nbsp;--&nbsp;define or change the comment of an object</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2180_118358"></a>Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COMMENT ON</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">{</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  TABLE </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">table</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">_name</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  COLUMN </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table_name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column_name</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">} IS '</span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">text</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">'</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2186_118439"></a>Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COMMENT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> stores a comment about a database object. To modify a comment, issue a new </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COMMENT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command for the same object. Only one comment string is stored for each
+object. To remove a comment, specify the empty string (two consecutive
+single quotes with no intervening space) for </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>text</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. Comments are automatically dropped when the object is dropped.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2188_118797"></a>Parameters</span></p>
+
+<p><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">table</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">_name</span></i></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of the table to be commented. The table name may be schema-qualified.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>table_name</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column_name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of a column within </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">table_name</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> to be commented. The table name may be schema-qualified.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>text</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The new comment.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2195_119032"></a>Notes</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">There
+is presently no security mechanism for comments: any user connected to
+a database can see all the comments for objects in that database
+(although only superusers can change comments for objects that they
+don&#8217;t own). Therefore, don&#8217;t put security-critical information in
+comments.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P2197_119326"></a>Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Attach a comment to the table </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">COMMENT ON TABLE emp IS 'Current employee information';</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Attach a comment to the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">empno</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> column of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">COMMENT ON COLUMN emp.empno IS 'Employee identification number';</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Remove theses comments:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">COMMENT ON TABLE emp IS '';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">COMMENT ON COLUMN emp.empno IS '';</span>
+<a name="P2205_119625"></a></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-45.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-46_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-46_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-47.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-46_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-46_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-46_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

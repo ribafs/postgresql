@@ -1,0 +1,114 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>UTL_FILE.FCOPY</title>
+
+<meta name="keywords" content="utl_file.fcopy, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2162"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-225_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-224.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-225_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-225_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-226.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-225_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P11026_578450"></a><span style="font-family: 'Arial'; font-size: 13pt;">7.4.3 FCOPY</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FCOPY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> procedure copies text from one file to another.</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FCOPY(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>location</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> VARCHAR2, </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">file</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">name</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> VARCHAR2,</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>dest_dir</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> VARCHAR2, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>dest_file</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> VARCHAR2</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>start_line</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> PLS_INTEGER [, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>end_line</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> PLS_INTEGER ] ])</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>location</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Directory name, as stored in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">pg_catalog.edb_dir.dirname</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, of the directory containing the file to be copied.</span></p>
+
+</div><p><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">file</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">name</span></i></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Name of the source file to be copied.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>dest_dir</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Directory name, as stored in </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">pg_catalog.edb_dir.dirname</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, of the directory to which the file is to be copied.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>dest_file</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Name of the destination file.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>start_line</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Line number in the source file from which copying will begin. The default is 1.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>end_line</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Line number of the last line in the source file to be copied. If omitted or null, copying will go to the last line of the file.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following makes a copy of a file, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">C:\TEMP\EMPDIR\empfile.csv</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, containing a comma-delimited list of employees from the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table. The copy, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">empcopy.csv</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, is then listed.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE DIRECTORY empdir AS 'C:/TEMP/EMPDIR';</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_empfile       UTL_FILE.FILE_TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_src_dir       VARCHAR2(50) := 'empdir';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_src_file      VARCHAR2(20) := 'empfile.csv';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_dest_dir      VARCHAR2(50) := 'empdir';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_dest_file     VARCHAR2(20) := 'empcopy.csv';</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_emprec        VARCHAR2(120);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_count         INTEGER := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    UTL_FILE.FCOPY(v_src_dir,v_src_file,v_dest_dir,v_dest_file);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_empfile := UTL_FILE.FOPEN(v_dest_dir,v_dest_file,'r');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('The following is the destination file, ''' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_dest_file || '''');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        UTL_FILE.GET_LINE(v_empfile,v_emprec);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(v_emprec);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        v_count := v_count + 1;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    EXCEPTION</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        WHEN NO_DATA_FOUND THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            UTL_FILE.FCLOSE(v_empfile);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            DBMS_OUTPUT.PUT_LINE(v_count || ' records retrieved');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        WHEN OTHERS THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            DBMS_OUTPUT.PUT_LINE('SQLERRM: ' || SQLERRM);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            DBMS_OUTPUT.PUT_LINE('SQLCODE: ' || SQLCODE);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">The following is the destination file, 'empcopy.csv'</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7369,SMITH,CLERK,7902,17-DEC-80,800,,20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7499,ALLEN,SALESMAN,7698,20-FEB-81,1600,300,30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7521,WARD,SALESMAN,7698,22-FEB-81,1250,500,30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7566,JONES,MANAGER,7839,02-APR-81,2975,,20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7654,MARTIN,SALESMAN,7698,28-SEP-81,1250,1400,30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7698,BLAKE,MANAGER,7839,01-MAY-81,2850,,30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7782,CLARK,MANAGER,7839,09-JUN-81,2450,,10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7788,SCOTT,ANALYST,7566,19-APR-87,3000,,20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7839,KING,PRESIDENT,,17-NOV-81,5000,,10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7844,TURNER,SALESMAN,7698,08-SEP-81,1500,0,30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7876,ADAMS,CLERK,7788,23-MAY-87,1100,,20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7900,JAMES,CLERK,7698,03-DEC-81,950,,30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7902,FORD,ANALYST,7566,03-DEC-81,3000,,20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7934,MILLER,CLERK,7782,23-JAN-82,1300,,10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">14 records retrieved</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-224.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-225_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-225_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-226.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-225_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-225_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-225_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

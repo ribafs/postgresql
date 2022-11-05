@@ -1,0 +1,108 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2065"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-128_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-127.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-128_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-128_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-129.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-128_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P6788_381949"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.3.4 User-Defined Record Types and Record Variables</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Records </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">can be declared </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">based upon a table definitio</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">n </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">using the</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%ROWTYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">attribute as</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> shown</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in Section </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-127.htm#P6754_379537">4.3.3</a></u>. This section describes how a new record structure can be defined that is not tied to any particular table definition.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TYPE IS RECORD</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement is used to create the definition of a record type. A </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>record type</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+is a definition of a record comprised of one or more identifiers and
+their corresponding data types. A record type cannot, by itself, be
+used to manipulate data.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is the syntax for defining a record type.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TYPE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>rectype</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> IS RECORD (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>field_1</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>datatype_1</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">[, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>field_2</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>datatype_2</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] ...</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">);</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>rectype</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is an identifier assigned to the record type.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>field_1, field_2,</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">... are identifiers assigned to the fields of the record type.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">datatype_1, dat</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">atype_2,</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">... are the data types of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>field_1, field_2,</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">... respectively.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>record variable</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or simply put, a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>record</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,
+is an instance of a record type. A record is declared from a record
+type. The properties of the record such as its field names and types
+are inherited from the record type.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is the syntax for a record declaration.</span></p><div style="margin-left: 24pt;"><pre><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">record</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> rectype</span></i></pre>
+
+</div><p><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">rec</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ord</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is an identifier assigned to the record variable.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">rectyp</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">e</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the identifier of a previously defined record type. Once declared, a record can then be used to hold data.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Dot notation is used to make reference to the fields in the record.</span></p><div style="margin-left: 24pt;"><pre><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">record</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.field</span></i></pre>
+
+</div><p><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">rec</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ord</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a previously declared record variable and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>field</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the identifier of a field belonging to the record type from which </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">rec</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ord</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is defined.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_sal_query</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is again modified &#8211; this time using a user-defined record type and record variable.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE PROCEDURE emp_sal_query (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    p_empno         IN emp.empno%TYPE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">IS</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE emp_typ IS RECORD (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        ename       emp.ename%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        job         emp.job%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        hiredate    emp.hiredate%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        sal         emp.sal%TYPE,</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        deptno      emp.deptno%TYPE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    );</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    r_emp           emp_typ;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    v_avgsal        emp.sal%TYPE;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    SELECT ename, job, hiredate, sal, deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        INTO r_emp.ename, r_emp.job, r_emp.hiredate, r_emp.sal, r_emp.deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FROM emp WHERE empno = p_empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Employee # : ' || p_empno);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Name       : ' || r_emp.ename);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Job        : ' || r_emp.job);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Hire Date  : ' || r_emp.hiredate);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Salary     : ' || r_emp.sal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('Dept #     : ' || r_emp.deptno);</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    SELECT AVG(sal) INTO v_avgsal</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        FROM emp WHERE deptno = r_emp.deptno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    IF r_emp.sal &gt; v_avgsal THEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('Employee''s salary is more than the '</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            || 'department average of ' || v_avgsal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    ELSE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE('Employee''s salary does not exceed the '</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            || 'department average of ' || v_avgsal);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END IF;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note that i</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">nstead of specifying data type names, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">%TYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> attribute can be used for the field data types in the record type definition.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is the output from executing this stored procedure.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXEC emp_sal_query(7698);</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Employee # : 7698</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Name       : BLAKE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Job        : MANAGER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Hire Date  : 01-MAY-81 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Salary     : 2850.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Dept #     : 30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Employee's salary is more than the department average of 1566.67</span>
+<a name="P6848_385252"></a></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-127.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-128_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-128_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-129.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-128_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-128_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-128_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

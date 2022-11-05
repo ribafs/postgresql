@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><title>CreateLang - PLphp - Trac</title>
+
+
+ <link rel="start" href="http://projects.commandprompt.com/public/plphp/wiki"><link rel="search" href="http://projects.commandprompt.com/public/plphp/search"><link rel="help" href="http://projects.commandprompt.com/public/plphp/wiki/TracGuide"><link rel="stylesheet" href="plphpCreateLang_arquivos/trac.css" type="text/css"><link rel="stylesheet" href="plphpCreateLang_arquivos/wiki.css" type="text/css"><link rel="icon" href="http://projects.commandprompt.com/public/plphp/chrome/common/trac.ico" type="image/x-icon"><link rel="shortcut icon" href="http://projects.commandprompt.com/public/plphp/chrome/common/trac.ico" type="image/x-icon"><link rel="alternate" href="http://projects.commandprompt.com/public/plphp/wiki/CreateLang?format=txt" title="Plain Text" type="text/plain"><style type="text/css">
+</style>
+ <script type="text/javascript" src="plphpCreateLang_arquivos/trac.js"></script></head><body>
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="http://projects.commandprompt.com/projects/public/plphp"><img src="plphpCreateLang_arquivos/trac_banner.png" alt="Trac" height="73" width="236"></a><hr></div>
+
+<form id="search" action="/public/plphp/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input id="proj-search" name="q" size="10" accesskey="f" value="" type="text">
+  <input value="Search" type="submit">
+  <input name="wiki" value="on" type="hidden">
+  <input name="changeset" value="on" type="hidden">
+  <input name="ticket" value="on" type="hidden">
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="http://projects.commandprompt.com/public/plphp/login">Login</a></li><li><a href="http://projects.commandprompt.com/public/plphp/settings">Settings</a></li><li><a href="http://projects.commandprompt.com/public/plphp/wiki/TracGuide" accesskey="6">Help/Guide</a></li><li class="last"><a href="http://projects.commandprompt.com/public/plphp/about">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="http://projects.commandprompt.com/public/plphp/wiki" accesskey="1">Wiki</a></li><li><a href="http://projects.commandprompt.com/public/plphp/timeline" accesskey="2">Timeline</a></li><li><a href="http://projects.commandprompt.com/public/plphp/roadmap" accesskey="3">Roadmap</a></li><li><a href="http://projects.commandprompt.com/public/plphp/browser">Browse Source</a></li><li><a href="http://projects.commandprompt.com/public/plphp/report">View Tickets</a></li><li class="last"><a href="http://projects.commandprompt.com/public/plphp/search" accesskey="4">Search</a></li></ul></div>
+<div id="main">
+
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+  <li><a href="http://projects.commandprompt.com/public/plphp/wiki">Start Page</a></li>
+  <li><a href="http://projects.commandprompt.com/public/plphp/wiki/TitleIndex">Title Index</a></li>
+  <li><a href="http://projects.commandprompt.com/public/plphp/wiki/RecentChanges">Recent Changes</a></li>
+  
+   <li class="last"><a href="http://projects.commandprompt.com/public/plphp/wiki/CreateLang?action=history">Page History</a></li>
+  
+ </ul>
+ <hr>
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   <div class="wikipage">
+    <div id="searchable"><h1 id="CreatingthePL/phplanguageinaPostgreSQLdatabase">Creating the PL/php language in a PostgreSQL database<a title="Link to this section" class="anchor" href="http://projects.commandprompt.com/public/plphp/wiki/CreateLang#CreatingthePL/phplanguageinaPostgreSQLdatabase"> ¶</a></h1>
+<p>
+In 8.1 and beyond you need to have a PL/php entry in the pg_pltemplate system catalog.
+You can insert one by issuing, as a superuser:
+</p>
+<pre class="wiki">INSERT INTO pg_pltemplate VALUES
+('plphp', 't', 'plphp_call_handler', 'plphp_validator', '$libdir/plphp', NULL);
+
+INSERT INTO pg_pltemplate VALUES
+('plphpu', 'f', 'plphp_call_handler', 'plphp_validator', '$libdir/plphp', NULL);
+</pre>
+<p>
+Note you <strong>DON'T</strong> have to edit the <tt>$libdir</tt>.  Leave it alone.  It will be expanded by PostgreSQL automatically.  You don't need to add the <tt>.so</tt> suffix either (or whatever it's called on your platform.)
+</p>
+<p>
+This will create entries for the trusted and untrusted versions of
+PL/php. Note that pg_pltemplate is a shared catalog, which means you
+have to do it only once in any database and it will be available in all
+your databases automatically.
+</p>
+<p>
+In any database where you want to use PL/php you need to issue simply
+</p>
+<pre class="wiki">CREATE LANGUAGE plphp;
+</pre>
+<p>
+or
+</p>
+<pre class="wiki">CREATE LANGUAGE plphpu;
+</pre>
+<p>
+(the latter will create the untrusted version, which by default only superusers can write functions in).
+</p>
+<p>
+Now the language is ready to be used.
+</p>
+<p>
+If you receive an error similar to:
+</p>
+<pre class="wiki">ERROR:  could not load library "/usr/local/lib/postgresql/plphp":
+libphp4.so: cannot open shared object file: No such file or directory
+</pre>
+<p>it means the Postmaster can't find the PHP shared library. The "make
+install" step should have created a symlink from the Apache2 PHP module
+to the <tt>pg_config --libdir</tt>
+directory. If the link is broken, please fix it -- exactly where the
+library is located is left as an exercise to the reader, but the actual
+link creation should be something like
+</p>
+<pre class="wiki">ln -sf /path/to/libphp4.so $(pg_config --libdir)
+</pre>
+</div>
+   </div>
+   
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"));
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="http://projects.commandprompt.com/public/plphp/wiki/CreateLang?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr>
+ <a id="tracpowered" href="http://trac.edgewall.com/"><img src="plphpCreateLang_arquivos/trac_logo_mini.png" alt="Trac Powered" height="30" width="107"></a>
+ <p class="left">
+  Powered by <a href="http://projects.commandprompt.com/public/plphp/about"><strong>Trac 0.9.3</strong></a><br>
+  By <a href="http://www.edgewall.com/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  
+ </p>
+</div>
+
+
+
+ 
+</body></html>

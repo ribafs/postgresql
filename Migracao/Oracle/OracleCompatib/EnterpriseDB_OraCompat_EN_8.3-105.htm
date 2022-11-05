@@ -1,0 +1,833 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2042"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-105_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-104.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-105_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-105_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-106.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-105_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P5273_297083"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.5.7 Date/Time Functions and Operators</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt;"><a href="#P5297_297902"><u>Table 3-28</u></a></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> s</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">hows the available functions for date/time value processing, with details appearing in the following subsections.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt;"><a href="#P5275_297475"><u>Table 3-27</u></a></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">illustrates the behaviors of the basic arithmetic operators (+, </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">-</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">).</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">For formatting functions, refer to</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> Section </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-104.htm#P4993_288530"><u>3.5.6</u></a></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">You should be familiar with the background information on date/time data types</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> from Section </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-36.htm#P1864_101524"><u>3.2.4</u></a></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;"><a name="P5275_297475"></a>Table 3-27 Date/Time Operators</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="86"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Operator</span></p>
+</td>
+<td valign="top" width="302"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Example</span></p>
+</td>
+<td valign="top" width="188"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Result</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="86"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">+</span></p>
+</td>
+<td valign="top" width="302"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE '2001-09-28' + 7</span></p>
+</td>
+<td valign="top" width="188"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">05-OCT-01 00:00:00</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="86"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">+</span></p>
+</td>
+<td valign="top" width="302"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TIMESTAMP '2001-09-28 13:30:00' + 3</span></p>
+</td>
+<td valign="top" width="188"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">01-OCT-01 13:30:00</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="86"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">-</span></p>
+</td>
+<td valign="top" width="302"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE '2001-10-01' - 7</span></p>
+</td>
+<td valign="top" width="188"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">24-SEP-01 00:00:00</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="86"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">-</span></p>
+</td>
+<td valign="top" width="302"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TIMESTAMP '2001-09-28 13:30:00' - 3</span></p>
+</td>
+<td valign="top" width="188"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">25-SEP-01 13:30:00</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="86"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">-</span></p>
+</td>
+<td valign="top" width="302"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TIMESTAMP '2001-09-29 03:00:00' - TIMESTAMP '2001-09-27 12:00:00'</span></p>
+</td>
+<td valign="top" width="188"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">@ 1 day 15 hours</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In the date/time functions of </span><span style="font-family: 'Times New Roman'; font-size: 12pt;"><u><a href="#P5297_297902">Table 3-28</a></u></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> the use of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TIMESTAMP</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> data types are interchangeable.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;"><a name="P5297_297902"></a>Table 3-28 Date/Time Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="148"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="71"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Return Type</span></p>
+</td>
+<td valign="top" width="144"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td>
+<td valign="top" width="181"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Example</span></p>
+</td>
+<td valign="top" width="93"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Result</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ADD_MONTHS</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(DATE</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, NUMBER</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Add months to a da</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">te; see Section </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"><a href="#P5354_299239">3.5.7.1</a></span></p>
+</td>
+<td valign="top" width="181"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ADD_MONTHS('28-FEB-97', 3.8)</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">31-MAY-97 00:00:00</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CURRENT_DATE</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Current date; see Section </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"><a href="#P5794_313703">3.5.7.7</a></span></p>
+</td>
+<td valign="top" width="181"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CURRENT_DATE</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">04-JUL-07</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">EXTRACT(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>field</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> FRO</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">M TIMESTAMP)</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Get subfield; see Section </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"><a href="#P5380_300157">3.5.7.2</a></span></p>
+</td>
+<td valign="top" width="181"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">EXTRACT(hour FROM TIMESTAMP '2001-02-16 20:38:40')</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">20</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LAST_DAY(DATE)</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Returns the last day of the month represented by the given date. If the </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">given date contains a time portion, it is carried forward to the result unchanged.</span></p>
+</td>
+<td valign="top" width="181"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LAST_DAY('14-APR-98')</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">30-APR-98 00:00:00</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LOCALTIMESTAMP</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [ </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>precision</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ]</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TIMESTAMP</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Current date and time (start of current transaction); see Section </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"><a href="#P5794_313703">3.5.7.7</a></span></p>
+</td>
+<td valign="top" width="181"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LOCALTIMESTAMP</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">04-JUL-07 15:33:23.484</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MONTHS_BETWEEN(DATE, DATE)</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Number of months between two dates; see Section </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"><a href="#P5430_301226">3.5.7.3</a></span></p>
+</td>
+<td valign="top" width="181"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MONTHS_BETWEEN('28-FEB-07', '30-NOV-06')</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">3</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NEXT_DAY(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>dayofweek</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Date falling on </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>dayofweek</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> following specified date; see Section </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"><a href="#P5461_302163">3.5.7.4</a></span></p>
+</td>
+<td valign="top" width="181"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NEXT_DAY('16-APR-07','FRI')</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">20-APR-07 00:00:00</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ROUND(DATE [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ]</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">D</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ate</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> rounded according to </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">; see Se</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ction </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"><a href="#P5477_302764">3.5.7.5</a></span></p>
+</td>
+<td valign="top" width="181"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ROUND(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TO_DATE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">'29-MAY-05'</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, 'MON'</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">01-JUN-05 00:00:00</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SYSDATE</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Current date and time</span></p>
+</td>
+<td valign="top" width="181"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SYSDATE</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">06-AUG-07 10:06:27</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="148"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TRUNC(DATE [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ])</span></p>
+</td>
+<td valign="top" width="71"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Truncate according to </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>format</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">; see Section </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"><a href="#P5678_309665">3.5.7.6</a></span></p>
+</td>
+<td valign="top" width="181"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TRUNC(TO_DATE('29-MAY-05'), 'MON')</span></p>
+</td>
+<td valign="top" width="93"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">01-MAY-05 00:00:00</span></p>
+<p><a name="P5354_299239"></a></p></td></tr></tbody></table>
+
+  </p><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">3.5.7.1 ADD_MONTHS</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ADD_MONTHS</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+functions adds (or subtracts if the second parameter is negative) the
+specified number of months to the given date. The resulting day of the
+month is the same as the day of the month of the given date except when
+the day is the last day of the month in which case the resulting date
+always falls on the last day of the month.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Any fractional portion of the number of months parameter is truncated before performing the calculation.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the given date contains a time portion, it is carried forward to the result unchanged.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following are examples of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ADD_MONTHS</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ADD_MONTHS('13-JUN-07',4) FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     add_months</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 13-OCT-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ADD_MONTHS('31-DEC-06',2) FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     add_months</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 28-FEB-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ADD_MONTHS('31-MAY-04',-3) FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     add_months</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 29-FEB-04 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;"><a name="P5380_300157"></a>3.5.7.2 EXTRACT</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXTRACT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function retrieves subfields such as year or hour from date/time valu</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">es.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXTRACT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function returns values of type </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following are valid field names:</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">YEAR</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The year field</span></p></div><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT EXTRACT(YEAR FROM TIMESTAMP '2001-02-16 20:38:40') FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> date_part</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      2001</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">MONTH</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The number of the month within the year (1 - 12)</span></p></div><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT EXTRACT(MONTH FROM TIMESTAMP '2001-02-16 20:38:40') FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> date_part</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">         2</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DAY</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The day (of the month) field (1 - 31) </span></p></div><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT EXTRACT(DAY FROM TIMESTAMP '2001-02-16 20:38:40') FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> date_part</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        16</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">HOUR</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The hour field (0 - 23)</span></p></div><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT EXTRACT(HOUR FROM TIMESTAMP '2001-02-16 20:38:40') FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> date_part</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">MINUTE</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The minutes field (0 - 59)</span></p></div><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT EXTRACT(MINUTE FROM TIMESTAMP '2001-02-16 20:38:40') FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> date_part</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        38</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SECOND</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The seconds field, including fractional parts (0 - 59)</span></p></div><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT EXTRACT(SECOND FROM TIMESTAMP '2001-02-16 20:38:40') FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> date_part</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        40</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;"><a name="P5430_301226"></a>3.5.7.3 MONTHS_BETWEEN</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">MONTHS_BETWEEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+function returns the number of months between two dates. The result is
+a numeric value which is positive if the first date is greater than the
+second date or negative if the first date is less than the second date.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+result is always a whole number of months if the day of the month of
+both date parameters is the same, or both date parameters fall on the
+last day of their respective months.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following are some examples of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">MONTHS_BETWEEN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT MONTHS_BETWEEN('15-DEC-06','15-OCT-06') FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> months_between</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">              2</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT MONTHS_BETWEEN('15-OCT-06','15-DEC-06') FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> months_between</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">             -2</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT MONTHS_BETWEEN('31-JUL-00','01-JUL-00') FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> months_between</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    0.967741935</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT MONTHS_BETWEEN('01-JAN-07','01-JAN-06') FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> months_between</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">             12</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;"><a name="P5461_302163"></a>3.5.7.4 NEXT_DAY</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXT_DAY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function returns the first occurrence of the</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> given weekday strictly greater than the given date.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">At least the first three letters of the weekday must be specified - e.g.,</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SAT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. If the given date contains a time portion, it is carried forward to the result unchanged.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following are examples of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NEXT_DAY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT NEXT_DAY(TO_DATE('13-AUG-07','DD-MON-YY'),'SUNDAY') FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      next_day</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 19-AUG-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT NEXT_DAY(TO_DATE('13-AUG-07','DD-MON-YY'),'MON') FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      next_day</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 20-AUG-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;"><a name="P5477_302764"></a>3.5.7.5 ROUND</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROUND</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function r</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">eturns a date rounded according to a specified template pattern</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the template pattern</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is omitted, the date is rounded to the nearest day.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following table</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> shows the template</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">pattern</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">s for the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">RO</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UND</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-29 Template Date Patterns for the ROUND Function</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="122"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Pattern</span></p>
+</td>
+<td valign="top" width="454"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CC, SCC</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Returns January 1, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>cc</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">01 where </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>cc</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> is first 2 digits of the given year</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> if last 2 digits &lt;= 50</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, or 1 greater tha</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n the first 2 digits of the given year </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">if last 2 digits &gt; 50</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">; (for AD years)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SYYY, YYYY, YEAR, SYEAR, YYY, YY, Y</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Returns January 1, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>yyyy</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> where </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>yyyy</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> is rounded to</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the nearest year; rounds down on June 30, rounds up on July 1</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">IYYY, IYY, IY, I</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Rounds to the</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">
+beginning of the ISO year which is determined by rounding down if the
+month and day is on or before June 30th, or by rounding up if the month
+and day is July 1st or later</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Q</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Returns the first day of the quarter determined by rounding down if the month and</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">
+day is on or before the 15th of the second month of the quarter, or by
+rounding up if the month and day is on the 16th of the second month</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> or later of the quarter</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MONTH, MON, MM, RM</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Returns the first day of the specified month if the day of the month is </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">on or prior to the 15th</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">; r</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">eturns the first day of the following month if the day of the month is on the 16th</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> or later</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">WW</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Round to the nearest date that corresponds to the same day of the we</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ek as the first day of the year</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">IW</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Round to the nearest date that</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> corresponds to the same day of the week as the first day of the ISO year</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">W</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Round to the nearest date that corresponds to the same day of the week as the first day of the month</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DDD, DD</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, J</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Rounds to</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the start of the nearest day; </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">11:59:59 AM or earlier rou</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">nds</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to the start of the same day; </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">12:00:00 PM or later rounds to the start of the next day</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DAY, DY, D</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Rounds to the nearest Sunday</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">HH, HH12, HH24</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Round to the nearest hour</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MI</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Round to the nearest minute</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Following are</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> examples of usage of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROUND</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following examples round to the nearest hundred years.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(ROUND(TO_DATE('1950','YYYY'),'CC'),'DD-MON-YYYY') "Century" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Century</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 01-JAN-1901</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(ROUND(TO_DATE('1951','YYYY'),'CC'),'DD-MON-YYYY') "Century" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Century</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 01-JAN-2001</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following examples round to the nearest year.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(ROUND(TO_DATE('30-JUN-1999','DD-MON-YYYY'),'Y'),'DD-MON-YYYY') "Year" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    Year</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 01-JAN-1999</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(ROUND(TO_DATE('01-JUL-1999','DD-MON-YYYY'),'Y'),'DD-MON-YYYY') "Year" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    Year</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 01-JAN-2000</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+following examples round to the nearest ISO year. The first example
+rounds to 2004 and the ISO year for 2004 begins on December 29<sup>th</sup> of 2003. The second example rounds to 2005 and the ISO year for 2005 begins on January 3<sup>rd</sup> of that same year.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">(An
+ISO year begins on the first Monday from which a 7 day span, Monday
+thru Sunday, contains at least 4 days of the new year. Thus, it is
+possible for the beginning of an ISO year to start in December of the
+prior year.)</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(ROUND(TO_DATE('30-JUN-2004','DD-MON-YYYY'),'IYYY'),'DD-MON-YYYY') "ISO Year" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  ISO Year</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 29-DEC-2003</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(ROUND(TO_DATE('01-JUL-2004','DD-MON-YYYY'),'IYYY'),'DD-MON-YYYY') "ISO Year" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  ISO Year</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 03-JAN-2005</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following examples round to the nearest quarter.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROUND(TO_DATE('15-FEB-07','DD-MON-YY'),'Q') "Quarter" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      Quarter</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 01-JAN-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROUND(TO_DATE('16-FEB-07','DD-MON-YY'),'Q') "Quarter" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      Quarter</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 01-APR-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following examples round to the nearest month.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROUND(TO_DATE('15-DEC-07','DD-MON-YY'),'MONTH') "Month" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       Month</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 01-DEC-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROUND(TO_DATE('16-DEC-07','DD-MON-YY'),'MONTH') "Month" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       Month</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 01-JAN-08 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following examples round to the nearest week. The first day of 2007 lands on a Monday so in the first example, January 18<sup>th</sup> is closest to the Monday that lands on January 15<sup>th</sup>. In the second example, January 19<sup>th</sup> is closer to the Monday that falls on January 22<sup>nd</sup>.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROUND(TO_DATE('18-JAN-07','DD-MON-YY'),'WW') "Week" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        Week</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 15-JAN-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROUND(TO_DATE('19-JAN-07','DD-MON-YY'),'WW') "Week" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        Week</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 22-JAN-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+following examples round to the nearest ISO week. An ISO week begins on
+a Monday. In the first example, January 1, 2004 is closest to the
+Monday that lands on December 29, 2003. In the second example, January
+2, 2004 is closer to the Monday that lands on January 5, 2004.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROUND(TO_DATE('01-JAN-04','DD-MON-YY'),'IW') "ISO Week" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      ISO Week</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 29-DEC-03 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROUND(TO_DATE('02-JAN-04','DD-MON-YY'),'IW') "ISO Week" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      ISO Week</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 05-JAN-04 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+following examples round to the nearest week where a week is considered
+to start on the same day as the first day of the month.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROUND(TO_DATE('05-MAR-07','DD-MON-YY'),'W') "Week" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        Week</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 08-MAR-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROUND(TO_DATE('04-MAR-07','DD-MON-YY'),'W') "Week" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        Week</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 01-MAR-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following examples round to the nearest day.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROUND(TO_DATE('04-AUG-07 11:59:59 AM','DD-MON-YY HH:MI:SS AM'),'J') "Day" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        Day</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 04-AUG-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROUND(TO_DATE('04-AUG-07 12:00:00 PM','DD-MON-YY HH:MI:SS AM'),'J') "Day" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        Day</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 05-AUG-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following examples round to the start of the nearest day of the week (Sunday).</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROUND(TO_DATE('08-AUG-07','DD-MON-YY'),'DAY') "Day of Week" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    Day of Week</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 05-AUG-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT ROUND(TO_DATE('09-AUG-07','DD-MON-YY'),'DAY') "Day of Week" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    Day of Week</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 12-AUG-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following examples round to the nearest hour.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(ROUND(TO_DATE('09-AUG-07 08:29','DD-MON-YY HH:MI'),'HH'),'DD-MON-YY HH24:MI:SS') "Hour" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        Hour</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 09-AUG-07 08:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(ROUND(TO_DATE('09-AUG-07 08:30','DD-MON-YY HH:MI'),'HH'),'DD-MON-YY HH24:MI:SS') "Hour" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        Hour</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 09-AUG-07 09:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following examples round to the nearest minute.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(ROUND(TO_DATE('09-AUG-07 08:30:29','DD-MON-YY HH:MI:SS'),'MI'),'DD-MON-YY HH24:MI:SS') "Minute" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       Minute</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 09-AUG-07 08:30:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(ROUND(TO_DATE('09-AUG-07 08:30:30','DD-MON-YY HH:MI:SS'),'MI'),'DD-MON-YY HH24:MI:SS') "Minute" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       Minute</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 09-AUG-07 08:31:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;"><a name="P5678_309665"></a>3.5.7.6 TRUNC</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TRUNC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function returns a date truncated according to a specified template pattern.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the template pattern is omitted, the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">date is truncat</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ed to the nearest day.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following table shows the template patterns for the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TRUNC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> functi</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">on.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-30 Template Date Patterns for the TRUNC Function</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="122"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Pattern</span></p>
+</td>
+<td valign="top" width="454"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CC, SCC</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Returns January 1, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>cc</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">01 where </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>cc</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> is first 2 digits of the given year</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SYYY, YYYY, YEAR, SYEAR, YYY, YY, Y</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Returns Janua</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ry 1, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>yyyy</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> where </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>yyyy</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> is </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">the given</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> year</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">IYYY, IYY, IY, I</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Returns the start date of the ISO year containing the given </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">date</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">Q</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Returns the first day of the </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">quarter containing the given date</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MONTH, MON, MM, RM</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Returns the first day of the specified month</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">W</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">W</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">R</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">eturns</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">the largest</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> date</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> just prior</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, or the same as</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> the given date</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> that corresponds to the same day of the week as the first day of the year</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">IW</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Returns the start of the ISO week containing the given date</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">W</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">R</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">eturns the largest</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> date</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> just prior to, or </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">the same as the given date</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> that corresponds to the same day of the week as the first day of the month</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DDD, DD, J</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Returns the start of the day for the given date</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DAY, DY, D</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Returns the start of the week (Sunday) containing the given date</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">HH, HH12, HH24</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">R</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">eturns the start of the hour</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="122"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MI</span></p>
+</td>
+<td valign="top" width="454"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Returns the start of the minute</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Following are examples of usage of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TRUNC</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example truncates down to the hundred years unit.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(TRUNC(TO_DATE('1951','YYYY'),'CC'),'DD-MON-YYYY') "Century" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Century</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 01-JAN-1901</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example truncates down to the year.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(TRUNC(TO_DATE('01-JUL-1999','DD-MON-YYYY'),'Y'),'DD-MON-YYYY') "Year" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    Year</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 01-JAN-1999</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example truncates down to the beginning of the ISO year.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(TRUNC(TO_DATE('01-JUL-2004','DD-MON-YYYY'),'IYYY'),'DD-MON-YYYY') "ISO Year" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  ISO Year</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 29-DEC-2003</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example truncates down to the start date of the quarter.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TRUNC(TO_DATE('16-FEB-07','DD-MON-YY'),'Q') "Quarter" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      Quarter</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 01-JAN-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example truncates to the start of the month.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TRUNC(TO_DATE('16-DEC-07','DD-MON-YY'),'MONTH') "Month" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       Month</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 01-DEC-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+following example truncates down to the start of the week determined by
+the first day of the year. The first day of 2007 lands on a Monday so
+the Monday just prior to January 19<sup>th</sup> is January 15<sup>th</sup>.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TRUNC(TO_DATE('19-JAN-07','DD-MON-YY'),'WW') "Week" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        Week</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 15-JAN-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+following example truncates to the start of an ISO week. An ISO week
+begins on a Monday. January 2, 2004 falls in the ISO week that starts
+on Monday, December 29, 2003.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TRUNC(TO_DATE('02-JAN-04','DD-MON-YY'),'IW') "ISO Week" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">      ISO Week</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 29-DEC-03 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+following example truncates to the start of the week where a week is
+considered to start on the same day as the first day of the month.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TRUNC(TO_DATE('21-MAR-07','DD-MON-YY'),'W') "Week" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        Week</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 15-MAR-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example truncates to the start of the day.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TRUNC(TO_DATE('04-AUG-07 12:00:00 PM','DD-MON-YY HH:MI:SS AM'),'J') "Day" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        Day</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 04-AUG-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example truncates to the start of the week (Sunday).</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TRUNC(TO_DATE('09-AUG-07','DD-MON-YY'),'DAY') "Day of Week" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    Day of Week</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 05-AUG-07 00:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example truncates to the start of the hour.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(TRUNC(TO_DATE('09-AUG-07 08:30','DD-MON-YY HH:MI'),'HH'),'DD-MON-YY HH24:MI:SS') "Hour" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        Hour</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 09-AUG-07 08:00:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example truncates to the minute.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT TO_CHAR(TRUNC(TO_DATE('09-AUG-07 08:30:30','DD-MON-YY HH:MI:SS'),'MI'),'DD-MON-YY HH24:MI:SS') "Minute" FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       Minute</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 09-AUG-07 08:30:00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;"><a name="P5794_313703"></a>3.5.7.7 CURRENT DATE/TIME</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> provides a number of functions that return values related to the current date and time.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">These functions all return values based on the start time of the current transaction.</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CURRENT_DATE</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCALTIMESTAMP</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCALTIM</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ESTAMP(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>precision</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">)</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SYSDATE</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LOCALTIMESTAMP</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+can optionally be given a precision parameter which causes the result
+to be rounded to that many fractional digits in the seconds field.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Without a precision parameter, the result is given to the full available preci</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">sion.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT CURRENT_DATE FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   date</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 06-AUG-07</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT LOCALTIMESTAMP FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       timestamp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 06-AUG-07 16:11:35.973</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT LOCALTIMESTAMP(2) FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       timestamp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 06-AUG-07 16:11:44.58</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SELECT SYSDATE FROM DUAL;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     timestamp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 06-AUG-07 16:11:48</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Since these functions return the start time of the current transaction, their values do not change during the transaction.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">T</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">his is considered a feature:</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">the intent is to allow a single transaction to have a consistent notion of </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">the &#8220;current&#8221; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">time, so that multiple modifications within the same transaction bear the same time stamp.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Other database systems may advance these values</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> more frequently.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-104.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-105_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-105_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-106.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-105_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-105_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-105_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

@@ -1,0 +1,454 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2195"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-258_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-257.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-258_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-258_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-259.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-258_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P12270_618303"></a><span style="font-family: 'Arial'; font-size: 13pt;">10.1.2 Command Summary</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">This section contains a summary of </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">EDB*Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.1 ACCEPT</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ACCEPT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command displays a prompt and waits for the user&#8217;s keyboard input. The
+value input by the user is placed in the specified variable.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ACC[EPT ] </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>variable</i></span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example creates a new variable named </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">my_name</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, accepts a value of John Smith, then displays the value using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFINE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; ACCEPT my_name</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Enter value for my_name: John Smith</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; DEFINE my_name</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DEFINE MY_NAME = "John Smith"</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.2 APPEND</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">APPEND</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a line editor command appends the given text to the end of the current line in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> buffer</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">A[PPEND ] </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>text</i></span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In the following example, a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command is built in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> buffer using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">APPEND</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command. Note that two spaces are placed between the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">APPEND</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command and the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WHERE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause in order to separate </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">dept</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WHERE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> by one space in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> buffer.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; APPEND SELECT * FROM dept</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; LIST</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  1* SELECT * FROM dept</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; APPEND  WHERE deptno = 10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; LIST</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  1* SELECT * FROM dept WHERE deptno = 10</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.3 CHANGE</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CHANGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a line editor command performs a search-and-replace on the current line in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> buffer.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">C[HANGE ] /</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>from</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">/[</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>to</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">/ ]</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>to</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">/</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is specified, the first occurrence of text </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>from</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in the current line is changed to text </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>to</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>to</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">/</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is omitted, the first occurrence of text </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>from</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> in the current line is deleted.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following sequence of commands makes line 3 the current line, then changes the department number in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WHERE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> clause from 20 to 30.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; LIST</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  1  SELECT empno, ename, job, sal, comm</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  2  FROM emp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  3  WHERE deptno = 20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  4* ORDER BY empno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; 3</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  3* WHERE deptno = 20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; CHANGE /20/30/</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  3* WHERE deptno = 30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; LIST</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  1  SELECT empno, ename, job, sal, comm</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  2  FROM emp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  3  WHERE deptno = 30</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  4* ORDER BY empno</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.4 CLEAR</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CLEAR</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command removes the contents of the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> buffer, deletes all column definitions set with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COLUMN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command, or clears the screen.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CL[EAR ] [ BUFF[ER ] | SQL | COL[UMNS ] | SCR[EEN ] ]</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">BUFFER | SQL</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Clears the </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> buffer.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COLUMNS</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Removes column definitions.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SCREEN</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Clears the screen. This is the default if no options are specified.</span></p>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.5 COLUMN</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COLUMN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command controls formatting of output. The formatting attributes set by using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COLUMN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command remain in effect only for the duration of the current session.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COL[UMN ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ column</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    { CLE[AR ] |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">      { FOR[MAT ] spec |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">        HEA[DING ] text |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">        { OFF | ON }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">      } [...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ] </span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COLUMN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command is specified with no subsequent options, formatting options for
+current columns in effect for the session are displayed.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COLUMN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command is followed by a column name, then the column name may be followed by one of the following:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">No other options</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt; color: Black;">&#9679; </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CLEAR</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Any combination of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FORMAT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">HEADING</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and one of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OFF</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ON</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Name of a column in a table to which subsequent column formatting options are to apply. If no other options follow </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">column</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">, then the current column formatting options if any, of </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">column</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> are displayed.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CLEAR</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CLEAR</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> option reverts all formatting options back to their defaults for </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;">. If the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CLEAR</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> option is specified, it must be the only option specified.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>spec</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Format specification to be applied to </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">column</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">. For character columns, </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">spec</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;"> takes the following format:</span></p></div><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">A</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span></pre>
+
+  </div><div style="margin-left: 36pt;"><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is a positive integer that specifies the column width in characters within which to display the data. Data in excess of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> will wrap around with the specified column width.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt;">For numeric columns, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>spec</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is comprised of the following elements.</span></p>
+
+</div><div style="margin-left: 90pt;"><p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 10-1 Numeric Column Format Elements</span></b></p></div>
+<p>
+</p><center><table border="1">
+<tbody><tr>
+<td valign="top" width="66"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Element</span></p>
+</td>
+<td valign="top" width="282"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="66"><p style="text-align: center;"><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">$</span></p>
+</td>
+<td valign="top" width="282"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Display a leading dollar sign.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="66"><p style="text-align: center;"><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">,</span></p>
+</td>
+<td valign="top" width="282"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Display a comma in the indicated position.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="66"><p style="text-align: center;"><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">.</span></p>
+</td>
+<td valign="top" width="282"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Marks the location of the decimal point.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="66"><p style="text-align: center;"><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">0</span></p>
+</td>
+<td valign="top" width="282"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Display leading zeros.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="66"><p style="text-align: center;"><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">9</span></p>
+</td>
+<td valign="top" width="282"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Number of significant digits to display.</span></p>
+</td></tr></tbody></table></center>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If loss of significant digits occurs due to overflow of the format, then all </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">#</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">&#8217;s are displayed.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>text</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Text to be used for the column heading of </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">column</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OFF | ON</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OFF</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is specified, formatting options are reverted back to their defaults, but are still available within the session. If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ON</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is specified, the formatting options specified by previous </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COLUMN</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> commands for </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>column</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> within the session are re-activated.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example shows the effect of changing the display width of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">job</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> column.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; SET PAGESIZE 9999</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; COLUMN job FORMAT A5</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; COLUMN job</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">COLUMN   JOB  ON</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">FORMAT   A5</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">wrapped</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; SELECT empno, ename, job FROM emp;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EMPNO ENAME      JOB</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----- ---------- -----</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7369 SMITH      CLERK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7499 ALLEN      SALES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 MAN</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7521 WARD       SALES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 MAN</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7566 JONES      MANAG</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 ER</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7654 MARTIN     SALES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 MAN</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7698 BLAKE      MANAG</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 ER</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7782 CLARK      MANAG</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 ER</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7788 SCOTT      ANALY</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 ST</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7839 KING       PRESI</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 DENT</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7844 TURNER     SALES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 MAN</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7876 ADAMS      CLERK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7900 JAMES      CLERK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7902 FORD       ANALY</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 ST</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7934 MILLER     CLERK</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">14 rows retrieved.</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example applies a format to the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sal</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> column.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; COLUMN sal FORMAT $99,999.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; COLUMN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">COLUMN   JOB  ON</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">FORMAT   A5</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">wrapped</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">COLUMN   SAL  ON</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">FORMAT   $99,999.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">wrapped</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; SELECT empno, ename, job, sal FROM emp;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EMPNO ENAME      JOB           SAL</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----- ---------- ----- -----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7369 SMITH      CLERK     $800.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7499 ALLEN      SALES   $1,600.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 MAN</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7521 WARD       SALES   $1,250.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 MAN</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7566 JONES      MANAG   $2,975.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 ER</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7654 MARTIN     SALES   $1,250.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 MAN</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7698 BLAKE      MANAG   $2,850.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 ER</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7782 CLARK      MANAG   $2,450.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 ER</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7788 SCOTT      ANALY   $3,000.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 ST</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7839 KING       PRESI   $5,000.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 DENT</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7844 TURNER     SALES   $1,500.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 MAN</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7876 ADAMS      CLERK   $1,100.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7900 JAMES      CLERK     $950.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7902 FORD       ANALY   $3,000.00</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                 ST</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> 7934 MILLER     CLERK   $1,300.00</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">14 rows retrieved.</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.6 CONNECT</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Change
+the database connection to a different user and/or connect to a
+different database. There must be no white space between any of the
+parameters following the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CONNECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CONNECT </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>username</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">[/</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>password</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">][@{</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>connectstring</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>variable</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> } ]</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CONNECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command parameters have the same meaning as those of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>login</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> parameter for starting up </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">EDB*Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> from the command line. See the description of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>login</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> parameter in Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-257.htm#P12206_613744">10.1.1</a></u>.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In the following example, the database connection is changed to database </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> on the localhost at port 5445 with username, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">smith</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; CONNECT smith/mypassword@localhost:5445/edb</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Connected to EnterpriseDB 8.3.0.10 (localhost:5445/edb) AS smith</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">From within the session shown above, the connection is changed to username </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enterprisedb</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.
+Also note that the host defaults to the localhost, the port defaults to
+5444 (which is not the same as the port previously used), and the
+database defaults to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edb</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; CONNECT enterprisedb/password</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Connected to EnterpriseDB 8.3.0.10 (localhost:5444/edb) AS enterprisedb</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.7 DEFINE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFINE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command creates or replaces the value of a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>user variable</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> (also called a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>substitution variable</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">).</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEF[INE ] [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>variable</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ = </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>text</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] ]</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFINE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command is given without any parameters, all current variables and their values are displayed.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFINE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>variable</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is given, only </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>variable</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is displayed with its value.</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>DEFINE variable = text</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> assigns </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>text</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>variable</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>text</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> may be optionally enclosed within single or double quotation marks. Quotation marks must be used if </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>text</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> contains space characters.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example defines two variables, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">dept</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">name</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; DEFINE dept = 20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; DEFINE name = 'John Smith'</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; DEFINE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DEFINE EDB = "localhost:5445/edb"</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DEFINE DEPT = "20"</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DEFINE NAME = "John Smith"</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><b>Note:</b></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> The variable </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EDB</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is read from the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">login.sql</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> file located in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">edbplus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> subdirectory of the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> home directory.</span></p>
+
+  <div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.8 DEL</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a line editor command that deletes one or more lines from the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> buffer.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEL [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>m</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> * | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> L[AST ] | * | * </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> | * L[AST ] |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  L[AST ] ]</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+parameters specify which lines are to be deleted from the SQL buffer.
+Two parameters specify the start and end of a range of lines to be
+deleted. If the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command is given with no parameters, the current line is deleted.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following are the meaings of the parameters.</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is an integer representing the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;">th line</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>m</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>m</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> are integers where </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>m</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is greater than </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> representing the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;">th through the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>m</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;">th lines</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">*</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Current line</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LAST</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Last line</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In the following example, the fifth and sixth lines containing columns </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sal</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">comm</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, respectively, are deleted from the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> buffer.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; LIST</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  1  SELECT</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  2    empno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  3   ,ename</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  4   ,job</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  5   ,sal</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  6   ,comm</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  7   ,deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  8* FROM emp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; DEL 5 6</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; LIST</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  1  SELECT</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  2    empno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  3   ,ename</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  4   ,job</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  5   ,deptno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  6* FROM emp</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.9 DESCRIBE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DESCRIBE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command displays a list of columns, data types, and lengths for a table
+or view; a list of parameters for a procedure or function; or a list of
+procedures and functions and their respective parameters for a package.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DESCRIBE [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>schema</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.]</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>object</i></span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>schema</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Name of the schema containing the object to be described.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>object</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Name of the table, view, procedure, function, or package to be displayed.</span></p>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.10 DISCONNECT</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DISCONNECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command closes the current database connection, but does not terminate </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">EDB*Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DISC[ONNECT ]</span></pre>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.11 EDIT</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EDIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command invokes an external editor to edit the contents of an operating system file or the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> buffer.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ED[IT ] [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>filename</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">[.</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>ext</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] ]</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>filename</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">[.</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>ext</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>filename</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is the name of the file to open with an external editor. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>ext</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is the filename extension. If the filename extension is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sql</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, then the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.sql</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> extension may be omitted when specifying </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">fil</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enam</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">e</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EDIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> always assumes a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.sql</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> extension on filenames that are specified with no extension. If the filename parameter is omitted from the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EDIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> command, the contents of the </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> buffer are brought into the editor.</span></p>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.12 EXIT</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command terminates the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">EDB*Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> session and returns control to the operating system. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">QUIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a synonym for </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. Specifying no parameters is equivalent to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXIT SUCCESS COMMIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">{ EXIT | QUIT } [ SUCCESS | FAILURE | WARNING | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>variable</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] [ COMMIT | ROLLBACK ]</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SUCCESS | FAILURE |WARNING</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Returns an operating system dependent return code indicating successful operation, failure, or warning for </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SUCCESS</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FAILURE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">WARNING</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, respectively. The default is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SUCCESS</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">An integer value that is returned as the return code.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>variable</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">A variable created with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFINE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> command whose value is returned as the return code.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COMMIT | ROLLBACK</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COMMIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is specified, uncommitted updates are committed upon exit. If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ROLLBACK</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is specified, uncommitted updates are rolled back upon exit. The default is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COMMIT</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.13 GET</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GET</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command loads the contents of the given file to the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> buffer.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">GET </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>filename</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">[.</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>ext</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] [ LIS[T ] | NOL[IST ] ]</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>filename</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">[.</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>ext</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>filename</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is the name of the file to load into the </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> buffer. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>ext</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is the filename extension. If the filename extension is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">sql</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, then the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.sql</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> extension may be omitted when specifying </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">fil</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enam</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">e</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">G</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">E</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">T</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> always assumes a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.sql</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> extension on filenames that are specified with no extension.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LIST | NOLIST</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">LIST</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is specified, the content of the </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> buffer is displayed after the file is loaded. If </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NOLIST</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is specified, no listing is displayed. The default is </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">L</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IST</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">.</span></p>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.14 HELP</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">HELP</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command obtains an index of topics or help on a specific topic. The question mark (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">?</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">) is synonymous with specifying </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">HELP</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">{ HELP | ? } { INDEX | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>topic</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> }</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INDEX</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Displays an index of available topics.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>topic</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of a specific topic &#8211; e.g., an </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">EDB*Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> command, for which help is desired.</span></p>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.15 HOST</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">HOST</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command executes an operating system command from </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">EDB*Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">HO[ST ] </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>os_command</i></span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>os_command</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The operating system command to be executed.</span></p>
+
+  </div><div style="margin-left: 43pt;"><p><span style="font-family: 'Times New Roman'; font-size: 14pt;">10.1.2.16 INPUT</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INPUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a line editor command that adds a line of text to the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> buffer after the current line.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">I[NPUT ] </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>text</i></span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following sequence of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INPUT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands constructs a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; INPUT SELECT empno, ename, job, sal, comm</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; INPUT FROM emp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; INPUT WHERE deptno = 20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; INPUT ORDER BY empno</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SQL&gt; LIST</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  1  SELECT empno, ename, job, sal, comm</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  2  FROM emp</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  3  WHERE deptno = 20</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  4* ORDER BY empno</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-257.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-258_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-258_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-259.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-258_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-258_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-258_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

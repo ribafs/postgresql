@@ -1,0 +1,2046 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<link href='http://hype.free.googlepages.com/info.ico' rel='shortcut icon' type='image/vnd.microsoft.icon'/>
+<link href='http://hype.free.googlepages.com/info.ico' rel='icon' type='image/vnd.microsoft.icon'/>
+<link href='https://pip.verisignlabs.com/server' rel='openid.server'/>
+<link href='http://CdMaN.pip.verisignlabs.com/' rel='openid.delegate'/>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<script type="text/javascript">(function() { var a=window;function c(b){this.t={};this.tick=function(b,i,d){d=d!=void 0?d:(new Date).getTime();this.t[b]=[d,i]};this.tick("start",null,b)}var e=new c;a.jstiming={Timer:c,load:e};try{var g=null;a.chrome&&a.chrome.csi&&(g=Math.floor(a.chrome.csi().pageT));g==null&&a.gtbExternal&&(g=a.gtbExternal.pageT());g==null&&a.external&&(g=a.external.pageT);g&&(a.jstiming.pt=g)}catch(h){};a.tickAboveFold=function(b){var f=0;if(b.offsetParent){do f+=b.offsetTop;while(b=b.offsetParent)}b=f;b<=750&&a.jstiming.load.tick("aft")};var j=!1;function k(){j||(j=!0,a.jstiming.load.tick("firstScrollTime"))}a.addEventListener?a.addEventListener("scroll",k,!1):a.attachEvent("onscroll",k);
+ })();</script>
+<meta content='true' name='MSSmartTagsPreventParsing'/>
+<meta content='blogger' name='generator'/>
+<link href='http://www.blogger.com/favicon.ico' rel='icon' type='image/vnd.microsoft.icon'/>
+<link href='http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html' rel='canonical'/>
+<link rel="alternate" type="application/atom+xml" title="hype-free - Atom" href="http://hype-free.blogspot.com/feeds/posts/default" />
+<link rel="alternate" type="application/rss+xml" title="hype-free - RSS" href="http://hype-free.blogspot.com/feeds/posts/default?alt=rss" />
+<link rel="service.post" type="application/atom+xml" title="hype-free - Atom" href="http://www.blogger.com/feeds/35005627/posts/default" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.blogger.com/rsd.g?blogID=35005627" />
+<link rel="alternate" type="application/atom+xml" title="hype-free - Atom" href="http://hype-free.blogspot.com/feeds/6530239069791781888/comments/default" />
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+<title>hype-free: A small Slony-I tutorial</title>
+<link href='http://hype.free.googlepages.com/info.ico' rel='icon' type='image/vnd.microsoft.icon'/>
+<link href='http://hype.free.googlepages.com/info.ico' rel='shortcut icon' type='image/vnd.microsoft.icon'/>
+<link type='text/css' rel='stylesheet' href='http://www.blogger.com/static/v1/widgets/987282334-widget_css_bundle.css' />
+ <link rel="stylesheet" type="text/css" href="http://www.blogger.com/dyn-css/authorization.css?targetBlogID=35005627&zx=5442ea7b-840c-4b13-abb3-33e4ad3e2b84"/>
+<style type="text/css">#navbar-iframe { display:block }
+</style>
+
+<style id='page-skin-1' type='text/css'><!--
+/*
+* Blogger Template Style
+*
+* Sand Dollar
+* by Jason Sutter
+* Updated by Blogger Team
+*/
+/* Variable definitions
+====================
+<Variable name="textcolor" description="Text Color"
+type="color" default="#000">
+<Variable name="bgcolor" description="Page Background Color"
+type="color" default="#f6f6f6">
+<Variable name="pagetitlecolor" description="Blog Title Color"
+type="color" default="#F5DEB3">
+<Variable name="pagetitlebgcolor" description="Blog Title Background Color"
+type="color" default="#DE7008">
+<Variable name="descriptionColor" description="Blog Description Color"
+type="color" default="#9E5205" />
+<Variable name="descbgcolor" description="Description Background Color"
+type="color" default="#F5E39e">
+<Variable name="titlecolor" description="Post Title Color"
+type="color" default="#9E5205">
+<Variable name="datecolor" description="Date Header Color"
+type="color" default="#777777">
+<Variable name="footercolor" description="Post Footer Color"
+type="color" default="#444444">
+<Variable name="linkcolor" description="Link Color"
+type="color" default="#DE7008">
+<Variable name="footerlinkcolor" description="Post Footer Link Color"
+type="color" default="#968a0a">
+<Variable name="visitedlinkcolor" description="Visited Link Color"
+type="color" default="#DE7008">
+<Variable name="sidebarcolor" description="Sidebar Title Color"
+type="color" default="#B8A80D">
+<Variable name="sidebarlinkcolor" description="Sidebar Link Color"
+type="color" default="#999999">
+<Variable name="bordercolor" description="Border Color"
+type="color" default="#e0ad12">
+<Variable name="bodyfont" description="Text Font"
+type="font"
+default="normal normal 100% 'Trebuchet MS',Trebuchet,Verdana,Sans-Serif">
+<Variable name="headerfont" description="Sidebar Title Font"
+type="font"
+default="normal bold 150% Verdana,Sans-serif">
+<Variable name="dateHeaderFont" description="Date Header Font"
+type="font"
+default="normal bold 105% 'Trebuchet MS',Trebuchet,Verdana,Sans-serif">
+<Variable name="pagetitlefont" description="Blog Title Font"
+type="font" default="normal bold 300% Verdana,Sans-Serif">
+<Variable name="titlefont" description="Post Title Font"
+type="font" default="normal bold 160% Verdana,Sans-Serif">
+*/
+body {
+margin:0px;
+padding:0px;
+background:#dfffbf;
+color:#000000;
+font-size: small;
+text-align: center;
+}
+#outer-wrapper {
+font:normal normal 100% 'Trebuchet MS',Trebuchet,Verdana,Sans-Serif;
+max-width: 74em;
+margin: 0 auto;
+text-align: left;
+}
+a {
+color:#333300;
+}
+a:hover {
+color:#666633;
+}
+a img {
+border-width: 0;
+}
+#content-wrapper {
+padding: 0 1em 0 1em;
+}
+@media all  {
+div#main {
+float:left;
+width: 73%;
+padding:30px 1em 10px 0;
+border-right:dotted 1px #e0ad12;
+word-wrap: break-word; /* fix for long text breaking sidebar float in IE */
+overflow: hidden;     /* fix for long non-text content breaking IE sidebar float */
+}
+div#sidebar {
+margin:20px 0px 0px 0;
+padding:0px;
+text-align:left;
+float: right;
+width: 25%;
+word-wrap: break-word; /* fix for long text breaking sidebar float in IE */
+overflow: hidden;     /* fix for long non-text content breaking IE sidebar float */
+}
+}
+@media handheld  {
+div#main {
+float:none;
+width:90%;
+}
+div#sidebar {
+padding:30px 7% 10px 3%;
+}
+}
+#header {
+padding:0px 0px 0px 0px;
+margin:0px 0px 0px 0px;
+border-bottom:dotted 1px #e0ad12;
+background:#99CC66;
+}
+h1 a:link  {
+text-decoration:none;
+color:#669933
+}
+h1 a:visited  {
+text-decoration:none;
+color:#669933
+}
+h1,h2,h3 {
+margin: 0;
+}
+h1 {
+padding:25px 0px 10px 5%;
+color:#669933;
+background:#330000;
+font:normal bold 300% Verdana,Sans-Serif;
+letter-spacing:-2px;
+}
+h3.post-title {
+color:#666633;
+font:normal bold 160% Verdana,Sans-Serif;
+letter-spacing:-1px;
+}
+h3.post-title a,
+h3.post-title a:visited {
+color: #666633;
+}
+h2.date-header  {
+margin:10px 0px 0px 0px;
+color:#996666;
+font: normal bold 105% 'Trebuchet MS',Trebuchet,Verdana,Sans-serif;
+}
+h4 {
+color:#aa0033;
+}
+#sidebar h2 {
+color:#666633;
+margin:0px;
+padding:0px;
+font:normal bold 150% Verdana,Sans-serif;
+}
+#sidebar .widget {
+margin:0px 0px 33px 0px;
+padding:0px 0px 0px 0px;
+font-size:95%;
+}
+#sidebar ul {
+list-style-type:none;
+padding-left: 0;
+margin-top: 0;
+}
+#sidebar li {
+margin:0px 0px 0px 0px;
+padding:0px 0px 0px 0px;
+list-style-type:none;
+font-size:95%;
+}
+.description {
+padding:0px;
+margin:7px 12% 7px 5%;
+color:#333300;
+background:transparent;
+font:bold 100% Verdana,Sans-Serif;
+}
+.post {
+margin:0px 0px 30px 0px;
+}
+.post strong {
+color:#000000;
+font-weight:bold;
+}
+pre,code {
+color:#333300;
+}
+strike {
+color:#333300;
+}
+.post-footer  {
+padding:0px;
+margin:0px;
+color:#330000;
+font-size:80%;
+}
+.post-footer a {
+border:none;
+color:#663333;
+text-decoration:none;
+}
+.post-footer a:hover {
+text-decoration:underline;
+}
+#comments {
+padding:0px;
+font-size:110%;
+font-weight:bold;
+}
+.comment-author {
+margin-top: 10px;
+}
+.comment-body {
+font-size:100%;
+font-weight:normal;
+color:black;
+}
+.comment-footer {
+padding-bottom:20px;
+color:#330000;
+font-size:80%;
+font-weight:normal;
+display:inline;
+margin-right:10px
+}
+.deleted-comment  {
+font-style:italic;
+color:gray;
+}
+.comment-link  {
+margin-left:.6em;
+}
+.profile-textblock {
+clear: both;
+margin-left: 0;
+}
+.profile-img {
+float: left;
+margin: 0 5px 5px 0;
+border: 2px solid #330000;
+}
+#sidebar a:link  {
+color:#333300;
+text-decoration:none;
+}
+#sidebar a:active  {
+color:#ff0000;
+text-decoration:none;
+}
+#sidebar a:visited  {
+color:sidebarlinkcolor;
+text-decoration:none;
+}
+#sidebar a:hover {
+color:#666633;
+text-decoration:none;
+}
+.feed-links {
+clear: both;
+line-height: 2.5em;
+}
+#blog-pager-newer-link {
+float: left;
+}
+#blog-pager-older-link {
+float: right;
+}
+#blog-pager {
+text-align: center;
+}
+.clear {
+clear: both;
+}
+.widget-content {
+margin-top: 0.5em;
+}
+a.source_code_display {
+text-decoration: none;
+font-family: monospace;
+cursor: pointer;
+display: block;
+}
+Q { _font-style: italic; }
+/** Tweaks for layout editor preview */
+body#layout #outer-wrapper {
+margin-top: 0;
+}
+body#layout #main,
+body#layout #sidebar {
+margin-top: 10px;
+padding-top: 0;
+}
+#navbar-iframe {
+height:0;
+visibility:hidden;
+display:none
+}
+blockquote {
+background: url(http://3.bp.blogspot.com/_hrvCBhtWhJ4/SmlX9K2HL3I/AAAAAAAABIg/4680pDFdK_A/s320/quote.gif) no-repeat top left;
+min-height: 40px;
+}
+
+--></style>
+<!--[if IE]> <style> .iePNGHide { display: none; } </style> <![endif]-->
+<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'></script>
+<script type="text/javascript">
+if (window.jstiming) window.jstiming.load.tick('headEnd');
+</script></head>
+<body>
+<div class='navbar section' id='navbar'><div class='widget Navbar' id='Navbar1'><script type="text/javascript">
+    function setAttributeOnload(object, attribute, val) {
+      if(window.addEventListener) {
+        window.addEventListener("load",
+          function(){ object[attribute] = val; }, false);
+      } else {
+        window.attachEvent('onload', function(){ object[attribute] = val; });
+      }
+    }
+    function showRelatedContent(args) {
+      var el = document.getElementById('related-iframe');
+      if (el.parentNode.style.display != 'none') {
+        el.parentNode.style.display = 'none';
+        document.onclick = showRelatedContent.prevOnClick;
+        return;
+      }
+      
+      var match = /(?:^[?]|&)c=([0-9]+)(?:&|(?!.))/.exec(args);
+      if (match !== null) {
+        document.getElementById('related-loading').style.left = match[1] + 'px';
+        el.style.left = Math.max(0, match[1] - parseInt(el.width) / 2) + 'px';
+      }
+      el.src = "http://www.blogger.com"
+          + '/related-content.g?q='
+          + window.location.href
+          + '&id=' + "35005627";
+      el.parentNode.style.display = 'block';
+      showRelatedContent.prevOnClick = document.onclick;
+
+      // Hide related-content dropdown when clicking anywhere but on it.
+      document.onclick = function() {
+        var el = document.getElementById('related-iframe');
+        if (el.parentNode.style.display != 'none') {
+          el.parentNode.style.display = 'none';
+        }
+        document.onclick = showRelatedContent.prevOnClick;
+      };
+    }
+  </script>
+<iframe src="http://www.blogger.com/navbar.g?targetBlogID=35005627&amp;blogName=hype-free&amp;publishMode=PUBLISH_MODE_BLOGSPOT&amp;navbarType=TAN&amp;layoutType=LAYOUTS&amp;searchRoot=http%3A%2F%2Fhype-free.blogspot.com%2Fsearch&amp;blogLocale=en_US&amp;homepageUrl=http%3A%2F%2Fhype-free.blogspot.com%2F&amp;targetPostID=6530239069791781888" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" height="30px" width="100%" id="navbar-iframe" allowtransparency="true" title="Blogger Navigation and Search"></iframe>
+
+<div></div></div></div>
+<a href='#'><img alt='Back to Top' border='0' height='16' src='http://4.bp.blogspot.com/_hrvCBhtWhJ4/SmlX2OI4huI/AAAAAAAABH4/cbr4nHjJNGY/s320/arrow-up.gif' style='position: fixed; bottom: 5px; right: 5px;' title='Back to Top' width='16'/></a>
+<div id='outer-wrapper'><div id='wrap2'>
+<!-- skip links for text browsers -->
+<span id='skiplinks' style='display:none;'>
+<a href='#main'>skip to main </a> |
+      <a href='#sidebar'>skip to sidebar</a>
+</span>
+<div id='header-wrapper'>
+<div class='header section' id='header'><div class='widget HTML' id='HTML7'>
+<div class='widget-content'>
+<div class="titlewrapper"><h1 class="title">
+<a href="/"><img border="0" width="48" src="http://4.bp.blogspot.com/_hrvCBhtWhJ4/SmlX6VXnhRI/AAAAAAAABIY/gUXkqxoMolA/s320/info.gif" height="48" align="top"/>
+hype-free</a></h1></div><div class="descriptionwrapper"><p class="description"><span>A blog which tries to demystify computer security, point out the half-truths and misinformation which floats around about this subject and hopefully reduce the hype created by semi-informed people. It also has some useful tips from time to time.</span></p></div>
+
+<div id="first-time-visitor-greeting" style="background-color: #FFFFCC; text-align: center; padding: 2px; font-size: smaller; display: none;">
+
+<div style="clear: both">First time here? I hope that you find something interesting and useful. Check out the most popular pages or the categories I most frequently post in:</div>
+
+<div style="float: left; text-align: left;">
+  <ul>
+  <li><a href="/2007/02/using-rsync-on-windows.html">Using rsync on Windows</a></li>
+  <li><a href="/2008/10/creating-horizontal-menu-with-jquery.html">Creating a horizontal menu with jQuery</a></li>
+  <li><a href="/2006/11/nmap-online.html">Nmap online</a></li>
+  <li><a href="/2009/01/000webhostcom-trying-to-install-malware.html">000webhost.com trying to install malware</a></li>
+  <li><a href="/2009/04/compiling-software-for-openwrt-and.html">Compiling software for OpenWrt (and creating packages)</a></li>
+  <li><a href="/2007/04/installing-and-using-truecrypt-on.html">Installing and using Truecrypt on Ubuntu</a></li>
+  <li><a href="/2008/05/installing-perl-510-on-ubuntu.html">Installing Perl 5.10 on Ubuntu</a></li>
+  <li><a href="/2008/10/small-slony-i-tutorial.html">A small Slony-I tutorial</a></li>
+  <li><a href="/2007/08/setting-up-xming-or-rdp-equivalent-for.html">Setting up Xming or RDP equivalent for Linux</a></li>
+  <li><a href="/2008/12/installing-bsd-under-virtualbox.html">Installing *BSD under VirtualBox</a></li>
+  </ul>
+</div>
+
+<div style="float: left; text-align: left;">
+  <ul>
+  <li><a href="/search/label/security">security</a></li>
+  <li><a href="/search/label/links">links</a></li>
+  <li><a href="/search/label/rant">rant</a></li>
+  <li><a href="/search/label/perl">perl</a></li>
+  <li><a href="/search/label/av">av</a></li>
+  <li><a href="/search/label/programming">programming</a></li>
+  <li><a href="/search/label/windows">windows</a></li>
+  <li><a href="/search/label/web">web</a></li>
+  <li><a href="/search/label/funny">funny</a></li>
+  <li><a href="/search/label/video">video</a></li>
+  </ul>
+</div>
+
+<div style="float: right; padding-right: 10px;">  
+  <br/>
+  <a href="http://feeds.feedburner.com/Hype-free"><img border="0" width="132" src="http://1.bp.blogspot.com/_hrvCBhtWhJ4/SmcGnAk73eI/AAAAAAAABHo/DMgXJmRHmNA/s320/rss-logo-large.png" height="132"/></a>
+</div>
+
+<div style="clear: both">Feel free to leave a comment or ask a question, and consider <a href="http://feeds.feedburner.com/Hype-free">subscribing to the latest posts via RSS</a> or <a href="http://feedburner.google.com/fb/a/mailverify?uri=Hype-free">e-mail</a>. Thanks for visiting!</div>
+
+</div>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=HTML&widgetId=HTML7&action=editWidget&sectionId=header' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML7"));' target='configHTML7' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div></div>
+</div>
+<div id='content-wrapper'>
+<div id='main-wrapper'>
+<div class='main section' id='main'><div class='widget Blog' id='Blog1'>
+<div class='blog-posts hfeed'>
+<!-- google_ad_section_start(name=default) -->
+
+          <div class="date-outer">
+        
+<h2 class='date-header'><span>Tuesday, October 28, 2008</span></h2>
+
+          <div class="date-posts">
+        
+<div class='post-outer'>
+<div class='post hentry uncustomized-post-template'>
+<a name='6530239069791781888'></a>
+<h3 class='post-title entry-title'>
+<a href='http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html'>A small Slony-I tutorial</a>
+</h3>
+<span class='post-comment-link' style='float: right;'>
+</span>
+<div style='clear: both;'></div>
+<div class='post-header-line-1'></div>
+<div class='post-body entry-content'>
+<p><em>Update</em>: the altperl scripts seem to take away the need for most of the steps here. Take a look at the post <a href="http://blog.endpoint.com/2009/02/slony1-200-postgresql-84devel.html">Slony1-2.0.0 + PostgreSQL 8.4devel</a> for an example for how to use them.</p>
+
+<p>When I first installed <a href="http://www.slony.info/">Slony-I</a> to replicate between two PostgreSQL servers, it was very confusing. Now I am somewhat less confused (proven by the fact that the replication is actually working :-)) and would like to share some things I've learned along the way.</p>
+
+<p>The first thing to understand is <em>how</em> Slony-I works on the high level:</p>
+
+<ul>
+<li>When you install Slony in a database, it creates some tables in a separate schema.</li>
+<li>It also adds some triggers to your tables the following way: (a) on the master it adds triggers which log the changes after modifying the table and (b) on the slave it adds triggers which disallow changing the data (this is logical, but can be surprising)</li>
+<li>When data gets modified on the master, these triggers log the changes to the slony schema.</li>
+<li>Each slave needs to run a daemon (slon) to fetch these changes from the slony schema on the master, write them locally and delete (to keep the slony schema from growing indefinitely)</li>
+</ul>
+
+<p>A limitation of the Slony system is that you can't change the list of tables or their structure dynamically. To do this you must break the synchronization, perform the changes and let Slony copy all the data over. This sounds really bad, but Slony is quite fast actually, copying over a ~30GB dataset in ~4 hours (on a local 100MB network).</p>
+
+<p>Now with these out of the way, how do you actually start a replication?</p>
+
+<p>The first thing you need to make sure of is that both servers can connect to each other. You must be able to go to both servers and successfully execute the following command:</p>
+
+<code><pre>psql -h [the <em>other</em> server] -U [user] -d [DB name] </pre></code>
+
+<p>Now that you made sure that you have connectivity, you must generate an initialization file and feed it to slonik (the slony management tool). You can do this fairly easily if you have a regular structure for your tables. You have the query for it below:</p>
+
+<code><pre>
+SELECT '#!/bin/bash
+slonik <<_EOF_
+cluster name = slon_cluster_a;
+
+node 1 admin conninfo = ''dbname=dbname host=first_host user=u password=p'';
+node 2 admin conninfo = ''dbname=dbname host=second_host user=u password=p'';
+
+init cluster (id = 1, comment = ''master a'');
+
+create set (id = 1, origin = 1, comment = ''fdb'');
+' || array_to_string(ARRAY(SELECT 
+ CASE 
+  WHEN c.relkind = 'S' THEN
+   'set add sequence (set id = 1, origin = 1, id = ' || (SELECT SUM(1) FROM pg_class WHERE pg_class.relname <= c.relname) ||
+    ' full qualified name = ''' || n.nspname || '.' || c.relname || ''', comment = ''Sequence ' || c.relname || ''');' 
+  WHEN c.relkind = 'r' THEN
+   'set add table (set id = 1, origin = 1, id = ' || (SELECT SUM(1) FROM pg_class WHERE pg_class.relname <= c.relname) ||
+    ' full qualified name = ''' || n.nspname || '.' || c.relname || ''', comment = ''Table ' || c.relname || ''');' 
+ END
+ FROM pg_class c
+ LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+ LEFT JOIN pg_tablespace t ON t.oid = c.reltablespace 
+ WHERE 
+  (c.relkind = 'r' OR c.relkind = 'S')
+  AND n.nspname = 'public'
+  AND NOT(c.relname LIKE '%_old')
+  AND NOT(c.relname = 'foo')
+ ORDER BY c.relname ASC), E'\n') ||
+'store node (id = 2, comment = ''slave a'');
+store path (server = 1, client = 2, conninfo = ''dbname=dbname host=first_host user=u password=p'');
+store path (server = 2, client = 1, conninfo = ''dbname=dbname host=second_host user=u password=p'');
+
+store listen (origin = 1, provider = 1, receiver = 2);
+store listen (origin = 2, provider = 2, receiver = 1);
+
+subscribe set ( id = 1, provider = 1, receiver = 2, forward = no);'
+</pre></code>
+
+<p>Now I know that this looks like a monster query, but it is actually quite simple. It creates a bash script (I'm assuming that the DB servers are running Linux) composed out of three parts:</p>
+
+<ul>
+<li>The initial part (make sure that you set up the paths correctly here)</li>
+<li>The middle part which differs depending on the type of object (table or sequence - sequences need to be synchronized too because they (1) are outside of transactions and (2) can be changed explicitly)</li>
+<li>The final part. Again, make sure that the connection strings are correct.</li>
+</ul>
+
+<p>Regarding the middle part: most probably you will want to fiddle with the filtering criteria. For example the above query includes tables / sequences which:</p>
+
+<ul>
+<li>Are in the public schema (this is important because we have the schema created by slony)</li>
+<li>Don't end in _old</li>
+<li>Are not named foo</li>
+</ul>
+
+<p>Save the output of the query in a file on one of the servers (either the master or the slave), give it executable permissions (<tt>chmod +x slony_setup.sh</tt>) and run it (<tt>./slony_setup.sh</tt>). <em>You only have to run it once</em> (ie. either on the master or on the slave) because it will set up the triggers / tables / etc on both machines (if the connection strings are correct - if they are not you will have other troubles as well, so go and correct them :-)).</p>
+
+<p>A remark about choosing the (PostgreSQL) user under which to run Slony: for simplicity it is recommended to use postgres or an other superuser, because it has to make modifications to the DB (add schemas, create triggers, etc). From what I understand it <em>is</em> possible to use a locked down user (ie one which has minimal privileges), but it is a painful procedure.</p>
+
+<p>Now go to the client, login as user "u" (the one defined in the slony setup script) - you can do this indirectly for example by doing <tt>sudo su u</tt> if you have sudo rights - and start the slon daemon: <tt>slon slon_cluster_a dbname=dbname user=u</tt>. You should see a lot of message go by. If there aren't any obvious errors, the initial data copying has begun. You can see the status of Slony by executing the following query <em>on the slave</em> (of course you should replace _slon_cluster_a with the correct schema name):</p>
+
+<code><pre>SELECT * FROM _slon_cluster_a.sl_status</pre></code>
+
+<p>What you are interested in is the st_lag_num_events column. Initially this will increase, until the copying of the data is done and the slave had a chance to catch up with the master. After that it should hover around 0. Sometimes you will see spikes (I assume that these appear during autovacuum), but it always should tend towards 0.</p>
+
+<p>Now that you've set up the replication, how do you tear it down? (because for example you want to change the tables). The easiest way I found was using <a href="http://www.pgadmin.org/">pgAdmin</a>.</p>
+
+<p>First stop the slon process on the slave.</p>
+
+<p>Now in pgAdmin go to your database, and you should see a "Replication" entry, similar to the one shown below:</p>
+
+<center><img src="http://hype.free.googlepages.com/pgadmin_replication.PNG" /></center>
+
+<p>You should delete the entry on <em>both</em> the master <em>and</em> the slave (this is one of the rare cases when working with slony when you need to operate independently on the two machines - of course probably there is some command-line script which does this for you).</p>
+
+<p>Now do the changes on the master and export the exact database structure to the slave. Again, for me the easiest method was to drop and recreate the database on the slave and after that export the schema from the master to the slave like this:</p>
+
+<code><pre>pg_dump -h [master] -s dbname|psql dbname</pre></code>
+
+<p>The -s tells pg_dump to only dump the schema, not the data.</p>
+
+<p>Now regenerate and re-run the slonik script and start the slon daemon.</p>
+
+<p>That's all folks. Hope it helps somebody who is struggling to understand slony, like I was.</p>
+
+<p>PS. An interesting side-effect of installing slony on the slave is that <em>other</em> triggers get dropped (and need to be recreated). This can be important in some scenarios, for example: lets say that you have a table A and a table A_log which contains the operations done on table A. A_log is updated by a trigger on A. Now if you use Slony, you have two options: </p>
+
+<p>Let Slony synchronize both tables. This is the easiest, however it can happen that for short period of times you will have inconsistencies between A and A_log on the slave if you are using the "READ COMMITTED" isolation level (which is recommended in most of the cases) because Slony might have synchronized one of the tables, but not the other. If this is acceptable for you, great.</p>
+
+<p>If this is not acceptable, you have to do two things: first, exclude the table A_log from the synchronization (by adding it to the exclusion criteria in that huge select at the beginning of the article). Second, after you executed the slon script, you need to add the trigger back <em>on the slave</em> for the "A" table.</p>
+
+<p>PS PS. What I presented here is a very rudimentary configuration and can be substantially improved. For example Slony has support for the following scenario: the master goes away and now the slave should become the master and when later the master comes back (is repaired for example), it can become the new slave ("switch"). From what I understand some changes need to be done to the above configuration to support this (fairly important scenario).</p>
+
+<p><em>Update</em>: Thanks to one of the commenters I took a closer look of EnterpriseDB and <a href="http://www.enterprisedb.com/community/projects/slony.do">on their site</a> found a link to the following documentation which describes the structure and intention of Slony: <a href="http://developer.postgresql.org/%7Ewieck/slony1/Slony-I-concept.pdf">Slony-I - A replication system for PostgreSQL - Concept</a>. It is a short read (~17 pages) and very useful for understanding Slony.</p>
+
+<p><em>Update</em>: Here is <a href="http://blog.endpoint.com/2009/02/slony1-200-postgresql-84devel.html">an other tutorial for Slony</a>. This is pretty much the same as the samples on the Slony website, however I found it to be easier to understand (this is also possibly because in the meantime I've learned more about Slony, but give it a try). It also gives examples on how to use some helper scripts included in Slony to make your life easier.</p>
+
+<p><em>Updates</em>:</p>
+
+<ul>
+<li><a href="http://www.pgadmin.org/docs/1.8/slony-example.html">Slony examples under Windows</a> - very nice looking step-by-step documentation. Good to know that now Slony is also available under Window3s</li>
+<li><a href="http://shoaibmir.wordpress.com/2009/03/06/adding-new-tables-to-a-slony-cluster/">Adding new tables to a Slony cluster</a> - somewhat complicated, but there is a workaround.</li>
+<li>Slightly off-topic: <a href="http://gkoenig.wordpress.com/2009/02/20/pgpool-replication-for-postgresql/">Replication using pgpool</a> - I tried to use pgpool for replication once, but had no look. However it seems that this gentleman had, and luckily he documented the process.</li>
+</ul>
+
+<p><em>Update</em>: it seems that <a href="http://shoaibmir.wordpress.com/2009/04/08/public-schema-and-slony/">slony requires the existence of the public schema</a>, even if it isn't installed in it.</p>
+
+<p><em>Update</em>: <a href="http://shoaibmir.wordpress.com/2009/08/05/setting-up-slony-cluster-with-perltools/">Setting up Slony cluster with PerlTools</a> - a <i>much</i> simpler method than the one described by me :-)</p>
+<div style='clear: both;'></div>
+</div>
+<div class='post-footer'>
+<div class='post-footer-line post-footer-line-1'>
+<span class='post-author vcard'>
+Posted by
+<span class='fn'>cdman83</span>
+</span>
+<span class='post-timestamp'>
+at
+<a class='timestamp-link' href='http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html' rel='bookmark' title='permanent link'><abbr class='published' title='2008-10-28T16:42:00+02:00'>4:42 PM</abbr></a>
+</span>
+<span class='reaction-buttons'>
+</span>
+<span class='star-ratings'>
+<div g:background-color='dfffbf' g:height='42' g:text-color='000000' g:type='RatingPanel' g:url='http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html' g:width='280'></div>
+</span>
+<span class='post-backlinks post-comment-link'>
+</span>
+<span class='post-icons'>
+<span class='item-control blog-admin pid-1983992920'>
+<a href='http://www.blogger.com/post-edit.g?blogID=35005627&postID=6530239069791781888' title='Edit Post'>
+<img alt='' class='icon-action' height='18' src='http://img2.blogblog.com/img/icon18_edit_allbkg.gif' width='18'/>
+</a>
+</span>
+</span>
+</div>
+<div class='post-footer-line post-footer-line-2'>
+<span class='post-labels'>
+Labels:
+<a href='http://hype-free.blogspot.com/search/label/postgresql' rel='tag'>postgresql</a>,
+<a href='http://hype-free.blogspot.com/search/label/slony' rel='tag'>slony</a>
+</span>
+</div>
+<div class='post-footer-line post-footer-line-3'></div>
+</div>
+</div>
+<div class='comments' id='comments'>
+<a name='comments'></a>
+<h4>
+8
+comments:
+        
+</h4>
+<dl id='comments-block'>
+<dt class='comment-author ' id='c8364758715375476883'>
+<a name='c8364758715375476883'></a>
+Anonymous
+said...
+</dt>
+<dd class='comment-body'>
+<p>Hi, thank you for the useful info! However, it is not clear what to do on the slave computer (I did not get what "Now regenerate and re-run the slonik script and start the slon daemon" meant).<BR/>Also what should be done remove all slon configuration and start over? Should I just remove master database and recreate it from backup?<BR/>Thank you again!</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html?showComment=1226430180000#c8364758715375476883' title='comment permalink'>
+9:03 PM
+</a>
+<span class='item-control blog-admin pid-1175945049'>
+<a class='comment-delete' href='http://www.blogger.com/delete-comment.g?blogID=35005627&postID=8364758715375476883' title='Delete Comment'>
+<img src='//www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c281376322296667303'>
+<a name='c281376322296667303'></a>
+Anonymous
+said...
+</dt>
+<dd class='comment-body'>
+<p>Addition to my previous post: 1) I do not have graphical environment, so no PGAdmin; 2) promoting slave to master is interesting, could you elaborate more?<BR/>Thank you</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html?showComment=1226430780000#c281376322296667303' title='comment permalink'>
+9:13 PM
+</a>
+<span class='item-control blog-admin pid-52462545'>
+<a class='comment-delete' href='http://www.blogger.com/delete-comment.g?blogID=35005627&postID=281376322296667303' title='Delete Comment'>
+<img src='//www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author blog-author' id='c1862902412657500201'>
+<a name='c1862902412657500201'></a>
+<a href='http://www.blogger.com/profile/05030326541176171725'>cdman83</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>I must preface this with the fact that I'm by no means a Slony expert, I just used it a little (also, I don't work on the project any more, so currently there isn't a big chance that I will get more knowledge). This said, here is what I found:<BR/><BR/>- You definitely <B>do not</B> need to drop/recreate the master database (or any database for that matter) to remove Slony. I always used used PgAdmin to do it (BTW, you can also use PgAdmin remotely, even if the particular box doesn't have X for example - that's how I used it). Looking through the documentation I found the <A HREF="http://www.slony.info/documentation/stmtdropnode.html" REL="nofollow">DROP NODE</A> command. I suppose that you would use it like this: create a shellscript with the contents shown below and run it (supposing that first_host is your master):<BR/><BR/>#!/bin/bash<BR/>slonik &lt;&lt;_EOF_<BR/>cluster name = slon_cluster_a;<BR/>node 1 admin conninfo = &#39;&#39;dbname=dbname host=first_host user=u password=p&#39;&#39;;<BR/>node 2 admin conninfo = &#39;&#39;dbname=dbname host=second_host user=u password=p&#39;&#39;;<BR/>drop node (id = 1);<BR/><BR/>Again, I never actually done this, so you should really try this in a test environment!<BR/><BR/>- Regarding starting the replication from scratch because the table structure changed: by regenerating the slonik script I mean re-running the SELECT I&#39;ve shown, saving the result in a file (possibly the same file you used the first time, since that is of no use anymore) and running it. By restarting the slon daemon I just mean that you start the slon daemon on the slave again (you supposedly stopped it when you dropped the replications).<BR/><BR/>- Regarding failover: again, I never done it. I have been told that the config I generate needs to be augmented to provide two-way paths for this to work. I recommend that you try to look at the Slony documentation or ask on the Slony-I irc channel (#slony on irc.freenode.net). The later I found to be very helpful. Once I was helped by none other than the creator or Slony!</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html?showComment=1226469000000#c1862902412657500201' title='comment permalink'>
+7:50 AM
+</a>
+<span class='item-control blog-admin pid-1983992920'>
+<a class='comment-delete' href='http://www.blogger.com/delete-comment.g?blogID=35005627&postID=1862902412657500201' title='Delete Comment'>
+<img src='//www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c5063328087201477135'>
+<a name='c5063328087201477135'></a>
+<a href='http://www.blogger.com/profile/05916954255303676045'>Fernando</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Good info...One issue: the slon daemon isn't on my path...I can't find it to start the daemons.<BR/>I am running EnterpiseDB, 8.3</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html?showComment=1232153460000#c5063328087201477135' title='comment permalink'>
+2:51 AM
+</a>
+<span class='item-control blog-admin pid-116641181'>
+<a class='comment-delete' href='http://www.blogger.com/delete-comment.g?blogID=35005627&postID=5063328087201477135' title='Delete Comment'>
+<img src='//www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c2129846811386166370'>
+<a name='c2129846811386166370'></a>
+<a href='http://www.blogger.com/profile/05916954255303676045'>Fernando</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Hi, good info. Thanks! One thing...I can't find the slon daemon anywhere to start it.  I have EnterpriseDB 8.3.  Anyone know where the daemon is or what it's called in EnterpriseDB?</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html?showComment=1232153520000#c2129846811386166370' title='comment permalink'>
+2:52 AM
+</a>
+<span class='item-control blog-admin pid-116641181'>
+<a class='comment-delete' href='http://www.blogger.com/delete-comment.g?blogID=35005627&postID=2129846811386166370' title='Delete Comment'>
+<img src='//www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author blog-author' id='c6766681158113251933'>
+<a name='c6766681158113251933'></a>
+<a href='http://www.blogger.com/profile/05030326541176171725'>cdman83</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Unfortunately I'm not familiar with EnterpriseDB. The only thing I know is that they bundle a lot of open source tools and offer support for it (I believe they also sponsor some development on PG which is very nice of them).<BR/><BR/>I would suggest trying to find the slon command on your machine using a command along the lines of:<BR/><BR/>find / -name slon<BR/><BR/>(this means: search from the root for a file named slon)<BR/><BR/>Good luck.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html?showComment=1232181660000#c6766681158113251933' title='comment permalink'>
+10:41 AM
+</a>
+<span class='item-control blog-admin pid-1983992920'>
+<a class='comment-delete' href='http://www.blogger.com/delete-comment.g?blogID=35005627&postID=6766681158113251933' title='Delete Comment'>
+<img src='//www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c5718056034115154789'>
+<a name='c5718056034115154789'></a>
+<a href='http://www.blogger.com/profile/07566934368109450898'>Gurjeet</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>In EnterpriseDB (now called Postgres Plus Advanced Server) the slon daemon is named edb-replication.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html?showComment=1240495500000#c5718056034115154789' title='comment permalink'>
+5:05 PM
+</a>
+<span class='item-control blog-admin pid-65704937'>
+<a class='comment-delete' href='http://www.blogger.com/delete-comment.g?blogID=35005627&postID=5718056034115154789' title='Delete Comment'>
+<img src='//www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c6295842385980764684'>
+<a name='c6295842385980764684'></a>
+Anonymous
+said...
+</dt>
+<dd class='comment-body'>
+<p>Many thanks for the easily digested information, very helpful.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html?showComment=1262870476493#c6295842385980764684' title='comment permalink'>
+3:21 PM
+</a>
+<span class='item-control blog-admin pid-1530792626'>
+<a class='comment-delete' href='http://www.blogger.com/delete-comment.g?blogID=35005627&postID=6295842385980764684' title='Delete Comment'>
+<img src='//www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+</dl>
+<p class='comment-footer'>
+<div class='comment-form' style='width: 100%;'>
+<a name='comment-form'></a>
+<h4 id='comment-post-message'>Post a Comment</h4>
+<p style='font-size: smaller; font-weight: normal;'>You can use some HTML tags, such as &lt;b&gt;, &lt;i&gt;, &lt;a&gt;. 
+        Comments are <a href='/2008/04/to-moderate-or-not-to-moderate.html'>moderated</a>, so there will be a delay until the comment appears.
+        However if <a href='http://hype-free.blogspot.com/2011/02/sorry-for-malware-warning.html'>you comment, I follow</a>.</p>
+<img height='50' src='http://1.bp.blogspot.com/-zrkpq0-gFoI/TWd7gbceiOI/AAAAAAAADVE/a8N_wMwWdrw/s1600/ifollowltgreen.gif' width='130'/>
+<p>
+</p>
+<a href='http://www.blogger.com/comment-iframe.g?blogID=35005627&postID=6530239069791781888' id='comment-editor-src'></a>
+<iframe allowtransparency='true' class='blogger-iframe-colorize' frameborder='0' height='275' id='comment-editor' scrolling='no' src='' width='100%'></iframe>
+<script type="text/javascript" src="http://www.blogger.com/static/v1/jsbin/2010787338-iframe_colorizer.js"></script>
+</div>
+<noscript>
+<p style='font-size: smaller; font-weight: normal;'>Using the embedded comment form requires JavaScript to be turned on for the blogger.com domain.
+              However, you can still comment <a href='http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html#comments' onclick=''>using the traditional method</a>.</p>
+</noscript>
+</p>
+<div id='backlinks-container'>
+<div id='Blog1_backlinks-container'>
+</div>
+</div>
+</div>
+</div>
+<div id="latency-6530239069791781888"></div><script type="text/javascript">if (window['tickAboveFold']) {window['tickAboveFold'](document.getElementById("latency-6530239069791781888")); } </script>
+
+        </div></div>
+      
+<!-- google_ad_section_end -->
+</div>
+<div class='blog-pager' id='blog-pager'>
+<span id='blog-pager-newer-link'>
+<a class='blog-pager-newer-link' href='http://hype-free.blogspot.com/2008/10/solution-to-malware-challenge.html' id='Blog1_blog-pager-newer-link' title='Newer Post'>Newer Post</a>
+</span>
+<span id='blog-pager-older-link'>
+<a class='blog-pager-older-link' href='http://hype-free.blogspot.com/2008/10/limitations-of-software-restriction.html' id='Blog1_blog-pager-older-link' title='Older Post'>Older Post</a>
+</span>
+<a class='home-link' href='http://hype-free.blogspot.com/'>Home</a>
+</div>
+<div class='clear'></div>
+<div class='post-feeds'>
+<div class='feed-links'>
+Subscribe to:
+<a class='feed-link' href='http://hype-free.blogspot.com/feeds/6530239069791781888/comments/default' target='_blank' type='application/atom+xml'>Post Comments (Atom)</a>
+</div>
+</div>
+<script src='//www.google.com/jsapi' type='text/javascript'></script>
+<script type='text/javascript'>
+      google.load("annotations", "1", {"locale": "en_US"});
+      function initialize() {
+        google.annotations.setApplicationId(34);
+        google.annotations.createAll();
+        google.annotations.fetch();
+      }
+      google.setOnLoadCallback(initialize);
+    </script>
+</div></div>
+</div>
+<div id='sidebar-wrapper'>
+<div class='sidebar section' id='sidebar'><div class='widget HTML' id='HTML4'>
+<h2 class='title'>Search the blog</h2>
+<div class='widget-content'>
+<form id="searchthis" action="/search" style="display:inline;" method="get">
+<input id="search-box" style="border: 1px solid black;" name="q" size="25" type="text"/>
+<input id="search-btn" style="background-color: #669933; border: 1px solid black; color: #330000;" value="Search" type="submit"/>
+</form>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=HTML&widgetId=HTML4&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML4"));' target='configHTML4' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' id='HTML2'>
+<h2 class='title'>Subscribe</h2>
+<div class='widget-content'>
+<form id="feedburnerEmailSubscribe" action="http://www.feedburner.com/fb/a/emailverify" style="display: none; border: none; text-align:center; background-image: url('http://2.bp.blogspot.com/_hrvCBhtWhJ4/SmlX3w0jxLI/AAAAAAAABII/DuM8_XLic7A/s320/envelope.gif'); background-repeat:no-repeat; background-position:center; " target="popupwindow" method="post" onsubmit="window.open('http://www.feedburner.com', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+<h5>Enter your email address:</h5>
+<h5><input style="width:140px" name="email" type="text"/></h5>
+<input value="http://feeds.feedburner.com/~e?ffid=519067" name="url" type="hidden"/>
+<input value="hype-free" name="title" type="hidden"/>
+<input value="Subscribe" type="submit"/>
+<h5>Delivered by <a href="http://www.feedburner.com/" target="_blank">FeedBurner</a></h5>
+</form>
+
+<p><a href="http://feeds.feedburner.com/Hype-free" rel="alternate" type="application/rss+xml"><img alt="" style="vertical-align:middle;border:0" src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png"/></a>&nbsp;<a href="http://feeds.feedburner.com/Hype-free" rel="alternate" type="application/rss+xml">Subscribe in a RSS/feed reader</a></p>
+
+<a href="#" onclick="document.getElementById('feedburnerEmailSubscribe').style.display='block'; this.style.display='none'; return false;"><img border="0" width="16" src="http://4.bp.blogspot.com/_hrvCBhtWhJ4/SmlX-6QZwJI/AAAAAAAABIo/xhs2v3IcD4g/s320/subscribe-mail.gif" height="18" align="top"/>Subscribe via e-mail</a><br/>
+
+<a href="http://feeds.feedburner.com/Hype-free"><img width="88" style="border:0" alt="" src="http://feeds.feedburner.com/~fc/Hype-free?bg=00FF00&amp;fg=444444&amp;anim=0" height="26"/></a>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=HTML&widgetId=HTML2&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML2"));' target='configHTML2' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' id='HTML14'>
+<h2 class='title'>Del.icio.us</h2>
+<div class='widget-content'>
+<script type="text/javascript">
+    if (typeof window.Delicious == "undefined") window.Delicious = {};
+    Delicious.BLOGBADGE_DEFAULT_CLASS = 'delicious-blogbadge-tall'
+</script>
+<script src="http://static.delicious.com/js/d2-blogbadge.js"></script>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=HTML&widgetId=HTML14&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML14"));' target='configHTML14' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' id='HTML11'>
+<h2 class='title'>Tag cloud</h2>
+<div class='widget-content'>
+<div id="tagCloudContainer"></div>
+<script type="text/javascript">
+var tagCloud = {
+  'storeCloud' : function (obj) {
+    var baseUrl = location.protocol + "//" + location.host;
+    var cloud = '<tags>';
+    for (var i in obj.value.items) {
+      cloud += "<" + "a " + "href='" + baseUrl + "/search/label/" + obj.value.items[i].title + "' style='8'>" + obj.value.items[i].title + '<' + '/a>';
+    }
+    cloud += '<' + '/tags>';    
+    tagCloud.cloudTags = cloud;
+    setTimeout(tagCloud.renderTagcloudCallback, 100);
+  },
+  
+  'renderTagcloudCallback' : function () {  
+    try {
+      swfobject.embedSWF('http://hype-free.googlecode.com/svn/trunk/blog/tagcloud.swf', 'tagCloudContainer', '230', '240', '7', '',
+        { 'tcolor' : '0x666633', 'mode' : 'tags', 'distr' : 'true', 'tspeed' : '100', 'tagcloud' : escape(tagCloud.cloudTags) },
+        { 'wmode' : 'transparent', 'allowScriptAccess' : 'always' });      
+    } catch (err) {
+      alert(err);
+      setTimeout(tagCloud.renderTagcloudCallback, 100);
+    }
+  },
+  
+  'init' : function () {
+    var script = document.createElement('script');
+    script.src = 'http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js';
+    document.getElementsByTagName('head')[0].appendChild(script);
+    
+    script = document.createElement('script');
+    script.src = 'http://pipes.yahoo.com/pipes/pipe.run?BlogUrl=http%3A%2F%2Fhype-free.blogspot.com%2F&Topcount=20&_id=xKTkgQsT3hGl4j3nJpREag&_render=json&_callback=tagCloud.storeCloud';
+    document.getElementsByTagName('head')[0].appendChild(script);    
+    return this;
+  }
+}.init();
+</script>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=HTML&widgetId=HTML11&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML11"));' target='configHTML11' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' id='HTML8'>
+<h2 class='title'>Powered by</h2>
+<div class='widget-content'>
+<a href="http://www.blogger.com/home"><img width="88" src="http://1.bp.blogspot.com/_hrvCBhtWhJ4/Smlai1DeJmI/AAAAAAAABIw/pUBS-XJKQk4/s320/blogger-simple-kahki.gif" height="30"/></a>
+<br/>
+
+<a href="http://google.com"><img width="88" src="http://4.bp.blogspot.com/_hrvCBhtWhJ4/SmlX5cWPqnI/AAAAAAAABIQ/8LL8kD0zCC8/s320/google-simple-kahki.gif" height="30"/></a>
+<br/>
+
+<a href="http://www.prchecker.info/" target="_blank">
+<img border="0" alt="PageRank Checking Icon" src="http://pr.prchecker.info/getpr.php?codex=aHR0cDovL2h5cGUtZnJlZS5ibG9nc3BvdC5jb20=&tag=2"/></a>
+<br/>
+
+<a id="b-next" tabindex="6" href="http://www.blogger.com/next-blog?navBar=true">Next Blog&raquo;</a>
+<br/>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=HTML&widgetId=HTML8&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML8"));' target='configHTML8' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget BlogArchive' id='BlogArchive1'>
+<h2>Blog Archive</h2>
+<div class='widget-content'>
+<div id='ArchiveList'>
+<div id='BlogArchive1_ArchiveList'>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/search?updated-min=2011-01-01T00%3A00%3A00%2B02%3A00&updated-max=2012-01-01T00%3A00%3A00%2B02%3A00&max-results=33'>2011</a>
+<span class='post-count' dir='ltr'>(33)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2011_04_01_archive.html'>April</a>
+<span class='post-count' dir='ltr'>(7)</span>
+<ul class='posts'>
+<li><a href='http://hype-free.blogspot.com/2011/04/blackjackpracticeorg-review.html'>blackjackpractice.org review</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/04/booting-linux-kernel-from-grub2.html'>Booting the Linux Kernel from Grub2</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/04/wrong-time-to-update-software.html'>The wrong time to update software...</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/04/recovering-encrypted-home-directory.html'>Recovering encrypted home directory under Ubuntu</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/04/scentsy-review-take-two.html'>scentsy review take two</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/04/rubberecyclecom-review.html'>rubberecycle.com review</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/04/medicalhealthinsurancetodaycom-review.html'>Medicalhealthinsurancetoday.com review</a></li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2011_03_01_archive.html'>March</a>
+<span class='post-count' dir='ltr'>(6)</span>
+<ul class='posts'>
+<li><a href='http://hype-free.blogspot.com/2011/03/setting-maximum-number-of-opened-files.html'>Setting the maximum number of opened files under U...</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/03/diskmap-disk-backed-map-in-java.html'>DiskMap - an disk backed Map in Java</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/03/why-running-sushi-is-best-fast-food.html'>Why running sushi is the best fast-food?</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/03/microbenchmarking-and-you.html'>Microbenchmarking and you</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/03/doing-some-estimations.html'>Doing some estimations</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/03/audio-quality.html'>Audio quality</a></li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2011_02_01_archive.html'>February</a>
+<span class='post-count' dir='ltr'>(8)</span>
+<ul class='posts'>
+<li><a href='http://hype-free.blogspot.com/2011/02/sorry-for-malware-warning.html'>Sorry for the malware warning!</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/02/mytrendyphonecouk-review.html'>mytrendyphone.co.uk review</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/02/setting-up-imap-with-yahoo-mail.html'>Setting up IMAP with Yahoo! Mail</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/02/manually-enabling-ip-routing-in-windows.html'>Manually enabling IP routing in Windows XP</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/02/is-hand-writing-assembly-still.html'>Is hand-writing assembly still necessary these day...</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/02/how-to-quickly-start-up-webserver-with.html'>How to quickly start up a webserver with Python</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/02/why-you-should-use-0000-in-your-hosts.html'>Why you should use 0.0.0.0 in your hosts file - re...</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/02/augmenting-log4j-stack-traces-with.html'>Augmenting Log4J stack traces with class versions</a></li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2011_01_01_archive.html'>January</a>
+<span class='post-count' dir='ltr'>(12)</span>
+<ul class='posts'>
+<li><a href='http://hype-free.blogspot.com/2011/01/remote-debugging-with-java.html'>Remote debugging with Java</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/01/navigating-searching-collections.html'>Navigating (Searching) Collections</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/01/how-to-test-for-implementation-of.html'>How to test for the implementation of toString()</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/01/non-buffered-processor-in-perl.html'>Non-buffered processor in Perl</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/01/comparative-book-review.html'>Comparative book review</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/01/noevir-review.html'>noevir review</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/01/scentsy-review.html'>scentsy  review</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/01/processing-clipboard-data-in-perl.html'>Processing clipboard data in Perl</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/01/why-ubuntu-1010-is-better-than-windows.html'>Why Ubuntu 10.10 is better than Windows XP?</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/01/java-has-some-surprising-amount-of.html'>Java has some surprising amount of dinamism in it</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/01/deliciouscdman83.html'>delicious/cdman83</a></li>
+<li><a href='http://hype-free.blogspot.com/2011/01/java-date-objects-can-mutate-even-when.html'>Java Date objects can mutate, even when read</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/search?updated-min=2010-01-01T00%3A00%3A00%2B02%3A00&updated-max=2011-01-01T00%3A00%3A00%2B02%3A00&max-results=50'>2010</a>
+<span class='post-count' dir='ltr'>(58)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2010_12_01_archive.html'>December</a>
+<span class='post-count' dir='ltr'>(1)</span>
+<ul class='posts'>
+<li><a href='http://hype-free.blogspot.com/2010/12/tigerchef-review.html'>TigerChef review</a></li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2010_08_01_archive.html'>August</a>
+<span class='post-count' dir='ltr'>(2)</span>
+<ul class='posts'>
+<li><a href='http://hype-free.blogspot.com/2010/08/problems-and-semi-solution-for-tcpdump.html'>Problems (and a semi-solution) for tcpdump with DA...</a></li>
+<li><a href='http://hype-free.blogspot.com/2010/08/shuttledirect-review.html'>shuttledirect review</a></li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2010_06_01_archive.html'>June</a>
+<span class='post-count' dir='ltr'>(4)</span>
+<ul class='posts'>
+<li><a href='http://hype-free.blogspot.com/2010/06/copyright-is-not-theft.html'>Copyright is not theft!</a></li>
+<li><a href='http://hype-free.blogspot.com/2010/06/dear-people-try-to-think-harder-even-if.html'>Dear people: try to think harder, even if it makes...</a></li>
+<li><a href='http://hype-free.blogspot.com/2010/06/who-is-hype-free.html'>Who is hype-free?</a></li>
+<li><a href='http://hype-free.blogspot.com/2010/06/deliciouscdman83.html'>delicious/cdman83</a></li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2010_05_01_archive.html'>May</a>
+<span class='post-count' dir='ltr'>(1)</span>
+<ul class='posts'>
+<li><a href='http://hype-free.blogspot.com/2010/05/on-hopelessness-of-pulling-content-from.html'>On the hopelessness of pulling content from the in...</a></li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2010_04_01_archive.html'>April</a>
+<span class='post-count' dir='ltr'>(5)</span>
+<ul class='posts'>
+<li><a href='http://hype-free.blogspot.com/2010/04/putting-eval-into-java.html'>Putting the eval into Java</a></li>
+<li><a href='http://hype-free.blogspot.com/2010/04/update-to-blogger-tag-cloud.html'>Update to the Blogger Tag Cloud</a></li>
+<li><a href='http://hype-free.blogspot.com/2010/04/funny-things-i-found-while-browsing-web.html'>&#8220;Funny things I found while browsing the web&#8221; post...</a></li>
+<li><a href='http://hype-free.blogspot.com/2010/04/updated-yarpg.html'>Updated YARPG</a></li>
+<li><a href='http://hype-free.blogspot.com/2010/04/sending-x-face-email-with-perlgmail.html'>Sending an X-Face email with Perl+GMail</a></li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2010_03_01_archive.html'>March</a>
+<span class='post-count' dir='ltr'>(18)</span>
+<ul class='posts'>
+<li><a href='http://hype-free.blogspot.com/2010/03/performance-optimization-techniques-for.html'>Performance optimization techniques for Java code</a></li>
+<li><a href='http://hype-free.blogspot.com/2010/03/solving-mathematical-puzzles-with-brute.html'>Solving mathematical puzzles with brute-force and ...</a></li>
+<li><a href='http://hype-free.blogspot.com/2010/03/rhub-review.html'>RHUB review</a></li>
+<li><a href='http://hype-free.blogspot.com/2010/03/stringintern-there-are-better-ways.html'>String.intern() &#8211; there are better ways</a></li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2010_02_01_archive.html'>February</a>
+<span class='post-count' dir='ltr'>(4)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2010_01_01_archive.html'>January</a>
+<span class='post-count' dir='ltr'>(23)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/search?updated-min=2009-01-01T00%3A00%3A00%2B02%3A00&updated-max=2010-01-01T00%3A00%3A00%2B02%3A00&max-results=50'>2009</a>
+<span class='post-count' dir='ltr'>(338)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2009_12_01_archive.html'>December</a>
+<span class='post-count' dir='ltr'>(11)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2009_11_01_archive.html'>November</a>
+<span class='post-count' dir='ltr'>(13)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2009_10_01_archive.html'>October</a>
+<span class='post-count' dir='ltr'>(28)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2009_09_01_archive.html'>September</a>
+<span class='post-count' dir='ltr'>(7)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2009_08_01_archive.html'>August</a>
+<span class='post-count' dir='ltr'>(27)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2009_07_01_archive.html'>July</a>
+<span class='post-count' dir='ltr'>(50)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2009_06_01_archive.html'>June</a>
+<span class='post-count' dir='ltr'>(12)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2009_05_01_archive.html'>May</a>
+<span class='post-count' dir='ltr'>(3)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2009_04_01_archive.html'>April</a>
+<span class='post-count' dir='ltr'>(26)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2009_03_01_archive.html'>March</a>
+<span class='post-count' dir='ltr'>(42)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2009_02_01_archive.html'>February</a>
+<span class='post-count' dir='ltr'>(60)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2009_01_01_archive.html'>January</a>
+<span class='post-count' dir='ltr'>(59)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate expanded'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy toggle-open'>&#9660;&#160;</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/search?updated-min=2008-01-01T00%3A00%3A00%2B02%3A00&updated-max=2009-01-01T00%3A00%3A00%2B02%3A00&max-results=50'>2008</a>
+<span class='post-count' dir='ltr'>(302)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2008_12_01_archive.html'>December</a>
+<span class='post-count' dir='ltr'>(73)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2008_11_01_archive.html'>November</a>
+<span class='post-count' dir='ltr'>(40)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate expanded'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy toggle-open'>&#9660;&#160;</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2008_10_01_archive.html'>October</a>
+<span class='post-count' dir='ltr'>(71)</span>
+<ul class='posts'>
+<li><a href='http://hype-free.blogspot.com/2008/10/moving-to-always-connected-world.html'>Moving to an always connected world</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/thinformation.html'>Thinformation</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/surface-mounted-electronics.html'>Surface mounted electronics</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/playing-tricks-with-windows-pe-loader.html'>Playing tricks with the Windows PE Loader</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/mixed-links_30.html'>Mixed links</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/tag-cloud.html'>Tag cloud</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/no-stress-perl.html'>No stress Perl</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/mixed-links_8366.html'>Mixed links</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/eh-challenge-solution.html'>EH Challenge solution</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/fun-with-shellcode.html'>Fun with shellcode</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/solution-to-malware-challenge.html'>Solution to the malware challenge</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html'>A small Slony-I tutorial</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/limitations-of-software-restriction.html'>Limitations of Software Restriction Policies</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/mixed-links_28.html'>Mixed links</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/somebody-messed-up-their-routing-tables.html'>Somebody messed up their routing tables...</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/compiling-opentyrian-under-ubuntu.html'>Compiling OpenTyrian under Ubuntu</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/ethical-hacker-challenges.html'>Ethical hacker challenges</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/mixed-links_27.html'>Mixed links</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/network-miner.html'>Network Miner</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/popular-ideas-about-av.html'>Popular ideas about AV</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/stop-anti-spyware-nonsense.html'>Stop the &quot;Anti-Spyware&quot; nonsense!</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/unintentional-spam.html'>(Un)intentional spam?</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/mixed-links_26.html'>Mixed links</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/stepping-beyond-vendor-centric-security.html'>Stepping beyond the vendor-centric security soluti...</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/controlling-people-or-giving-them-what.html'>Controlling people or giving them what they want?</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/security-maxims.html'>Security Maxims</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/antivirus-survey.html'>Antivirus survey</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/dynamic-code-generation-in-php.html'>Dynamic code generation in PHP</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/interesting-videos.html'>Interesting videos</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/creating-gradients-in-php.html'>Creating gradients in PHP</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/mixed-links_23.html'>Mixed links</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/fortitudehosting-other-get-rich-quick.html'>fortitudehosting - an other &quot;get rich quick scheme...</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/mixed-links-and-commentary.html'>Mixed links and commentary</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/interesting-phish.html'>Interesting phish</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/augmenting-user-interfaces.html'>Augmenting user interfaces</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/media-you-can-get-for-free.html'>Media you can get for free</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/procrastination.html'>Procrastination</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/it-can-happen-to-best-of-us.html'>It can happen to the best of us</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/free-space-on-ntfs-volume.html'>Free space on an NTFS volume</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/fun-slashdot-comment.html'>Fun Slashdot comment</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/financial-markets.html'>Financial markets</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/cuddly-little-pinguin.html'>A cuddly little penguin</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/clearly-labelling-your-products.html'>Clearly labelling your products</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/mixed-links_20.html'>Mixed links</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/updated-uac.html'>&quot;Updated&quot; UAC</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/great-comics.html'>Great comics</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/changing-ntp-server-under-windows.html'>Changing the NTP server under Windows</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/solving-dll-failed-to-initialize.html'>Solving the &quot;DLL failed to initialize&quot; problem wit...</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/cost-of-freeware.html'>The cost of freeware</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/gone-fishing.html'>Gone Fishing</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/posting-high-quality-youtube-videos.html'>Posting high-quality YouTube videos</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/installing-avast.html'>Installing Avast</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/installing-avg-8.html'>Installing AVG 8</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/influencing-people-is-it-worth-it.html'>Influencing people - is it worth it?</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/pimping-my-blog.html'>Pimping my blog</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/beauty-is-all-around-us.html'>Beauty is all around us...</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/link-list.html'>Link list</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/what-ive-been-working-on-lately.html'>What I&#39;ve been working on lately</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/wikis-or-blogs.html'>Wikis or blogs?</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/google-fu-or-you-are-not-as-anonymous.html'>Google Fu, or: you are not as anonymous as you thi...</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/ubuntu-810-comes-with-perl-510.html'>Ubuntu 8.10 comes with Perl 5.10!</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/creating-horizontal-menu-with-jquery.html'>Creating a horizontal menu with jQuery</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/mixed-links.html'>Mixed links</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/speedruns.html'>Speedruns</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/testing-ubuntu-810-intrepid.html'>Testing Ubuntu 8.10 Intrepid</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/power-of-deduction-how-information.html'>The power of deduction - how information wants to ...</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/what-is-rogue-anti-spyware-anti-malware.html'>What is a rogue anti-spyware / anti-malware produc...</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/everything-is-grey.html'>Everything is grey</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/should-we-use-english.html'>Should we use English?</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/technology-microcosm-reality-distorsion.html'>Technology microcosm - the reality distorsion fiel...</a></li>
+<li><a href='http://hype-free.blogspot.com/2008/10/efficient-sql-pagination-method.html'>Efficient SQL pagination method</a></li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2008_09_01_archive.html'>September</a>
+<span class='post-count' dir='ltr'>(19)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2008_07_01_archive.html'>July</a>
+<span class='post-count' dir='ltr'>(1)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2008_06_01_archive.html'>June</a>
+<span class='post-count' dir='ltr'>(36)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2008_05_01_archive.html'>May</a>
+<span class='post-count' dir='ltr'>(32)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2008_04_01_archive.html'>April</a>
+<span class='post-count' dir='ltr'>(23)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2008_01_01_archive.html'>January</a>
+<span class='post-count' dir='ltr'>(7)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/search?updated-min=2007-01-01T00%3A00%3A00%2B02%3A00&updated-max=2008-01-01T00%3A00%3A00%2B02%3A00&max-results=50'>2007</a>
+<span class='post-count' dir='ltr'>(148)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2007_12_01_archive.html'>December</a>
+<span class='post-count' dir='ltr'>(2)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2007_08_01_archive.html'>August</a>
+<span class='post-count' dir='ltr'>(31)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2007_07_01_archive.html'>July</a>
+<span class='post-count' dir='ltr'>(25)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2007_04_01_archive.html'>April</a>
+<span class='post-count' dir='ltr'>(18)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2007_03_01_archive.html'>March</a>
+<span class='post-count' dir='ltr'>(16)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2007_02_01_archive.html'>February</a>
+<span class='post-count' dir='ltr'>(23)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2007_01_01_archive.html'>January</a>
+<span class='post-count' dir='ltr'>(33)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/search?updated-min=2006-01-01T00%3A00%3A00%2B02%3A00&updated-max=2007-01-01T00%3A00%3A00%2B02%3A00&max-results=50'>2006</a>
+<span class='post-count' dir='ltr'>(133)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2006_12_01_archive.html'>December</a>
+<span class='post-count' dir='ltr'>(46)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2006_11_01_archive.html'>November</a>
+<span class='post-count' dir='ltr'>(39)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2006_10_01_archive.html'>October</a>
+<span class='post-count' dir='ltr'>(39)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://hype-free.blogspot.com/2006_09_01_archive.html'>September</a>
+<span class='post-count' dir='ltr'>(9)</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=BlogArchive&widgetId=BlogArchive1&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("BlogArchive1"));' target='configBlogArchive1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div><div class='widget Feed' id='Feed3'>
+<h2>Recent comments</h2>
+<div class='widget-content' id='Feed3_feedItemListDisplay'>
+<span style='filter: alpha(25); opacity: 0.25;'>
+<a href='http://hype-free.blogspot.com/feeds/comments/default'>Loading...</a>
+</span>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=Feed&widgetId=Feed3&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("Feed3"));' target='configFeed3' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' id='HTML10'>
+<h2 class='title'>Top Commenters</h2>
+<div class='widget-content'>
+<script src="http://pipes.yahoo.com/js/listbadge.js">{"pipe_id":"DKOqjRjB3RG1MWUHQBJ3AQ","_btype":"list","pipe_params":{"blogurl":"http:\/\/hype-free.blogspot.com\/","name filter":"cdman83","CommentCount":"8"}}</script>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=HTML&widgetId=HTML10&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML10"));' target='configHTML10' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' id='HTML5'>
+<h2 class='title'>My time</h2>
+<div class='widget-content'>
+<table border="0" cellspacing="0" cellpadding="0" width="100%"><tr><td align="center"><embed width="100" src="http://www.worldtimeserver.com/clocks/wtsclock001.swf?color=808000&wtsid=RO" height="100" wmode="transparent" type="application/x-shockwave-flash"/></embed></td></tr></table>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=HTML&widgetId=HTML5&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML5"));' target='configHTML5' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' id='HTML3'>
+<h2 class='title'>About Me</h2>
+<div class='widget-content'>
+<div id="profile-container" class="vcard">
+<a href="http://photos1.blogger.com/blogger2/1211/4273/1600/maci.jpg" onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}">
+   <img border="0" style="cursor:pointer; cursor:hand;" width="90" alt="photo" src="http://photos1.blogger.com/blogger2/1211/4273/400/maci-small.jpg" class="photo" height="85"/></a>
+
+ <dd class="profile-data"><a class="url fn" href="http://hype-free.blogspot.com">Cd-MaN</a></dd>
+ <dd class="profile-data"><a class="email" href="mailto:x_at_y_or_z@yahoo.com">x_at_y_or_z@yahoo.com</a></dd>
+ <dd class="profile-data"><div class="adr">
+  <span class="country-name">Romania</span>
+ </div></dd>
+ <dd class="profile-data"><a class="url" href="ymsgr:sendIM?x_at_y_or_z@yahoo.com">YIM</a></dd>
+  
+ </div>  
+ <p style="font-size:smaller;">This <a href="http://microformats.org/wiki/hcard">hCard</a> created with the <a href="http://microformats.org/code/hcard/creator">hCard creator</a>.</p>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=HTML&widgetId=HTML3&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML3"));' target='configHTML3' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget Feed' id='Feed2'>
+<h2>Things I read / listen to</h2>
+<div class='widget-content' id='Feed2_feedItemListDisplay'>
+<span style='filter: alpha(25); opacity: 0.25;'>
+<a href='http://www.google.com/reader/public/atom/user/11067853532291698348/state/com.google/broadcast'>Loading...</a>
+</span>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=Feed&widgetId=Feed2&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("Feed2"));' target='configFeed2' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' id='HTML1'>
+<div class='widget-content'>
+<p><a href="http://feeds.feedburner.com/CdManSShared" rel="alternate" type="application/rss+xml"><img alt="" style="vertical-align:middle;border:0" src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png"/></a>&nbsp;<a href="http://feeds.feedburner.com/CdManSShared" rel="alternate" type="application/rss+xml">Subscribe in a reader to things I read / listen to</a></p>
+
+<a href="http://feeds.feedburner.com/CdManSShared"><img width="88" style="border:0" alt="" src="http://feeds.feedburner.com/~fc/CdManSShared?bg=00CC00&amp;fg=444444&amp;anim=0" height="26"/></a>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=HTML&widgetId=HTML1&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML1"));' target='configHTML1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget Feed' id='Feed4'>
+<h2>Random blogs I'm reading</h2>
+<div class='widget-content' id='Feed4_feedItemListDisplay'>
+<span style='filter: alpha(25); opacity: 0.25;'>
+<a href='http://pipes.yahoo.com/pipes/pipe.run?FeedRSS=http%3A%2F%2Fwww.google.com%2Freader%2Fpublic%2Fatom%2Fuser%2F11067853532291698348%2Fstate%2Fcom.google%2Fbroadcast&_id=eiY_W6Qj3hGWphXJPm7D0g&_render=rss'>Loading...</a>
+</span>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=Feed&widgetId=Feed4&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("Feed4"));' target='configFeed4' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget Feed' id='Feed1'>
+<h2>My stackoverflow feed</h2>
+<div class='widget-content' id='Feed1_feedItemListDisplay'>
+<span style='filter: alpha(25); opacity: 0.25;'>
+<a href='http://pipes.yahoo.com/pipes/pipe.run?_id=nI5kzg6H3RG_U9K8pgt1Yg&_render=rss'>Loading...</a>
+</span>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=Feed&widgetId=Feed1&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("Feed1"));' target='configFeed1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' id='HTML6'>
+<h2 class='title'>License and disclaimer</h2>
+<div class='widget-content'>
+<p>The opinions shared here are my own and do not neccesarilly reflect the opinions of a past or current employer.</p>
+
+<a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png"/></a><br/>This <span xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://purl.org/dc/dcmitype/Text" rel="dc:type">work</span> is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">Creative Commons Attribution-Share Alike 3.0 Unported License</a>.<br/>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=HTML&widgetId=HTML6&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML6"));' target='configHTML6' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' id='HTML12'>
+<h2 class='title'>Visitors</h2>
+<div class='widget-content'>
+<a href="http://feedjit.com/ir1/97dccf8024565c9c/"><img alt="" src="http://feedjit.com/b/97dccf8024565c9c.png" ismap/></a>
+
+<br/><br/>
+
+<a href="http://s05.flagcounter.com/more/uDk"><img border="0" alt="free counters" src="http://s05.flagcounter.com/count/uDk/bg=DFFFBF/txt=000000/border=666633/columns=2/maxflags=100/viewers=0/labels=0/"/></a>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=HTML&widgetId=HTML12&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML12"));' target='configHTML12' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' id='HTML13'>
+<h2 class='title'>Weather</h2>
+<div class='widget-content'>
+<a href="http://www.wunderground.com/global/stations/15120.html?bannertypeclick=miniWeather2"><img border="0" alt="Click for Cluj, Romania Forecast" width="150" src="http://weathersticker.wunderground.com/weathersticker/miniWeather2_both_cond/language/www/global/stations/15120.gif" height="50"/></a>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=35005627&widgetType=HTML&widgetId=HTML13&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML13"));' target='configHTML13' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div></div>
+</div>
+<!-- spacer for skins that want sidebar and main to be the same height-->
+<div class='clear'>&#160;</div>
+</div>
+<!-- end content-wrapper -->
+</div></div>
+<!-- end outer-wrapper -->
+<script type='text/javascript'>
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type='text/javascript'>
+  if (_gat) {
+    var pageTracker = _gat._getTracker("UA-432874-2");
+    if (pageTracker) pageTracker._trackPageview();
+  }
+  </script>
+<style>
+.smog-button {
+  border: 1px solid black; background-color: #dfffbf; color: rgb(51, 0, 0);
+}
+</style>
+<script>
+/* <![CDATA[ */
+var iframeModifier={closedText:"[+] show source code",openedText:"[-] hide source code",addEvent:function(D,C,A){if(D.addEventListener){D.addEventListener(C,A,false);return true}else{if(D.attachEvent){var B=D.attachEvent("on"+C,A);return B}else{return false}}},handleClick:function(B){var A;if(!B){var B=window.event}if(B.target){A=B.target}else{if(B.srcElement){A=B.srcElement}}if(A.nodeType==3){A=A.parentNode}var C=A;while(null!=C&&C.tagName.toLowerCase()!="iframe"){C=C.nextSibling}if(null==C){return false}if("none"==C.style.display){A.innerHTML=iframeModifier.openedText;C.style.display=""}else{A.innerHTML=iframeModifier.closedText;C.style.display="none"}return true},loadInit:function(){var C=document.getElementsByTagName("iframe");for(var B=0;B<C.length;B++){if(C[B].className.indexOf("source_code")>-1){var A=document.createElement("a");A.innerHTML=iframeModifier.closedText;A.target="#";A.className="source_code_display";C[B].parentNode.insertBefore(A,C[B]);A.onclick=iframeModifier.handleClick;C[B].style.display="none"}}},};var quoteResolver={addEvent:function(D,C,A){if(D.addEventListener){D.addEventListener(C,A,false);return true}else{if(D.attachEvent){var B=D.attachEvent("on"+C,A);return B}else{return false}}},doWork:function(){var B=document.getElementsByTagName("q");for(var D=0;D<B.length;D++){var E=document.createTextNode('"');var F=document.createTextNode('"');B[D].parentNode.insertBefore(E,B[D]);B[D].parentNode.insertBefore(F,B[D].nextSibling)}for(var D=0;D<document.styleSheets.length;D++){var A=document.styleSheets[D].rules;for(var C=0;C<A.length;C++){if("Q"==A[C].selectorText&&"italic"==A[C].style.fontStyle){A[C].style.fontStyle="";break}}}},init:function(){var C=/MSIE/;var A=/Opera/;var B=/Windows/;if(C.exec(navigator.userAgent)&&!A.exec(navigator.userAgent)&&B.exec(navigator.userAgent)){this.addEvent(window,"load",this.doWork)}}};$(document).ready(function(){var D=$("div.post");var A=0;var B=function(){var H=/MSIE/;var F=/Opera/;var G=/Windows/;if(H.exec(navigator.userAgent)&&!F.exec(navigator.userAgent)&&G.exec(navigator.userAgent)){quoteResolver.doWork()}};var E=function(){iframeModifier.loadInit();setTimeout(B,100)};var C=function(){if(A>=D.length){setTimeout(E,100);return }var H=D.get(A);var G=$(".post-title",H);var F=$(".post-body",H).html();F=F.replace(/<\s*(?:code|pre)[\s\S]*?\/(?:code|pre)[\s\S]*?>/gi,"");F=F.replace(/<[\s\S]*?>/gi,"");if(F.length<100){return }var I=G.text().substring(0,40).replace(/"/g,"&quot;");F=F.substring(0,10000).replace(/"/g,"&quot;");$("a",G).after('<!--<form name="dataForm" method="post" target = "_blank" action="http://wordscount.info/hw/service/smog/analyze.jsp"><input type="hidden" name="document_title" value="'+I+'" /><input type="hidden" name="user_text" value="'+F+'" /><input type="hidden" name="service_id" value="WordsCount"><input type="hidden" name="service_name" value="SMOG Calculator"><input class="smog-button" type="submit" value="SMOG" /></form>-->');A+=1;setTimeout(C,100)};if(!document.cookie.match(/hypefreevisited/)){$("#first-time-visitor-greeting").css("display","");document.cookie="hypefreevisited=1; expires=Thu, 2 Aug 2099 20:47:11 UTC; path=/"}setTimeout(C,100)});
+/* ]]> */
+</script>
+<script type="text/javascript">
+if (window.jstiming) window.jstiming.load.tick('widgetJsBefore');
+</script><script type="text/javascript" src="http://www.blogger.com/static/v1/widgets/194283356-widgets.js"></script>
+<script type='text/javascript'>
+if (typeof(BLOG_attachCsiOnload) != 'undefined' && BLOG_attachCsiOnload != null) { window['blogger_templates_experiment_id'] = "templatesV1";window['blogger_blog_id'] = '35005627';BLOG_attachCsiOnload('item_'); }_WidgetManager._Init('http://www.blogger.com/rearrange?blogID=35005627','http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html','35005627');
+_WidgetManager._SetPageActionUrl('http://www.blogger.com/display?blogID=35005627','APq4FmDOSJWDRGFPNrKBXAua2YsPfXqDmRk9CoMZeqX07Ravzn4Zv67iBqH9xEbDP_PBCz7oCwKExCuonSqEaWNIkwYmMwTUmw==','AOuZoY5ajFWM66xbBPbrEMEItVSmntqaPg:1303912283987');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'title': 'hype-free', 'pageType': 'item', 'url': 'http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html', 'canonicalUrl': 'http://hype-free.blogspot.com/2008/10/small-slony-i-tutorial.html', 'homepageUrl': 'http://hype-free.blogspot.com/', 'faviconUrl': 'http://www.blogger.com/favicon.ico', 'enabledCommentProfileImages': true, 'searchLabel': '', 'searchQuery': '', 'pageName': 'A small Slony-I tutorial', 'pageTitle': 'hype-free: A small Slony-I tutorial', 'encoding': 'UTF-8', 'locale': 'en-US', 'isPrivate': false, 'isMobile': false, 'mobileClass': '', 'languageDirection': 'ltr', 'feedLinks': '\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42hype-free - Atom\42 href\75\42http://hype-free.blogspot.com/feeds/posts/default\42 /\76\n\74link rel\75\42alternate\42 type\75\42application/rss+xml\42 title\75\42hype-free - RSS\42 href\75\42http://hype-free.blogspot.com/feeds/posts/default?alt\75rss\42 /\76\n\74link rel\75\42service.post\42 type\75\42application/atom+xml\42 title\75\42hype-free - Atom\42 href\75\42http://www.blogger.com/feeds/35005627/posts/default\42 /\76\n\74link rel\75\42EditURI\42 type\75\42application/rsd+xml\42 title\75\42RSD\42 href\75\42http://www.blogger.com/rsd.g?blogID\07535005627\42 /\76\n\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42hype-free - Atom\42 href\75\42http://hype-free.blogspot.com/feeds/6530239069791781888/comments/default\42 /\76\n', 'meTag': '', 'openIdOpTag': '', 'imageSrcTag': '', 'latencyHeadScript': '\74script type\75\42text/javascript\42\76(function() { var a\75window;function c(b){this.t\75{};this.tick\75function(b,i,d){d\75d!\75void 0?d:(new Date).getTime();this.t[b]\75[d,i]};this.tick(\42start\42,null,b)}var e\75new c;a.jstiming\75{Timer:c,load:e};try{var g\75null;a.chrome\46\46a.chrome.csi\46\46(g\75Math.floor(a.chrome.csi().pageT));g\75\75null\46\46a.gtbExternal\46\46(g\75a.gtbExternal.pageT());g\75\75null\46\46a.external\46\46(g\75a.external.pageT);g\46\46(a.jstiming.pt\75g)}catch(h){};a.tickAboveFold\75function(b){var f\0750;if(b.offsetParent){do f+\75b.offsetTop;while(b\75b.offsetParent)}b\75f;b\74\075750\46\46a.jstiming.load.tick(\42aft\42)};var j\75!1;function k(){j||(j\75!0,a.jstiming.load.tick(\42firstScrollTime\42))}a.addEventListener?a.addEventListener(\42scroll\42,k,!1):a.attachEvent(\42onscroll\42,k);\n })();\74/script\076', 'mobileHeadScript': ''}}]);
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML4', 'sidebar', null, document.getElementById('HTML4'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML2', 'sidebar', null, document.getElementById('HTML2'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML14', 'sidebar', null, document.getElementById('HTML14'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML11', 'sidebar', null, document.getElementById('HTML11'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML8', 'sidebar', null, document.getElementById('HTML8'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'sidebar', null, document.getElementById('BlogArchive1'), {'languageDirection': 'ltr'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FeedView', new _WidgetInfo('Feed3', 'sidebar', null, document.getElementById('Feed3'), {'title': 'Recent comments', 'showItemDate': false, 'showItemAuthor': false, 'feedUrl': 'http://hype-free.blogspot.com/feeds/comments/default', 'numItemsShow': 5, 'loadingMsg': 'Loading...', 'openLinksInNewWindow': false}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML10', 'sidebar', null, document.getElementById('HTML10'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML5', 'sidebar', null, document.getElementById('HTML5'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML3', 'sidebar', null, document.getElementById('HTML3'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FeedView', new _WidgetInfo('Feed2', 'sidebar', null, document.getElementById('Feed2'), {'title': 'Things I read / listen to', 'showItemDate': false, 'showItemAuthor': false, 'feedUrl': 'http://www.google.com/reader/public/atom/user/11067853532291698348/state/com.google/broadcast', 'numItemsShow': 5, 'loadingMsg': 'Loading...', 'openLinksInNewWindow': false}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML1', 'sidebar', null, document.getElementById('HTML1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FeedView', new _WidgetInfo('Feed4', 'sidebar', null, document.getElementById('Feed4'), {'title': 'Random blogs I\47m reading', 'showItemDate': false, 'showItemAuthor': false, 'feedUrl': 'http://pipes.yahoo.com/pipes/pipe.run?FeedRSS\75http%3A%2F%2Fwww.google.com%2Freader%2Fpublic%2Fatom%2Fuser%2F11067853532291698348%2Fstate%2Fcom.google%2Fbroadcast\46_id\75eiY_W6Qj3hGWphXJPm7D0g\46_render\75rss', 'numItemsShow': 5, 'loadingMsg': 'Loading...', 'openLinksInNewWindow': false}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FeedView', new _WidgetInfo('Feed1', 'sidebar', null, document.getElementById('Feed1'), {'title': 'My stackoverflow feed', 'showItemDate': false, 'showItemAuthor': false, 'feedUrl': 'http://pipes.yahoo.com/pipes/pipe.run?_id\75nI5kzg6H3RG_U9K8pgt1Yg\46_render\75rss', 'numItemsShow': 5, 'loadingMsg': 'Loading...', 'openLinksInNewWindow': false}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML6', 'sidebar', null, document.getElementById('HTML6'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML12', 'sidebar', null, document.getElementById('HTML12'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML13', 'sidebar', null, document.getElementById('HTML13'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML7', 'header', null, document.getElementById('HTML7'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_NavbarView', new _WidgetInfo('Navbar1', 'navbar'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'main', null, document.getElementById('Blog1'), {'cmtInteractionsEnabled': false}, 'displayModeFull'));
+</script>
+</body>
+</html>

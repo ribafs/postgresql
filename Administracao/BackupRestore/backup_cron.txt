@@ -1,0 +1,25 @@
+Backup e restore com Crontab
+
+Put a line in crontab like:
+3  5 * * * /script/backdb.sh
+
+and the script  /script/backdb.sh
+could then look like:
+
+#!/bin/bash
+DATE=`date +%Y%m%d`
+/usr/pgsql/bin/pg_dump databas > /tmp/dump.$DATE
+
+then you have a file in /tmp/dump.$DATE that you could put on tape or whatever
+you use. Use pg_dumpall if you want all databases.
+You might want to consider making a  backup of the files  (for example
+pg_hba.conf) in  PGDATA directory. Read the man page for details about OID's.
+
+Good luck.
+Gunnar.
+
+Outra forma mais prática é copiar o script de backup para
+
+/etc/cron.daily
+
+

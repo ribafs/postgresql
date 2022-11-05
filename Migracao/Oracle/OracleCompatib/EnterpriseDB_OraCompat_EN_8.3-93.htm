@@ -1,0 +1,126 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2030"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-93_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-92.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-93_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-93_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-94.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-93_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P4211_255962"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.4.1 Default Optimization Modes</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">There are a number of optimization modes that can be chosen as the default setting for a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> database cluster. This setting can also be changed on a per session basis by using the <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-42.htm#P2041_111577">ALTER SESSION</a></u> command as well as in individual </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> commands within an optimizer hint. The configuration parameter that controls these default modes is named </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OPTIMIZER_MODE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. The following table shows the possible values.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;"><a name="P4213_256442"></a>Table 3-10 Default Optimization Modes</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="145"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Hint</span></p>
+</td>
+<td valign="top" width="432"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ALL_ROWS</span></p>
+</td>
+<td valign="top" width="432"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Optimizes for retrieval of all</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> rows of the result set.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CHOOSE</span></p>
+</td>
+<td valign="top" width="432"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Does no default optimization based on assumed number of rows </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">to be retrieved from </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">the result set. This is the default.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FIRST_ROWS</span></p>
+</td>
+<td valign="top" width="432"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Optimizes for retrieval of only the first </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">row</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> of the result set.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FIRST_ROWS_10</span></p>
+</td>
+<td valign="top" width="432"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Optimizes fo</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">r retrieval of the first 10 rows of the results set.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FIRST_ROWS_100</span></p>
+</td>
+<td valign="top" width="432"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Optimizes for retrieval of the first 100 rows of the result set.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FIRST_ROWS_1000</span></p>
+</td>
+<td valign="top" width="432"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Optimizes for retrieval of the first 1000 rows of the result set.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="145"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FIRST_ROWS(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="432"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Optimizes for retrieval </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">of the first </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>n</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> rows of the result set. This form may not be used as the object of the </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ALTER SESSION SET OPTIMIZER_MODE</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> command. It may only be used in the form of a hint in a </span><span style="font-family: 'Times New Roman'; font-size: 12pt;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> command.</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">These optimization modes are based upon the assumption that the client submitting the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command is interested in viewing only the first &#8220;n&#8221; rows of the result
+set and will then abandon the remainder of the result set. Resources
+allocated to the query are adjusted as such.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Alter the current session to optimize for retrieval of the first 10 rows of the result set.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">ALTER SESSION SET OPTIMIZER_MODE = FIRST_ROWS_10;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The current value of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">OPTIMIZER_MODE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> parameter can be shown by using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SHOW</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command. Note that this command is a utility dependent command. In </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">PSQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SHOW</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command is used as follows:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Times New Roman'; font-size: 9pt; color: rgb(46, 49, 146);">SHOW OPTIMIZER_MODE;</span>
+
+<span style="font-family: 'Times New Roman'; font-size: 9pt; color: rgb(46, 49, 146);">optimizer_mode</span>
+<span style="font-family: 'Times New Roman'; font-size: 9pt; color: rgb(46, 49, 146);">----------------</span>
+<span style="font-family: 'Times New Roman'; font-size: 9pt; color: rgb(46, 49, 146);"> first_rows_10</span>
+<span style="font-family: 'Times New Roman'; font-size: 9pt; color: rgb(46, 49, 146);">(1 row)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Oracle</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> compatible </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SHOW</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command has the following syntax:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SHOW PARAMETER OPTIMIZER_MODE;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">NAME</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">VALUE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------------------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">optimizer_mode</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">first_rows_10</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example shows an optimization mode used in a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command as a hint:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">SELECT /*+ FIRST_ROWS(7) */ * FROM emp;</span>
+
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">empno | ename  |    job    | mgr  |      hiredate      |   sal   |  comm   | deptno</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">-------+--------+-----------+------+--------------------+---------+---------+--------</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7369 | SMITH  | CLERK     | 7902 | 17-DEC-80 00:00:00 |  800.00 |         |     20</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7499 | ALLEN  | SALESMAN  | 7698 | 20-FEB-81 00:00:00 | 1600.00 |  300.00 |     30</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7521 | WARD   | SALESMAN  | 7698 | 22-FEB-81 00:00:00 | 1250.00 |  500.00 |     30</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7566 | JONES  | MANAGER   | 7839 | 02-APR-81 00:00:00 | 2975.00 |         |     20</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7654 | MARTIN | SALESMAN  | 7698 | 28-SEP-81 00:00:00 | 1250.00 | 1400.00 |     30</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7698 | BLAKE  | MANAGER   | 7839 | 01-MAY-81 00:00:00 | 2850.00 |         |     30</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7782 | CLARK  | MANAGER   | 7839 | 09-JUN-81 00:00:00 | 2450.00 |         |     10</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7788 | SCOTT  | ANALYST   | 7566 | 19-APR-87 00:00:00 | 3000.00 |         |     20</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7839 | KING   | PRESIDENT |      | 17-NOV-81 00:00:00 | 5000.00 |         |     10</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7844 | TURNER | SALESMAN  | 7698 | 08-SEP-81 00:00:00 | 1500.00 |    0.00 |     30</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7876 | ADAMS  | CLERK     | 7788 | 23-MAY-87 00:00:00 | 1100.00 |         |     20</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7900 | JAMES  | CLERK     | 7698 | 03-DEC-81 00:00:00 |  950.00 |         |     30</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7902 | FORD   | ANALYST   | 7566 | 03-DEC-81 00:00:00 | 3000.00 |         |     20</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">  7934 | MILLER | CLERK     | 7782 | 23-JAN-82 00:00:00 | 1300.00 |         |     10</span>
+<span style="font-family: 'Courier New'; font-size: 8pt; color: rgb(46, 49, 146);">(14 rows)</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-92.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-93_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-93_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-94.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-93_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-93_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-93_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

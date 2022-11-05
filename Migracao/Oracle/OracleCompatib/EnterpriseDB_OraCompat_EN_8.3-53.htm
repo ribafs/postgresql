@@ -1,0 +1,131 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>CREATE PACKAGE</title>
+
+
+<meta name="keywords" content="create package, oracle compatibility, oracle, developers, developer's guide, enterprisedb, postgres plus advanced server, postgres plus">
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1990"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-53_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-52.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-53_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-53_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-54.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-53_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P2517_138743"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.3.15 CREATE PACKAGE</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Name</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">PACKAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> -- define a new package specification</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE [ OR REPLACE ] PACKAGE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">[ AUTHID { DEFINER | CURRENT_USER } ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">{ IS | AS }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>declaration</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">; ] [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  [ { PROCEDURE </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">proc_n</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ame</span></i>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">      [ (</span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">argname</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ IN | IN OUT | OUT ] </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">argtype</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ DEFAULT </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">value</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">        [, ...]) ];</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    |</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">      FUNCTION </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">func_n</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ame</span></i>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">      [ (</span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">argname</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ IN | IN OUT | OUT ] </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">argtype</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ DEFAULT </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">value</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">        [, ...]) ]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">      RETURN </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>rettype</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">;</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">    }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  ] [, ...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  END [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Description</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">P</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ACKAGE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> defines a new package specification. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE OR REPLACE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">P</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ACKAG</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">E</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> will either create a new package specification, or replace an existing specification.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If
+a schema name is included, then the package is created in the specified
+schema. Otherwise it is created in the current schema. The name of the
+new package must not match any existing package in the same schema
+unless the intent is to update the definition of an existing package,
+in which case use </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CREATE OR REPLACE </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">P</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ACKAG</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">E</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The user that creates the procedure becomes the owner of the package.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See Chapter <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-180.htm#P9467_511701"><u>6</u></a> for more information on packages.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Parameters</span></p>
+
+<p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name (optionally schema-qualified) of the package to create.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFINER | CURRENT_USER</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Specifies whether the privileges of the package owner (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFINER</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">) or the privileges of the current user executing a program in the package (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CURRENT_USER</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">) are to be used to determine whether or not access is allowed to database objects referenced in the package. Also, under </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFINER</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, the search path of the package owner is used to resolve references to unqualified database objects while under </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">CURRENT_USER</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">,
+the search path of the current user executing a program in the package
+is used to resolve references to unqualified database objects. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFINER</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> is the default.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>declaration</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">A public variable, type, cursor, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">REF CURSOR</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> declaration.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>proc_name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of a public procedure.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>argname</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of an argument.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">IN | IN OUT | OUT</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The argument mode.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>argtype</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The data type(s) of the program&#8217;s arguments.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DEFAULT </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>value</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">Default value of an input argument.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>func_name</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The name of a public function.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>rettype</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The return data type.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The package specification, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">empi</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">nfo</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, contains three public components - a public variable, a public procedure, and a public function. See the <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-54.htm#P2576_141261">CREATE PACKAGE BODY</a></u> command for the package body for this example.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE OR REPLACE PACKAGE empinfo</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">IS</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    emp_name        VARCHAR2(10);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    PROCEDURE get_name (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        p_empno     NUMBER</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    );</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FUNCTION display_counter</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    RETURN INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">See Also</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-54.htm#P2576_141261"><u>CREATE PACKAGE BODY</u></a>, <a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-69.htm#P3365_187095"><u>DROP PACKAGE</u></a></span></p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-52.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-53_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-53_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-54.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-53_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-53_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-53_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

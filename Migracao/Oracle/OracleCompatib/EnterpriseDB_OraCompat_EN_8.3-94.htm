@@ -1,0 +1,212 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2031"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-94_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-93.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-94_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-94_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-95.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-94_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P4272_259602"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.4.2 Access Method Hints</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following hints influence how the optimizer accesses relations to create the result set.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;"><a name="P4274_259719"></a>Table 3-11 Access Method Hints</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="241"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Hint</span></p>
+</td>
+<td valign="top" width="336"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FULL(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="336"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Perform a full sequential scan on </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INDEX(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [ </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>index</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ] [...])</span></p>
+</td>
+<td valign="top" width="336"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Use </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>index</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> on </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to access the relation.</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="241"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NO_INDEX(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">[</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>index</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ] [...])</span></p>
+</td>
+<td valign="top" width="336"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Do not use </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>index</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> on </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>table</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to access the relation.</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In addition, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ALL_ROWS</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FIRST_ROWS</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FIRST_ROWS(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">)</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> hints of <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-93.htm#P4213_256442">Table 3-10</a></u> can be used.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Examples</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+sample application does not have sufficient data to illustrate the
+effects of optimizer hints so the remainder of the examples in this
+section will use a banking database created by the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">pgbench</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> application located in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">dbserver\</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">bin</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> subdirectory.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following steps create a database named, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">bank</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, populated by the tables, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">accounts</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">bran</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ches</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">tellers</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">history</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">&#8211;s </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">5</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+option specifies a scaling factor of five which results in the creation
+of five branches, each with 100,000 accounts, resulting in a total of
+500,000 rows in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">accounts</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table and five rows in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">branches</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table. Ten tellers are assigned to each branch resulting in a total of 50 rows in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">tellers</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table. </span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note, if using Linux use the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">export</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command instead of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SET PATH</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command as shown below.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">export PATH=/opt/EnterpriseDB/8.3/dbserver/bin:$PATH</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example was run in Windows.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SET PATH=C:\EnterpriseDB\8.3\dbserver\bin;%PATH%</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">createdb -U enterprisedb bank</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CREATE DATABASE</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">pgbench -i -s 5 -U enterprisedb -d bank</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">creating tables...</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">10000 tuples done.</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">20000 tuples done.</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">30000 tuples done.</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        .</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        .</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        .</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">470000 tuples done.</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">480000 tuples done.</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">490000 tuples done.</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">500000 tuples done.</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">set primary key...</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">vacuum...done.</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Ten transactions per client are then processed for eight clients for a total of 80 transactions. This will populate the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">history</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table with 80 rows.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">pgbench &#8211;U enterprisedb &#8211;d bank &#8211;c 8 &#8211;t 10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        .</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        .</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        .</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">transaction type: TPC-B (sort of)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">scaling factor: 5</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">number of clients: 8</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">number of transactions per client: 10</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">number of transactions actually processed: 80/80</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">tps = 6.023189 (including connections establishing)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">tps = 7.140944 (excluding connections establishing)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The table definitions are shown below:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">\d accounts</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       Table "public.accounts"</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  Column  |     Type      | Modifiers</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----------+---------------+-----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> aid      | integer       | not null</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> bid      | integer       |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> abalance | integer       |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> filler   | character(84) |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Indexes:</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    "accounts_pkey" PRIMARY KEY, btree (aid)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">\d branches</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">       Table "public.branches"</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  Column  |     Type      | Modifiers</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----------+---------------+-----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> bid      | integer       | not null</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> bbalance | integer       |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> filler   | character(88) |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Indexes:</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    "branches_pkey" PRIMARY KEY, btree (bid)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">\d tellers</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        Table "public.tellers"</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">  Column  |     Type      | Modifiers</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">----------+---------------+-----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> tid      | integer       | not null</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> bid      | integer       |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> tbalance | integer       |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> filler   | character(84) |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">Indexes:</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    "tellers_pkey" PRIMARY KEY, btree (tid)</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">\d history</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">              Table "public.history"</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> Column |            Type             | Modifiers</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">--------+-----------------------------+-----------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> tid    | integer                     |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> bid    | integer                     |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> aid    | integer                     |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> delta  | integer                     |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> mtime  | timestamp without time zone |</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> filler | character(22)               |</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXPLAIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command shows the plan selected by the query planner. In the following example, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">aid</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the primary key column, so an indexed search is used on index, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">accounts_pkey</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXPLAIN SELECT * FROM accounts WHERE aid = 100;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                                  QUERY PLAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------------------------------------------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> Index Scan using accounts_pkey on accounts  (cost=0.00..8.32 rows=1 width=97)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Index Cond: (aid = 100)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(2 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FULL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> hint is used to force a full sequential scan instead of using the index as shown below:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXPLAIN SELECT /*+ FULL(accounts) */ * FROM accounts WHERE aid = 100;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                         QUERY PLAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------------------------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> Seq Scan on accounts  (cost=0.00..14461.10 rows=1 width=97)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Filter: (aid = 100)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(2 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NO_INDEX</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> hint also forces a sequential scan as shown below:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXPLAIN SELECT /*+ NO_INDEX(accounts accounts_pkey) */ * FROM accounts WHERE aid = 100;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                         QUERY PLAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------------------------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> Seq Scan on accounts  (cost=0.00..14461.10 rows=1 width=97)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Filter: (aid = 100)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(2 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In addition to using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXPLAIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command as shown in the prior examples, more detailed information
+regarding whether or not a hint was used by the planner can be obtained
+by setting the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">client_min_messages</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">trace_hints</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> configuration parameters as follows:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SET client_min_messages TO info;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SET trace_hints TO true;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command with the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NO_INDEX</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+hint is repeated below to illustrate the additional information
+produced when the aforementioned configuration parameters are set.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXPLAIN SELECT /*+ NO_INDEX(accounts accounts_pkey) */ * FROM accounts WHERE aid = 100;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">INFO:  [HINTS] Index Scan of [accounts].[accounts_pkey] rejected because of NO_INDEX hint.</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">INFO:  [HINTS] Bitmap Heap Scan of [accounts].[accounts_pkey] rejected because of NO_INDEX hint.</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                         QUERY PLAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------------------------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> Seq Scan on accounts  (cost=0.00..14461.10 rows=1 width=97)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Filter: (aid = 100)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(2 rows)</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Note that if a hint is ignored, the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INFO: [HINTS]</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+line will not appear. This may be an indication that there was a syntax
+error or some other misspelling in the hint as shown in the following
+example where the index name is misspelled.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EXPLAIN SELECT /*+ NO_INDEX(accounts accounts_xxx) */ * FROM accounts WHERE aid = 100;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">                                  QUERY PLAN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-------------------------------------------------------------------------------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> Index Scan using accounts_pkey on accounts  (cost=0.00..8.32 rows=1</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);"> width=97)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">   Index Cond: (aid = 100)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">(2 rows)</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-93.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-94_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-94_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-95.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-94_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-94_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-94_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

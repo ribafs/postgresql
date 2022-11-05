@@ -1,0 +1,193 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2102"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-165_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-164.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-165_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-165_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-166.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-165_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P8692_468411"></a><span style="font-family: 'Arial'; font-size: 13pt;">4.9.1 Associative Arrays</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">An </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>associative array</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+is a type of collection that associates a unique key with a value. The
+key does not have to be numeric, but can be character data as well.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">An associative array has the following characteristics:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">An </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>associative array type</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> must be defined after which </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>array variables</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> can be declared of that array type. Data manipulation occurs in the array variable.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The array does not have to be initialized - just start assigning values to array elements.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The key can be any negative integer, positive integer, or zero if </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">INDEX BY BINARY_INTEGER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is specified.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">There is no pre-defined limit on the number of elements in the array - it grows dynamically as elements are added.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The array can be sparse - there may be gaps in the assignment of values to keys.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">An attempt to reference an array element that has not been assigned a value will result in an exception with </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SQLCODE 1403, access of u</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ninitialized index</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">TYPE IS TABL</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">E INDEX BY</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement is used to define an associative array type.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">T</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">YPE </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">assoc</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">type</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> IS TABLE OF</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> {</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">data</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">type</span></i><span style="font-family: 'Courier New'; font-size: 11pt;"> | </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>rectype</i></span><span style="font-family: 'Courier New'; font-size: 11pt;"> }</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt;"> INDEX BY { BINARY_INTEGER | VARCHAR2(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 11pt;">) }</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">;</span></pre>
+
+</div><p><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">assoc</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">type</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is an identifier assigned to the array type</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>datatype</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a scalar dat</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">a type such as </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">VARCHAR2</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>rectype</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is a previously defined record type. </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the maximum length of a character key.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In order to make use of the array, a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>variable</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> must be declared with that array type. The following is the syntax for declaring an array variable.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>array</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">assoc</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">type</span></i></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>array</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is an identifie</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">r assigned to the associative array</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">assoc</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">type</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is the identifier of a previously declared array type.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">An element of the array is referenced using the following syntax.</span></p><div style="margin-left: 24pt;"><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>array</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">)[</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">.</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>field</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ]</span></pre>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>array</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> the identi</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">fier of a previously declared array</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>n</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is an integer.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If the array type of </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>array</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> defined from </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">a record</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> type</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, then [.</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>field</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">  ]</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> must be specified </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">to reference an individual field within the record </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">where </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>field</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is defined within the record</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> type from which th</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">e array type is defined</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Alternatively, the entire record can be referenced by omitting [.</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>field</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">  ].</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following example reads the first ten employee names from the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> table, stores them in an array, then displays the results from the array.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE emp_arr_typ IS TABLE OF VARCHAR2(10) INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    emp_arr         emp_arr_typ;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CURSOR emp_cur IS SELECT ename FROM emp WHERE ROWNUM &lt;= 10;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    i               INTEGER := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR r_emp IN emp_cur LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        i := i + 1;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        emp_arr(i) := r_emp.ename;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR j IN 1..10 LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(emp_arr(j));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The above example produces the following output:</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SMITH</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">ALLEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">WARD</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">JONES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">MARTIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BLAKE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CLARK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SCOTT</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">KING</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">TURNER</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The previous example in now modified to use a record type in the array definition.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE emp_rec_typ IS RECORD (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        empno       NUMBER(4),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        ename       VARCHAR2(10)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    );</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE emp_arr_typ IS TABLE OF emp_rec_typ INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    emp_arr         emp_arr_typ;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CURSOR emp_cur IS SELECT empno, ename FROM emp WHERE ROWNUM &lt;= 10;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    i               INTEGER := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('EMPNO    ENAME');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('-----    -------');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR r_emp IN emp_cur LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        i := i + 1;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        emp_arr(i).empno := r_emp.empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        emp_arr(i).ename := r_emp.ename;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR j IN 1..10 LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(emp_arr(j).empno || '     ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            emp_arr(j).ename);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following is the output from this anonymous block.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">EMPNO    ENAME</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">-----    -------</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7369     SMITH</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7499     ALLEN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7521     WARD</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7566     JONES</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7654     MARTIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7698     BLAKE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7782     CLARK</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7788     SCOTT</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7839     KING</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">7844     TURNER</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp%ROWTYPE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> attribu</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">te </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">could be</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> used to define </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_arr_typ</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> instead of using the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_rec_typ</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> record type as shown in the following.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE emp_arr_typ IS TABLE OF emp%ROWTYPE INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    emp_arr         emp_arr_typ;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CURSOR emp_cur IS SELECT empno, ename FROM emp WHERE ROWNUM &lt;= 10;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    i               INTEGER := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('EMPNO    ENAME');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('-----    -------');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR r_emp IN emp_cur LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        i := i + 1;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        emp_arr(i).empno := r_emp.empno;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        emp_arr(i).ename := r_emp.ename;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR j IN 1..10 LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(emp_arr(j).empno || '     ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            emp_arr(j).ename);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The results are the same as in the prior example.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Instead of assigning each field of the record individually, a record level assignment can be made from </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">r_emp</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> to </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">emp_arr</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE emp_rec_typ IS RECORD (</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        empno       NUMBER(4),</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        ename       VARCHAR2(10)</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    );</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE emp_arr_typ IS TABLE OF emp_rec_typ INDEX BY BINARY_INTEGER;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    emp_arr         emp_arr_typ;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    CURSOR emp_cur IS SELECT empno, ename FROM emp WHERE ROWNUM &lt;= 10;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    i               INTEGER := 0;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('EMPNO    ENAME');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('-----    -------');</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR r_emp IN emp_cur LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        i := i + 1;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        emp_arr(i) := r_emp;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    FOR j IN 1..10 LOOP</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">        DBMS_OUTPUT.PUT_LINE(emp_arr(j).empno || '     ' ||</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">            emp_arr(j).ename);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    END LOOP;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span></pre>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The key of an associative array can be character data as shown in the following example.</span></p><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">DECLARE</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    TYPE job_arr_typ IS TABLE OF NUMBER INDEX BY VARCHAR2(9);</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    job_arr         job_arr_typ;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">BEGIN</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    job_arr('ANALYST')   := 100;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    job_arr('CLERK')     := 200;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    job_arr('MANAGER')   := 300;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    job_arr('SALESMAN')  := 400;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    job_arr('PRESIDENT') := 500;</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('ANALYST  : ' || job_arr('ANALYST'));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('CLERK    : ' || job_arr('CLERK'));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('MANAGER  : ' || job_arr('MANAGER'));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('SALESMAN : ' || job_arr('SALESMAN'));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">    DBMS_OUTPUT.PUT_LINE('PRESIDENT: ' || job_arr('PRESIDENT'));</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">END;</span>
+
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">ANALYST  : 100</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">CLERK    : 200</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">MANAGER  : 300</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">SALESMAN : 400</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">PRESIDENT: 500</span></pre>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-164.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-165_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-165_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-166.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-165_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-165_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-165_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

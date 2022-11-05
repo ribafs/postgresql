@@ -1,0 +1,27 @@
+Exportar tabela com delimitador
+
+psql -h host (nome ou ip) -d nome_do_banco -U user -W
+Exportar a tabela com: 
+\copy nome_da_tabela to nome_da_tabela.txt with delimiter as ';'
+
+
+-------------------------- Copy-------------------------------------
+-------------------------- ------
+
+create database cep_brasil;
+\c cep_brasil
+
+create table cep_full(
+cep char(8), 
+tipo char(72), 
+logradouro char(70),
+bairro char(72),
+municipio char(60), 
+uf char(2)
+);
+
+-- Importar o script (No Linux)
+-- \copy cep_full from /home/ribafs/cep_brasil_unique.csv
+
+-- No Windows
+\copy cep_full from e:/cep_brasil_unique.csv

@@ -1,0 +1,1665 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>PLPostgresql</title>
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+</head>
+<body>
+<div class="CHAPTER">
+<h1><a name="XPLANG">Chapter 18. Procedural Languages</a></h1>
+<div class="TOC">
+<dl>
+  <dt><b>Table of Contents</b></dt>
+  <dt>18.1. <a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/xplang.html#XPLANG-INTRO">Introduction</a></dt>
+  <dt>18.2. <a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/xplang-install.html">Installing
+Procedural Languages</a></dt>
+</dl>
+</div>
+<div class="SECT1">
+<h1 class="SECT1"><a name="XPLANG-INTRO">18.1. Introduction</a></h1>
+<p>   <span class="PRODUCTNAME">PostgreSQL</span> allows users to add new 
+   programming languages to be available for writing functions and    procedures.
+ These are called <i class="FIRSTTERM">procedural    languages</i> (PL).
+ In the case of a function or trigger    procedure written in a procedural
+language, the database server has    no built-in knowledge about how to interpret
+the function's source    text. Instead, the task is passed to a special handler
+that knows    the details of the language.  The handler could either do all
+the    work of parsing, syntax analysis, execution, etc. itself, or it  
+ could serve as <span class="QUOTE">"glue"</span> between    <span
+ class="PRODUCTNAME">PostgreSQL</span> and an existing implementation   
+of a programming language.  The handler itself is a special    programming
+language function compiled into a shared object and    loaded on demand. 
+ </p>
+<p>   Writing a handler for a new procedural language is described in   
+<a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/xfunc-plhandler.html">Section
+9.8</a>.  Several procedural languages are    available in the standard <span
+ class="PRODUCTNAME">PostgreSQL</span>    distribution, which can serve as
+examples.   <br>
+</p>
+<div class="SECT1">
+<h1 class="SECT1"><a name="XPLANG-INSTALL">18.2. Installing Procedural Languages</a></h1>
+<p>    A procedural language must be <span class="QUOTE">"installed"</span>
+into each     database where it is to be used.  But procedural languages
+installed in     the template1 database are automatically available in all 
+    subsequently created databases. So the database administrator can   
+ decide which languages are available in which databases, and can make  
+  some languages available by default if he chooses.    </p>
+<p>    For the languages supplied with the standard distribution, the   
+ shell script <tt class="FILENAME">createlang</tt> may be used instead  
+  of carrying out the details by hand.  For example, to install <span
+ class="APPLICATION">PL/pgSQL</span>     into the template1 database, use 
+</p>
+<pre class="PROGRAMLISTING">createlang plpgsql template1</pre>
+<p>     The manual procedure described below is only recommended for    
+installing custom languages that <tt class="FILENAME">createlang</tt>   
+ does not know about.    </p>
+<div class="PROCEDURE">
+<p><b>     Manual Procedural Language Installation     </b></p>
+<p>     A procedural language is installed in the database in three     
+steps, which must be carried out by a database superuser.     </p>
+<ol type="1">
+  <li>
+    <p>      The shared object for the language handler must be compiled
+and       installed into an appropriate library directory.  This works in
+the same       way as building and installing modules with regular user-defined
+C       functions does; see <a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/xfunc-c.html#DFUNC">Section
+9.5.8</a>.      </p>
+  </li>
+  <li><a name="XPLANG-INSTALL-CR1"></a>
+    <p>      The handler must be declared with the command </p>
+    <pre class="SYNOPSIS">CREATE FUNCTION <tt class="REPLACEABLE"><i>handler_function_name</i></tt> ()<br>    RETURNS LANGUAGE_HANDLER AS<br>    '<tt
+ class="REPLACEABLE"><i>path-to-shared-object</i></tt>' LANGUAGE C;</pre>
+    <p>       The special return type of <tt class="TYPE">LANGUAGE_HANDLER</tt>
+tells       the database that this function does not return one of      
+the defined <span class="ACRONYM">SQL</span> data types and is not directly
+usable       in <span class="ACRONYM">SQL</span> statements.      </p>
+  </li>
+  <li><a name="XPLANG-INSTALL-CR2"></a>
+    <p>      The PL must be declared with the command </p>
+    <pre class="SYNOPSIS">CREATE [<span class="OPTIONAL">TRUSTED</span>] [<span
+ class="OPTIONAL">PROCEDURAL</span>] LANGUAGE <tt class="REPLACEABLE"><i>language-name</i></tt><br>    HANDLER <tt
+ class="REPLACEABLE"><i>handler_function_name</i></tt>;</pre>
+    <p>       The optional key word <tt class="LITERAL">TRUSTED</tt> tells
+whether       ordinary database users that have no superuser privileges should 
+      be allowed to use this language to create functions and trigger   
+   procedures. Since PL functions are executed inside the database      
+server, the <tt class="LITERAL">TRUSTED</tt> flag should only be given  
+    for languages that do not allow access to database server       internals
+or the file system. The languages       <span class="APPLICATION">PL/pgSQL</span>, 
+      <span class="APPLICATION">PL/Tcl</span>,       <span
+ class="APPLICATION">PL/Perl</span>, and       <span class="APPLICATION">PL/Python</span>
+are known to be trusted;       the languages <span class="APPLICATION">PL/TclU</span>
+and       <span class="APPLICATION">PL/PerlU</span> are designed to provide 
+      unlimited functionality should <span class="emphasis"><i
+ class="EMPHASIS">not</i></span> be       marked trusted.      </p>
+  </li>
+</ol>
+</div>
+<p>    In a default <span class="PRODUCTNAME">PostgreSQL</span> installation, 
+    the handler for the <span class="APPLICATION">PL/pgSQL</span> language 
+    is built and installed into the <span class="QUOTE">"library"</span> 
+   directory. If <span class="APPLICATION">Tcl/Tk</span> support is configured
+in, the handlers for     <span class="APPLICATION">PL/Tcl</span> and <span
+ class="APPLICATION">PL/TclU</span> are also built and installed in the same 
+    location.  Likewise, the <span class="APPLICATION">PL/Perl</span> and
+<span class="APPLICATION">PL/PerlU</span> handlers are built     and installed
+if Perl support is configured, and <span class="APPLICATION">PL/Python</span>
+is     installed if Python support is configured.  The     <tt
+ class="FILENAME">createlang</tt> script automates <a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/xplang-install.html#XPLANG-INSTALL-CR1">step
+2</a> and <a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/xplang-install.html#XPLANG-INSTALL-CR2">step
+3</a> described above.    </p>
+<div class="EXAMPLE"><a name="AEN35493"></a>
+<p><b>Example 18-1. Manual Installation of <span class="APPLICATION">PL/pgSQL</span></b></p>
+<p>      The following command tells the database server where to find the
+       shared object for the <span class="APPLICATION">PL/pgSQL</span> language's
+call handler function.  </p>
+<pre class="PROGRAMLISTING">CREATE FUNCTION plpgsql_call_handler () RETURNS LANGUAGE_HANDLER AS<br>    '$libdir/plpgsql' LANGUAGE C;</pre>
+<p>      </p>
+<p>      The command </p>
+<pre class="PROGRAMLISTING">CREATE TRUSTED PROCEDURAL LANGUAGE plpgsql<br><br><br></pre>
+<p>    The design goals of <span class="APPLICATION">PL/pgSQL</span> were
+to create a loadable procedural     language that     </p>
+<ul>
+  <li>
+    <p>       can be used to create functions and trigger procedures,   
+   </p>
+  </li>
+  <li>
+    <p>       adds control structures to the <span class="ACRONYM">SQL</span>
+language,       </p>
+  </li>
+  <li>
+    <p>       can perform complex computations,       </p>
+  </li>
+  <li>
+    <p>       inherits all user defined types, functions and operators, 
+     </p>
+  </li>
+  <li>
+    <p>       can be defined to be trusted by the server,       </p>
+  </li>
+  <li>
+    <p>       is easy to use.       </p>
+  </li>
+</ul>
+<pre class="PROGRAMLISTING"><br><br></pre>
+<p>   Once <span class="APPLICATION">PL/pgSQL</span> has made a query plan
+for a particular    query in a function, it will re-use that plan for the
+life of the    database connection.  This is usually a win for performance,
+but it    can cause some problems if you dynamically    alter your database
+schema. For example:  </p>
+CREATE FUNCTION populate() RETURNS INTEGER AS ' DECLARE     -- Declarations 
+BEGIN     PERFORM my_function(); END; ' LANGUAGE 'plpgsql';
+<pre class="PROGRAMLISTING"><br></pre>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-OVERVIEW-DEVELOPING-IN-PLPGSQL">19.1.2.
+Developing in <span class="APPLICATION">PL/pgSQL</span></a></h2>
+<p>    Developing in <span class="APPLICATION">PL/pgSQL</span> is pretty
+straight forward, especially     if you have developed in other database
+procedural languages,     such as Oracle's <span class="APPLICATION">PL/SQL</span>.
+Two good ways of developing in     <span class="APPLICATION">PL/pgSQL</span>
+are:      </p>
+<ul>
+  <li>
+    <p>       Using a text editor and reloading the file with <tt
+ class="COMMAND">psql</tt>       </p>
+  </li>
+  <li>
+    <p>       Using <span class="PRODUCTNAME">PostgreSQL</span>'s GUI Tool:
+    <span class="APPLICATION">PgAccess</span>       </p>
+  </li>
+</ul>
+<p>    </p>
+<p>	 One good way to develop in <span class="APPLICATION">PL/pgSQL</span>
+is to simply 	 use the text editor of your choice to create your functions,
+and 	 in another window, use <tt class="COMMAND">psql</tt> 	 (<span
+ class="PRODUCTNAME">PostgreSQL</span>'s interactive monitor) to load those 
+	 functions. If you are doing it this way, it is a good idea to 	 write the
+function using <tt class="COMMAND">CREATE OR REPLACE 	 FUNCTION</tt>. That
+way you can reload the file to update the 	 function definition.  For example: 
+</p>
+<pre class="PROGRAMLISTING">CREATE OR REPLACE FUNCTION testfunc(INTEGER) RETURNS INTEGER AS '<br>	  ....<br>end;<br><br><br>' LANGUAGE 'plpgsql';</pre>
+<p>    </p>
+<p>    While running <tt class="COMMAND">psql</tt>, you can load or reload
+such a     function definition file with </p>
+<pre class="PROGRAMLISTING">    \i filename.sql</pre>
+<p>     and then immediately issue SQL commands to test the function.   
+</p>
+<p>    Another good way to develop in <span class="APPLICATION">PL/pgSQL</span>
+is using     <span class="PRODUCTNAME">PostgreSQL</span>'s GUI tool: <span
+ class="APPLICATION">PgAccess</span>. It does some     nice things for you,
+like escaping single-quotes, and making     it easy to recreate and debug
+functions.    </p>
+</div>
+<pre class="PROGRAMLISTING"><br>    HANDLER plpgsql_call_handler;</pre>
+<p>       then defines that the previously declared call handler function 
+      should be invoked for functions and trigger procedures where the  
+    language attribute is <tt class="LITERAL">plpgsql</tt>.      </p>
+</div>
+</div>
+<p><br>
+</p>
+<div class="SECT1">
+<h1 class="SECT1"><a name="PLPGSQL-STRUCTURE">19.2. Structure of <span
+ class="APPLICATION">PL/pgSQL</span></a></h1>
+<p>     <span class="APPLICATION">PL/pgSQL</span> is a <span
+ class="emphasis"><i class="EMPHASIS">block      structured</i></span> language.
+ The complete text of a function      definition must be a <i
+ class="FIRSTTERM">block</i>. A block is defined as:  </p>
+<pre class="SYNOPSIS">[<span class="OPTIONAL"> &lt;&lt;label&gt;&gt; </span>]<br>[<span
+ class="OPTIONAL"> DECLARE<br>    <tt class="REPLACEABLE"><i>declarations</i></tt> </span>]<br>BEGIN<br>    <tt
+ class="REPLACEABLE"><i>statements</i></tt><br>END;</pre>
+<p>     </p>
+<p>     Any <i class="FIRSTTERM">statement</i> in the statement section of
+a block      can be a <i class="FIRSTTERM">sub-block</i>.  Sub-blocks can
+be used for      logical grouping or to localize variables to a small group 
+     of statements.     </p>
+<p>     The variables declared in the declarations section preceding a  
+   block are initialized to their default values every time the      block
+is entered, not only once per function call. For example: </p>
+<pre class="PROGRAMLISTING">CREATE FUNCTION somefunc() RETURNS INTEGER AS '<br>DECLARE<br>   quantity INTEGER := 30;<br>BEGIN<br>   RAISE NOTICE ''Quantity here is %'',quantity;  -- Quantity here is 30<br>   quantity := 50;<br>   --<br>   -- Create a sub-block<br>   --<br>   DECLARE<br>      quantity INTEGER := 80;<br>   BEGIN<br>      RAISE NOTICE ''Quantity here is %'',quantity;  -- Quantity here is 80<br>   END;<br><br>   RAISE NOTICE ''Quantity here is %'',quantity;  -- Quantity here is 50<br><br>   RETURN quantity;<br>END;<br><br><br><br>' LANGUAGE 'plpgsql';</pre>
+<p>     </p>
+<p>     It is important not to confuse the use of BEGIN/END for      grouping
+statements in <span class="APPLICATION">PL/pgSQL</span> with the database
+commands for      transaction control.  <span class="APPLICATION">PL/pgSQL</span>'s
+BEGIN/END are only for grouping;      they do not start or end a transaction.
+ Functions and trigger procedures      are always executed within a transaction
+established by an outer query      --- they cannot start or commit transactions,
+since      <span class="PRODUCTNAME">PostgreSQL</span> does not have nested
+transactions.     </p>
+<div class="SECT2">
+<h2 class="SECT2"><a name="AEN35645">19.2.1. Lexical Details</a></h2>
+<p>     Each statement and declaration within a block is terminated     
+by a semicolon.     </p>
+<p>     All keywords and identifiers can be written in mixed upper- and 
+    lower-case.  Identifiers are implicitly converted to lower-case     
+unless double-quoted.     </p>
+<p>     There are two types of comments in <span class="APPLICATION">PL/pgSQL</span>.
+A double dash <tt class="LITERAL">--</tt>      starts a comment that extends
+to the end of the line. A <tt class="LITERAL">/*</tt>      starts a block
+comment that extends to the next occurrence of <tt class="LITERAL">*/</tt>. 
+     Block comments cannot be nested, but double dash comments can be   
+  enclosed into a block comment and a double dash can hide      the block
+comment delimiters <tt class="LITERAL">/*</tt> and <tt class="LITERAL">*/</tt>. 
+    </p>
+</div>
+</div>
+<p><br>
+</p>
+<div class="SECT1">
+<h1 class="SECT1"><a name="PLPGSQL-DECLARATIONS">19.3. Declarations</a></h1>
+<p>     All variables, rows and records used in a block must be declared
+in the      declarations section of the block.       (The only exception
+is that the loop variable of a FOR loop iterating      over a range of integer
+values is automatically declared as an integer      variable.)     </p>
+<p>     <span class="APPLICATION">PL/pgSQL</span> variables can have any
+SQL data type, such as      <tt class="TYPE">INTEGER</tt>, <tt
+ class="TYPE">VARCHAR</tt> and      <tt class="TYPE">CHAR</tt>.     </p>
+<p>     Here are some examples of variable declarations: </p>
+<pre class="PROGRAMLISTING">user_id INTEGER;<br>quantity NUMERIC(5);<br>url VARCHAR;<br>myrow tablename%ROWTYPE;<br>myfield tablename.fieldname%TYPE;<br>arow RECORD;</pre>
+<p>     </p>
+<p>     The general syntax of a variable declaration is: </p>
+<pre class="SYNOPSIS"><tt class="REPLACEABLE"><i>name</i></tt> [<span
+ class="OPTIONAL"> CONSTANT </span>] <tt class="REPLACEABLE"><i>type</i></tt> [<span
+ class="OPTIONAL"> NOT NULL </span>] [<span class="OPTIONAL"> { DEFAULT | := } <tt
+ class="REPLACEABLE"><i>expression</i></tt> </span>];</pre>
+<p>      </p>
+<p>      The DEFAULT clause, if given, specifies the initial value assigned 
+      to the variable when the block is entered.  If the DEFAULT clause 
+     is not given then the variable is initialized to the      <span
+ class="ACRONYM">SQL</span> NULL value.       </p>
+<p>      The CONSTANT option prevents the variable from being assigned to, 
+      so that its value remains constant for the duration of the block. 
+     If NOT NULL       is specified, an assignment of a NULL value results
+in a run-time       error. All variables declared as NOT NULL       must
+have a non-NULL default value specified.      </p>
+<p>      The default value is evaluated every time the block is entered.
+So,       for example, assigning '<tt class="LITERAL">now</tt>' to a variable
+of type       <tt class="TYPE">timestamp</tt> causes the variable to have
+the       time of the current function call, not when the function was  
+    precompiled.      </p>
+<p>      Examples: </p>
+<pre class="PROGRAMLISTING">quantity INTEGER DEFAULT 32;<br>url varchar := ''http://mysite.com'';<br>user_id CONSTANT INTEGER := 10;</pre>
+<p>      </p>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-DECLARATION-ALIASES">19.3.1. Aliases for
+Function Parameters</a></h2>
+<pre class="SYNOPSIS"><tt class="REPLACEABLE"><i>name</i></tt> ALIAS FOR <tt
+ class="REPLACEABLE"><i>$n</i></tt>;</pre>
+<p>     </p>
+<p>      Parameters passed to functions are named with the identifiers  
+    <tt class="LITERAL">$1</tt>, <tt class="LITERAL">$2</tt>,       etc.
+ Optionally, aliases can be declared for <tt class="LITERAL">$n</tt>    
+  parameter names for increased readability.  Either the alias or the   
+   numeric identifier can then be used to refer to the parameter value. 
+     Some examples: </p>
+<pre class="PROGRAMLISTING">CREATE FUNCTION sales_tax(REAL) RETURNS REAL AS '<br>DECLARE<br>    subtotal ALIAS FOR $1;<br>BEGIN<br>    return subtotal * 0.06;<br>END;<br>' LANGUAGE 'plpgsql';<br><br><br>CREATE FUNCTION instr(VARCHAR,INTEGER) RETURNS INTEGER AS '<br>DECLARE<br>    v_string ALIAS FOR $1;<br>    index ALIAS FOR $2;<br>BEGIN<br>    -- Some computations here<br>END;<br>' LANGUAGE 'plpgsql';<br><br><br>CREATE FUNCTION use_many_fields(tablename) RETURNS TEXT AS '<br>DECLARE<br>    in_t ALIAS FOR $1;<br>BEGIN<br>    RETURN in_t.f1 || in_t.f3 || in_t.f5 || in_t.f7;<br>END;<br>' LANGUAGE 'plpgsql';</pre>
+<p>      </p>
+</div>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-DECLARATION-ROWTYPES">19.3.2. Row Types</a></h2>
+<pre class="SYNOPSIS"><tt class="REPLACEABLE"><i>name</i></tt> <tt
+ class="REPLACEABLE"><i>tablename</i></tt><tt class="LITERAL">%ROWTYPE</tt>;</pre>
+<p>     </p>
+<p>    A variable of a composite type is called a <i class="FIRSTTERM">row</i> 
+    variable (or <i class="FIRSTTERM">row-type</i> variable).  Such a variable
+can hold a     whole row of a SELECT or FOR     query result, so long as
+that query's column set matches the declared     type of the variable.  The
+individual fields of the row value are     accessed using the usual dot notation,
+for example     <tt class="LITERAL">rowvar.field</tt>.    </p>
+<p>    Presently, a row variable can only be declared using the     <tt
+ class="LITERAL">%ROWTYPE</tt> notation; although one might expect a    
+bare table name to work as a type declaration, it won't be accepted     within
+<span class="APPLICATION">PL/pgSQL</span> functions.    </p>
+<p>    Parameters to a function can be     composite types (complete table
+rows). In that case, the     corresponding identifier $n will be a row variable,
+and fields can     be selected from it, for example <tt class="LITERAL">$1.user_id</tt>. 
+   </p>
+<p>    Only the user-defined attributes of a table row are accessible in
+a     row-type variable, not OID or other system attributes (because the 
+   row could be from a view).  The fields of the row type inherit the   
+ table's field size or precision for data types such as     <tt
+ class="TYPE">char(n)</tt>. </p>
+<pre class="PROGRAMLISTING">CREATE FUNCTION use_two_tables(tablename) RETURNS TEXT AS '<br>DECLARE<br>    in_t ALIAS FOR $1;<br>    use_t table2name%ROWTYPE;<br>BEGIN<br>    SELECT * INTO use_t FROM table2name WHERE ... ;<br>    RETURN in_t.f1 || use_t.f3 || in_t.f5 || use_t.f7;<br>END;<br>' LANGUAGE 'plpgsql';</pre>
+<p>    </p>
+</div>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-DECLARATION-RECORDS">19.3.3. Records</a></h2>
+<pre class="SYNOPSIS"><tt class="REPLACEABLE"><i>name</i></tt> RECORD;</pre>
+<p>     </p>
+<p>    Record variables are similar to row-type variables, but they have
+no     predefined structure.  They take on the actual row structure of the 
+    row they are assigned during a SELECT or FOR command.  The substructure 
+    of a record variable can change each time it is assigned to.     A consequence
+of this is that until a record variable is first assigned     to, <span
+ class="emphasis"><i class="EMPHASIS">it has no</i></span> substructure,
+and any attempt to access a     field in it will draw a run-time error. 
+  </p>
+<p>    Note that <tt class="LITERAL">RECORD</tt> is not a true data type,
+only a placeholder.    </p>
+</div>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-DECLARATION-ATTRIBUTES">19.3.4. Attributes</a></h2>
+<p>      Using the <tt class="TYPE">%TYPE</tt> and <tt class="TYPE">%ROWTYPE</tt> 
+      attributes, you can declare variables with the same       data type
+or structure as another database item (e.g: a       table field).      </p>
+<div class="VARIABLELIST">
+<dl>
+  <dt><tt class="REPLACEABLE"><i>variable</i></tt>%TYPE</dt>
+  <dd>
+    <p>         <tt class="TYPE">%TYPE</tt> provides the data type of a 
+        variable or database column. You can use this to          declare
+variables that will hold database          values. For example, let's say
+you have a column          named <tt class="TYPE">user_id</tt> in your  
+       <tt class="TYPE">users</tt> table. To declare a variable with    
+     the same data type as <tt class="STRUCTNAME">users</tt>.<tt
+ class="STRUCTFIELD">user_id</tt> you write: </p>
+    <pre class="PROGRAMLISTING">user_id   users.user_id%TYPE;</pre>
+    <p>         </p>
+    <p>         By using <tt class="TYPE">%TYPE</tt> you don't need to know 
+         the data type of the structure you are referencing,          and
+most important, if the data type of the          referenced item changes
+in the future (e.g: you          change your table definition of user_id
+from INTEGER to          REAL), you may not need to change your function 
+        definition.         </p>
+  </dd>
+  <dt><tt class="LITERAL"><tt class="REPLACEABLE"><i>table</i></tt>%ROWTYPE</tt></dt>
+  <dd>
+    <p>	 <tt class="TYPE">%ROWTYPE</tt> provides the composite data type
+corresponding 	 to a whole row of the specified table. 	 <tt
+ class="REPLACEABLE"><i>table</i></tt> must be an existing 	 table or view
+name of the database.         </p>
+    <pre class="PROGRAMLISTING">DECLARE<br>    users_rec users%ROWTYPE;<br>    user_id users.user_id%TYPE;<br>BEGIN<br>    user_id := users_rec.user_id;<br>    ...<br><br>CREATE FUNCTION does_view_exist(INTEGER) RETURNS bool AS '<br>   DECLARE<br>        key ALIAS FOR $1;<br>        table_data cs_materialized_views%ROWTYPE;<br>   BEGIN<br>        SELECT INTO table_data * FROM cs_materialized_views<br>               WHERE sort_key=key;<br><br>        IF NOT FOUND THEN<br>           RETURN false;<br>        END IF;<br>        RETURN true;<br>   END;<br>' LANGUAGE 'plpgsql';</pre>
+  </dd>
+</dl>
+</div>
+</div>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-DECLARATION-RENAMING-VARS">19.3.5. RENAME</a></h2>
+<pre class="SYNOPSIS">RENAME <tt class="REPLACEABLE"><i>oldname</i></tt> TO <tt
+ class="REPLACEABLE"><i>newname</i></tt>;</pre>
+<p>        Using the RENAME declaration you can change the name of a variable, 
+      record or row. This is primarily useful if NEW or OLD should be   
+   referenced by another name inside a trigger procedure.  See also ALIAS. 
+     </p>
+<p>      Examples: </p>
+<pre class="PROGRAMLISTING">RENAME id TO user_id;<br>RENAME this_var TO that_var;</pre>
+<p>      </p>
+<div class="NOTE">
+<blockquote class="NOTE">
+  <p><b>Note: </b>	  RENAME appears to be broken as of <span
+ class="PRODUCTNAME">PostgreSQL</span> 	  7.3.  Fixing this is of low priority,
+since ALIAS covers most of 	  the practical uses of RENAME.     </p>
+</blockquote>
+</div>
+</div>
+</div>
+<p><br>
+</p>
+<div class="SECT1">
+<h1 class="SECT1"><a name="PLPGSQL-EXPRESSIONS">19.4. Expressions</a></h1>
+<p>     All expressions used in <span class="APPLICATION">PL/pgSQL</span>
+statements      are processed using the server's regular SQL executor. Expressions
+that      appear to contain       constants may in fact require run-time
+evaluation      (e.g. <tt class="LITERAL">'now'</tt>  for the       <tt
+ class="TYPE">timestamp</tt> type) so      it is impossible for the <span
+ class="APPLICATION">PL/pgSQL</span> parser      to identify real constant
+values other than the NULL keyword. All      expressions are evaluated internally
+by executing a query </p>
+<pre class="SYNOPSIS">SELECT <tt class="REPLACEABLE"><i>expression</i></tt></pre>
+<p>      using the <span class="ACRONYM">SPI</span> manager. In the expression,
+occurrences      of <span class="APPLICATION">PL/pgSQL</span> variable  
+    identifiers are replaced by parameters and the actual values from   
+  the variables are passed to the executor in the parameter array.      This
+allows the query plan for the SELECT to be prepared just once      and then
+re-used for subsequent evaluations.     </p>
+<p>     The evaluation done by the <span class="PRODUCTNAME">PostgreSQL</span> 
+     main parser has some side      effects on the interpretation of constant
+values. In detail there      is a difference between what these two functions
+do:  </p>
+<pre class="PROGRAMLISTING">CREATE FUNCTION logfunc1 (TEXT) RETURNS TIMESTAMP AS '<br>    DECLARE<br>        logtxt ALIAS FOR $1;<br>    BEGIN<br>        INSERT INTO logtable VALUES (logtxt, ''now'');<br>        RETURN ''now'';<br>    END;<br>' LANGUAGE 'plpgsql';</pre>
+<p>       and  </p>
+<pre class="PROGRAMLISTING">CREATE FUNCTION logfunc2 (TEXT) RETURNS TIMESTAMP AS '<br>    DECLARE<br>        logtxt ALIAS FOR $1;<br>        curtime timestamp;<br>    BEGIN<br>        curtime := ''now'';<br>        INSERT INTO logtable VALUES (logtxt, curtime);<br>        RETURN curtime;<br>    END;<br>' LANGUAGE 'plpgsql';</pre>
+<p>       In the case of <tt class="FUNCTION">logfunc1()</tt>, the      
+<span class="PRODUCTNAME">PostgreSQL</span> main parser knows when      
+preparing the plan for the INSERT, that the string       <tt
+ class="LITERAL">'now'</tt> should be interpreted as       <tt
+ class="TYPE">timestamp</tt> because the target field of <tt
+ class="CLASSNAME">logtable</tt>      is of that type. Thus, it will make
+a constant from it at this      time and this constant value is then used
+in all invocations of       <tt class="FUNCTION">logfunc1()</tt> during the
+lifetime of the      backend. Needless to say that this isn't what the  
+   programmer wanted.     </p>
+<p>     In the case of <tt class="FUNCTION">logfunc2()</tt>, the       <span
+ class="PRODUCTNAME">PostgreSQL</span> main parser does not know      what
+type <tt class="LITERAL">'now'</tt> should become and therefore       it
+returns a data value of type <tt class="TYPE">text</tt> containing the string
+      <tt class="LITERAL">'now'</tt>. During the ensuing assignment     
+to the local variable <tt class="VARNAME">curtime</tt>, the      <span
+ class="APPLICATION">PL/pgSQL</span> interpreter casts this      string to
+the <tt class="TYPE">timestamp</tt> type by calling the      <tt
+ class="FUNCTION">text_out()</tt> and <tt class="FUNCTION">timestamp_in()</tt> 
+     functions for the conversion.  So, the computed time stamp is updated 
+     on each execution as the programmer expects.     </p>
+<p>     The mutable nature of record variables presents a problem in this 
+     connection.  When fields of a record variable are used in expressions
+or      statements, the data types of the      fields must not change between
+calls of one and the same expression,      since the expression will be planned
+using the data type that is present      when the expression is first reached. 
+     Keep this in mind when writing trigger procedures that handle events 
+     for more than one table.  (EXECUTE can be used to get around this  
+   problem when necessary.)     </p>
+</div>
+<p><br>
+</p>
+<div class="SECT1">
+<h1 class="SECT1"><a name="PLPGSQL-STATEMENTS">19.5. Basic Statements</a></h1>
+<p>    In this section and the following ones, we describe all the statement 
+    types that are explicitly understood by     <span
+ class="APPLICATION">PL/pgSQL</span>.     Anything not recognized as one
+of these statement types is presumed     to be an SQL query, and is sent
+to the main database engine to execute     (after substitution for any <span
+ class="APPLICATION">PL/pgSQL</span> variables     used in the statement).
+ Thus,     for example, SQL <tt class="COMMAND">INSERT</tt>, <tt
+ class="COMMAND">UPDATE</tt>, and     <tt class="COMMAND">DELETE</tt> commands
+may be considered to be statements of     <span class="APPLICATION">PL/pgSQL</span>.
+ But they are not specifically     listed here.    </p>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-STATEMENTS-ASSIGNMENT">19.5.1. Assignment</a></h2>
+<p>     An assignment of a value to a variable or row/record field is   
+  written as: </p>
+<pre class="SYNOPSIS"><tt class="REPLACEABLE"><i>identifier</i></tt> := <tt
+ class="REPLACEABLE"><i>expression</i></tt>;</pre>
+<p>      As explained above, the expression in such a statement is evaluated 
+     by means of an SQL <tt class="COMMAND">SELECT</tt> command sent to the
+main      database engine.  The expression must yield a single value.   
+ </p>
+<p>     If the expression's result data type doesn't match the variable's 
+     data type, or the variable has a specific size/precision      (like
+<tt class="TYPE">char(20)</tt>), the result value will be implicitly    
+ converted by the <span class="APPLICATION">PL/pgSQL</span> interpreter using 
+     the result type's output-function and       the variable type's input-function.
+Note that this could potentially      result in run-time errors generated
+by the input function, if the      string form of the result value is not
+acceptable to the input function.     </p>
+<p>     Examples: </p>
+<pre class="PROGRAMLISTING">user_id := 20;<br>tax := subtotal * 0.06;</pre>
+<p>     </p>
+</div>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-SELECT-INTO">19.5.2. SELECT INTO</a></h2>
+<p>     The result of a SELECT command yielding multiple columns (but   
+  only one row) can be assigned to a record variable, row-type      variable,
+or list of scalar variables.  This is done by:  </p>
+<pre class="SYNOPSIS">SELECT INTO <tt class="REPLACEABLE"><i>target</i></tt> <tt
+ class="REPLACEABLE"><i>expressions</i></tt> FROM ...;</pre>
+<p>       where <tt class="REPLACEABLE"><i>target</i></tt> can be a record
+variable, a row      variable, or a comma-separated list of simple variables
+and      record/row fields. Note that this is quite different from      <span
+ class="PRODUCTNAME">PostgreSQL</span>'s normal interpretation of SELECT
+INTO, which is that the      INTO target is a newly created table.  (If you
+want to create a      table from a SELECT result inside a <span
+ class="APPLICATION">PL/pgSQL</span> function, use the      syntax <tt
+ class="COMMAND">CREATE TABLE ... AS SELECT</tt>.)     </p>
+<p>     If a row or a variable list is used as target, the selected values 
+     must exactly match the structure of the target(s), or a run-time error 
+     occurs.  When a record variable is the target, it automatically    
+ configures itself to the row type of the query result columns.     </p>
+<p>     Except for the INTO clause, the SELECT statement is the same as a
+normal      SQL SELECT query and can use the full power of SELECT.     </p>
+<p>     If the SELECT query returns zero rows, null values are assigned to
+the      target(s).  If the SELECT query returns multiple rows, the first 
+     row is assigned to the target(s) and the rest are discarded.      (Note
+that <span class="QUOTE">"the first row"</span> is not well-defined unless
+you've      used ORDER BY.)     </p>
+<p>     At present, the INTO clause can appear almost anywhere in the SELECT 
+     query, but it is recommended to place it immediately after the SELECT 
+     keyword as depicted above.  Future versions of      <span
+ class="APPLICATION">PL/pgSQL</span> may be less forgiving about      placement
+of the INTO clause.     </p>
+<p>     You can use <tt class="LITERAL">FOUND</tt> immediately after a SELECT 
+     INTO statement to determine whether the assignment was successful  
+   (that is, at least one row was was returned by the SELECT      statement).
+For example:    </p>
+<pre class="PROGRAMLISTING">SELECT INTO myrec * FROM EMP WHERE empname = myname;<br>IF NOT FOUND THEN<br>    RAISE EXCEPTION ''employee % not found'', myname;<br>END IF;</pre>
+<p>       Alternatively, you can use the <tt class="LITERAL">IS NULL</tt>
+(or <tt class="LITERAL">ISNULL</tt>) conditional to      test for whether
+a RECORD/ROW result is null.  Note that there is no      way to tell whether
+any additional rows might have been discarded.     </p>
+<pre class="PROGRAMLISTING">DECLARE<br>    users_rec RECORD;<br>    full_name varchar;<br>BEGIN<br>    SELECT INTO users_rec * FROM users WHERE user_id=3;<br><br>    IF users_rec.homepage IS NULL THEN<br>        -- user entered no homepage, return "http://"<br><br>        RETURN ''http://'';<br>    END IF;<br>END;</pre>
+<p>     </p>
+</div>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-STATEMENTS-PERFORM">19.5.3. Executing
+an expression or query with no result</a></h2>
+<p>     Sometimes one wishes to evaluate an expression or query but discard 
+     the result (typically because one is calling a function that has   
+  useful side-effects but no useful result value).  To do this in      <span
+ class="APPLICATION">PL/pgSQL</span>, use the PERFORM statement:  </p>
+<pre class="SYNOPSIS">PERFORM <tt class="REPLACEABLE"><i>query</i></tt>;</pre>
+<p>       This executes a <tt class="COMMAND">SELECT</tt>      <tt
+ class="REPLACEABLE"><i>query</i></tt> and discards the      result. <span
+ class="APPLICATION">PL/pgSQL</span> variables are      substituted in the
+query as usual.  Also, the special variable      <tt class="LITERAL">FOUND</tt>
+is set to true if the query produced at      least one row, or false if it
+produced no rows.     </p>
+<div class="NOTE">
+<blockquote class="NOTE">
+  <p><b>Note: </b>     One might expect that SELECT with no INTO clause would
+accomplish      this result, but at present the only accepted way to do it
+is PERFORM.     </p>
+</blockquote>
+</div>
+<p>     An example: </p>
+<pre class="PROGRAMLISTING">PERFORM create_mv(''cs_session_page_requests_mv'', my_query);</pre>
+<p>     </p>
+</div>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-STATEMENTS-EXECUTING-DYN-QUERIES">19.5.4.
+Executing dynamic queries</a></h2>
+<p>     Oftentimes you will want to generate dynamic queries inside     
+your <span class="APPLICATION">PL/pgSQL</span> functions, that is,      queries
+that will involve different tables or different data types      each time
+they are executed.  <span class="APPLICATION">PL/pgSQL</span>'s      normal
+attempts to cache plans for queries will not work in such      scenarios.
+ To handle this sort of problem, the EXECUTE statement      is provided:  
+</p>
+<pre class="SYNOPSIS">EXECUTE <tt class="REPLACEABLE"><i>query-string</i></tt>;</pre>
+<p>       where <tt class="REPLACEABLE"><i>query-string</i></tt> is an expression 
+     yielding a string (of type      <tt class="TYPE">text</tt>) containing
+the <tt class="REPLACEABLE"><i>query</i></tt>      to be executed.  This
+string is fed literally to the SQL engine.     </p>
+<p>     Note in particular that no substitution of <span
+ class="APPLICATION">PL/pgSQL</span>      variables is done on the query
+string.  The values of variables must      be inserted in the query string
+as it is constructed.     </p>
+<p>    When working with dynamic queries you will have to face     escaping
+of single quotes in <span class="APPLICATION">PL/pgSQL</span>. Please refer
+to the     table in <a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/plpgsql-porting.html">Section
+19.11</a>     for a detailed explanation that will save you some effort. 
+   </p>
+<p>     Unlike all other queries in <span class="APPLICATION">PL/pgSQL</span>,
+a      <tt class="REPLACEABLE"><i>query</i></tt> run by an EXECUTE statement
+is      not prepared and saved just once during the life of the server. 
+    Instead, the <tt class="REPLACEABLE"><i>query</i></tt> is prepared each 
+     time the statement is run. The      <tt class="REPLACEABLE"><i>query-string</i></tt>
+can be dynamically      created within the procedure to perform actions on
+variable      tables and fields.     </p>
+<p>     The results from SELECT queries are discarded by EXECUTE, and   
+  SELECT INTO is not currently supported within EXECUTE.  So, the      only
+way to extract a result from a dynamically-created SELECT is      to use
+the FOR-IN-EXECUTE form described later.     </p>
+<p>     An example: </p>
+<div class="INFORMALEXAMPLE"><a name="AEN35873"></a>
+<pre class="PROGRAMLISTING">EXECUTE ''UPDATE tbl SET ''<br>        || quote_ident(fieldname)<br>        || '' = ''<br>        || quote_literal(newvalue)<br>        || '' WHERE ...'';</pre>
+</div>
+     
+<p>     This example shows use of the functions      <tt
+ class="FUNCTION">quote_ident</tt>(<tt class="TYPE">TEXT</tt>) and      <tt
+ class="FUNCTION">quote_literal</tt>(<tt class="TYPE">TEXT</tt>).      Variables
+containing field and table identifiers should be      passed to function
+<tt class="FUNCTION">quote_ident()</tt>.      Variables containing literal
+elements of the dynamic query      string should be passed to      <tt
+ class="FUNCTION">quote_literal()</tt>.  Both take the      appropriate steps
+to return the input text enclosed in single      or double quotes and with
+any embedded special characters      properly escaped.     </p>
+<p>     Here is a much larger example of a dynamic query and EXECUTE: </p>
+<pre class="PROGRAMLISTING">CREATE FUNCTION cs_update_referrer_type_proc() RETURNS INTEGER AS '<br>DECLARE<br>    referrer_keys RECORD;  -- Declare a generic record to be used in a FOR<br>    a_output varchar(4000);<br>BEGIN <br>    a_output := ''CREATE FUNCTION cs_find_referrer_type(varchar,varchar,varchar) <br>                  RETURNS VARCHAR AS '''' <br>                     DECLARE <br>                         v_host ALIAS FOR $1; <br>                         v_domain ALIAS FOR $2; <br>                         v_url ALIAS FOR $3;<br>                     BEGIN ''; <br><br>    -- <br>    -- Notice how we scan through the results of a query in a FOR loop<br>    -- using the FOR &lt;record&gt; construct.<br>    --<br><br>    FOR referrer_keys IN SELECT * FROM cs_referrer_keys ORDER BY try_order LOOP<br>        a_output := a_output || '' IF v_'' || referrer_keys.kind || '' LIKE '''''''''' <br>                 || referrer_keys.key_string || '''''''''' THEN RETURN '''''' <br>                 || referrer_keys.referrer_type || ''''''; END IF;''; <br>    END LOOP; <br>  <br>    a_output := a_output || '' RETURN NULL; END; '''' LANGUAGE ''''plpgsql'''';''; <br> <br>    -- This works because we are not substituting any variables<br>    -- Otherwise it would fail. Look at PERFORM for another way to run functions<br>    <br>    EXECUTE a_output; <br>END; <br>' LANGUAGE 'plpgsql';</pre>
+<p>     </p>
+</div>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-STATEMENTS-DIAGNOSTICS">19.5.5. Obtaining
+result status</a></h2>
+<p>	 There are several ways to determine the effect of a command. The 	 first
+method is to use the <tt class="LITERAL">GET DIAGNOSTICS</tt>, 	 which has
+the form:  </p>
+<pre class="SYNOPSIS">GET DIAGNOSTICS <tt class="REPLACEABLE"><i>variable</i></tt> = <tt
+ class="REPLACEABLE"><i>item</i></tt> [<span class="OPTIONAL"> , ... </span>] ;</pre>
+<p>       This command allows retrieval of system status indicators.  Each 
+     <tt class="REPLACEABLE"><i>item</i></tt> is a keyword identifying a
+state      value to be assigned to the specified variable (which should be 
+     of the right data type to receive it).  The currently available    
+ status items are <tt class="VARNAME">ROW_COUNT</tt>, the number of rows 
+    processed by the last <span class="ACRONYM">SQL</span> query sent down
+to      the <span class="ACRONYM">SQL</span> engine; and <tt
+ class="VARNAME">RESULT_OID</tt>,      the OID of the last row inserted by
+the most recent      <span class="ACRONYM">SQL</span> query.  Note that <tt
+ class="VARNAME">RESULT_OID</tt>      is only useful after an INSERT query. 
+    </p>
+<div class="INFORMALEXAMPLE"><a name="AEN35900"></a>
+<pre class="PROGRAMLISTING">      GET DIAGNOSTICS var_integer = ROW_COUNT;</pre>
+</div>
+     
+<p>     There is a special variable named <tt class="LITERAL">FOUND</tt>
+of      type <tt class="TYPE">boolean</tt>.  <tt class="LITERAL">FOUND</tt>
+starts out      false within each <span class="APPLICATION">PL/pgSQL</span>
+function.      It is set by each of the following types of statements: 	
+</p>
+<ul>
+  <li>
+    <p>		A SELECT INTO statement sets <tt class="LITERAL">FOUND</tt> 		true
+if it returns a row, false if no row is returned. 	   </p>
+  </li>
+  <li>
+    <p>		A PERFORM statement sets <tt class="LITERAL">FOUND</tt> 		true if
+it produces (discards) a row, false if no row is 		produced. 	   </p>
+  </li>
+  <li>
+    <p>		UPDATE, INSERT, and DELETE statements set 		<tt class="LITERAL">FOUND</tt>
+true if at least one row is 		affected, false if no row is affected. 	  
+    </p>
+  </li>
+  <li>
+    <p>		A FETCH statement sets <tt class="LITERAL">FOUND</tt> 		true if
+it returns a row, false if no row is returned. 	   </p>
+  </li>
+  <li>
+    <p>		A FOR statement sets <tt class="LITERAL">FOUND</tt> 		true if it
+iterates one or more times, else false. 		This applies to all three variants
+of the FOR statement 		(integer FOR loops, record-set FOR loops, and dynamic 
+		record-set FOR loops). <tt class="LITERAL">FOUND</tt> is only set 		when
+the FOR loop exits: inside the execution of the loop, 		<tt
+ class="LITERAL">FOUND</tt> is not modified by the FOR statement, 		although
+it may be changed by the execution of other 		statements within the loop
+body. 	   </p>
+  </li>
+</ul>
+<p>      <tt class="LITERAL">FOUND</tt> is a local variable; any changes 
+    to it affect only the current <span class="APPLICATION">PL/pgSQL</span> 
+     function.     </p>
+</div>
+</div>
+<p><br>
+</p>
+<div class="SECT1">
+<h1 class="SECT1"><a name="PLPGSQL-CONTROL-STRUCTURES">19.6. Control Structures</a></h1>
+<p>    Control structures are probably the most useful (and     important)
+part of <span class="APPLICATION">PL/pgSQL</span>. With     <span
+ class="APPLICATION">PL/pgSQL</span>'s control structures,     you can manipulate
+<span class="PRODUCTNAME">PostgreSQL</span> data in a very     flexible and
+powerful way.     </p>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-STATEMENTS-RETURNING">19.6.1. Returning
+from a function</a></h2>
+<pre class="SYNOPSIS">RETURN <tt class="REPLACEABLE"><i>expression</i></tt>;</pre>
+<p>       RETURN with an expression is used to return from a      <span
+ class="APPLICATION">PL/pgSQL</span> function that does not return a set. 
+     The function terminates and the value of      <tt
+ class="REPLACEABLE"><i>expression</i></tt> is returned to the caller.  
+  </p>
+<p>     To return a composite (row) value, you must write a record or row 
+     variable as the <tt class="REPLACEABLE"><i>expression</i></tt>.  When 
+     returning a scalar type, any expression can be used.      The expression's
+result will be automatically cast into the      function's return type as
+described for assignments.      (If you have declared the function to return
+<tt class="TYPE">void</tt>,      then the expression can be omitted, and
+will be ignored in any case.)     </p>
+<p>     The return value of a function cannot be left undefined. If control 
+     reaches the end of the top-level block of       the function without
+hitting a RETURN statement, a run-time error      will occur.     </p>
+<p>     When a <span class="APPLICATION">PL/pgSQL</span> function is declared
+to return      <tt class="LITERAL">SETOF</tt> <tt class="REPLACEABLE"><i>sometype</i></tt>,
+the procedure      to follow is slightly different.  In that case, the individual 
+     items to return are specified in RETURN NEXT commands, and then a  
+   final RETURN command with no arguments is used to indicate that      the
+function has finished executing.  RETURN NEXT can be used with      both
+scalar and composite data types; in the later case, an      entire "table"
+of results will be returned.  Functions that use      RETURN NEXT should
+be called in the following fashion:  </p>
+<pre class="PROGRAMLISTING">SELECT * FROM some_func();</pre>
+<p>       That is, the function is used as a table source in a FROM clause. 
+ </p>
+<pre class="SYNOPSIS">RETURN NEXT <tt class="REPLACEABLE"><i>expression</i></tt>;</pre>
+<p>       RETURN NEXT does not actually return from the function; it simply 
+     saves away the value of the expression (or record or row variable, 
+    as appropriate for the data type being returned).      Execution then
+continues with the next statement in the      <span class="APPLICATION">PL/pgSQL</span>
+function.  As successive RETURN NEXT      commands are executed, the result
+set is built up.  A final      RETURN, which need have no argument, causes
+control to exit      the function.     </p>
+<div class="NOTE">
+<blockquote class="NOTE">
+  <p><b>Note: </b>     The current implementation of RETURN NEXT for    
+ <span class="APPLICATION">PL/pgSQL</span> stores the entire result set before 
+     returning from the function, as discussed above.  That means that  
+   if a <span class="APPLICATION">PL/pgSQL</span> function produces a very
+large result set,      performance may be poor: data will be written to disk
+to avoid      memory exhaustion, but the function itself will not return
+until      the entire result set has been generated.  A future version of 
+     <span class="APPLICATION">PL/pgSQL</span> may allow users to allow users
+to define set-returning      functions that do not have this limitation.
+ Currently, the point      at which data begins being written to disk is
+controlled by the      <tt class="VARNAME">SORT_MEM</tt> configuration variable.
+ Administrators who      have sufficient memory to store larger result sets
+in memory      should consider increasing this parameter.     </p>
+</blockquote>
+</div>
+</div>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-CONDITIONALS">19.6.2. Conditionals</a></h2>
+<p>     <tt class="LITERAL">IF</tt> statements let you execute commands based
+on      certain conditions.  <span class="APPLICATION">PL/pgSQL</span> has
+four forms of      <tt class="LITERAL">IF</tt>:     </p>
+<ul>
+  <li>
+    <p><tt class="LITERAL">IF ... THEN</tt></p>
+  </li>
+  <li>
+    <p><tt class="LITERAL">IF ... THEN ... ELSE</tt></p>
+  </li>
+  <li>
+    <p><tt class="LITERAL">IF ... THEN ... ELSE IF</tt> and</p>
+  </li>
+  <li>
+    <p><tt class="LITERAL">IF ... THEN ... ELSIF ... THEN ... ELSE</tt></p>
+  </li>
+</ul>
+<p>     </p>
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN35977">19.6.2.1. <tt class="LITERAL">IF-THEN</tt></a></h3>
+<pre class="SYNOPSIS">IF <tt class="REPLACEABLE"><i>boolean-expression</i></tt> THEN<br>    <tt
+ class="REPLACEABLE"><i>statements</i></tt><br>END IF;</pre>
+<p>          IF-THEN statements are the simplest form of IF. The        
+statements between THEN and END IF will be executed if         the condition
+is true. Otherwise, they are skipped.  </p>
+<pre class="PROGRAMLISTING">IF v_user_id &lt;&gt; 0 THEN<br>    UPDATE users SET email = v_email WHERE user_id = v_user_id;<br>END IF;</pre>
+<p>        </p>
+</div>
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN35985">19.6.2.2. <tt class="LITERAL">IF-THEN-ELSE</tt></a></h3>
+<pre class="SYNOPSIS">IF <tt class="REPLACEABLE"><i>boolean-expression</i></tt> THEN<br>    <tt
+ class="REPLACEABLE"><i>statements</i></tt><br>ELSE<br>    <tt
+ class="REPLACEABLE"><i>statements</i></tt><br>END IF;</pre>
+<p>          IF-THEN-ELSE statements add to IF-THEN by letting you      
+  specify an alternative set of statements that should be executed if 	the
+condition evaluates to FALSE.  </p>
+<pre class="PROGRAMLISTING">IF parentid IS NULL or parentid = ''''<br>THEN <br>    return fullname;<br>ELSE<br>    return hp_true_filename(parentid) || ''/'' || fullname;<br>END IF;<br><br><br>IF v_count &gt; 0 THEN <br>    INSERT INTO users_count(count) VALUES(v_count);<br>    return ''t'';<br>ELSE <br>    return ''f'';<br>END IF;</pre>
+<p>        </p>
+</div>
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN35994">19.6.2.3. <tt class="LITERAL">IF-THEN-ELSE
+IF</tt></a></h3>
+<p>        IF statements can be nested, as in the following example: </p>
+<pre class="PROGRAMLISTING">IF demo_row.sex = ''m'' THEN<br>  pretty_sex := ''man'';<br>ELSE<br>  IF demo_row.sex = ''f'' THEN<br>    pretty_sex := ''woman'';<br>  END IF;<br>END IF;</pre>
+<p>        </p>
+<p>        When you use this form, you are actually         nesting an IF
+statement inside the ELSE part of an outer IF         statement. Thus you
+need one END IF statement for each         nested IF and one for the parent
+IF-ELSE.         This is workable but grows tedious when there are many 	alternatives
+to be checked.        </p>
+</div>
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN36000">19.6.2.4. <tt class="LITERAL">IF-THEN-ELSIF-ELSE</tt></a></h3>
+<pre class="SYNOPSIS">IF <tt class="REPLACEABLE"><i>boolean-expression</i></tt> THEN<br>    <tt
+ class="REPLACEABLE"><i>statements</i></tt><br>[<span class="OPTIONAL"> ELSIF <tt
+ class="REPLACEABLE"><i>boolean-expression</i></tt> THEN<br>    <tt
+ class="REPLACEABLE"><i>statements</i></tt><br>[<span class="OPTIONAL"> ELSIF <tt
+ class="REPLACEABLE"><i>boolean-expression</i></tt> THEN<br>    <tt
+ class="REPLACEABLE"><i>statements</i></tt><br>    ...</span>]</span>]<br>[<span
+ class="OPTIONAL"> ELSE<br>    <tt class="REPLACEABLE"><i>statements</i></tt> </span>]<br>END IF;</pre>
+<p>          <tt class="LITERAL">IF-THEN-ELSIF-ELSE</tt> provides a more
+convenient         method of checking many alternatives in one statement. 
+        Formally it is equivalent to nested         <tt class="LITERAL">IF-THEN-ELSE-IF-THEN</tt>
+commands, but only one         <tt class="LITERAL">END IF</tt> is needed. 
+       </p>
+<p>        Here is an example:  </p>
+<pre class="PROGRAMLISTING">IF number = 0 THEN<br>    result := ''zero'';<br>ELSIF number &gt; 0 THEN <br>    result := ''positive'';<br>ELSIF number &lt; 0 THEN<br>    result := ''negative'';<br>ELSE<br>    -- hmm, the only other possibility is that number IS NULL<br>    result := ''NULL'';<br>END IF;</pre>
+<p>        </p>
+<p>        The final ELSE section is optional.        </p>
+</div>
+</div>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-CONTROL-STRUCTURES-LOOPS">19.6.3. Simple
+Loops</a></h2>
+<p>     With the LOOP, EXIT, WHILE and FOR statements, you can arrange  
+   for your <span class="APPLICATION">PL/pgSQL</span> function to repeat 
+    a series of commands.     </p>
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN36025">19.6.3.1. LOOP</a></h3>
+<pre class="SYNOPSIS">[<span class="OPTIONAL">&lt;&lt;label&gt;&gt;</span>]<br>LOOP<br>    <tt
+ class="REPLACEABLE"><i>statements</i></tt><br>END LOOP;</pre>
+<p>          LOOP defines an unconditional loop that is repeated indefinitely 
+	until terminated by an EXIT or RETURN statement. 	The optional label can
+be used by         EXIT statements in nested loops to specify which level
+of         nesting should be terminated.        </p>
+</div>
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN36031">19.6.3.2. EXIT</a></h3>
+<pre class="SYNOPSIS">EXIT [<span class="OPTIONAL"> <tt
+ class="REPLACEABLE"><i>label</i></tt> </span>] [<span class="OPTIONAL"> WHEN <tt
+ class="REPLACEABLE"><i>expression</i></tt> </span>];</pre>
+<p>          If no <tt class="REPLACEABLE"><i>label</i></tt> is given,  
+      the innermost loop is terminated and the         statement following
+END LOOP is executed next.         If <tt class="REPLACEABLE"><i>label</i></tt>
+is given, it         must be the label of the current or some outer level
+of nested loop         or block. Then the named loop or block is terminated
+and control         continues with the statement after the loop's/block's
+corresponding         END.        </p>
+<p>        If WHEN is present, loop exit occurs only if the specified condition 
+	is true, otherwise control passes to the statement after EXIT.        </p>
+<p>        Examples: </p>
+<pre class="PROGRAMLISTING">LOOP<br>    -- some computations<br>    IF count &gt; 0 THEN<br>        EXIT;  -- exit loop<br>    END IF;<br>END LOOP;<br><br>LOOP<br>    -- some computations<br>    EXIT WHEN count &gt; 0;<br>END LOOP;<br><br>BEGIN<br>    -- some computations<br>    IF stocks &gt; 100000 THEN<br>        EXIT;  -- illegal. Can't use EXIT outside of a LOOP<br>    END IF;<br>END;</pre>
+<p>        </p>
+</div>
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN36044">19.6.3.3. WHILE</a></h3>
+<pre class="SYNOPSIS">[<span class="OPTIONAL">&lt;&lt;label&gt;&gt;</span>]<br>WHILE <tt
+ class="REPLACEABLE"><i>expression</i></tt> LOOP<br>    <tt
+ class="REPLACEABLE"><i>statements</i></tt><br>END LOOP;</pre>
+<p>          The WHILE statement repeats a         sequence of statements
+so long as the condition expression 	evaluates to true.  The condition is
+checked just before 	each entry to the loop body.        </p>
+<p>        For example: </p>
+<pre class="PROGRAMLISTING">WHILE amount_owed &gt; 0 AND gift_certificate_balance &gt; 0 LOOP<br>    -- some computations here<br>END LOOP;<br><br>WHILE NOT boolean_expression LOOP<br>    -- some computations here<br>END LOOP;</pre>
+<p>        </p>
+</div>
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN36053">19.6.3.4. FOR (integer for-loop)</a></h3>
+<pre class="SYNOPSIS">[<span class="OPTIONAL">&lt;&lt;label&gt;&gt;</span>]<br>FOR <tt
+ class="REPLACEABLE"><i>name</i></tt> IN [<span class="OPTIONAL"> REVERSE </span>] <tt
+ class="REPLACEABLE"><i>expression</i></tt> .. <tt class="REPLACEABLE"><i>expression</i></tt> LOOP<br>    <tt
+ class="REPLACEABLE"><i>statements</i></tt><br>END LOOP;</pre>
+<p>          This form of FOR creates a loop that iterates over a range of
+integer 	values. The variable          <tt class="REPLACEABLE"><i>name</i></tt>
+is automatically defined as type         integer and exists only inside the
+loop. The two expressions giving         the lower and upper bound of the
+range are evaluated once when entering         the loop. The iteration step
+is normally 1, but is -1 when REVERSE is 	specified.        </p>
+<p>        Some examples of integer FOR loops: </p>
+<pre class="PROGRAMLISTING">FOR i IN 1..10 LOOP<br>  -- some expressions here<br><br>    RAISE NOTICE ''i is %'',i;<br>END LOOP;<br><br>FOR i IN REVERSE 10..1 LOOP<br>    -- some expressions here<br>END LOOP;</pre>
+<p>        </p>
+</div>
+</div>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-RECORDS-ITERATING">19.6.4. Looping Through
+Query Results</a></h2>
+<p>     Using a different type of FOR loop, you can iterate through     
+the results of a query and manipulate that data      accordingly. The syntax
+is: </p>
+<pre class="SYNOPSIS">[<span class="OPTIONAL">&lt;&lt;label&gt;&gt;</span>]<br>FOR <tt
+ class="REPLACEABLE"><i>record | row</i></tt> IN <tt class="REPLACEABLE"><i>select_query</i></tt> LOOP<br>    <tt
+ class="REPLACEABLE"><i>statements</i></tt><br>END LOOP;</pre>
+<p>      The record or row variable is successively assigned all the rows
+      resulting from the SELECT query and the loop body is executed     
+ for each row. Here is an example:     </p>
+<pre class="PROGRAMLISTING">CREATE FUNCTION cs_refresh_mviews () RETURNS INTEGER AS '<br>DECLARE<br>     mviews RECORD;<br>BEGIN<br>     PERFORM cs_log(''Refreshing materialized views...'');<br><br>     FOR mviews IN SELECT * FROM cs_materialized_views ORDER BY sort_key LOOP<br><br>         -- Now "mviews" has one record from cs_materialized_views<br><br>         PERFORM cs_log(''Refreshing materialized view '' || quote_ident(mviews.mv_name) || ''...'');<br>         EXECUTE ''TRUNCATE TABLE  '' || quote_ident(mviews.mv_name);<br>         EXECUTE ''INSERT INTO '' || quote_ident(mviews.mv_name) || '' '' || mviews.mv_query;<br>     END LOOP;<br><br>     PERFORM cs_log(''Done refreshing materialized views.'');<br>     RETURN 1;<br>end;<br>' LANGUAGE 'plpgsql';</pre>
+<p>       If the loop is terminated by an EXIT statement, the last      assigned
+row value is still accessible after the loop.     </p>
+<p>     The FOR-IN-EXECUTE statement is another way to iterate over     
+records: </p>
+<pre class="SYNOPSIS">[<span class="OPTIONAL">&lt;&lt;label&gt;&gt;</span>]<br>FOR <tt
+ class="REPLACEABLE"><i>record | row</i></tt> IN EXECUTE <tt
+ class="REPLACEABLE"><i>text_expression</i></tt> LOOP <br>    <tt
+ class="REPLACEABLE"><i>statements</i></tt><br>END LOOP;</pre>
+<p>      This is like the previous form, except that the source SELECT  
+   statement is specified as a string expression, which is evaluated    
+ and re-planned on each entry to the FOR loop.  This allows the      programmer
+to choose the speed of a pre-planned query or the      flexibility of a dynamic
+query, just as with a plain EXECUTE      statement.     </p>
+<div class="NOTE">
+<blockquote class="NOTE">
+  <p><b>Note: </b>     The <span class="APPLICATION">PL/pgSQL</span> parser
+presently distinguishes the      two kinds of FOR loops (integer or record-returning)
+by checking      whether the target variable mentioned just after FOR has
+been      declared as a record/row variable.  If not, it's presumed to be 
+     an integer FOR loop.  This can cause rather nonintuitive error     
+messages when the true problem is, say, that one has      misspelled the
+FOR variable name.     </p>
+</blockquote>
+</div>
+</div>
+</div>
+<p><br>
+</p>
+<h1 class="SECT1"><a name="PLPGSQL-CURSORS">19.7. Cursors</a></h1>
+<p>    Rather than executing a whole query at once, it is possible to set 
+    up a <i class="FIRSTTERM">cursor</i> that encapsulates the query, and
+then read     the query result a few rows at a time. One reason for doing
+this is     to avoid memory overrun when the result contains a large number
+of     rows. (However, <span class="APPLICATION">PL/pgSQL</span> users don't
+normally need     to worry about that, since FOR loops automatically use
+a cursor     internally to avoid memory problems.) A more interesting usage
+is to     return a reference to a cursor that it has created, allowing the 
+    caller to read the rows. This provides an efficient way to return   
+ large row sets from functions.    </p>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-CURSOR-DECLARATIONS">19.7.1. Declaring
+Cursor Variables</a></h2>
+<p>     All access to cursors in <span class="APPLICATION">PL/pgSQL</span>
+goes through      cursor variables, which are always of the special data
+type      <tt class="TYPE">refcursor</tt>.  One way to create a cursor variable 
+     is just to declare it as a variable of type <tt class="TYPE">refcursor</tt>. 
+     Another way is to use the cursor declaration syntax,      which in general
+is: </p>
+<pre class="SYNOPSIS"><tt class="REPLACEABLE"><i>name</i></tt> CURSOR [<span
+ class="OPTIONAL"> ( <tt class="REPLACEABLE"><i>arguments</i></tt> ) </span>] FOR <tt
+ class="REPLACEABLE"><i>select_query</i></tt> ;</pre>
+<p>      (<tt class="LITERAL">FOR</tt> may be replaced by <tt
+ class="LITERAL">IS</tt> for Oracle      compatibility.)  <tt
+ class="REPLACEABLE"><i>arguments</i></tt>, if any,      are a comma-separated
+list of <tt class="REPLACEABLE"><i>name</i></tt>      <tt
+ class="REPLACEABLE"><i>datatype</i></tt> pairs that define names to    
+ be replaced by parameter values in the given query.  The actual      values
+to substitute for these names will be specified later,      when the cursor
+is opened.     </p>
+<p>     Some examples: </p>
+<pre class="PROGRAMLISTING">DECLARE<br>    curs1 refcursor;<br>    curs2 CURSOR FOR SELECT * from tenk1;<br>    curs3 CURSOR (key int) IS SELECT * from tenk1 where unique1 = key;</pre>
+<p>      All three of these variables have the data type <tt
+ class="TYPE">refcursor</tt>,      but the first may be used with any query,
+while the second has      a fully specified query already <i
+ class="FIRSTTERM">bound</i> to it, and the last      has a parameterized
+query bound to it.  (<tt class="LITERAL">key</tt> will be      replaced by
+an integer parameter value when the cursor is opened.)      The variable
+<tt class="LITERAL">curs1</tt>      is said to be <i class="FIRSTTERM">unbound</i>
+since it is not bound to      any particular query.     </p>
+</div>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-CURSOR-OPENING">19.7.2. Opening Cursors</a></h2>
+<p>     Before a cursor can be used to retrieve rows, it must be      <i
+ class="FIRSTTERM">opened</i>. (This is the equivalent action to the SQL 
+    command <tt class="COMMAND">DECLARE CURSOR</tt>.) <span
+ class="APPLICATION">PL/pgSQL</span> has      four forms of the OPEN statement,
+two of which use unbound cursor      variables and the other two use bound
+cursor variables.     </p>
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN36119">19.7.2.1. OPEN FOR SELECT</a></h3>
+<pre class="SYNOPSIS">OPEN <tt class="REPLACEABLE"><i>unbound-cursor</i></tt> FOR SELECT ...;</pre>
+<p>          The cursor variable is opened and given the specified query 	to
+execute.  The cursor cannot be open already, and it must 	have been declared
+as an unbound cursor (that is, as a simple 	<tt class="TYPE">refcursor</tt>
+variable).  The SELECT query is treated 	in the same way as other SELECT
+statements in <span class="APPLICATION">PL/pgSQL</span>: 	<span
+ class="APPLICATION">PL/pgSQL</span> variable names are substituted, 	and
+the query plan is cached for possible re-use.  </p>
+<pre class="PROGRAMLISTING">OPEN curs1 FOR SELECT * FROM foo WHERE key = mykey;</pre>
+<p>        </p>
+</div>
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN36128">19.7.2.2. OPEN FOR EXECUTE</a></h3>
+<pre class="SYNOPSIS">OPEN <tt class="REPLACEABLE"><i>unbound-cursor</i></tt> FOR EXECUTE <tt
+ class="REPLACEABLE"><i>query-string</i></tt>;</pre>
+<p>          The cursor variable is opened and given the specified query 	to
+execute.  The cursor cannot be open already, and it must 	have been declared
+as an unbound cursor (that is, as a simple 	<tt class="TYPE">refcursor</tt>
+variable).  The query is specified as a 	string expression in the same way
+as in the EXECUTE command. 	As usual, this gives flexibility so the query
+can vary 	from one run to the next.  </p>
+<pre class="PROGRAMLISTING">OPEN curs1 FOR EXECUTE ''SELECT * FROM '' || quote_ident($1);</pre>
+<p>        </p>
+</div>
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN36136">19.7.2.3. Opening a bound cursor</a></h3>
+<pre class="SYNOPSIS">OPEN <tt class="REPLACEABLE"><i>bound-cursor</i></tt> [<span
+ class="OPTIONAL"> ( <tt class="REPLACEABLE"><i>argument_values</i></tt> ) </span>];</pre>
+<p>          This form of OPEN is used to open a cursor variable whose query 
+	was bound to it when it was declared. 	The cursor cannot be open already.
+ A list of actual argument 	value expressions must appear if and only if
+the cursor was 	declared to take arguments.  These values will be substituted 
+	in the query. 	The query plan for a bound cursor is always considered 	cacheable
+--- there is no equivalent of EXECUTE in this case.  </p>
+<pre class="PROGRAMLISTING">OPEN curs2;<br>OPEN curs3(42);</pre>
+<p>        </p>
+</div>
+</div>
+<h2 class="SECT2"><a name="PLPGSQL-CURSOR-USING">19.7.3. Using Cursors</a></h2>
+<p>     Once a cursor has been opened, it can be manipulated with the   
+  statements described here.     </p>
+<p>     These manipulations need not occur in the same function that    
+ opened the cursor to begin with.  You can return a <tt class="TYPE">refcursor</tt> 
+     value out of a function and let the caller operate on the cursor.  
+   (Internally, a <tt class="TYPE">refcursor</tt> value is simply the string
+name      of a Portal containing the active query for the cursor.  This name 
+     can be passed around, assigned to other <tt class="TYPE">refcursor</tt>
+variables,      and so on, without disturbing the Portal.)     </p>
+<p>     All Portals are implicitly closed at transaction end.  Therefore 
+    a <tt class="TYPE">refcursor</tt> value is useful to reference an open
+cursor      only until the end of the transaction.     </p>
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN36153">19.7.3.1. FETCH</a></h3>
+<pre class="SYNOPSIS">FETCH <tt class="REPLACEABLE"><i>cursor</i></tt> INTO <tt
+ class="REPLACEABLE"><i>target</i></tt>;</pre>
+<p>          FETCH retrieves the next row from the cursor into a target, 	which
+may be a row variable, a record variable, or a comma-separated 	list of simple
+variables, just like SELECT INTO.  As with 	SELECT INTO, the special variable
+<tt class="LITERAL">FOUND</tt> may be 	checked to see whether a row was obtained
+or not.  </p>
+<pre class="PROGRAMLISTING">FETCH curs1 INTO rowvar;<br>FETCH curs2 INTO foo,bar,baz;</pre>
+<p>        </p>
+</div>
+<div class="SECT3">
+<h3 class="SECT3"><a name="AEN36161">19.7.3.2. CLOSE</a></h3>
+<pre class="SYNOPSIS">CLOSE <tt class="REPLACEABLE"><i>cursor</i></tt>;</pre>
+<p>          CLOSE closes the Portal underlying an open cursor. 	This can
+be used to release resources earlier than end of 	transaction, or to free
+up the cursor variable to be opened again.  </p>
+<pre class="PROGRAMLISTING">CLOSE curs1;</pre>
+<p>        </p>
+</div>
+<h3 class="SECT3"><a name="AEN36167">19.7.3.3. Returning Cursors</a></h3>
+<p>         <span class="APPLICATION">PL/pgSQL</span> functions can return
+cursors to the         caller. This is used to return multiple rows or columns
+from the         function. The function opens the cursor and returns the
+cursor         name to the caller. The caller can then FETCH rows from the 
+        cursor. The cursor can be closed by the caller, or it will be   
+     closed automatically when the transaction closes.         </p>
+<p>        The cursor name returned by the function can be specified by the 
+        caller or automatically generated. The following example shows  
+      how a cursor name can be supplied by the caller:  </p>
+<pre class="PROGRAMLISTING">CREATE TABLE test (col text);<br>INSERT INTO test VALUES ('123');<br><br>CREATE FUNCTION reffunc(refcursor) RETURNS refcursor AS '<br>BEGIN<br>        OPEN $1 FOR SELECT col FROM test;<br>        RETURN $1;<br>END;<br>' LANGUAGE 'plpgsql';<br><br>BEGIN;<br>SELECT reffunc('funccursor');<br>FETCH ALL IN funccursor;<br>COMMIT;</pre>
+<p>        </p>
+<p>        The following example uses automatic cursor name generation: 
+         </p>
+<pre class="PROGRAMLISTING">CREATE FUNCTION reffunc2() RETURNS refcursor AS '<br>DECLARE<br>        ref refcursor;<br>BEGIN<br>        OPEN ref FOR SELECT col FROM test;<br>        RETURN ref;<br>END;<br>' LANGUAGE 'plpgsql';<br><br>BEGIN;<br>SELECT reffunc2();<br>  <br>        reffunc2      <br>  --------------------<br>   &lt;unnamed cursor 1&gt;<br>  (1 row)<br><br>FETCH ALL IN "&lt;unnamed cursor 1&gt;";<br>COMMIT;</pre>
+<p><br>
+</p>
+<div class="SECT1">
+<h1 class="SECT1"><a name="PLPGSQL-ERRORS-AND-MESSAGES">19.8. Errors and
+Messages</a></h1>
+<p>    Use the RAISE statement to report messages and raise errors.  </p>
+<pre class="SYNOPSIS">RAISE <tt class="REPLACEABLE"><i>level</i></tt> '<tt
+ class="REPLACEABLE"><i>format</i></tt>' [<span class="OPTIONAL">, <tt
+ class="REPLACEABLE"><i>variable</i></tt> [<span class="OPTIONAL">...</span>]</span>];</pre>
+<p>      Possible levels are <tt class="LITERAL">DEBUG</tt> (write the message
+to     the server log), <tt class="LITERAL">LOG</tt> (write the message to
+the     server log with a higher priority), <tt class="LITERAL">INFO</tt>, 
+    <tt class="LITERAL">NOTICE</tt> and <tt class="LITERAL">WARNING</tt>
+(write     the message to the server log and send it to the client, with 
+   respectively higher priorities), and <tt class="LITERAL">EXCEPTION</tt> 
+    (raise an error and abort the current transaction). Whether error   
+ messages of a particular priority are reported to the client,     written
+to the server log, or both is controlled by the     <tt class="OPTION">SERVER_MIN_MESSAGES</tt>
+and     <tt class="OPTION">CLIENT_MIN_MESSAGES</tt> configuration variables.
+See     the <i class="CITETITLE">PostgreSQL Administrator's Guide</i> for
+more     information.    </p>
+<p>    Inside the format string, <tt class="LITERAL">%</tt> is replaced by
+the     next optional argument's external representation. Write     <tt
+ class="LITERAL">%%</tt> to emit a literal <tt class="LITERAL">%</tt>. Note 
+    that the optional arguments must presently be simple variables,     not
+expressions, and the format must be a simple string literal.    </p>
+<p>    Examples: </p>
+<pre class="PROGRAMLISTING">RAISE NOTICE ''Calling cs_create_job(%)'',v_job_id;</pre>
+<p>      In this example, the value of v_job_id will replace the     <tt
+ class="LITERAL">%</tt> in the string.    </p>
+<pre class="PROGRAMLISTING">RAISE EXCEPTION ''Inexistent ID --&gt; %'',user_id;</pre>
+<p>     This will abort the transaction with the given error message.   
+</p>
+<div class="SECT2">
+<h2 class="SECT2"><a name="PLPGSQL-EXCEPTIONS">19.8.1. Exceptions</a></h2>
+<p>     <span class="PRODUCTNAME">PostgreSQL</span> does not have a very
+smart      exception handling model. Whenever the parser, planner/optimizer 
+     or executor decide that a statement cannot be processed any longer, 
+    the whole transaction gets aborted and the system jumps back      into
+the main loop to get the next query from the client application.     </p>
+<p>     It is possible to hook into the error mechanism to notice that this 
+     happens. But currently it is impossible to tell what really      caused
+the abort (input/output conversion error, floating-point      error, parse
+error). And it is possible that the database backend      is in an inconsistent
+state at this point so returning to the upper      executor or issuing more
+commands might corrupt the whole database.     </p>
+<p>     Thus, the only thing <span class="APPLICATION">PL/pgSQL</span>  
+   currently does when it encounters an abort during execution of a     
+function or trigger procedure is to write some additional      <tt
+ class="LITERAL">NOTICE</tt> level log messages telling in which      function
+and where (line number and type of statement) this      happened.  The error
+always stops execution of the function.     </p>
+</div>
+</div>
+<hr align="left" width="100%">
+<h1 class="SECT1"><a name="PLPGSQL-TRIGGER">19.9. Trigger Procedures</a></h1>
+<p>	<span class="APPLICATION">PL/pgSQL</span> can be used to define trigger 
+	procedures. A trigger procedure is created with the 	<tt
+ class="COMMAND">CREATE FUNCTION</tt> command as a function with no 	arguments
+and a return type of <tt class="TYPE">TRIGGER</tt>.  Note that 	the function
+must be declared with no arguments even if it expects 	to receive arguments
+specified in <tt class="COMMAND">CREATE TRIGGER</tt> --- 	trigger arguments
+are passed via <tt class="VARNAME">TG_ARGV</tt>, as described 	below.   </p>
+<p>   When a <span class="APPLICATION">PL/pgSQL</span> function is called
+as a    trigger, several special variables are created automatically in the
+    top-level block. They are:        </p>
+<div class="VARIABLELIST">
+<dl>
+  <dt><tt class="VARNAME">NEW</tt></dt>
+  <dd>
+    <p>       Data type <tt class="TYPE">RECORD</tt>; variable holding the
+new database row for INSERT/UPDATE        operations in ROW level triggers. 
+      </p>
+  </dd>
+  <dt><tt class="VARNAME">OLD</tt></dt>
+  <dd>
+    <p>       Data type <tt class="TYPE">RECORD</tt>; variable holding the
+old database row for UPDATE/DELETE        operations in ROW level triggers. 
+      </p>
+  </dd>
+  <dt><tt class="VARNAME">TG_NAME</tt></dt>
+  <dd>
+    <p>       Data type <tt class="TYPE">name</tt>; variable that contains
+the name of the trigger actually        fired.       </p>
+  </dd>
+  <dt><tt class="VARNAME">TG_WHEN</tt></dt>
+  <dd>
+    <p>       Data type <tt class="TYPE">text</tt>; a string of either  
+             <tt class="LITERAL">BEFORE</tt> or <tt class="LITERAL">AFTER</tt>
+               depending on the trigger's definition.       </p>
+  </dd>
+  <dt><tt class="VARNAME">TG_LEVEL</tt></dt>
+  <dd>
+    <p>       Data type <tt class="TYPE">text</tt>; a string of either  
+             <tt class="LITERAL">ROW</tt> or <tt class="LITERAL">STATEMENT</tt>
+depending on the        trigger's definition.       </p>
+  </dd>
+  <dt><tt class="VARNAME">TG_OP</tt></dt>
+  <dd>
+    <p>       Data type <tt class="TYPE">text</tt>; a string of         
+      <tt class="LITERAL">INSERT</tt>, <tt class="LITERAL">UPDATE</tt>  
+             or <tt class="LITERAL">DELETE</tt> telling        for which
+operation the trigger is fired.       </p>
+  </dd>
+  <dt><tt class="VARNAME">TG_RELID</tt></dt>
+  <dd>
+    <p>       Data type <tt class="TYPE">oid</tt>; the object ID of the table
+that caused the        trigger invocation.       </p>
+  </dd>
+  <dt><tt class="VARNAME">TG_RELNAME</tt></dt>
+  <dd>
+    <p>       Data type <tt class="TYPE">name</tt>; the name of the table
+that caused the trigger        invocation.       </p>
+  </dd>
+  <dt><tt class="VARNAME">TG_NARGS</tt></dt>
+  <dd>
+    <p>       Data type <tt class="TYPE">integer</tt>; the number of arguments
+given to the trigger        procedure in the <tt class="COMMAND">CREATE TRIGGER</tt>
+statement.       </p>
+  </dd>
+  <dt><tt class="VARNAME">TG_ARGV[]</tt></dt>
+  <dd>
+    <p>       Data type array of <tt class="TYPE">text</tt>; the arguments
+from               the <tt class="COMMAND">CREATE TRIGGER</tt> statement. 
+       The index counts from 0 and can be given as an expression. Invalid 
+       indices (&lt; 0 or &gt;= <tt class="VARNAME">tg_nargs</tt>) result
+in a null value.       </p>
+  </dd>
+</dl>
+</div>
+<p>   </p>
+<p>    A trigger function must return either NULL or a record/row value 
+   having exactly the structure of the table the trigger was fired for. 
+   Triggers fired BEFORE may return NULL to signal the trigger manager  
+  to skip the rest of the operation for this row (ie, subsequent triggers 
+    are not fired, and the INSERT/UPDATE/DELETE does not occur for this 
+   row).  If a non-NULL value is returned then the operation proceeds with 
+    that row value.  Note that returning a row value different from the 
+   original value of NEW alters the row that will be inserted or updated. 
+    It is possible to replace single values directly     in NEW and return
+that, or to build a complete new record/row to     return.    </p>
+<p>    The return value of a trigger fired AFTER is ignored; it may as well 
+    always return a NULL value.  But an AFTER trigger can still abort the 
+    operation by raising an error.    </p>
+<a name="AEN36293"></a>
+<p><b>Example 19-1. A <span class="APPLICATION">PL/pgSQL</span> Trigger Procedure
+Example</b></p>
+<p>     This example trigger ensures that any time a row is inserted or updated 
+     in the table, the current user name and time are stamped into the  
+   row. And it ensures that an employee's name is given and that the    
+ salary is a positive value.  </p>
+<pre class="PROGRAMLISTING">CREATE TABLE emp (<br>    empname text,<br>    salary integer,<br>    last_date timestamp,<br>    last_user text<br>);<br><br>CREATE FUNCTION emp_stamp () RETURNS TRIGGER AS '<br>    BEGIN<br>        -- Check that empname and salary are given<br>        IF NEW.empname ISNULL THEN<br>            RAISE EXCEPTION ''empname cannot be NULL value'';<br>        END IF;<br>        IF NEW.salary ISNULL THEN<br>            RAISE EXCEPTION ''% cannot have NULL salary'', NEW.empname;<br>        END IF;<br><br>        -- Who works for us when she must pay for?<br>        IF NEW.salary &lt; 0 THEN<br>            RAISE EXCEPTION ''% cannot have a negative salary'', NEW.empname;<br>        END IF;<br><br>        -- Remember who changed the payroll when<br>        NEW.last_date := ''now'';<br>        NEW.last_user := current_user;<br>        RETURN NEW;<br>    END;<br>' LANGUAGE 'plpgsql';<br><br>CREATE TRIGGER emp_stamp BEFORE INSERT OR UPDATE ON emp<br>    FOR EACH ROW EXECUTE PROCEDURE emp_stamp();</pre>
+<p><br>
+</p>
+<div class="SECT1">
+<h1 class="SECT1"><a name="PLPGSQL-EXAMPLES">19.10. Examples</a></h1>
+<p>    Here are only a few functions to demonstrate how easy it is to   
+ write <span class="APPLICATION">PL/pgSQL</span>     functions. For more
+complex examples the programmer     might look at the regression test for
+<span class="APPLICATION">PL/pgSQL</span>.    </p>
+<p>    One painful detail in writing functions in 	<span
+ class="APPLICATION">PL/pgSQL</span> is the handling of single 	quotes. The
+function's source text in <tt class="COMMAND">CREATE FUNCTION</tt> 	must
+be a literal string. Single quotes inside of literal strings 	must be either
+doubled or quoted with a backslash. We are still 	looking for an elegant
+alternative. In the meantime, doubling the 	single quotes as in the examples
+below should be used. Any 	solution for this in future versions of 	<span
+ class="PRODUCTNAME">PostgreSQL</span> will be forward compatible.    </p>
+<p>    For a detailed explanation and examples of how to escape single  
+  quotes in different situations, please see <a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/plpgsql-porting.html#PLPGSQL-QUOTE">Section
+19.11.1.1</a>.    </p>
+<div class="EXAMPLE"><a name="AEN36309"></a>
+<p><b>Example 19-2. A Simple <span class="APPLICATION">PL/pgSQL</span> Function
+to Increment an Integer</b></p>
+<p>     The following two <span class="APPLICATION">PL/pgSQL</span> functions
+are identical to their      counterparts from the C language function discussion.
+This      function receives an <tt class="TYPE">integer</tt> and increments
+it by      one, returning the incremented value.     </p>
+<pre class="PROGRAMLISTING">CREATE FUNCTION add_one (integer) RETURNS INTEGER AS '<br>    BEGIN<br>        RETURN $1 + 1;<br>    END;<br>' LANGUAGE 'plpgsql';</pre>
+</div>
+<div class="EXAMPLE"><a name="AEN36316"></a>
+<p><b>Example 19-3. A Simple <span class="APPLICATION">PL/pgSQL</span> Function
+to Concatenate Text</b></p>
+<p>     This function receives two <tt class="TYPE">text</tt> parameters
+and      returns the result of concatenating them.     </p>
+<pre class="PROGRAMLISTING">CREATE FUNCTION concat_text (TEXT, TEXT) RETURNS TEXT AS '<br>    BEGIN<br>        RETURN $1 || $2;<br>    END;<br>' LANGUAGE 'plpgsql';</pre>
+</div>
+<div class="EXAMPLE"><a name="AEN36322"></a>
+<p><b>Example 19-4. A <span class="APPLICATION">PL/pgSQL</span> Function
+on Composite Type</b></p>
+<p>     In this example, we take <tt class="LITERAL">EMP</tt> (a table) and
+an      <tt class="TYPE">integer</tt> as arguments to our function, which
+returns      a <tt class="TYPE">boolean</tt>. If the <tt
+ class="STRUCTFIELD">salary</tt> field of the <tt class="STRUCTNAME">EMP</tt>
+table is      <tt class="LITERAL">NULL</tt>, we return <tt
+ class="LITERAL">f</tt>. Otherwise we compare with      that field with the
+<tt class="TYPE">integer</tt> passed to the function      and return the
+<tt class="TYPE">boolean</tt> result of the comparison (t      or f). This
+is the <span class="APPLICATION">PL/pgSQL</span> equivalent to the example
+from the C      functions.     </p>
+<pre class="PROGRAMLISTING">CREATE FUNCTION c_overpaid (EMP, INTEGER) RETURNS BOOLEAN AS '<br>    DECLARE<br>        emprec ALIAS FOR $1;<br>        sallim ALIAS FOR $2;<br>    BEGIN<br>        IF emprec.salary ISNULL THEN<br>            RETURN ''f'';<br>        END IF;<br>        RETURN emprec.salary &gt; sallim;<br>    END;<br>' LANGUAGE 'plpgsql';</pre>
+</div>
+</div>
+<hr align="left" width="100%">
+<div class="BOOK">
+<div class="TITLEPAGE">
+<h1 class="TITLE"><a name="REFERENCE">PostgreSQL 7.3.3 Reference Manual</a></h1>
+<h3 class="CORPAUTHOR">The PostgreSQL Global Development Group</h3>
+<p class="COPYRIGHT"><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/ln37171.html">Copyright</a>
+&copy; 1996-2002 by The PostgreSQL Global Development Group</p>
+<hr></div>
+<div class="TOC">
+<dl>
+  <dt><b>Table of Contents</b></dt>
+  <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/reference-preface.html">Preface</a></dt>
+  <dt>I. <a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-commands.html">SQL
+Commands</a></dt>
+  <dd>
+    <dl>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-abort.html">ABORT</a>&nbsp;--&nbsp;
+  abort the current transaction   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-alterdatabase.html">ALTER
+DATABASE</a>&nbsp;--&nbsp;change a database</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-altergroup.html">ALTER
+GROUP</a>&nbsp;--&nbsp;   add users to a group or remove users from a group 
+  </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-altertable.html">ALTER
+TABLE</a>&nbsp;--&nbsp;   change the definition of a table   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-altertrigger.html">ALTER
+TRIGGER</a>&nbsp;--&nbsp;   change the definition of a trigger   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-alteruser.html">ALTER
+USER</a>&nbsp;--&nbsp;change a database user account</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-analyze.html">ANALYZE</a>&nbsp;--&nbsp;
+  collect statistics about a database   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-begin.html">BEGIN</a>&nbsp;--&nbsp;
+  start a transaction block   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-checkpoint.html">CHECKPOINT</a>&nbsp;--&nbsp;force
+a transaction log checkpoint</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-close.html">CLOSE</a>&nbsp;--&nbsp;
+  close a cursor   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-cluster.html">CLUSTER</a>&nbsp;--&nbsp;
+  cluster a table according to an index   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-comment.html">COMMENT</a>&nbsp;--&nbsp;
+  define or change the comment of an object   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-commit.html">COMMIT</a>&nbsp;--&nbsp;
+  commit the current transaction   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-copy.html">COPY</a>&nbsp;--&nbsp;
+  copy data between files and tables   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createaggregate.html">CREATE
+AGGREGATE</a>&nbsp;--&nbsp;   define a new aggregate function   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createcast.html">CREATE
+CAST</a>&nbsp;--&nbsp;define a user-defined cast</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createconstraint.html">CREATE
+CONSTRAINT TRIGGER</a>&nbsp;--&nbsp;   define a new constraint trigger  
+      </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createconversion.html">CREATE
+CONVERSION</a>&nbsp;--&nbsp;define a user-defined conversion</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createdatabase.html">CREATE
+DATABASE</a>&nbsp;--&nbsp;   create a new database   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createdomain.html">CREATE
+DOMAIN</a>&nbsp;--&nbsp;   define a new domain   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createfunction.html">CREATE
+FUNCTION</a>&nbsp;--&nbsp;define a new function</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-creategroup.html">CREATE
+GROUP</a>&nbsp;--&nbsp;   define a new user group   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createindex.html">CREATE
+INDEX</a>&nbsp;--&nbsp;   define a new index   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createlanguage.html">CREATE
+LANGUAGE</a>&nbsp;--&nbsp;define a new procedural language</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createoperator.html">CREATE
+OPERATOR</a>&nbsp;--&nbsp;   define a new operator   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createopclass.html">CREATE
+OPERATOR CLASS</a>&nbsp;--&nbsp;   define a new operator class for indexes 
+  </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createrule.html">CREATE
+RULE</a>&nbsp;--&nbsp;   define a new rewrite rule   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createschema.html">CREATE
+SCHEMA</a>&nbsp;--&nbsp;   define a new schema   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createsequence.html">CREATE
+SEQUENCE</a>&nbsp;--&nbsp;   define a new sequence generator   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createtable.html">CREATE
+TABLE</a>&nbsp;--&nbsp;define a new table</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createtableas.html">CREATE
+TABLE AS</a>&nbsp;--&nbsp;create a new table from the results of a query</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createtrigger.html">CREATE
+TRIGGER</a>&nbsp;--&nbsp;   define a new trigger   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createtype.html">CREATE
+TYPE</a>&nbsp;--&nbsp;   define a new data type   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createuser.html">CREATE
+USER</a>&nbsp;--&nbsp;define a new database user account</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-createview.html">CREATE
+VIEW</a>&nbsp;--&nbsp;   define a new view   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-deallocate.html">DEALLOCATE</a>&nbsp;--&nbsp;
+  remove a prepared query   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-declare.html">DECLARE</a>&nbsp;--&nbsp;
+  define a cursor   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-delete.html">DELETE</a>&nbsp;--&nbsp;
+  delete rows of a table   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-dropaggregate.html">DROP
+AGGREGATE</a>&nbsp;--&nbsp;   remove a user-defined aggregate function  
+      </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-dropcast.html">DROP
+CAST</a>&nbsp;--&nbsp;remove a user-defined cast</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-dropconversion.html">DROP
+CONVERSION</a>&nbsp;--&nbsp;remove a user-defined conversion</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-dropdatabase.html">DROP
+DATABASE</a>&nbsp;--&nbsp;   remove a database   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-dropdomain.html">DROP
+DOMAIN</a>&nbsp;--&nbsp;   remove a user-defined domain   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-dropfunction.html">DROP
+FUNCTION</a>&nbsp;--&nbsp;   remove a user-defined function   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-dropgroup.html">DROP
+GROUP</a>&nbsp;--&nbsp;   remove a user group   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-dropindex.html">DROP
+INDEX</a>&nbsp;--&nbsp;   remove an index   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-droplanguage.html">DROP
+LANGUAGE</a>&nbsp;--&nbsp;   remove a user-defined procedural language  
+      </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-dropoperator.html">DROP
+OPERATOR</a>&nbsp;--&nbsp;   remove a user-defined operator   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-dropopclass.html">DROP
+OPERATOR CLASS</a>&nbsp;--&nbsp;   remove a user-defined operator class 
+ </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-droprule.html">DROP
+RULE</a>&nbsp;--&nbsp;   remove a rewrite rule   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-dropschema.html">DROP
+SCHEMA</a>&nbsp;--&nbsp;   remove a schema   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-dropsequence.html">DROP
+SEQUENCE</a>&nbsp;--&nbsp;   remove a sequence   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-droptable.html">DROP
+TABLE</a>&nbsp;--&nbsp;   remove a table   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-droptrigger.html">DROP
+TRIGGER</a>&nbsp;--&nbsp;   remove a trigger   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-droptype.html">DROP
+TYPE</a>&nbsp;--&nbsp;   remove a user-defined data type   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-dropuser.html">DROP
+USER</a>&nbsp;--&nbsp;remove a database user account</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-dropview.html">DROP
+VIEW</a>&nbsp;--&nbsp;   remove a view   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-end.html">END</a>&nbsp;--&nbsp;
+  commit the current transaction   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-execute.html">EXECUTE</a>&nbsp;--&nbsp;
+  execute a prepared query   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-explain.html">EXPLAIN</a>&nbsp;--&nbsp;
+  show the execution plan of a statement   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-fetch.html">FETCH</a>&nbsp;--&nbsp;
+  retrieve rows from a table using a cursor   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-grant.html">GRANT</a>&nbsp;--&nbsp;define
+access privileges</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-insert.html">INSERT</a>&nbsp;--&nbsp;
+  create new rows in a table   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-listen.html">LISTEN</a>&nbsp;--&nbsp;
+  listen for a notification   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-load.html">LOAD</a>&nbsp;--&nbsp;load
+or reload a shared library file</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-lock.html">LOCK</a>&nbsp;--&nbsp;
+  explicitly lock a table   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-move.html">MOVE</a>&nbsp;--&nbsp;
+  position a cursor on a specified row of a table   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-notify.html">NOTIFY</a>&nbsp;--&nbsp;
+  generate a notification   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-prepare.html">PREPARE</a>&nbsp;--&nbsp;
+  create a prepared query   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-reindex.html">REINDEX</a>&nbsp;--&nbsp;
+  rebuild corrupted indexes   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-reset.html">RESET</a>&nbsp;--&nbsp;restore
+the value of a run-time parameter to a default value</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-revoke.html">REVOKE</a>&nbsp;--&nbsp;remove
+access privileges</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-rollback.html">ROLLBACK</a>&nbsp;--&nbsp;
+  abort the current transaction   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-select.html">SELECT</a>&nbsp;--&nbsp;
+  retrieve rows from a table or view   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-selectinto.html">SELECT
+INTO</a>&nbsp;--&nbsp;   create a new table from the results of a query 
+ </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-set.html">SET</a>&nbsp;--&nbsp;change
+a run-time parameter</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-set-constraints.html">SET
+CONSTRAINTS</a>&nbsp;--&nbsp;set the constraint mode of the current transaction</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-set-session-authorization.html">SET
+SESSION AUTHORIZATION</a>&nbsp;--&nbsp;set the session user identifier and
+the current user identifier of the current session</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-set-transaction.html">SET
+TRANSACTION</a>&nbsp;--&nbsp;set the characteristics of the current transaction</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-show.html">SHOW</a>&nbsp;--&nbsp;show
+the value of a run-time parameter</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-start-transaction.html">START
+TRANSACTION</a>&nbsp;--&nbsp;start a transaction block</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-truncate.html">TRUNCATE</a>&nbsp;--&nbsp;
+  empty a table   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-unlisten.html">UNLISTEN</a>&nbsp;--&nbsp;
+  stop listening for a notification   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-update.html">UPDATE</a>&nbsp;--&nbsp;
+  update rows of a table   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/sql-vacuum.html">VACUUM</a>&nbsp;--&nbsp;
+  garbage-collect and optionally analyze a database   </dt>
+    </dl>
+  </dd>
+  <dt>II. <a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/reference-client.html">PostgreSQL
+Client Applications</a></dt>
+  <dd>
+    <dl>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-clusterdb.html"><span
+ class="APPLICATION">clusterdb</span></a>&nbsp;--&nbsp;cluster a <span
+ class="PRODUCTNAME">PostgreSQL</span> database</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-createdb.html"><span
+ class="APPLICATION">createdb</span></a>&nbsp;--&nbsp;create a new <span
+ class="PRODUCTNAME">PostgreSQL</span> database</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-createlang.html"><span
+ class="APPLICATION">createlang</span></a>&nbsp;--&nbsp;define a new <span
+ class="PRODUCTNAME">PostgreSQL</span> procedural language</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-createuser.html"><span
+ class="APPLICATION">createuser</span></a>&nbsp;--&nbsp;define a new <span
+ class="PRODUCTNAME">PostgreSQL</span> user account</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-dropdb.html"><span
+ class="APPLICATION">dropdb</span></a>&nbsp;--&nbsp;remove a <span
+ class="PRODUCTNAME">PostgreSQL</span> database</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-droplang.html"><span
+ class="APPLICATION">droplang</span></a>&nbsp;--&nbsp;remove a <span
+ class="PRODUCTNAME">PostgreSQL</span> procedural language</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-dropuser.html"><span
+ class="APPLICATION">dropuser</span></a>&nbsp;--&nbsp;remove a <span
+ class="PRODUCTNAME">PostgreSQL</span> user account</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-ecpg.html"><span
+ class="APPLICATION">ecpg</span></a>&nbsp;--&nbsp;embedded SQL C preprocessor</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-pgconfig.html">pg_config</a>&nbsp;--&nbsp;retrieve
+information about the installed version of <span class="PRODUCTNAME">PostgreSQL</span></dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-pgdump.html">pg_dump</a>&nbsp;--&nbsp;
+  extract a <span class="PRODUCTNAME">PostgreSQL</span> database into a script
+file or other archive file    </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-pg-dumpall.html"><span
+ class="APPLICATION">pg_dumpall</span></a>&nbsp;--&nbsp;extract a <span
+ class="PRODUCTNAME">PostgreSQL</span> database cluster into a script file</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-pgrestore.html">pg_restore</a>&nbsp;--&nbsp;
+  restore a <span class="PRODUCTNAME">PostgreSQL</span> database from an
+archive file created by pg_dump   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-psql.html"><span
+ class="APPLICATION">psql</span></a>&nbsp;--&nbsp;      <span
+ class="PRODUCTNAME">PostgreSQL</span> interactive terminal     </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-pgtclsh.html">pgtclsh</a>&nbsp;--&nbsp;
+  <span class="PRODUCTNAME">PostgreSQL</span> <span class="APPLICATION">Tcl</span>
+shell client   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-pgtksh.html">pgtksh</a>&nbsp;--&nbsp;
+  <span class="PRODUCTNAME">PostgreSQL</span> <span class="APPLICATION">Tcl/Tk</span>
+shell client   </dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-vacuumdb.html"><span
+ class="APPLICATION">vacuumdb</span></a>&nbsp;--&nbsp;garbage-collect and
+analyze a <span class="PRODUCTNAME">PostgreSQL</span> database</dt>
+    </dl>
+  </dd>
+  <dt>III. <a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/reference-server.html">PostgreSQL
+Server Applications</a></dt>
+  <dd>
+    <dl>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-initdb.html">initdb</a>&nbsp;--&nbsp;create
+a new <span class="PRODUCTNAME">PostgreSQL</span> database cluster</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-initlocation.html"><span
+ class="APPLICATION">initlocation</span></a>&nbsp;--&nbsp;create a secondary
+        <span class="PRODUCTNAME">PostgreSQL</span> database storage area</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-ipcclean.html"><span
+ class="APPLICATION">ipcclean</span></a>&nbsp;--&nbsp;remove shared memory
+and semaphores from an aborted <span class="PRODUCTNAME">PostgreSQL</span>
+server</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-pg-ctl.html"><span
+ class="APPLICATION">pg_ctl</span></a>&nbsp;--&nbsp;start, stop, or restart
+a <span class="PRODUCTNAME">PostgreSQL</span> server</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-pgcontroldata.html"><span
+ class="APPLICATION">pg_controldata</span></a>&nbsp;--&nbsp;display server-wide
+control information</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-pgresetxlog.html"><span
+ class="APPLICATION">pg_resetxlog</span></a>&nbsp;--&nbsp;reset write-ahead
+log and pg_control contents</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-postgres.html"><span
+ class="APPLICATION">postgres</span></a>&nbsp;--&nbsp;run a <span
+ class="PRODUCTNAME">PostgreSQL</span> server in single-user mode</dt>
+      <dt><a
+ href="file:///E:/Programacao/Postgresql/Tutoriais/733/app-postmaster.html"><span
+ class="APPLICATION">postmaster</span></a>&nbsp;--&nbsp;<span
+ class="PRODUCTNAME">PostgreSQL</span> multiuser database server</dt>
+    </dl>
+  </dd>
+</dl>
+</div>
+</div>
+<p><br>
+</p>
+</div>
+</div>
+</body>
+</html>

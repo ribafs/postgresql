@@ -1,0 +1,123 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2029"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-92_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-91.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-92_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-92_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-93.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-92_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 28pt;"><p><a name="P4180_251202"></a><span style="font-family: 'Arial'; font-size: 14pt;"><i>3.4 Optimizer Hints</i></span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">When a </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command is issued, the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+database server goes through a process to produce the result set of the
+command which is the final set of rows returned by the database server.
+How this result set is produced is the job of the </span><i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">query planner</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, also known as the </span><i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">query optimizer</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. Depending upon the specific command, there may be one or more alternatives, called </span><i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">query plans</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,
+the planner may consider as possible ways to create the result set. The
+selection of the plan to be used to actually execute the command is
+dependent upon various factors including:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Costs assigned to various operations to retrieve the data (see the Planner Cost Constants in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">postgresql.conf</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> file).</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Settings of various planner method parameters (see the Planner Method Configuration section in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">postgresql.conf</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> file).</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Column statistics that have been gathered on the table data by the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ANALYZE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command (see the </span><i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postg</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">res Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">documentation set for information on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ANALYZE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command and column statistics).</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Generally
+speaking, of the various feasible plans, the query planner chooses the
+one of least estimated cost for actual execution.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">However, it is possible in any given </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command to directly influence selection of all or part of the final plan by using optimizer hints. </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>Optimizer hints</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> are directives embedded in comment-like syntax immediately following the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> key words that tell the planner to utilize or not utilize a certain approach for producing the result set.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Synopsis</span></p><pre><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">{ DELETE | SELECT | UPDATE } /*+ { </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">h</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">int</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>comment</i></span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] } [...] */</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statement_body</i></span>
+
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">{ DELETE | SELECT | UPDATE } --+ { </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">h</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">int</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> [ </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">comment</span></i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> ] } [...]</span>
+<span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">  </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">statement_b</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ody</span></i></pre>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Optimizer hints may be given in two different formats as shown above. Note that in both formats, a plus sign (</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">+</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">) must immediately follow the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">/*</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">--</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">  opening comment symbols with no intervening space in order for the following tokens to be interpreted as hints.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In
+the first format, the hint and optional comment may span multiple
+lines. In the second format, all hints and comments must be on a single
+line. The remainder of the statement must start on a new line.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Description</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following points regarding the usage of optimizer hints should be noted:</span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The database server will always try to use the specified hints if at all possible.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If
+a planner method parameter is set so as to disable a certain plan type,
+then this plan will not be used even if it is specified in a hint,
+unless there are no other possible options for the planner. Examples of
+planner method parameters are </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enable_indexscan</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enable_seqscan</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enable_hashjoin</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enable_mergejoin</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, and </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">enable_nestloop</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">. These are all Boolean parameters.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Remember
+that the hint is embedded within a comment. As a consequence, if the
+hint is misspelled or if any parameter to a hint such as view, table,
+or column name is misspelled, or non-existent in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">
+command, there will be no indication that any sort of error has
+occurred. No syntax error will be given and the entire hint is simply
+ignored.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">If an alias is used for a table or view name in the </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">SQL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command, then the alias name, not the original object name, must be used in the hint. For example, in the command, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELECT</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"> /*+ FULL(acct) */ * FROM accounts acct</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> ..., </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">acct</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, the alias for </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">accounts</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, must be specified in the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">FULL</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> hint, not the table name, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">accounts</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Use the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXPLAIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command to ensure that the hint is correctly formed and the planner is using the hint. See the </span><i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span></i><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">documentation set for information on the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">EXPLAIN</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">&#9679; </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In
+general, optimizer hints should not be used in production applications.
+Typically, the table data changes throughout the life of the
+application. By ensuring that the more dynamic columns are </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">ANALYZE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">d
+frequently, the column statistics will be updated to reflect value
+changes and the planner will use such information to produce the least
+cost plan for any given command execution. Use of optimizer hints
+defeats the purpose of this process and will result in the same plan
+regardless of how the table data changes.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Parameters</span></p>
+
+<p><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">h</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">int</span></i></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">An optimizer hint directive.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>comment</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">A
+string with additional information. Note that there are restrictions as
+to what characters may be included in the comment. Generally, </span><i><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">comment</span></i><span style="font-family: 'Times New Roman'; font-size: 12pt;">
+may only consist of alphabetic, numeric, the underscore, dollar sign,
+number sign and space characters. These must also conform to the syntax
+of an identifier. See Section <u><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-29.htm#P1691_87117">3.1.2</a></u> for more information on identifiers. Any subsequent hint will be ignored if the comment is not in this form.</span></p>
+
+</div><p><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>statement_body</i></span></p>
+
+  <div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 12pt;">The remainder of the </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SELEC</span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">T</span><span style="font-family: 'Times New Roman'; font-size: 12pt;">, or </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">UPDATE</span><span style="font-family: 'Times New Roman'; font-size: 12pt;"> command.</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following sections describe the various optimizer hint directives in more detail.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-91.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-92_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-92_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-93.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-92_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-92_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-92_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# Script to create simple menus and take action according to that selected
+# menu item
+#
+while :
+ do
+    clear
+servico=$(dialog --stdout --backtitle 'DNOCS - Administração do Firewall Interno'   \
+                --menu '       Selecione o Serviço e tecle Enter' 0 0 0 \
+                1 'DHCP - Cadastrar Computador' \
+                2 'Squid - Liberar IP' \
+                3 'Squidguard - Liberar Site' \
+                4 'Squidguard - Bloquear Site' \
+                5 'Shorewall - Liberar ou Bloquear Porta' \
+                0 'Sair' )
+    case $servico in
+      1) nano /root/dhcp.txt;nano /etc/dhcp/dhcpd.conf;/etc/init.d/isc-dhcp3-server restart;;
+      2) nano /etc/squid/acls/ips_liberados;squid -k reconfigure;;
+      3) nano /var/lib/squidguard/db/white/domains;squidGuard -C /var/lib/squidguard/db/white/domains;squid -k reconfigure;;
+      4) nano /var/lib/squidguard/db/blocked/domains;squidGuard -C /var/lib/squidguard/db/blocked/domains;squid -k reconfigure;;
+      5) nano /etc/shorewall/rules;/etc/init.d/shorewall restart;;
+      0) clear;exit;;
+   esac
+done
+

@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Top ten SQL commands using psql  - Greg's Postgres stuff</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="Powered-By" content="Serendipity v.1.3" />
+    <link rel="stylesheet" type="text/css" href="http://people.planetpostgresql.org/greg/index.php?/serendipity.css" />
+    <link rel="alternate"  type="application/rss+xml" title="Greg's Postgres stuff RSS feed" href="http://people.planetpostgresql.org/greg/index.php?/feeds/index.rss2" />
+    <link rel="alternate"  type="application/x.atom+xml"  title="Greg's Postgres stuff Atom feed"  href="http://people.planetpostgresql.org/greg/index.php?/feeds/atom.xml" />
+    <link rel="pingback" href="http://people.planetpostgresql.org/greg/comment.php?type=pingback&amp;entry_id=130" />
+
+
+</head>
+
+<body>
+
+<div id="serendipity_banner">
+    <h1><a class="homelink1" href="http://people.planetpostgresql.org/greg/">Top ten SQL commands using psql</a></h1>
+    <h2><a class="homelink2" href="http://people.planetpostgresql.org/greg/">Greg's Postgres stuff</a></h2>
+</div>
+
+<table id="mainpane">
+    <tr>
+        <td id="content" valign="top"><!-- CONTENT START -->
+
+	<div class="serendipity_content_message"></div>
+
+<!-- ENTRIES START -->
+    
+
+        <div class="serendipity_Entry_Date">
+                <h3 class="serendipity_date">Tuesday, April 15. 2008</h3>
+        
+                <h4 class="serendipity_title"><a href="/greg/index.php?/archives/130-Top-ten-SQL-commands-using-psql.html">Top ten SQL commands using psql</a></h4>
+
+        <div class="serendipity_entry serendipity_entry_author_Greg-Sabino-Mullane ">
+                        <span class="serendipity_entryIcon">
+                                                                                                            </span>
+            
+            <div class="serendipity_entry_body">
+                <style type="text/css">
+<!--
+div.gsmcode {
+font-family:Courier,monospace;font-weight:bold; font-size:110%;
+border:1px solid #888888;line-height:130%;
+padding-left:1em; padding-right: 1em; margin-right :5em; margin-left:1em;
+color:black; background:#eeeeee;
+}
+div.gsmout {
+font-family:Courier,monospace;font-weight:bold; font-size:110%;
+border:1px solid #888888;line-height:130%;
+padding-left:1em; padding-right: 1em; margin-right:5em; margin-left:1em;
+color:black; background:#ddeeee;
+}
+
+span.gsminput { color: green; }
+span.gsmarg { color: #bb0000; font-weight: bolder; white-space: nowrap;}
+// -->
+</style>
+
+<p>
+Inspired by the old meme about the top shell commands, I thought I'd see what the most
+common SQL commands I run are. When you are using <a href=
+"http://www.postgresql.org/docs/current/static/app-psql.html">psql</a>,
+(the command-line interface to Postgres),
+it keeps a history of all the commands you enter inside the file <tt><b>~/.psql_history</b></tt>.
+It only keeps 500 lines by default, which I find way too low, so I adjust it by setting
+the <tt><b>HISTFILE</b></tt> variable. Here's the usual contents of my .psqlrc file:
+</p>
+
+<div class="gsmcode"><pre>
+\pset null '\\N'
+\set HISTFILE 5000
+\timing
+\set G '\\x\\g\\x'
+</pre></div>
+
+<p>The first line gives a better visual output to nulls.
+The second tells psql to allow the .psql_history file to grow to 5000 lines, while the third line times all the commands you enter. The final 
+line allows you to run a single command in expanded mode like so:</p>
+
+<div class="gsmcode"><pre>
+<span class="gsminput">greg=#</span> SELECT * FROM pg_class  :G
+</pre>
+</div>
+
+<p>Interestingly, it looks like a variant of the above may make its way into
+the next version of psql...</p>
+
+<p>On to the counting meme, however. Here's the command I used:</p>
+
+<div class="gsmcode"><pre>
+awk '{print $1}' ~/.psql_history | sort | uniq -c |sort -rn | head -10
+</pre></div>
+
+<p>The output on one of the production boxes I watch over gives:</p>
+
+<div class="gsmout"><pre>
+   1356 select
+    386 \d
+    347 \q
+    186 vacuum
+    141 \c
+    126 update
+     84 \x
+     59 SELECT
+     46 begin;
+     41 \dt
+</pre></div>
+
+<p>Note that older versions of psql did not wrap multi-line commands into a single line inside the file, so you may see odd results when using < 8.2</p>
+
+            </div>
+
+                        <div class="serendipity_entry_extended"><a id="extended"></a></div>
+            
+            
+            <div class='serendipity_entryFooter'>
+                Posted by <a href="http://people.planetpostgresql.org/greg/index.php?/authors/1-Greg-Sabino-Mullane">Greg Sabino Mullane</a>
+                                   in <a href="http://people.planetpostgresql.org/greg/index.php?/categories/17-Postgres">Postgres</a>, <a href="http://people.planetpostgresql.org/greg/index.php?/categories/11-psql">psql</a>, <a href="http://people.planetpostgresql.org/greg/index.php?/categories/10-SQL">SQL</a>                
+                                    at
+                 <a href="/greg/index.php?/archives/130-Top-ten-SQL-commands-using-psql.html">11:27</a>
+
+                                                            | <a href="/greg/comment.php?serendipity[entry_id]=130&amp;serendipity[type]=comments" onclick="window.open(this.href, 'comments', 'width=480,height=480,scrollbars=yes'); return false;">Comments (0)</a>
+                                    
+                                                            | <a href="/greg/comment.php?serendipity[entry_id]=130&amp;serendipity[type]=trackbacks" onclick="window.open(this.href, 'comments', 'width=480,height=480,scrollbars=yes'); return false;">Trackbacks (0)</a>
+                                    
+                
+                <div class='serendipity_karmaVoting serendipity_karmaVoting_images'><a id='karma_vote130'></a><div class="serendipity_karmaVoting_text">Karma for this article: </div>
+<ol class='serendipity_karmaVoting_links'>
+    <li class='serendipity_karmaVoting_current-rating' style='width: 100px;' title='Current karma: 5 of 5, 1 vote(s)'> </li>
+    
+    <li><a class='serendipity_karmaVoting_link1' rel='nofollow' href='/greg/index.php?/archives/130-guid.html&amp;serendipity[karmaVote]=-2&amp;serendipity[karmaId]=130#karma_vote130' title='Rate this article: Terrible!'>-2</a></li>
+    <li><a class='serendipity_karmaVoting_link2' rel='nofollow' href='/greg/index.php?/archives/130-guid.html&amp;serendipity[karmaVote]=-1&amp;serendipity[karmaId]=130#karma_vote130' title='Rate this article: Bad'>-1</a></li>
+    <li><a class='serendipity_karmaVoting_link3' rel='nofollow' href='/greg/index.php?/archives/130-guid.html&amp;serendipity[karmaVote]=0&amp;serendipity[karmaId]=130#karma_vote130' title='Rate this article: Okay'> 0</a></li>
+    <li><a class='serendipity_karmaVoting_link4' rel='nofollow' href='/greg/index.php?/archives/130-guid.html&amp;serendipity[karmaVote]=1&amp;serendipity[karmaId]=130#karma_vote130' title='Rate this article: Good'>+1</a></li>
+    <li><a class='serendipity_karmaVoting_link5' rel='nofollow' href='/greg/index.php?/archives/130-guid.html&amp;serendipity[karmaVote]=2&amp;serendipity[karmaId]=130#karma_vote130' title='Rate this article: Excellent!'>+2</a></li>
+    
+</ol>
+<span class="serendipity_karmaVoting_current">Current karma: 5 of 5, 1 vote(s)</span><span class="serendipity_karmaVoting_visits"> 322 hits</span>
+</div>
+
+            </div>
+        </div>
+        <!--
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                 xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+                 xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <rdf:Description
+                 rdf:about="http://people.planetpostgresql.org/greg/index.php?/feeds/ei_130.rdf"
+                 trackback:ping="http://people.planetpostgresql.org/greg/comment.php?type=trackback&amp;entry_id=130"
+                 dc:title="Top ten SQL commands using psql"
+                 dc:identifier="http://people.planetpostgresql.org/greg/index.php?/archives/130-Top-ten-SQL-commands-using-psql.html" />
+        </rdf:RDF>
+        -->
+        
+
+        
+                    <div class="serendipity_comments serendipity_section_comments">
+                <br />
+                <a id="comments"></a>
+                <div class="serendipity_commentsTitle">Comments</div>
+                <div class="serendipity_center">Display comments as
+                                    (<a rel="nofollow" href="/greg/index.php?url=archives/130-Top-ten-SQL-commands-using-psql.html&amp;serendipity[cview]=linear#comments">Linear</a> | Threaded)
+                                </div>
+                <br />
+                        <div class="serendipity_center nocomments">No comments</div>
+
+
+                                <a id="feedback"></a>
+
+                
+                
+                <br />
+                <div class="serendipity_section_commentform">
+	                <div class="serendipity_commentsTitle">Add Comment</div>
+	                <div id="serendipityCommentFormC" class="serendipityCommentForm">
+    <div id="serendipity_replyform_0"></div>
+    <a id="serendipity_CommentForm"></a>
+    <form id="serendipity_comment" action="/greg/index.php?url=archives/130-Top-ten-SQL-commands-using-psql.html#feedback" method="post">
+    <div><input type="hidden" name="serendipity[entry_id]" value="130" /></div>
+    <table border="0" width="100%" cellpadding="3">
+        <tr>
+            <td class="serendipity_commentsLabel"><label for="serendipity_commentform_name">Name</label></td>
+            <td class="serendipity_commentsValue"><input type="text" id="serendipity_commentform_name" name="serendipity[name]" value="" size="30" /></td>
+        </tr>
+
+        <tr>
+            <td class="serendipity_commentsLabel"><label for="serendipity_commentform_email">Email</label></td>
+            <td class="serendipity_commentsValue"><input type="text" id="serendipity_commentform_email" name="serendipity[email]" value="" /></td>
+        </tr>
+
+        <tr>
+            <td class="serendipity_commentsLabel"><label for="serendipity_commentform_url">Homepage</label></td>
+            <td class="serendipity_commentsValue"><input type="text" id="serendipity_commentform_url" name="serendipity[url]" value="" /></td>
+        </tr>
+
+        <tr>
+            <td class="serendipity_commentsLabel"><label for="serendipity_replyTo">In reply to</label></td>
+            <td class="serendipity_commentsValue"><select id="serendipity_replyTo" onchange="" name="serendipity[replyTo]"><option value="0">[ Top level ]</option></select></td>
+        </tr>
+
+        <tr>
+            <td class="serendipity_commentsLabel"><label for="serendipity_commentform_comment">Comment</label></td>
+            <td class="serendipity_commentsValue">
+                <textarea rows="10" cols="40" id="serendipity_commentform_comment" name="serendipity[comment]"></textarea><br />
+                <div class="serendipity_commentDirection serendipity_comment_emoticate">Standard emoticons like :-) and ;-) are converted to images.</div><div class="serendipity_commentDirection serendipity_comment_captcha"><br />To prevent automated Bots from commentspamming, please enter the string you see in the image below in the appropriate input box. Your comment will only be submitted if the strings match. Please ensure that your browser supports and accepts cookies, or your comment cannot be verified correctly.<br /><div class="serendipity_comment_captcha_image" style="background-color: #ffffff"><img src="http://people.planetpostgresql.org/greg/index.php?/plugin/captcha_1_526816045f1383529f09e07d4511646a" title="Enter the string you see here in the input box!" alt="CAPTCHA 1" class="captcha" /><img src="http://people.planetpostgresql.org/greg/index.php?/plugin/captcha_2_526816045f1383529f09e07d4511646a" title="Enter the string you see here in the input box!" alt="CAPTCHA 2" class="captcha" /><img src="http://people.planetpostgresql.org/greg/index.php?/plugin/captcha_3_526816045f1383529f09e07d4511646a" title="Enter the string you see here in the input box!" alt="CAPTCHA 3" class="captcha" /><img src="http://people.planetpostgresql.org/greg/index.php?/plugin/captcha_4_526816045f1383529f09e07d4511646a" title="Enter the string you see here in the input box!" alt="CAPTCHA 4" class="captcha" /><img src="http://people.planetpostgresql.org/greg/index.php?/plugin/captcha_5_526816045f1383529f09e07d4511646a" title="Enter the string you see here in the input box!" alt="CAPTCHA 5" class="captcha" /></div><br /><label for="captcha">Enter the string from the spam-prevention image above: </label><br /><input class="input_textbox" type="text" size="5" name="serendipity[captcha]" value="" id="captcha" /></div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>&#160;</td>
+            <td class="serendipity_commentsLabel">
+                <input id="checkbox_remember" type="checkbox" name="serendipity[remember]"  /><label for="checkbox_remember">Remember Information? </label>
+                    <br />
+                <input id="checkbox_subscribe" type="checkbox" name="serendipity[subscribe]"  /><label for="checkbox_subscribe">Subscribe to this entry</label>
+                </td>
+       </tr>
+
+       <tr>
+            <td class="serendipity_commentsValue serendipity_msg_important" colspan="2">Submitted comments will be subject to moderation before being displayed.</td>
+       </tr>
+
+       <tr>
+            <td>&#160;</td>
+            <td><input type="submit" name="serendipity[submit]" value="Submit Comment" /> <input type="submit" id="serendipity_preview" name="serendipity[preview]" value="Preview" /></td>
+        </tr>
+    </table>
+    </form>
+</div>
+				</div>
+
+                            </div>
+        
+        
+            </div>
+    
+    <div class='serendipity_entryFooter' style="text-align: center">
+    
+    
+    
+    
+    </div>
+<!-- ENTRIES END -->
+
+
+<!-- CONTENT END --></td>
+        <td id="serendipityRightSideBar" valign="top">    <div class="serendipitySideBarItem container_serendipity_calendar_plugin">
+        <h3 class="serendipitySideBarTitle serendipity_calendar_plugin">Calendar</h3>        <div class="serendipitySideBarContent"><table style="width: 100%" cellspacing="0" cellpadding="0" class="serendipity_calendar">
+    <tr>
+        <td class="serendipity_calendarHeader">
+            <a title="Back" href="http://people.planetpostgresql.org/greg/index.php?/archives/2008/03.html"><img alt="Back" src="/greg/templates/default/img/back.png" width="16" height="12" style="border: 0px" /></a>
+        </td>
+
+        <td colspan="5" class="serendipity_calendarHeader" style="text-align: center; vertical-align: bottom">
+            <b><a style="white-space: nowrap" href="http://people.planetpostgresql.org/greg/index.php?/archives/2008/04.html">April '08</a></b>
+        </td>
+
+        <td class="serendipity_calendarHeader" style="text-align: right">
+            <a title="Forward" href="http://people.planetpostgresql.org/greg/index.php?/archives/2008/05.html"><img alt="Forward" src="/greg/templates/default/img/forward.png" width="16" height="12" style="border: 0px" /></a>
+        </td>
+    </tr>
+
+    <tr>
+            <td scope="col" abbr="Sunday" title="Sunday" class="serendipity_weekDayName" align="center">Sun</td>
+            <td scope="col" abbr="Monday" title="Monday" class="serendipity_weekDayName" align="center">Mon</td>
+            <td scope="col" abbr="Tuesday" title="Tuesday" class="serendipity_weekDayName" align="center">Tue</td>
+            <td scope="col" abbr="Wednesday" title="Wednesday" class="serendipity_weekDayName" align="center">Wed</td>
+            <td scope="col" abbr="Thursday" title="Thursday" class="serendipity_weekDayName" align="center">Thu</td>
+            <td scope="col" abbr="Friday" title="Friday" class="serendipity_weekDayName" align="center">Fri</td>
+            <td scope="col" abbr="Saturday" title="Saturday" class="serendipity_weekDayName" align="center">Sat</td>
+        </tr>
+
+            <tr class="serendipity_calendar">
+                    <td class="serendipity_calendarDay FirstRow FirstInRow">&#160;</td>
+                    <td class="serendipity_calendarDay FirstRow">&#160;</td>
+                    <td class="serendipity_calendarDay FirstRow">1</td>
+                    <td class="serendipity_calendarDay FirstRow">2</td>
+                    <td class="serendipity_calendarDay FirstRow">3</td>
+                    <td class="serendipity_calendarDay FirstRow">4</td>
+                    <td class="serendipity_calendarDay FirstRow LastInRow">5</td>
+                </tr>
+            <tr class="serendipity_calendar">
+                    <td class="serendipity_calendarDay FirstInRow">6</td>
+                    <td class="serendipity_calendarDay ">7</td>
+                    <td class="serendipity_calendarDay ">8</td>
+                    <td class="serendipity_calendarDay ">9</td>
+                    <td class="serendipity_calendarDay ">10</td>
+                    <td class="serendipity_calendarDay ">11</td>
+                    <td class="serendipity_calendarDay LastInRow">12</td>
+                </tr>
+            <tr class="serendipity_calendar">
+                    <td class="serendipity_calendarDay FirstInRow">13</td>
+                    <td class="serendipity_calendarDay ">14</td>
+                    <td class="serendipity_calendarDay Active Link"><a href="http://people.planetpostgresql.org/greg/index.php?/archives/2008/04/15.html">15</a></td>
+                    <td class="serendipity_calendarDay Today">16</td>
+                    <td class="serendipity_calendarDay ">17</td>
+                    <td class="serendipity_calendarDay ">18</td>
+                    <td class="serendipity_calendarDay LastInRow">19</td>
+                </tr>
+            <tr class="serendipity_calendar">
+                    <td class="serendipity_calendarDay FirstInRow">20</td>
+                    <td class="serendipity_calendarDay ">21</td>
+                    <td class="serendipity_calendarDay ">22</td>
+                    <td class="serendipity_calendarDay ">23</td>
+                    <td class="serendipity_calendarDay ">24</td>
+                    <td class="serendipity_calendarDay ">25</td>
+                    <td class="serendipity_calendarDay LastInRow">26</td>
+                </tr>
+            <tr class="serendipity_calendar">
+                    <td class="serendipity_calendarDay FirstInRow LastRow">27</td>
+                    <td class="serendipity_calendarDay LastRow">28</td>
+                    <td class="serendipity_calendarDay LastRow">29</td>
+                    <td class="serendipity_calendarDay LastRow">30</td>
+                    <td class="serendipity_calendarDay LastRow">&#160;</td>
+                    <td class="serendipity_calendarDay LastRow">&#160;</td>
+                    <td class="serendipity_calendarDay LastInRow LastRow">&#160;</td>
+                </tr>
+    </table></div>
+    </div>
+    <div class="serendipitySideBarItem container_serendipity_quicksearch_plugin">
+        <h3 class="serendipitySideBarTitle serendipity_quicksearch_plugin">Quicksearch</h3>        <div class="serendipitySideBarContent"><form id="searchform" action="/greg/index.php" method="get">
+    <div>
+        <input type="hidden"  name="serendipity[action]" value="search" />
+        <input alt="Quicksearch" type="text"   id="serendipityQuickSearchTermField" name="serendipity[searchTerm]" size="13" />
+        <input class="quicksearch_submit" type="submit" value="&gt;" alt="Quicksearch" name="serendipity[searchButton]" title="Go!" style="width: 2em;" />
+    </div>
+    <div id="LSResult" style="display: none;"><div id="LSShadow"></div></div>
+</form>
+</div>
+    </div>
+    <div class="serendipitySideBarItem container_serendipity_archives_plugin">
+        <h3 class="serendipitySideBarTitle serendipity_archives_plugin">Archives</h3>        <div class="serendipitySideBarContent"><a href="/greg/index.php?/archives/2008/04.html" title="April 2008">April 2008</a><br />
+<a href="/greg/index.php?/archives/2008/03.html" title="March 2008">March 2008</a><br />
+<a href="/greg/index.php?/archives/2008/02.html" title="February 2008">February 2008</a><br />
+<a href="/greg/index.php?frontpage">Recent...</a><br />
+<a href="http://people.planetpostgresql.org/greg/index.php?/archive">Older...</a>
+</div>
+    </div>
+    <div class="serendipitySideBarItem container_serendipity_categories_plugin">
+        <h3 class="serendipitySideBarTitle serendipity_categories_plugin">Categories</h3>        <div class="serendipitySideBarContent"><form action="http://people.planetpostgresql.org/greg/index.php?frontpage" method="post">
+              <div id="serendipity_category_form_content"><ul id="serendipity_categories_list" style="list-style: none; margin: 0px; padding: 0px"><li class="category_depth0 category_23" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="23" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/23-Bucardo.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/23-Bucardo" title="" style="padding-left: 0px">Bucardo</a></li>
+<li class="category_depth0 category_31" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="31" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/31-BuildFarm.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/31-BuildFarm" title="" style="padding-left: 0px">BuildFarm</a></li>
+<li class="category_depth0 category_15" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="15" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/15-Business.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/15-Business" title="" style="padding-left: 0px">Business</a></li>
+<li class="category_depth0 category_6" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="6" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/6-Conference.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/6-Conference" title="Conferences" style="padding-left: 0px">Conference</a></li>
+<li class="category_depth0 category_1" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="1" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/1-DBDPg.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/1-DBDPg" title="Perl DBI interface for Postgre" style="padding-left: 0px">DBD::Pg</a></li>
+<li class="category_depth0 category_4" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="4" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/4-Elephants.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/4-Elephants" title="Real-life elephants" style="padding-left: 0px">Elephants</a></li>
+<li class="category_depth0 category_25" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="25" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/25-Git.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/25-Git" title="" style="padding-left: 0px">Git</a></li>
+<li class="category_depth0 category_32" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="32" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/32-Google.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/32-Google" title="" style="padding-left: 0px">Google</a></li>
+<li class="category_depth1 category_33" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="33" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/33-GSOC.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/33-GSOC" title="Google Summer of Code" style="padding-left: 6px">GSOC</a></li>
+<li class="category_depth0 category_5" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="5" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/5-IRC.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/5-IRC" title="Internet Relay Chat" style="padding-left: 0px">IRC</a></li>
+<li class="category_depth0 category_30" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="30" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/30-libpq.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/30-libpq" title="" style="padding-left: 0px">libpq</a></li>
+<li class="category_depth0 category_20" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="20" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/20-Links.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/20-Links" title="" style="padding-left: 0px">Links</a></li>
+<li class="category_depth0 category_13" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="13" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/13-Math.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/13-Math" title="" style="padding-left: 0px">Math</a></li>
+<li class="category_depth0 category_16" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="16" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/16-MediaWiki.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/16-MediaWiki" title="" style="padding-left: 0px">MediaWiki</a></li>
+<li class="category_depth0 category_21" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="21" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/21-MS-SQL.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/21-MS-SQL" title="Microsoft SQL Server" style="padding-left: 0px">MS SQL</a></li>
+<li class="category_depth0 category_7" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="7" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/7-MySQL.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/7-MySQL" title="Open source but not free" style="padding-left: 0px">MySQL</a></li>
+<li class="category_depth0 category_27" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="27" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/27-Nagios.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/27-Nagios" title="" style="padding-left: 0px">Nagios</a></li>
+<li class="category_depth0 category_9" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="9" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/9-Oracle.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/9-Oracle" title="Powerful. Expensive. Complex." style="padding-left: 0px">Oracle</a></li>
+<li class="category_depth0 category_8" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="8" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/8-Performance.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/8-Performance" title="" style="padding-left: 0px">Performance</a></li>
+<li class="category_depth0 category_3" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="3" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/3-Perl.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/3-Perl" title="Perl language" style="padding-left: 0px">Perl</a></li>
+<li class="category_depth0 category_24" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="24" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/24-pg_bouncer.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/24-pg_bouncer" title="Pretty slick little program" style="padding-left: 0px">pg_bouncer</a></li>
+<li class="category_depth0 category_18" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="18" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/18-pg_dump.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/18-pg_dump" title="Postgres backup utility" style="padding-left: 0px">pg_dump</a></li>
+<li class="category_depth0 category_12" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="12" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/12-PlPerl.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/12-PlPerl" title="Perl functions inside the database" style="padding-left: 0px">Pl/Perl</a></li>
+<li class="category_depth0 category_19" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="19" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/19-PlPgsql.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/19-PlPgsql" title="" style="padding-left: 0px">Pl/Pgsql</a></li>
+<li class="category_depth0 category_17" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="17" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/17-Postgres.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/17-Postgres" title="The hip way to spell it" style="padding-left: 0px">Postgres</a></li>
+<li class="category_depth0 category_2" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="2" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/2-PostgreSQL.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/2-PostgreSQL" title="Best. Database. Ever." style="padding-left: 0px">PostgreSQL</a></li>
+<li class="category_depth0 category_11" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="11" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/11-psql.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/11-psql" title="Postgres CLI" style="padding-left: 0px">psql</a></li>
+<li class="category_depth0 category_22" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="22" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/22-Replication.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/22-Replication" title="" style="padding-left: 0px">Replication</a></li>
+<li class="category_depth0 category_14" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="14" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/14-Security.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/14-Security" title="" style="padding-left: 0px">Security</a></li>
+<li class="category_depth0 category_10" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="10" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/10-SQL.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/10-SQL" title="The language that gets no respect" style="padding-left: 0px">SQL</a></li>
+<li class="category_depth0 category_29" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="29" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/29-Testing.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/29-Testing" title="" style="padding-left: 0px">Testing</a></li>
+<li class="category_depth0 category_28" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="28" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/28-tsearch2.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/28-tsearch2" title="Full text searching for Postgres" style="padding-left: 0px">tsearch2</a></li>
+<li class="category_depth0 category_26" style="display: block;"><input style="width: 15px" type="checkbox" name="serendipity[multiCat][]" value="26" /><a class="serendipity_xml_icon" href="/greg/index.php?/feeds/categories/26-Version-control.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a> <a href="/greg/index.php?/categories/26-Version-control" title="" style="padding-left: 0px">Version control</a></li>
+</ul><div class="category_submit"><br /><input type="submit" name="serendipity[isMultiCat]" value="Go!" /></div><div class="category_link_all"><br /><a href="/greg/index.php?frontpage" title="All categories">All categories</a></div></div></form></div>
+    </div>
+    <div class="serendipitySideBarItem container_serendipity_syndication_plugin">
+        <h3 class="serendipitySideBarTitle serendipity_syndication_plugin">Syndicate This Blog</h3>        <div class="serendipitySideBarContent">        <div style="padding-bottom: 2px;">
+            <a class="serendipity_xml_icon" href="/greg/index.php?/feeds/index.rss"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a>
+            <a href="/greg/index.php?/feeds/index.rss">RSS 0.91 feed</a>
+        </div>
+        <div style="padding-bottom: 2px;">
+            <a class="serendipity_xml_icon" href="/greg/index.php?/feeds/index.rss1"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a>
+            <a href="/greg/index.php?/feeds/index.rss1">RSS 1.0 feed</a>
+        </div>
+        <div style="padding-bottom: 2px;">
+            <a class="serendipity_xml_icon" href="/greg/index.php?/feeds/index.rss2"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a>
+            <a href="/greg/index.php?/feeds/index.rss2">RSS 2.0 feed</a>
+        </div>
+        <div style="padding-bottom: 2px;">
+            <a class="serendipity_xml_icon" href="/greg/index.php?/feeds/atom10.xml"><img src="/greg/templates/default/img/xml.gif" alt="ATOM/XML" style="border: 0px" /></a>
+            <a href="/greg/index.php?/feeds/atom10.xml">ATOM 1.0 feed</a>
+        </div>
+        <div style="padding-bottom: 2px;">
+            <a class="serendipity_xml_icon" href="/greg/index.php?/feeds/comments.rss2"><img src="/greg/templates/default/img/xml.gif" alt="XML" style="border: 0px" /></a>
+            <a href="/greg/index.php?/feeds/comments.rss2"><span style="white-space: nowrap">RSS 2.0 Comments</span></a>
+        </div>
+        <div style="padding-bottom: 2px;">
+			<a href="http://feeds.feedburner.com/"><img src="fbapix.gif" alt="" style="border:0"/></a>
+            		</div>
+</div>
+    </div>
+    <div class="serendipitySideBarItem container_serendipity_superuser_plugin">
+        <h3 class="serendipitySideBarTitle serendipity_superuser_plugin">Blog Administration</h3>        <div class="serendipitySideBarContent"><a href="https://people.planetpostgresql.org/greg/index.php?/admin" rel="nofollow" title="Open login screen">Open login screen</a></div>
+    </div>
+    <div class="serendipitySideBarItem container_serendipity_plug_plugin">
+        <h3 class="serendipitySideBarTitle serendipity_plug_plugin">Powered by</h3>        <div class="serendipitySideBarContent"><div class="serendipityPlug">
+</div>
+</div>
+    </div>
+</td>
+    </tr>
+</table>
+
+
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+CASTS - Conversão explícita de tipos
+
+SQL é uma linguagem fortemente tipada.
+
+Operador Fatorial !
+
+select 40! as 'Fatorial de 40';
+
+Concatenação ||
+
+select text 'abc' || 'def' AS 'Teste';
+
+Valor Absoluto @
+
+select @ '-4' AS 'Absoluto';
+
+Absoluto
+-------
+   4
+   
+   

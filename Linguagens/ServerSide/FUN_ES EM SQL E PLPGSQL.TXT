@@ -1,0 +1,593 @@
+FUNÇÕES EM SQL E PLPGSQL
+
+Para que um banco tenha suporte a PlPGSQL usar:
+
+createlang plpgsql template1 (no caso para o template1)
+
+
+FUNÇÕES EM SQL
+
+CREATE FUNCTION pythagoras (numeric, numeric) RETURNS numeric AS '
+        SELECT sqrt($1 * $1 + $2 * $2)
+' LANGUAGE 'sql';
+
+Usando:
+SELECT pythagoras(3, 4);
+
+CREATE OR REPLACE FUNCTION pythagoras (numeric, numeric) RETURNS numeric AS '
+        SELECT sqrt($1 * $1 + $2 * $2)
+' LANGUAGE 'sql' WITH (iscachable);
+
+CREATE OR REPLACE FUNCTION average (numeric, numeric)
+        RETURNS numeric AS '
+        SELECT ($1 + $2) / 2;
+' LANGUAGE 'sql';
+
+SELECT average(1, 3);
+
+
+FUNÇÕES PL/PGSQL
+
+CREATE OR REPLACE FUNCTION average (numeric, numeric) RETURNS numeric AS '
+        DECLARE
+                result numeric;
+        BEGIN
+                result := ($1 + $2) / 2;
+                RETURN result;
+        END;
+' LANGUAGE 'plpgsql';
+
+SELECT average(1, 2);
+
+CREATE OR REPLACE FUNCTION dblog (text, int4) RETURNS bool AS '
+        BEGIN
+                INSERT INTO logtable(tstamp, message, mestype)
+                        VALUES (now(), $1, $2);
+                RETURN ''t'';
+        END;
+' LANGUAGE 'plpgsql';
+
+SELECT dblog('an error message', 0);
+
+
+CREATE OR REPLACE FUNCTION geomean (numeric, numeric) RETURNS numeric AS '
+        DECLARE
+                i       int4;
+                result  numeric;
+        BEGIN
+                result := 0;
+                FOR i IN $1..$2 LOOP
+                        result := i * i + result;
+                END LOOP;
+                RETURN sqrt(result);
+        END;
+' LANGUAGE 'plpgsql';
+
+SELECT geomean(2, 5);
+
+
+CREATE OR REPLACE FUNCTION myexit (numeric, numeric) RETURNS numeric AS '
+        DECLARE
+                i       int4;
+        BEGIN
+                FOR i IN $1..$2 LOOP
+                        EXIT WHEN i = 2;
+                        RETURN i;
+                END LOOP;
+                RETURN 99;
+        END;
+' LANGUAGE 'plpgsql';
+
+SELECT myexit(2, 5);
+
+
+CREATE OR REPLACE FUNCTION mysum (numeric, numeric) RETURNS numeric AS '
+        DECLARE
+                first   ALIAS FOR $1;
+                second  ALIAS FOR $2;
+        BEGIN
+                RETURN (first + second);
+        END;
+' LANGUAGE 'plpgsql';
+
+SELECT mysum(23, 45);
+
+
+CREATE OR REPLACE FUNCTION checkcontent () RETURNS bool AS '
+        BEGIN
+                EXECUTE ''CREATE TABLE tmptab (id int4, data text)'';
+                RETURN ''t'';
+        END;
+' LANGUAGE 'plpgsql';
+
+--The function creates a new table and returns true:
+
+SELECT checkcontent();
+
+
+CREATE OR REPLACE FUNCTION changecontent (int4, int4) RETURNS bool AS '
+        BEGIN
+                EXECUTE ''UPDATE logtable SET mestype=''|| $1 || '' WHERE ''
+                        || ''id='' || $2;
+                RETURN ''t'';
+        END;
+' LANGUAGE 'plpgsql';
+
+SELECT changecontent(1, 1);
+
+
+CREATE TABLE income(name text, salary int4);
+INSERT INTO income VALUES ('John', 3400);
+--After creating a table and adding some data to it, you can start writing the function:
+
+CREATE OR REPLACE FUNCTION changesal (text, int4, int4) RETURNS int4 AS '
+        DECLARE
+                sal income.salary%TYPE;
+                inc_table income%ROWTYPE;
+                pname ALIAS FOR $1;
+                inc ALIAS FOR $2;
+                increase ALIAS FOR $3;
+        BEGIN
+                SELECT DISTINCT INTO inc_table * FROM income
+                        WHERE salary=inc AND name=pname;
+
+                RAISE NOTICE ''inc_table.name: %'', inc_table.name;
+                RAISE NOTICE ''inc_table.salary: %'', inc_table.salary;
+                RAISE NOTICE ''increase: %'', increase;
+
+                sal := sal + increase;
+                RAISE NOTICE ''sal: %'', sal;
+                UPDATE income SET salary = sal
+                        WHERE salary = inc AND name=pname;
+
+                RETURN 0;
+        END;
+' LANGUAGE 'plpgsql';
+
+SELECT changesal('John', 3400, 10);
+
+
+--After creating a table and adding some data to it, you can start writing the function:
+
+CREATE OR REPLACE FUNCTION changesal (text, int4, int4) RETURNS int4 AS '
+        DECLARE
+                sal income.salary%TYPE;
+                inc_table income%ROWTYPE;
+                pname ALIAS FOR $1;
+                inc ALIAS FOR $2;
+                increase ALIAS FOR $3;
+        BEGIN
+                SELECT DISTINCT INTO inc_table * FROM income
+                        WHERE salary=inc AND name=pname;
+
+                RAISE NOTICE ''inc_table.name: %'', inc_table.name;
+                RAISE NOTICE ''inc_table.salary: %'', inc_table.salary;
+                RAISE NOTICE ''increase: %'', increase;
+
+                sal := sal + increase;
+                RAISE NOTICE ''sal: %'', sal;
+                UPDATE income SET salary = sal
+                        WHERE salary = inc AND name=pname;
+
+                RETURN 0;
+        END;
+' LANGUAGE 'plpgsql';
+
+SELECT changesal('John', 3400, 10);
+
+
+CRIANDO TRIGGERS
+
+TRIGERS permitem executar (disparar) funções quando alguma tabela é acessada (No insert, no update e no delete).
+
+CREATE TABLE data(somedata text);
+
+CREATE OR REPLACE FUNCTION logfunc() RETURNS opaque AS '
+        BEGIN
+                RAISE NOTICE ''trigger logfunc has been fired'';
+                INSERT INTO logtable(tstamp, message, mestype)
+                        VALUES(now(), ''data has been inserted'', 0);
+                RETURN NEW;
+        END;
+' LANGUAGE 'plpgsql';
+
+CREATE TRIGGER trig_data AFTER INSERT
+        ON data FOR EACH ROW
+        EXECUTE PROCEDURE logfunc();
+        
+        
+SELECT * FROM logtable;
+
+INSERT INTO data VALUES ('a piece of text');
+--NOTICE:  trigger logfunc has been fired
+
+SELECT * FROM data;
+
+
+CREATE OR REPLACE FUNCTION updatemessage () RETURNS opaque AS '
+        BEGIN
+                RAISE NOTICE ''NEW: %'', NEW.somedata;
+                RAISE NOTICE ''OLD: %'', OLD.somedata;
+                RAISE NOTICE ''TG_WHEN: %'', TG_WHEN;
+                RAISE NOTICE ''TG_LEVEL: %'', TG_LEVEL;
+                RAISE NOTICE ''TG_OP: %'', TG_OP;
+                RAISE NOTICE ''TG_RELID: %'', TG_RELID;
+                RAISE NOTICE ''TG_RELNAME: %'', TG_RELNAME;
+                RAISE NOTICE ''TG_NARGS: %'', TG_NARGS;
+                RAISE NOTICE ''TG_ARGV: %'', TG_ARGV[0];
+                RETURN NEW;
+        END;
+' LANGUAGE 'plpgsql';
+
+--To call the function in case of an UPDATE operation, you have to define a trigger:
+
+CREATE TRIGGER trig_updatemessage AFTER UPDATE
+        ON data FOR EACH ROW
+        EXECUTE PROCEDURE updatemessage();
+        
+--WARNING:  changing return type of function updatemessage from "opaque" to "trigger"
+
+UPDATE data SET somedata='Hello World';
+
+NOTICE:  NEW: Hello World
+NOTICE:  OLD: a piece of text
+NOTICE:  TG_WHEN: AFTER
+NOTICE:  TG_LEVEL: ROW
+NOTICE:  TG_OP: UPDATE
+NOTICE:  TG_RELID: 33796
+NOTICE:  TG_RELNAME: data
+NOTICE:  TG_NARGS: 0
+NOTICE:  TG_ARGV: <NULL>
+
+SELECT * FROM data;
+
+CREATE TABLE delay(number_of_flight text, minutes_delay int4);
+
+--If the table has been generated successfully, it is time to write the function that is called by the trigger:
+
+CREATE OR REPLACE FUNCTION moddata () RETURNS opaque AS '
+        BEGIN
+                IF      NEW.minutes_delay < 0 THEN
+                        NEW.minutes_delay = NEW.minutes_delay * (-1);
+                        RAISE NOTICE ''delay modified'';
+                END IF;
+                RETURN NEW;
+        END;
+' LANGUAGE 'plpgsql';
+
+--In the next step you can write the code of the trigger used for executing the function:
+
+CREATE TRIGGER trig_moddata BEFORE INSERT OR UPDATE
+        ON delay FOR EACH ROW
+        EXECUTE PROCEDURE moddata();
+        
+--WARNING:  changing return type of function moddata from "opaque" to "trigger"
+
+INSERT INTO delay VALUES ('IB 0979', -34);
+
+--NOTICE:  delay modified                
+
+--The definition of the trigger is shown in the next listing.
+
+CREATE TRIGGER trig_logfunc AFTER INSERT
+        ON logtable FOR EACH ROW
+        EXECUTE PROCEDURE logfunc();
+
+
+--Let's write a function that will be executed by the triggers:
+
+CREATE OR REPLACE FUNCTION triglogfunc () RETURNS opaque AS '
+        BEGIN
+                RAISE NOTICE ''TG_NAME: %'', TG_NAME;
+                RAISE NOTICE ''TG_RELNAME: %'', TG_RELNAME;
+                INSERT INTO triglog VALUES (now(), tg_name, tg_relname);
+                RETURN NEW;
+        END;
+' LANGUAGE 'plpgsql';
+
+CREATE TRIGGER trig_logtrig AFTER INSERT
+        ON creature FOR EACH ROW
+        EXECUTE PROCEDURE triglogfunc();
+
+FATORIAL
+create or replace function fatorial(int) returns int as '
+declare
+        a int;
+        ret int;
+begin
+        a := $1 - 1;
+
+        if a = 0 then
+                ret := $1;
+        else
+                ret := $1 * fatorial(a);
+        end if;
+
+        return ret;
+end;
+' language 'plpgsql';
+
+SELECT fatorial(5);
+
+
+ACESSANDO TABELAS OU CONSULTAS - Versão >= 7.3.x
+
+CREATE OR REPLACE FUNCTION Nomes() RETURNS record
+AS 'SELECT nome FROM barra;'
+LANGUAGE SQL;
+
+SELECT Nomes();
+
+CREATE OR REPLACE FUNCTION getnome()
+RETURNS setof record
+AS '
+SELECT * FROM barra;
+' LANGUAGE SQL;
+
+Onde: "cadastro" é o nome da tabela (o nome da função é livre). Para executar, use:
+
+SELECT getnome();
+
+Ou então, você pode passar parâmetros:
+
+CREATE OR REPLACE FUNCTION getnome(text)
+RETURNS setof record
+AS '
+SELECT * FROM barra WHERE nome LIKE $1 || ''%'';
+' LANGUAGE SQL;
+
+Execute: 
+
+SELECT getnome('R');
+
+create function GetNomes() returns setof record as
+'select * from barra;' language 'sql';
+
+select getnomes();
+
+create type holder as (nome text, pontos int8);
+
+create function GetNomes2() returns record as
+'select * from barra;' language 'sql';
+
+SELECT GetNomes2();
+
+create or replace function GetNomes3(text) returns setof record as
+'
+declare
+    r record;
+begin
+    for r in EXECUTE ''select * from '' || $1 loop
+        return next r;
+    end loop;
+    return;
+end
+'
+language 'plpgsql';
+
+
+
+=============
+create type foo as (blah int, blum int);
+create type bar as (words text, when timestamp);
+create type things as (foo, bar);
+
+create function something() returns setof things as '
+  statements;
+'
+===============
+
+CREATE FUNCTION DropTrigger(NAME,NAME) RETURNS BOOLEAN AS '
+DECLARE
+	TableName ALIAS FOR $1;
+	TriggerName ALIAS FOR $2;
+	T0 NAME;
+	T1 NAME;
+BEGIN
+	IF TriggerExists(TableName,TriggerName) THEN
+		T0 := lower(TableName);
+		T1 := lower(TriggerName);
+		EXECUTE ''DROP TRIGGER ''
+			|| quote_ident(T1)
+			|| '' ON ''
+			|| quote_ident(T0);
+		RETURN TRUE;
+	END IF;
+	RETURN FALSE;
+END;
+' LANGUAGE 'plpgsql' WITH (isstrict);
+
+
+Disables all non-system triggers. They still exist and may be re-enabled later. This is nice when loading data. 
+
+
+-- Joshua Jore http://www.greentechnologist.org
+-- Green Party of Minnesota
+CREATE FUNCTION DisableTriggers() RETURNS BOOLEAN AS '
+DECLARE
+	rows INTEGER;
+BEGIN
+	UPDATE pg_class SET reltriggers = 0 
+	FROM	(
+		(SELECT relname,oid FROM pg_class WHERE relname !~ ''^pg_'') AS A
+		JOIN
+		(SELECT count(*),tgrelid FROM pg_trigger GROUP BY tgrelid) AS B
+		ON (A.oid = B.tgrelid)
+		) AS C
+	WHERE pg_class.oid = C.oid;
+	GET DIAGNOSTICS rows = ROW_COUNT;
+	IF rows > 0 THEN
+		RETURN TRUE;
+	ELSE
+		RETURN FALSE;
+	END IF;
+END;
+' LANGUAGE 'plpgsql' WITH (isstrict);
+
+
+--This is a function that will drop a column of a table. The column must not have any sort of constraint on it (pk, fk, trigger, ecc...). It has to be a plain column. This is not a function meant to replace database functionalities but to help so that a person must not type in al lot of SQL code. Just call the function with SELECT ('table_name','column_name'); It is not complete but it works. If you have any suggestions or modifications that you want to make please do not hesitate. My email is veramente@libero.it
+
+--drop function dropcol(varchar,varchar);
+create function dropcol(varchar,varchar) returns text as '
+declare
+	table alias for $1;
+	column alias for $2;
+	has_fkey bool;
+	table_id int;
+	x record;
+	goout bool := false;
+	sqlstr text := '' ''; -- start with empty otherwise it will always be null ..
+	sqlins text := '' ''; -- here store the columns that will remain ..
+	sqlrename text := '' '';
+	sqldrop text := '' '';
+	names text := ''''; -- only for test purposes
+begin
+/* ###################################################################################################### */
+-- simplest case .. drop a column that has no contraints on it..
+	-- find the filenode int of the tables (for extracting the column names..)
+	select into table_id relfilenode from pg_class where relname like table;
+	-- start creating the new sqlstr for creating the new table
+	sqlstr := sqlstr || ''CREATE TABLE '' || table || ''_new ('';
+	-- find all the columns of the table and their datatype and put them in sqlstr
+	for x in select attname, typname, attnotnull from pg_attribute, pg_type where
+	attrelid = table_id and attname <> ''cmax'' and attname <> ''cmin'' and
+	attname <> ''ctid'' and attname <> ''tableoid'' and attname <> ''xmax'' and
+	attname <> ''xmin'' and attname <> ''oid'' and pg_attribute.atttypid=pg_type.oid
+	order by attrelid desc loop
+
+	if x.attname::varchar = column and x.attnotnull = true then
+		goout := true;
+	end if;	
+	-- include every column except the one we want to delete ..
+		if x.attname::varchar <> column then -- cast the colname as varchar otherwise the function will not work ..
+			sqlstr := sqlstr ||  x.attname || '' '' || x.typname || '','';
+			-- store also the columns for later insertion of data
+			sqlins := sqlins || x.attname || '','';
+		end if;
+	end loop;
+	if goout = false then
+		sqlstr := left(sqlstr, length(sqlstr)-1);
+		sqlstr := sqlstr || '')'';
+		-- create the new table
+		execute sqlstr;
+		-- drop the data from the old table into the new one but before clean the sql string from extra commas
+		sqlins := left(sqlins,length(sqlins)-1);
+		sqlins := ''INSERT INTO '' || table || ''_new SELECT '' || sqlins || '' FROM '' || table;
+		execute sqlins;
+		-- Now drop the old table ..
+		sqldrop := sqldrop || ''DROP TABLE '' || table;
+		execute sqldrop;
+		-- And rename the new table as the old one ..	
+		sqlrename := ''alter table '' ||  table || ''_new rename to '' || table;
+		execute sqlrename;
+	else
+		raise exception ''Column cannot be dropped'';
+	end if;
+	-- return sqlstr;
+	return ''Column '' || column || '' dropped'';
+/* ####################################################################################################### */
+end; '
+language 'plpgsql';
+
+=============
+CREATE FUNCTION spread(text)
+RETURNS text
+AS 'DECLARE
+ str text;
+ ret text;
+ i integer;
+ len integer;
+
+ BEGIN
+ str := upper($1);
+ ret := ''''; -- start with zero length
+ i := 1;
+ len := length(str);
+ WHILE i <= len LOOP
+ ret := ret || substr(str, i, 1) || '' '';
+ i := i + 1;
+ END LOOP;
+ RETURN ret;
+ END;'
+LANGUAGE 'plpgsql';
+
+SELECT spread('Major Financial Report');
+spread
+----------------------------------------------
+M A J O R F I N A N C I A L R E P O R T
+
+ CREATE FUNCTION getstatecode(text)
+ RETURNS text
+ AS 'DECLARE
+ state_str statename.name%TYPE;
+ statename_rec record;
+ i integer;
+ len integer;
+ matches record;
+ search_str text;
+
+ BEGIN
+ state_str := initcap($1); -- capitalization match column
+ len := length(trim($1));
+ i := 2;
+
+ SELECT INTO statename_rec * -- first try for an exact match
+ FROM statename
+ WHERE name = state_str;
+ IF FOUND
+ THEN RETURN statename_rec.code;
+ END IF;
+
+ WHILE i <= len LOOP -- test 2,4,6,... chars for match
+ search_str = trim(substr(state_str, 1, i)) || ''%'';
+ SELECT INTO matches COUNT(*)
+ FROM statename
+ WHERE name LIKE search_str;
+
+ IF matches.count = 0 -- no matches, failure
+ THEN RETURN NULL;
+ END IF;
+ IF matches.count = 1 -- exactly one match, return it
+ THEN
+ SELECT INTO statename_rec *
+ FROM statename
+ WHERE name LIKE search_str;
+ IF FOUND
+ THEN RETURN statename_rec.code;
+ END IF;
+ END IF;
+ i := i + 2; -- >1 match, try 2 more chars
+ END LOOP;
+ RETURN '''' ;
+ END;'
+ LANGUAGE 'plpgsql';
+ 
+SELECT getstatecode('Alabama');
+
+SELECT getstatecode('ALAB');
+
+
+CREATE FUNCTION trigger_insert_update_statename()
+ RETURNS opaque
+ AS 'BEGIN
+ IF new.code !~ ''^[A-Za-z][A-Za-z]$''
+ THEN RAISE EXCEPTION ''State code must be two alphabetic characters.'';
+ END IF;
+ IF new.name !~ ''^[A-Za-z ]*$''
+ THEN RAISE EXCEPTION ''State name must be only alphabetic characters.'';
+ END IF;
+ IF length(trim(new.name)) < 3
+ THEN RAISE EXCEPTION ''State name must longer than two characters.'';
+ END IF;
+ new.code = upper(new.code); -- uppercase statename.code
+ new.name = initcap(new.name); -- capitalize statename.name
+ RETURN new;
+ END;'
+test-> LANGUAGE 'plpgsql'; 
+
+CREATE TRIGGER trigger_statename
+ BEFORE INSERT OR UPDATE
+ ON statename
+ FOR EACH ROW
+EXECUTE PROCEDURE trigger_insert_update_statename();
+

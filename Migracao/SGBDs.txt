@@ -1,0 +1,21 @@
+SQLite
+http://www.sqlite.org/
+http://www.sqlite.org/docs.html
+http://www.sqlite.org/download.html
+
+SQL Server
+http://www.microsoft.com/SQL/default.mspx
+SQL Server Express Free - http://go.microsoft.com/fwlink/?LinkId=64064
+2008 Beta Free - http://www.microsoft.com/sqlserver/2008/en/us/trial-software.aspx
+Docs - http://www.microsoft.com/sql/techinfo/default.mspx
+
+Interbase - http://www.codegear.com/br/products/interbase
+
+EnterpriseDB (PostgreSQL Plus)
+http://www.enterprisedb.com/
+Trial - http://www.enterprisedb.com/products/download.do
+Documentação - http://www.enterprisedb.com/learning/documentation.do
+Oracle Compatibility Guide - http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm
+Postgres Plus Supplemental Guide - http://www.enterprisedb.com/docs/en/8.3/suppguide/Table%20of%20Contents.htm
+
+

@@ -1,0 +1,137 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>EnterpriseDB Oracle Compatibility Developer's Guide: Data Types</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="1969"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-32_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-31.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-32_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-32_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-33.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-32_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 28pt;"><p><a name="P1733_92670"></a><span style="font-family: 'Arial'; font-size: 14pt;"><i>3.2 Data Types</i></span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><a name="P1734_92684"></a>The following table shows the built-in general-purpose data types.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-1 Data Types</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="169"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Name</span></p>
+</td>
+<td valign="top" width="190"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Alias</span></p>
+</td>
+<td valign="top" width="217"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="169"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">B</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LOB</span></p>
+</td>
+<td valign="top" width="190"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LONG RAW, RAW</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="217"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Binary data</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="169"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">BOOLEAN</span></p>
+</td>
+<td valign="top" width="190">&nbsp;
+</td>
+<td valign="top" width="217"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Logical </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Boolean</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> (true/false)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="169"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CHAR</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">[ </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ]</span></p>
+</td>
+<td valign="top" width="190"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CHARACTER</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">[ </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ]</span></p>
+</td>
+<td valign="top" width="217"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Fixed-length character string of n </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">characters</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="169"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CLOB</span></p>
+</td>
+<td valign="top" width="190"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LONG, LONG VARCHAR</span></p>
+</td>
+<td valign="top" width="217"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Long character string</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="169"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DATE</span></p>
+</td>
+<td valign="top" width="190"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TIMESTAMP</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(0)</span></p>
+</td>
+<td valign="top" width="217"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Date </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">and time</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> to the second</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="169"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PREC</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ISION</span></p>
+</td>
+<td valign="top" width="190"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FLOAT,</span></p>
+<p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">F</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">LOAT(25) </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">&#8211;</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> FLOAT</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(53)</span></p>
+</td>
+<td valign="top" width="217"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Double </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">precision floating-</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">point number</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="169"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span></p>
+</td>
+<td valign="top" width="190"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INT</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, BINARY_INTEGER</span></p>
+</td>
+<td valign="top" width="217"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Signed four-byte integer</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="169"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td>
+<td valign="top" width="190"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DEC, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DECIMAL, NUMERIC</span></p>
+</td>
+<td valign="top" width="217"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Exact numeric with optional decimal places</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="169"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>p</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>s</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ]</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="190"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DEC</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(p [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>s</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ]</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">),</span></p>
+<p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DECIMAL</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>p</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>s</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ]</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">),</span></p>
+<p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUM</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ERIC</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>p</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> [, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>s</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> ]</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="217"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Exact numeric of maximum precision, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>p</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, and optional scale, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>s</i></span></p>
+</td></tr>
+<tr>
+<td valign="top" width="169"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REAL</span></p>
+</td>
+<td valign="top" width="190"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">FLOAT(1) </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">&#8211;</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> FLOAT</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(24)</span></p>
+</td>
+<td valign="top" width="217"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Single precision floating-point number</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="169"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">TIMESTAMP</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">[</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>p</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"> </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">]</span></p>
+</td>
+<td valign="top" width="190">&nbsp;
+</td>
+<td valign="top" width="217"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Date and time with optional, fractional second precision, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>p</i></span></p>
+</td></tr>
+<tr>
+<td valign="top" width="169"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR2</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="190"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CHAR VARYING</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">), CHAR</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">ACTER VARYING</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">), </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARCHAR</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>n</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="217"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Variable-length character string with a maximum length of </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>n</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> characters</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The following sections describe each data type in more detail.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-31.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-32_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-32_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-33.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-32_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-32_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-32_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

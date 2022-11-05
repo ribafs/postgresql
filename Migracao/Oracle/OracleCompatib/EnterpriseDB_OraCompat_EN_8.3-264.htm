@@ -1,0 +1,68 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2201"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-264_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-263.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-264_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-264_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-265.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-264_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P12656_635958"></a><span style="font-family: 'Arial'; font-size: 13pt;">10.2.5 Notes</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt;">1. TRAILING NULLCOLS support</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt;">If this is specified, any following columns that cannot be populated from the input data file will be marked as null. e.g.</span></p></div><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     Into table emp trailing nullcols</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     (empno, sal, deptno)</span></pre>
+
+  </div><div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 11pt;">Now if the input row contains the following</span></p></div><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">     1,2</span></pre>
+
+  </div><div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 11pt;">Then deptno field will be assigned a NULL value for this current input.</span></p>
+
+  <p><span style="font-family: 'Times New Roman'; font-size: 11pt;">2.
+Along with INSERT, support TRUNCATE/REPLACE keywords. If these keywords
+are used, the involved table will be truncated before beginning the
+load.</span></p></div><div style="margin-left: 12pt;"><pre><span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">	Load data TRUNCATE into table T1 ..</span>
+<span style="font-family: 'Courier New'; font-size: 9pt; color: rgb(46, 49, 146);">	Load data REPLACE into table T1..</span></pre>
+
+  </div><div style="margin-left: 36pt;"><p><span style="font-family: 'Times New Roman'; font-size: 11pt;">3.
+Support for character like portable data types. For every field, a data
+type can be specified which decides about the interpretation of the
+field contents which occur in the input data file. E.g. if the data
+type is INTEGER, the data file contains that field in binary format.
+The default interpretation is character string and we will support only
+such data types for phase 1.</span></p>
+
+    </div><div style="margin-left: 72pt;"><p><span style="font-family: 'Wingdings'; font-size: 9pt;">  </span><span style="font-family: 'Times New Roman'; font-size: 11pt;">CHAR</span></p>
+
+    <p><span style="font-family: 'Wingdings'; font-size: 9pt;">  </span><span style="font-family: 'Times New Roman'; font-size: 11pt;">INTEGER EXTERNAL</span></p>
+
+    <p><span style="font-family: 'Wingdings'; font-size: 9pt;">  </span><span style="font-family: 'Times New Roman'; font-size: 11pt;">FLOAT EXTERNAL</span></p>
+
+    <p><span style="font-family: 'Wingdings'; font-size: 9pt;">  </span><span style="font-family: 'Times New Roman'; font-size: 11pt;">ZONED EXTERNAL </span></p>
+
+    <p><span style="font-family: 'Wingdings'; font-size: 9pt;">  </span><span style="font-family: 'Times New Roman'; font-size: 11pt;">DATE</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-263.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-264_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-264_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-265.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-264_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-264_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-264_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</div></body></html>

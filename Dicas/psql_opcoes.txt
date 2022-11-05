@@ -1,0 +1,48 @@
+This is psql 8.3.1, the PostgreSQL interactive terminal.
+
+Usage:
+  psql [OPTIONS]... [DBNAME [USERNAME]]
+
+General options:
+  -d DBNAME       specify database name to connect to (default: "ribafs")
+  -c COMMAND      run only single command (SQL or internal) and exit
+  -f FILENAME     execute commands from file, then exit
+  -1 ("one")      execute command file as a single transaction
+  -l              list available databases, then exit
+  -v NAME=VALUE   set psql variable NAME to VALUE
+  -X              do not read startup file (~/.psqlrc)
+  --help          show this help, then exit
+  --version       output version information, then exit
+
+Input and output options:
+  -a              echo all input from script
+  -e              echo commands sent to server
+  -E              display queries that internal commands generate
+  -q              run quietly (no messages, only query output)
+  -o FILENAME     send query results to file (or |pipe)
+  -n              disable enhanced command line editing (readline)
+  -s              single-step mode (confirm each query)
+  -S              single-line mode (end of line terminates SQL command)
+  -L FILENAME     send session log to file
+
+Output format options:
+  -A              unaligned table output mode (-P format=unaligned)
+  -H              HTML table output mode (-P format=html)
+  -t              print rows only (-P tuples_only)
+  -T TEXT         set HTML table tag attributes (width, border) (-P tableattr=)
+  -x              turn on expanded table output (-P expanded)
+  -P VAR[=ARG]    set printing option VAR to ARG (see \pset command)
+  -F STRING       set field separator (default: "|") (-P fieldsep=)
+  -R STRING       set record separator (default: newline) (-P recordsep=)
+
+Connection options:
+  -h HOSTNAME     database server host or socket directory (default: "local socket")
+  -p PORT         database server port (default: "5432")
+  -U NAME         database user name (default: "ribafs")
+  -W              force password prompt (should happen automatically)
+
+For more information, type "\?" (for internal commands) or "\help"
+(for SQL commands) from within psql, or consult the psql section in
+the PostgreSQL documentation.
+
+Report bugs to <pgsql-bugs@postgresql.org>.

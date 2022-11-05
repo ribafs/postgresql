@@ -1,0 +1,9 @@
+Sequência
+
+Serial - é um inteiro que gera uma sequência automática somando + 1.
+
+É um número sequencial usado nas primary key.
+Quando usamos serial em um campo, o PostgrSQL adiciona automaticamente uma
+sequência.
+
+

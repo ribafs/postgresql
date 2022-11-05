@@ -1,0 +1,288 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2045"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-108_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-107.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-108_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-108_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-109.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-108_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+  <div style="margin-left: 36pt;"><p><a name="P5914_320222"></a><span style="font-family: 'Arial'; font-size: 13pt;">3.5.10 Aggregate Functions</span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>Aggregate</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> functions compute a single result value from a set of input values.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The built-in aggregate functions are listed in the follow</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">ing tables.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-31 General-Purpose Aggregate Functions</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="135"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="144"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Argument Type</span></p>
+</td>
+<td valign="top" width="156"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Return Type</span></p>
+</td>
+<td valign="top" width="192"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="135"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">AVG(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER, REAL, DOUBLE PRECISION, NUMBER</span></p>
+</td>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> for any integer type, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">for a floating-point argument, otherwise the same as the argument data type</span></p>
+</td>
+<td valign="top" width="192"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">The average (arithmetic mean) of all input values</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="135"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">COUNT(*)</span></p>
+</td>
+<td valign="top" width="144">&nbsp;
+</td>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">BIGINT</span></p>
+</td>
+<td valign="top" width="192"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Number of input rows</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="135"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">COUNT(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Any</span></p>
+</td>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">BIGINT</span></p>
+</td>
+<td valign="top" width="192"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Number of input rows for which the value of expression is not</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> null</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="135"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MAX(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Any numeric, stri</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">g, or date/time type</span></p>
+</td>
+<td valign="top" width="156"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as argument type</span></p>
+</td>
+<td valign="top" width="192"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Maximum value of expression across all input values</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="135"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">MIN(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Any numeric, stri</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">n</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">g, or date/time type</span></p>
+</td>
+<td valign="top" width="156"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Same as argument type</span></p>
+</td>
+<td valign="top" width="192"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Minimum value of expression across all inp</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ut values</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="135"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SUM(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER, REAL, DOUBLE PRECISION, NUMBER</span></p>
+</td>
+<td valign="top" width="156"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">BIGINT</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> for </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">SMALLINT</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> or </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> arguments, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> for </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">BIGINT</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> arguments, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> for floating-point arguments, otherwise the same as the argument data type</span></p>
+</td>
+<td valign="top" width="192"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Sum of expression across a</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ll input values</span></p>
+</td></tr></tbody></table>
+
+</p><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">It should be noted that except for </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COUNT</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">, these functions return a null value when no rows are selected. In particular, </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">SUM</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> of no rows returns null, not zero as one might expect. The </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">COALESCE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> function may be used to substitute zero for null when necessary.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+following table shows the aggregate functions typically used in
+statistical analysis. (These are separated out merely to avoid
+cluttering the listing of more-commonly-used aggregates.) Where the
+description mentions </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>N</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">,
+it means the number of input rows for which all the input expressions
+are non-null. In all cases, null is returned if the computation is
+meaningless, for example when </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;"><i>N</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is zero.</span></p>
+
+<p><b><span style="font-family: 'Times New Roman'; font-size: 10pt;">Table 3-32 Aggregate Functions for Statistics</span></b></p>
+<p>
+<table border="1">
+<tbody><tr>
+<td valign="top" width="184"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Function</span></p>
+</td>
+<td valign="top" width="144"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Argument Type</span></p>
+</td>
+<td valign="top" width="144"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Return Type</span></p>
+</td>
+<td valign="top" width="152"><p style="text-align: center;"><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Description</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">CORR(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Correlation coefficient</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">COVAR_POP(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Population covariance</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">COVAR_SAMP(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Sample covariance</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REGR_AVGX(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Average of the independent variable (sum(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">) / </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>N</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REGR_AVGY(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Average of the dependent variable (sum(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">) / </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>N</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REGR_COUNT(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Number of input ro</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ws in which both expressions are nonnull</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REGR_INTERCEPT(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">y-intercept of the least-squares-fit linear equation determined by the (</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">) pairs</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REGR_R2(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Square of the correlation </span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">coefficient</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REGR_SLOPE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Slope of the least-squares-fit linear equation determined by the (</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">) pairs</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REGR_SXX(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Sum (</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"><sup>2</sup></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">) &#8211; sum (</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">)</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"><sup>2</sup></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> / </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>N</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> (&#8220;sum of squares&#8221; of the independent var</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">iable)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REGR_SXY(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Sum (</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">*</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">) &#8211; sum (</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">) * sum (</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">) / </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>N</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> (&#8220;sum of products&#8221; of independent times dependent variable)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">REGR_SYY(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">, </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>X</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Sum (</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"><sup>2</sup></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">) &#8211; sum (</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>Y</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">)</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"><sup>2</sup></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> / </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>N</i></span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> (&#8220;sum of squares&#8221; of the depend</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ent variable)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">STDDEV(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER, REAL, DOUBLE PRECISION, NUMBER</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> for floating-point arguments, otherwise </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Historic alias for </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">STDDEV_SAMP</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">STDDEV_POP(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER, REAL, DOUBLE PRECISION, NUMBER</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> for fl</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">oating-point arguments, otherwise </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Population standard deviation of the input values</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">STDDEV_SAMP(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER, REAL, DOUBLE PRECISION, NUMBER</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> for floating-point arguments, otherwise </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Sample standard deviation of the inp</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">ut values</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VARIANCE(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER, REAL, DOUBLE PRECISION, NUMBER</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> for floating-point arguments, otherwise </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Historical alias for </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VAR_SAMP</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VAR_POP(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER, REAL, DOUBLE PRECISION, NUMBER</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> for floating</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">-point arguments, otherwise </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Population variance of the input values (square of the population standard deviation)</span></p>
+</td></tr>
+<tr>
+<td valign="top" width="184"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">VAR_SAMP(</span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;"><i>expression</i></span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">)</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">INTEGER, REAL, DOUBLE PRECISION, NUMBER</span></p>
+</td>
+<td valign="top" width="144"><p><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">DOUBLE PRECISION</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;"> for floating-point arguments, otherwise </span><span style="font-family: 'Courier New'; font-size: 9pt; color: Black;">NUMBER</span></p>
+</td>
+<td valign="top" width="152"><p><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">Sample va</span><span style="font-family: 'Times New Roman'; font-size: 10pt; color: Black;">riance of the input values (square of the sample standard deviation)</span></p>
+</td></tr></tbody></table></p><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-107.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-108_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-108_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-109.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-108_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-108_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-108_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

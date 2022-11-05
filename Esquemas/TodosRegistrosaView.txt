@@ -1,0 +1,21 @@
+Exibir todos os registros de todas as tabelas de um banco:
+
+-- Como o count(*) é pesado...
+
+-- Executar analyze no banco
+\c banco
+ANALYZE;
+
+-- Consulta
+select sum(reltuples) as registros from pg_class where relkind='r'
+and relname not like 'pg%' and relname not like 'sql_%';
+
+-- View
+create view todos_regs as 
+select sum(reltuples) as registros from pg_class where relkind='r'
+and relname not like 'pg%' and relname not like 'sql_%';
+
+-- Usando a view
+select * from todos_regs;
+
+Dica do Rodrigo Hjort na lista PostgreSQL Brasil

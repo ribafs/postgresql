@@ -1,0 +1,81 @@
+Instalando PostgreSQL no Slackware Linux
+Autor: Diego Pereira Grassato <diego_mldo@hotmail.com>
+Data: 08/06/2009
+
+Instalando PostgreSQL no Slackware Linux
+
+Por padrão o Slackware Linux não disponibiliza o PostgreSQL em sua distribuição.
+
+Baixaremos a versão já compilada para o Slackware:
+
+# wget http://repository.slacky.eu/slackware-12. 2/database/postgresql/8.3.7/postgresql-8.3.7-i486-2sl.tgz
+
+Criaremos o diretório onde ficarão os arquivos do banco dados:
+
+# mkdir -p /var/lib/pgsql
+
+Daremos agora permissões:
+
+# chown pgsql.pgsql /var/lib/pgsql -R
+
+Daremos permissão ao arquivo de execução do PostgreSQL.
+
+# chmod +x /etc/rc.d/rc.pgsql
+
+Iniciaremos agora o banco de dados:
+
+# su - pgsql
+$ initdb -D /var/lib/pgsql/data
+$ exit
+
+Pronto, seu PostgreSQL está devidamente configurado. Feito isto basta iniciar o banco de dados:
+
+# /etc/rc.d/rc.pgsql start
+
+Starting PostgreSQL...
+server starting
+
+Configurações do SGDB
+Neste momento o banco de dados está plenamente funcional, é necessário no entanto configurar o SGDB para torná-lo seguro. O mínimo a ser efetuado seria algo do tipo:
+
+# su pgsql
+$ psql pgsql
+postgres=# alter user pgsql with password 'senha';
+
+O comando acima foi para definir uma senha para o superusuário pgsql.
+
+Criaremos um usuário para acessar o Postgres:
+
+postgres=# create user diego;
+postgres=# alter user diego with password 'senha';
+
+E editar o arquivo /var/lib/pgsql/pg_hba.conf para restringir quem pode acessar o banco de dados e como. O ideal seria comentar todas as três entradas default e acrescentar algo como:
+
+# cat pg_hba.conf | grep -Ev '^#|^$'
+local   postgres         postgres                               password
+host    postgres         postgres         127.0.0.1/32          password
+host    banco            conta            a.b.c.d/32            password
+
+Conexões internas e externas
+Se não quiser apenas conexões locais (via socket), adicione as variáveis no arquivo de inicialização do PostGres BIND e HOST, HOST é a variável que guardará o endereço onde o servidor irá aguardar novas conexões, editando o arquivo:
+
+# vim /etc/rc.d/rc.pgsql
+
+Adicionar as variáveis (no lugar de 192.168.2.10 o IP da máquina):
+
+HOST=192.168.2.10
+BIND="-o '-i -h $HOST'"
+
+Na linha onde contem (su pgsql -c "pg_ctl start -D $DBCLUSTER -l $SERVERLOG), altere para:
+
+su pgsql -c "pg_ctl start -D $DBCLUSTER -l $SERVERLOG $BIND"
+
+Para acessar pela rede será desta forma:
+
+# psql -h 192.168.2.10 banco -U conta
+banco=>
+
+Se você estiver no Windows e estiver usando algum cliente PostgreSQL como PGADMIN III, conseguirá acessar normalmente.
+
+
+http://www.vivaolinux.com.br/dica/Instalando-PostgreSQL-no-Slackware-Linux

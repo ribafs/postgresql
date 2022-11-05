@@ -1,0 +1,67 @@
+.verdana 	{ font-family: Verdana; }
+.texto, .list, .arial, .botao { font-family: Arial; }
+
+.mouseHand 	{ cursor: hand; }
+.botao 		{ height: 18px;	text-align:center; line-height:10px; }
+.botaoC 	{ height: 19px;	text-align:center; color:#333; font:11px Arial; line-height:12px; border: 1px solid #333; background-color:#F7F7F7; }
+/* Font sizes */
+.size9  { font-size: 9px; } 
+.size11, .list, .botao, .texto { font-size: 11px; } 
+.size10 { font-size: 10px; }
+.size12 { font-size: 12px; } 
+.size13 { font-size: 13px; } 
+.size14 { font-size: 14px; } 
+.size16 { font-size: 16px; } 
+.size27 { font-size: 27px; }
+
+
+/* Text decorations */
+.decNone, .nlink{ text-decoration: none; }
+.nlink:hover, .decSubline { text-decoration: underline; } 
+.nlink 	{ cursor: hand;} 
+.bold 	{ font-weight: bold; }
+
+/* Font colors */
+.c666666 	{ color: #666666; } 
+.c006666 	{ color: #006666; }
+.c999999 	{ color: #999999; } 
+.cFFFFFF 	{ color: #FFFFFF; } 
+.c009E9C 	{ color: #009E9C; } 
+.c355858 	{ color: #355858; } 
+.c053669	{ color: #053669; } 
+.c000000	{ color: #000000; } 
+.c5B5C5C 	{ color: #5B5C5C; } 
+.c333333 	{ color: #333333; } 
+.c545353 	{ color: #545353; } 
+.c027E82 	{ color: #027E82; } 
+.cD0060F 	{ color: #D0060F; } 
+.cF34E06 	{ color: #F34E06; } 
+.c222222 	{ color: #222222; }
+.c484747,.botao, .texto  { color: #333333; } 
+
+/* Border Colors */
+.bcBEDCDC	{ border-color: #BEDCDC; }
+.bcCCCCCC	{ border-color: #CCCCCC; }
+.bc3A9CA1	{ border-color: #3A9CA1; }
+.bc333333	{ border-color: #333333; }
+.bc898B89	{ border-color: #898B89; }
+.bcFFFFFF	{ border-color: #FFFFFF; }
+.bc999999	{ border-color: #999999; }
+.bcEDEDED	{ border-color: #EDEDED; }
+.bc000000	{ border-color: #000000; } 
+
+/* Backgound Colors */
+.bgColorFFFFFF	{ background-color: #FFFFFF; }
+.bgColorD6EBEB	{ background-color: #EDEDED; }
+.bgColorF0F0F0	{ background-color: #F0F0F0; }
+.bgColorDEF0F0	{ background-color: #DEF0F0; }
+
+/* Border definitions */
+.bordaTop     	{ border-top-width:    1px; border-top-style:    solid; } 
+.bordaBottom  	{ border-bottom-width: 1px; border-bottom-style: solid; } 
+.bordaLeft    	{ border-left-width:   1px; border-left-style:   solid; } 
+.bordaRight   	{ border-right-width:  1px; border-right-style:  solid; }
+.borda2Bottom 	{ border-bottom-width: 2px; border-bottom-style: solid; } 
+.borda2Right  	{ border-right-width:  2px; border-right-style:  solid; }
+
+.transparent 	{ filter:progid: DXImageTransform.Microsoft.Alpha(Opacity=90); -moz-opacity: 0.9} 

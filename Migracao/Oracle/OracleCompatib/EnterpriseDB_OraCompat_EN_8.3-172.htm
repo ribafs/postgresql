@@ -1,0 +1,52 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Oracle Compatibility Developer&#8217;s Guide</title>
+
+<meta name="GENERATOR" content="HTML Transit 8.0 Trial Version by Avantstar, Inc. www.avantstar.com">
+<meta name="TransitPubID" content="2109"><style type="text/css">
+<!--
+	.Title-1
+	{
+		text-align: center
+	}
+	.Heading1-1
+	{
+		text-align: left
+	}
+-->
+</style></head><body><a name="TopOfPage"> </a>
+<!-- TRANSIT - INFOBEFORE -->
+<a href="http://www.enterprisedb.com/index.do?lpage=true"><img alt="EnterpriseDB" src="EnterpriseDB_OraCompat_EN_8.3-172_arquivos/logo.gif" border="0"></a><p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-171.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-172_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-172_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-173.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-172_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<div style="margin-left: 28pt;"><p><a name="P9245_496808"></a><span style="font-family: 'Arial'; font-size: 14pt;"><i>5.2 Types of Triggers</i></span></p>
+
+</div><p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">Postgres Plus Advanced Server</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> supports both </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>row-level</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> and </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>statement-level</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">triggers</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">A row-level trigger fires once for each row that</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> is affected by a triggering event</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">.</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">For example, if deletion is defined as a triggering event on a table and a single </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command is issued that deletes five rows from the table, then the trigger will fire five times, once for each row.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In
+contrast, a statement-level trigger fires once per triggering statement
+regardless of the number of rows affected by the triggering event. In
+the prior example of a single </span><span style="font-family: 'Courier New'; font-size: 11pt; color: Black;">DELETE</span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> command deleting five rows, a statement-level trigger would fire only once.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">The
+sequence of actions can be defined regarding whether the trigger code
+block is executed before or after the triggering statement, itself, in
+the case of statement-level triggers; or before or after each row is
+affected by the triggering statement in the case of row-level triggers.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>before</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> row-level trigger, the trigger code block is executed before the triggering action is carried out on each affected row. In a </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>before</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement-level trigger, the trigger code block is executed before the action of the triggering statement is carried out.</span></p>
+
+<p><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;">In an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>after</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> row-level trigger, the trigger code block is executed after the triggering action is carried out on each affected row. In an </span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"><i>after</i></span><span style="font-family: 'Times New Roman'; font-size: 12pt; color: Black;"> statement-level trigger, the trigger code block is executed after the action of the triggering statement is carried out.</span></p>
+
+<p style="text-align: center;"><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-171.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-172_arquivos/inveppv.gif" alt="Previous Page" border="0"></a><!-- TRANSIT - TOC --><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/Table%20of%20Contents.htm#TopOfPage" target="_top"><img src="EnterpriseDB_OraCompat_EN_8.3-172_arquivos/invetoc.gif" alt="Table Of Contents" border="0"></a><a href="http://www.enterprisedb.com/docs/en/8.3/oracompat/EnterpriseDB_OraCompat_EN_8.3-173.htm#TopOfPage"><img src="EnterpriseDB_OraCompat_EN_8.3-172_arquivos/invepnx.gif" alt="Next Page" border="0"></a></p>
+
+<a href="http://www.avantstar.com/"><img src="EnterpriseDB_OraCompat_EN_8.3-172_arquivos/transpwr.gif" alt="Powered by Transit"></a><!-- TRANSIT - INFOAFTER -->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+</script><script src="EnterpriseDB_OraCompat_EN_8.3-172_arquivos/ga.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-4413916-2"); 
+pageTracker._initData(); 
+pageTracker._trackPageview(); 
+</script> 
+</body></html>

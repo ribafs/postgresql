@@ -1,0 +1,12 @@
+Funções com Data e Hora
+
+current_date
+current_tima
+current_timestamp
+date_part()
+date_trunc()
+extract()
+new()
+timeofday()
+
+

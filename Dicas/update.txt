@@ -1,0 +1,10 @@
+																			Update – Atualizando Registros
+
+Exemplos:
+
+UPDATE clientes SET idade = idade + 1; -- Todos os registros de clientes serão atualizados
+
+UPDATE pedidos SET quant = quant + 3
+WHERE cliente IN (SELECT codigo FROM clientes WHERE idade > 18);
+
+
